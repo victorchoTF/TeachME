@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E3427AD2D3E649900A38A2D /* FontConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3427AC2D3E649900A38A2D /* FontConstants.swift */; };
 		8E65F7452D3D2BDF00D3A793 /* TeachMEApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E65F7442D3D2BDF00D3A793 /* TeachMEApp.swift */; };
 		8E65F7472D3D2BDF00D3A793 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E65F7462D3D2BDF00D3A793 /* ContentView.swift */; };
 		8E65F7492D3D2BE100D3A793 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E65F7482D3D2BE100D3A793 /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E3427AC2D3E649900A38A2D /* FontConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontConstants.swift; sourceTree = "<group>"; };
 		8E65F7412D3D2BDF00D3A793 /* TeachME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeachME.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E65F7442D3D2BDF00D3A793 /* TeachMEApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachMEApp.swift; sourceTree = "<group>"; };
 		8E65F7462D3D2BDF00D3A793 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				8E75D4452D3E2ED20082F5FE /* ColorPalette.swift */,
 				8E7EBE522D3E417100C7C017 /* SpacingConstants.swift */,
 				8E7EBE542D3E420200C7C017 /* RadiusConstants.swift */,
+				8E3427AC2D3E649900A38A2D /* FontConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				8E7EBE4E2D3E3AE500C7C017 /* RegisterFormViewModel.swift in Sources */,
 				8E65F7472D3D2BDF00D3A793 /* ContentView.swift in Sources */,
 				8E7EBE4B2D3E3A1800C7C017 /* LoginRegisterScreenViewModel.swift in Sources */,
+				8E3427AD2D3E649900A38A2D /* FontConstants.swift in Sources */,
 				8E7EBE532D3E417100C7C017 /* SpacingConstants.swift in Sources */,
 				8E75D4432D3E2DF90082F5FE /* LoginRegisterScreen.swift in Sources */,
 				8E65F7452D3D2BDF00D3A793 /* TeachMEApp.swift in Sources */,

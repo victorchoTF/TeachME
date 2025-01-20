@@ -11,15 +11,38 @@ struct RegisterForm: View {
     @StateObject var viewModel: RegisterFormViewModel
     
     var body: some View {
-        Form {
-            accountDetails
+        VStack {
+            Text("Start your knoledge journey today!")
+                .fontWeight(.bold)
+                .font(.system(size: FontConstants.size20))
+                .foregroundStyle(ColorPalette.dark)
             
-            personalDetails
+            Form {
+                accountDetails
+                
+                personalDetails
+                
+                roleDetails
+                
+                Button {
+                    print("Hello")
+                } label: {
+                    Text("Register")
+                        .fontWeight(.bold)
+                        .font(.system(size: FontConstants.size18))
+                        .foregroundStyle(ColorPalette.light)
+                }
+                .cornerRadius(RadiusConstants.radius8)
+                .listRowBackground(ColorPalette.green)
+                .frame(maxWidth: .infinity, alignment: .center)
+                .padding(.bottom, SpacingConstants.spacing4)
+                
+            }
+            .scrollContentBackground(.hidden)
+            .foregroundStyle(ColorPalette.dark)
             
-            roleDetails
+            Text("Already have an account? Login")
         }
-        .scrollContentBackground(.hidden)
-        .foregroundStyle(ColorPalette.dark)
     }
     
     private var accountDetails: some View {
@@ -29,8 +52,9 @@ struct RegisterForm: View {
             TextField(viewModel.password, text: $viewModel.registerFields.password)
                 .styledTextField()
         }
-        .listRowBackground(Color.clear)
         .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
+        .font(.system(size: FontConstants.size14))
     }
     
     private var personalDetails: some View {
@@ -40,8 +64,9 @@ struct RegisterForm: View {
             TextField(viewModel.lastName, text: $viewModel.registerFields.lastName)
                 .styledTextField()
         }
-        .listRowBackground(Color.clear)
         .listRowSeparator(.hidden)
+        .listRowBackground(Color.clear)
+        .font(.system(size: FontConstants.size14))
     }
     
     private var roleDetails: some View {
@@ -54,6 +79,7 @@ struct RegisterForm: View {
             .pickerStyle(.segmented)
         }
         .listRowBackground(Color.clear)
+        .font(.system(size: FontConstants.size14))
     }
 }
 
