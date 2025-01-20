@@ -11,6 +11,9 @@
 		8E65F7472D3D2BDF00D3A793 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E65F7462D3D2BDF00D3A793 /* ContentView.swift */; };
 		8E65F7492D3D2BE100D3A793 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E65F7482D3D2BE100D3A793 /* Assets.xcassets */; };
 		8E65F74C2D3D2BE100D3A793 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E65F74B2D3D2BE100D3A793 /* Preview Assets.xcassets */; };
+		8E75D4392D3E233F0082F5FE /* RegisterForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E75D4382D3E233F0082F5FE /* RegisterForm.swift */; };
+		8E75D43C2D3E24270082F5FE /* RegisterFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E75D43B2D3E24270082F5FE /* RegisterFields.swift */; };
+		8E75D4412D3E268B0082F5FE /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E75D4402D3E268B0082F5FE /* Role.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +22,9 @@
 		8E65F7462D3D2BDF00D3A793 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8E65F7482D3D2BE100D3A793 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8E65F74B2D3D2BE100D3A793 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8E75D4382D3E233F0082F5FE /* RegisterForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterForm.swift; sourceTree = "<group>"; };
+		8E75D43B2D3E24270082F5FE /* RegisterFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterFields.swift; sourceTree = "<group>"; };
+		8E75D4402D3E268B0082F5FE /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +57,8 @@
 		8E65F7432D3D2BDF00D3A793 /* TeachME */ = {
 			isa = PBXGroup;
 			children = (
+				8E75D43A2D3E240E0082F5FE /* Models */,
+				8E75D4362D3E231C0082F5FE /* Screens */,
 				8E65F7442D3D2BDF00D3A793 /* TeachMEApp.swift */,
 				8E65F7462D3D2BDF00D3A793 /* ContentView.swift */,
 				8E65F7482D3D2BE100D3A793 /* Assets.xcassets */,
@@ -65,6 +73,47 @@
 				8E65F74B2D3D2BE100D3A793 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8E75D4362D3E231C0082F5FE /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				8E75D43E2D3E25040082F5FE /* LoginRegisterScreen */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		8E75D4372D3E23270082F5FE /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				8E75D4382D3E233F0082F5FE /* RegisterForm.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		8E75D43A2D3E240E0082F5FE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8E75D43B2D3E24270082F5FE /* RegisterFields.swift */,
+				8E75D4402D3E268B0082F5FE /* Role.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8E75D43E2D3E25040082F5FE /* LoginRegisterScreen */ = {
+			isa = PBXGroup;
+			children = (
+				8E75D43F2D3E25570082F5FE /* View */,
+			);
+			path = LoginRegisterScreen;
+			sourceTree = "<group>";
+		};
+		8E75D43F2D3E25570082F5FE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8E75D4372D3E23270082F5FE /* Components */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +186,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E75D43C2D3E24270082F5FE /* RegisterFields.swift in Sources */,
 				8E65F7472D3D2BDF00D3A793 /* ContentView.swift in Sources */,
 				8E65F7452D3D2BDF00D3A793 /* TeachMEApp.swift in Sources */,
+				8E75D4392D3E233F0082F5FE /* RegisterForm.swift in Sources */,
+				8E75D4412D3E268B0082F5FE /* Role.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
