@@ -14,6 +14,8 @@
 		8E75D4392D3E233F0082F5FE /* RegisterForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E75D4382D3E233F0082F5FE /* RegisterForm.swift */; };
 		8E75D43C2D3E24270082F5FE /* RegisterFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E75D43B2D3E24270082F5FE /* RegisterFields.swift */; };
 		8E75D4412D3E268B0082F5FE /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E75D4402D3E268B0082F5FE /* Role.swift */; };
+		8E75D4432D3E2DF90082F5FE /* LoginRegisterScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E75D4422D3E2DF90082F5FE /* LoginRegisterScreen.swift */; };
+		8E75D4462D3E2ED20082F5FE /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E75D4452D3E2ED20082F5FE /* ColorPalette.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		8E75D4382D3E233F0082F5FE /* RegisterForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterForm.swift; sourceTree = "<group>"; };
 		8E75D43B2D3E24270082F5FE /* RegisterFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterFields.swift; sourceTree = "<group>"; };
 		8E75D4402D3E268B0082F5FE /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
+		8E75D4422D3E2DF90082F5FE /* LoginRegisterScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterScreen.swift; sourceTree = "<group>"; };
+		8E75D4452D3E2ED20082F5FE /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,7 @@
 		8E65F7432D3D2BDF00D3A793 /* TeachME */ = {
 			isa = PBXGroup;
 			children = (
+				8E75D4442D3E2EA80082F5FE /* Constants */,
 				8E75D43A2D3E240E0082F5FE /* Models */,
 				8E75D4362D3E231C0082F5FE /* Screens */,
 				8E65F7442D3D2BDF00D3A793 /* TeachMEApp.swift */,
@@ -112,8 +117,17 @@
 			isa = PBXGroup;
 			children = (
 				8E75D4372D3E23270082F5FE /* Components */,
+				8E75D4422D3E2DF90082F5FE /* LoginRegisterScreen.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		8E75D4442D3E2EA80082F5FE /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				8E75D4452D3E2ED20082F5FE /* ColorPalette.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,8 +200,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E75D4462D3E2ED20082F5FE /* ColorPalette.swift in Sources */,
 				8E75D43C2D3E24270082F5FE /* RegisterFields.swift in Sources */,
 				8E65F7472D3D2BDF00D3A793 /* ContentView.swift in Sources */,
+				8E75D4432D3E2DF90082F5FE /* LoginRegisterScreen.swift in Sources */,
 				8E65F7452D3D2BDF00D3A793 /* TeachMEApp.swift in Sources */,
 				8E75D4392D3E233F0082F5FE /* RegisterForm.swift in Sources */,
 				8E75D4412D3E268B0082F5FE /* Role.swift in Sources */,
