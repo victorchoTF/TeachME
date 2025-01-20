@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct LoginRegisterScreen: View {
-    @State var registerFields: RegisterFields
+    let viewModel: LoginRegisterScreenViewModel
+    
     var body: some View {
-        RegisterForm(registerFields: registerFields)
+        VStack {
+            RegisterForm(
+                viewModel: viewModel.registerFormsViewModel
+            )
+        }
+        .background(ColorPalette.mainBlue)
     }
-}
-
-#Preview {
-    LoginRegisterScreen(registerFields: RegisterFields())
 }

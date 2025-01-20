@@ -16,6 +16,11 @@
 		8E75D4412D3E268B0082F5FE /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E75D4402D3E268B0082F5FE /* Role.swift */; };
 		8E75D4432D3E2DF90082F5FE /* LoginRegisterScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E75D4422D3E2DF90082F5FE /* LoginRegisterScreen.swift */; };
 		8E75D4462D3E2ED20082F5FE /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E75D4452D3E2ED20082F5FE /* ColorPalette.swift */; };
+		8E7EBE4B2D3E3A1800C7C017 /* LoginRegisterScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EBE4A2D3E3A1800C7C017 /* LoginRegisterScreenViewModel.swift */; };
+		8E7EBE4E2D3E3AE500C7C017 /* RegisterFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EBE4D2D3E3AE500C7C017 /* RegisterFormViewModel.swift */; };
+		8E7EBE512D3E409500C7C017 /* StyledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EBE502D3E409500C7C017 /* StyledTextField.swift */; };
+		8E7EBE532D3E417100C7C017 /* SpacingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EBE522D3E417100C7C017 /* SpacingConstants.swift */; };
+		8E7EBE552D3E420200C7C017 /* RadiusConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EBE542D3E420200C7C017 /* RadiusConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +34,11 @@
 		8E75D4402D3E268B0082F5FE /* Role.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
 		8E75D4422D3E2DF90082F5FE /* LoginRegisterScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterScreen.swift; sourceTree = "<group>"; };
 		8E75D4452D3E2ED20082F5FE /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
+		8E7EBE4A2D3E3A1800C7C017 /* LoginRegisterScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRegisterScreenViewModel.swift; sourceTree = "<group>"; };
+		8E7EBE4D2D3E3AE500C7C017 /* RegisterFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterFormViewModel.swift; sourceTree = "<group>"; };
+		8E7EBE502D3E409500C7C017 /* StyledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledTextField.swift; sourceTree = "<group>"; };
+		8E7EBE522D3E417100C7C017 /* SpacingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacingConstants.swift; sourceTree = "<group>"; };
+		8E7EBE542D3E420200C7C017 /* RadiusConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiusConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +118,7 @@
 		8E75D43E2D3E25040082F5FE /* LoginRegisterScreen */ = {
 			isa = PBXGroup;
 			children = (
+				8E7EBE492D3E39F800C7C017 /* ViewModel */,
 				8E75D43F2D3E25570082F5FE /* View */,
 			);
 			path = LoginRegisterScreen;
@@ -116,6 +127,7 @@
 		8E75D43F2D3E25570082F5FE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8E7EBE4F2D3E406400C7C017 /* Modifiers */,
 				8E75D4372D3E23270082F5FE /* Components */,
 				8E75D4422D3E2DF90082F5FE /* LoginRegisterScreen.swift */,
 			);
@@ -126,8 +138,35 @@
 			isa = PBXGroup;
 			children = (
 				8E75D4452D3E2ED20082F5FE /* ColorPalette.swift */,
+				8E7EBE522D3E417100C7C017 /* SpacingConstants.swift */,
+				8E7EBE542D3E420200C7C017 /* RadiusConstants.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		8E7EBE492D3E39F800C7C017 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8E7EBE4C2D3E3AD000C7C017 /* Components ViewModel */,
+				8E7EBE4A2D3E3A1800C7C017 /* LoginRegisterScreenViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8E7EBE4C2D3E3AD000C7C017 /* Components ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8E7EBE4D2D3E3AE500C7C017 /* RegisterFormViewModel.swift */,
+			);
+			path = "Components ViewModel";
+			sourceTree = "<group>";
+		};
+		8E7EBE4F2D3E406400C7C017 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				8E7EBE502D3E409500C7C017 /* StyledTextField.swift */,
+			);
+			path = Modifiers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,10 +241,15 @@
 			files = (
 				8E75D4462D3E2ED20082F5FE /* ColorPalette.swift in Sources */,
 				8E75D43C2D3E24270082F5FE /* RegisterFields.swift in Sources */,
+				8E7EBE4E2D3E3AE500C7C017 /* RegisterFormViewModel.swift in Sources */,
 				8E65F7472D3D2BDF00D3A793 /* ContentView.swift in Sources */,
+				8E7EBE4B2D3E3A1800C7C017 /* LoginRegisterScreenViewModel.swift in Sources */,
+				8E7EBE532D3E417100C7C017 /* SpacingConstants.swift in Sources */,
 				8E75D4432D3E2DF90082F5FE /* LoginRegisterScreen.swift in Sources */,
 				8E65F7452D3D2BDF00D3A793 /* TeachMEApp.swift in Sources */,
 				8E75D4392D3E233F0082F5FE /* RegisterForm.swift in Sources */,
+				8E7EBE552D3E420200C7C017 /* RadiusConstants.swift in Sources */,
+				8E7EBE512D3E409500C7C017 /* StyledTextField.swift in Sources */,
 				8E75D4412D3E268B0082F5FE /* Role.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

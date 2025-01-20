@@ -9,7 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        RegisterForm(registerFields: RegisterFields())
+        LoginRegisterScreen(
+            viewModel: LoginRegisterScreenViewModel(
+                registerFormsViewModel: RegisterFormViewModel(
+                    registerFields: RegisterFields()
+                )
+            )
+        )
     }
 }
 

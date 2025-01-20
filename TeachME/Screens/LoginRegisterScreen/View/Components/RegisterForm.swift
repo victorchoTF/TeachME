@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RegisterForm: View {
-    @State var registerFields: RegisterFields
+    @StateObject var viewModel: RegisterFormViewModel
     
     var body: some View {
         Form {
@@ -19,41 +19,48 @@ struct RegisterForm: View {
             roleDetails
         }
         .scrollContentBackground(.hidden)
+        .foregroundStyle(ColorPalette.dark)
     }
     
     private var accountDetails: some View {
-        Section("Account Details") {
-            TextField("Email", text: $registerFields.email)
-                .textFieldStyle(.roundedBorder)
-                .disableAutocorrection(true)
-            TextField("Password", text: $registerFields.password)
-                .textFieldStyle(.roundedBorder)
-                .disableAutocorrection(true)
+        Section(viewModel.accountDetailsHeading) {
+            TextField(viewModel.email, text: $viewModel.registerFields.email)
+                .styledTextField()
+            TextField(viewModel.password, text: $viewModel.registerFields.password)
+                .styledTextField()
         }
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
     }
     
     private var personalDetails: some View {
-        Section("Personal Details") {
-            TextField("Name", text: $registerFields.firstName)
-                .textFieldStyle(.roundedBorder)
-                .disableAutocorrection(true)
-            TextField("Last Name", text: $registerFields.lastName)
-                .textFieldStyle(.roundedBorder)
-                .disableAutocorrection(true)
+        Section(viewModel.personalDetailsHeading) {
+            TextField(viewModel.name, text: $viewModel.registerFields.firstName)
+                .styledTextField()
+            TextField(viewModel.lastName, text: $viewModel.registerFields.lastName)
+                .styledTextField()
         }
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
     }
     
     private var roleDetails: some View {
-        Section("Role") {
-            Picker("Role", selection: $registerFields.roleType) {
-                Text("Student").tag(Role.student)
-                Text("Teacher").tag(Role.teacher)
+        Section(viewModel.roleHeading) {
+            Picker(viewModel.roleHeading, selection: $viewModel.registerFields.roleType) {
+                Text(viewModel.studentRole).tag(Role.student)
+                Text(viewModel.teacherRole).tag(Role.teacher)
             }
+            .tint(ColorPalette.green)
             .pickerStyle(.segmented)
         }
+        .listRowBackground(Color.clear)
     }
 }
 
 #Preview {
-    RegisterForm(registerFields: RegisterFields())
+    RegisterForm(
+        viewModel: RegisterFormViewModel(
+            registerFields: RegisterFields()
+        )
+    )
 }
