@@ -22,6 +22,9 @@
 		8E7EBE512D3E409500C7C017 /* StyledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EBE502D3E409500C7C017 /* StyledTextField.swift */; };
 		8E7EBE532D3E417100C7C017 /* SpacingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EBE522D3E417100C7C017 /* SpacingConstants.swift */; };
 		8E7EBE552D3E420200C7C017 /* RadiusConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EBE542D3E420200C7C017 /* RadiusConstants.swift */; };
+		8E863BA02D3F7617001773F4 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E863B9F2D3F7617001773F4 /* LoginForm.swift */; };
+		8E863BA22D3F76A8001773F4 /* LoginFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E863BA12D3F76A8001773F4 /* LoginFormViewModel.swift */; };
+		8E863BA42D3F7796001773F4 /* LoginFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E863BA32D3F7796001773F4 /* LoginFields.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +44,9 @@
 		8E7EBE502D3E409500C7C017 /* StyledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledTextField.swift; sourceTree = "<group>"; };
 		8E7EBE522D3E417100C7C017 /* SpacingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacingConstants.swift; sourceTree = "<group>"; };
 		8E7EBE542D3E420200C7C017 /* RadiusConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiusConstants.swift; sourceTree = "<group>"; };
+		8E863B9F2D3F7617001773F4 /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
+		8E863BA12D3F76A8001773F4 /* LoginFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormViewModel.swift; sourceTree = "<group>"; };
+		8E863BA32D3F7796001773F4 /* LoginFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFields.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +109,7 @@
 		8E75D4372D3E23270082F5FE /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				8E863B9F2D3F7617001773F4 /* LoginForm.swift */,
 				8E75D4382D3E233F0082F5FE /* RegisterForm.swift */,
 			);
 			path = Components;
@@ -113,6 +120,7 @@
 			children = (
 				8E75D43B2D3E24270082F5FE /* RegisterFields.swift */,
 				8E75D4402D3E268B0082F5FE /* Role.swift */,
+				8E863BA32D3F7796001773F4 /* LoginFields.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -160,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				8E7EBE4D2D3E3AE500C7C017 /* RegisterFormViewModel.swift */,
+				8E863BA12D3F76A8001773F4 /* LoginFormViewModel.swift */,
 			);
 			path = "Components ViewModel";
 			sourceTree = "<group>";
@@ -252,7 +261,10 @@
 				8E75D4432D3E2DF90082F5FE /* LoginRegisterScreen.swift in Sources */,
 				8E65F7452D3D2BDF00D3A793 /* TeachMEApp.swift in Sources */,
 				8E75D4392D3E233F0082F5FE /* RegisterForm.swift in Sources */,
+				8E863BA22D3F76A8001773F4 /* LoginFormViewModel.swift in Sources */,
 				8E7EBE552D3E420200C7C017 /* RadiusConstants.swift in Sources */,
+				8E863BA42D3F7796001773F4 /* LoginFields.swift in Sources */,
+				8E863BA02D3F7617001773F4 /* LoginForm.swift in Sources */,
 				8E7EBE512D3E409500C7C017 /* StyledTextField.swift in Sources */,
 				8E75D4412D3E268B0082F5FE /* Role.swift in Sources */,
 			);

@@ -1,14 +1,14 @@
 //
-//  Form.swift
+//  LoginForm.swift
 //  TeachME
 //
-//  Created by TumbaDev on 20.01.25.
+//  Created by TumbaDev on 21.01.25.
 //
 
 import SwiftUI
 
-struct RegisterForm: View {
-    @StateObject var viewModel: RegisterFormViewModel
+struct LoginForm: View {
+    @StateObject var viewModel: LoginFormViewModel
     
     var body: some View {
         VStack {
@@ -18,14 +18,11 @@ struct RegisterForm: View {
                 .foregroundStyle(ColorPalette.dark)
             
             Form {
+                
                 accountDetails
                 
-                personalDetails
-                
-                roleDetails
-                
                 Button {
-                    print("Registered")
+                    print("Logged in")
                 } label: {
                     Text(viewModel.formType)
                         .fontWeight(.bold)
@@ -46,7 +43,7 @@ struct RegisterForm: View {
     }
     
     private var accountDetails: some View {
-        Section(viewModel.accountDetailsHeading) {
+        Section {
             TextField(viewModel.email, text: $viewModel.registerFields.email)
                 .styledTextField()
             TextField(viewModel.password, text: $viewModel.registerFields.password)
@@ -56,37 +53,13 @@ struct RegisterForm: View {
         .listRowBackground(Color.clear)
         .font(.system(size: FontConstants.size14))
     }
-    
-    private var personalDetails: some View {
-        Section(viewModel.personalDetailsHeading) {
-            TextField(viewModel.name, text: $viewModel.registerFields.firstName)
-                .styledTextField()
-            TextField(viewModel.lastName, text: $viewModel.registerFields.lastName)
-                .styledTextField()
-        }
-        .listRowSeparator(.hidden)
-        .listRowBackground(Color.clear)
-        .font(.system(size: FontConstants.size14))
-    }
-    
-    private var roleDetails: some View {
-        Section(viewModel.roleHeading) {
-            Picker(viewModel.roleHeading, selection: $viewModel.registerFields.roleType) {
-                Text(viewModel.studentRole).tag(Role.student)
-                Text(viewModel.teacherRole).tag(Role.teacher)
-            }
-            .tint(ColorPalette.green)
-            .pickerStyle(.segmented)
-        }
-        .listRowBackground(Color.clear)
-        .font(.system(size: FontConstants.size14))
-    }
 }
 
 #Preview {
-    RegisterForm(
+    LoginForm(
         viewModel: RegisterFormViewModel(
             registerFields: RegisterFields()
         )
     )
 }
+

@@ -18,6 +18,14 @@ class RegisterFormViewModel: ObservableObject {
         registerFields.roleType
     }
     
+    var formTitle: String {
+        "Start your knoledge journey today!"
+    }
+    
+    var formType: String {
+        "Register"
+    }
+    
     var accountDetailsHeading: String {
         "Account Details"
     }
