@@ -54,6 +54,7 @@ struct LoginForm: View {
                 .listRowSeparator(.hidden)
             }
             .scrollContentBackground(.hidden)
+            .scrollDisabled(true)
             .foregroundStyle(ColorPalette.dark)
         }
     }
