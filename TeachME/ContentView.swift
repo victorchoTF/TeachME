@@ -11,6 +11,9 @@ struct ContentView: View {
     var body: some View {
         LoginRegisterScreen(
             viewModel: LoginRegisterScreenViewModel(
+                loginFormViewModel: LoginFormViewModel(
+                    loginFields: LoginFields()
+                ),
                 registerFormsViewModel: RegisterFormViewModel(
                     registerFields: RegisterFields()
                 )

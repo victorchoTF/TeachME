@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoginRegisterScreen: View {
-    let viewModel: LoginRegisterScreenViewModel
+    @StateObject var viewModel: LoginRegisterScreenViewModel
     
     var body: some View {
         VStack(spacing: SpacingConstants.spacing30) {
@@ -19,9 +19,21 @@ struct LoginRegisterScreen: View {
             .frame(maxWidth: .infinity)
             .background(ColorPalette.green)
             
-            RegisterForm(
-                viewModel: viewModel.registerFormsViewModel
-            )
+            Group {
+                switch viewModel.mode {
+                case .login:
+                    LoginForm(
+                        viewModel: viewModel.loginFormViewModel,
+                        formMode: $viewModel.mode
+                    )
+                case .register:
+                    RegisterForm(
+                        viewModel: viewModel.registerFormsViewModel,
+                        formMode: $viewModel.mode
+                    )
+                }
+            }
+            .transition(.slide)
         }
         .background(ColorPalette.mainBlue)
     }

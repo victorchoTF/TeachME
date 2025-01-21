@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RegisterForm: View {
     @StateObject var viewModel: RegisterFormViewModel
+    @Binding var formMode: FormMode
     
     var body: some View {
         VStack {
@@ -41,7 +42,18 @@ struct RegisterForm: View {
             .scrollContentBackground(.hidden)
             .foregroundStyle(ColorPalette.dark)
             
-            Text("Already have an account? Login")
+            Button {
+                withAnimation {
+                    formMode.toggle()
+                }
+            } label: {
+                HStack {
+                    Text("Already have an account?")
+                    Text("Login")
+                        .bold()
+                }
+                .font(.footnote)
+            }
         }
     }
     
@@ -81,12 +93,4 @@ struct RegisterForm: View {
         .listRowBackground(Color.clear)
         .font(.system(size: FontConstants.size14))
     }
-}
-
-#Preview {
-    RegisterForm(
-        viewModel: RegisterFormViewModel(
-            registerFields: RegisterFields()
-        )
-    )
 }
