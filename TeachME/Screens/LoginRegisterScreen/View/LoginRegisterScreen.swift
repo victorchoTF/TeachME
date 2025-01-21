@@ -26,14 +26,18 @@ struct LoginRegisterScreen: View {
                         viewModel: viewModel.loginFormViewModel,
                         formMode: $viewModel.mode
                     )
+                    .transition(.move(edge: .leading))
                 case .register:
                     RegisterForm(
                         viewModel: viewModel.registerFormsViewModel,
                         formMode: $viewModel.mode
                     )
+                    .transition(.move(edge: .trailing))
                 }
             }
-            .transition(.slide)
+            .animation(.easeInOut(duration: 0.3), value: viewModel.mode)
+
+
         }
         .background(ColorPalette.mainBlue)
     }

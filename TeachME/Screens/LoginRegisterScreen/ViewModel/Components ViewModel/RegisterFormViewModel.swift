@@ -61,4 +61,12 @@ class RegisterFormViewModel: ObservableObject {
     var teacherRole: String {
         Role.teacher.rawValue
     }
+    
+    var hasAccount: String {
+        "Already have an account?"
+    }
+    
+    var formTransitionPrompt: String {
+        "Log In!"
+    }
 }

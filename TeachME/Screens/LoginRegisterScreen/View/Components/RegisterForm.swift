@@ -17,7 +17,7 @@ struct RegisterForm: View {
                 .fontWeight(.bold)
                 .font(.system(size: FontConstants.size20))
                 .foregroundStyle(ColorPalette.dark)
-            
+
             Form {
                 accountDetails
                 
@@ -33,27 +33,32 @@ struct RegisterForm: View {
                         .font(.system(size: FontConstants.size18))
                         .foregroundStyle(ColorPalette.light)
                 }
-                .cornerRadius(RadiusConstants.radius8)
-                .listRowBackground(ColorPalette.green)
+                .listRowBackground(Color.clear)
                 .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.bottom, SpacingConstants.spacing4)
+                .padding(.vertical, SpacingConstants.spacing10)
+                .background(ColorPalette.green)
+                .cornerRadius(RadiusConstants.radius8)
                 
+                HStack {
+                    Text(viewModel.hasAccount)
+                        .foregroundStyle(ColorPalette.dark)
+                    Button {
+                        withAnimation {
+                            formMode.toggle()
+                        }
+                    } label: {
+                        Text(viewModel.formTransitionPrompt)
+                            .bold()
+                            .underline()
+                            .foregroundStyle(ColorPalette.dark)
+                    }
+                }
+                .listRowBackground(Color.clear)
+                .frame(maxWidth: .infinity, alignment: .center)
+                .listRowSeparator(.hidden)
             }
             .scrollContentBackground(.hidden)
             .foregroundStyle(ColorPalette.dark)
-            
-            Button {
-                withAnimation {
-                    formMode.toggle()
-                }
-            } label: {
-                HStack {
-                    Text("Already have an account?")
-                    Text("Login")
-                        .bold()
-                }
-                .font(.footnote)
-            }
         }
     }
     

@@ -15,11 +15,11 @@ class LoginFormViewModel: ObservableObject {
     }
     
     var formTitle: String {
-        "Learning made simple"
+        "Learning and teaching made simple"
     }
     
     var formType: String {
-        "Login"
+        "Log In"
     }
     
     var email: String {
@@ -28,5 +28,13 @@ class LoginFormViewModel: ObservableObject {
     
     var password: String {
         "Password"
+    }
+    
+    var noAccount: String {
+        "Don't have an account?"
+    }
+    
+    var formTransitionPrompt: String {
+        "Create one!"
     }
 }
