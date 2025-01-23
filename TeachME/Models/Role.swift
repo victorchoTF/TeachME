@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 enum Role: String {
     case student = "Student"
     case teacher = "Teacher"

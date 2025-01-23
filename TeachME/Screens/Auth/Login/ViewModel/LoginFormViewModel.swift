@@ -7,11 +7,14 @@
 
 import Foundation
 
-class LoginFormViewModel: ObservableObject {
-    @Published var loginFields: LoginFields
+final class LoginFormViewModel: ObservableObject {
+    let theme: Theme
     
-    init(loginFields: LoginFields) {
-        self.loginFields = loginFields
+    @Published var email: String = ""
+    @Published var password: String = ""
+    
+    init(theme: Theme) {
+        self.theme = theme
     }
     
     var formTitle: String {
@@ -22,11 +25,11 @@ class LoginFormViewModel: ObservableObject {
         "Log In"
     }
     
-    var email: String {
+    var emailPlaceholder: String {
         "Email"
     }
     
-    var password: String {
+    var passwordPlaceholder: String {
         "Password"
     }
     
@@ -36,5 +39,9 @@ class LoginFormViewModel: ObservableObject {
     
     var formTransitionPrompt: String {
         "Create one!"
+    }
+    
+    var sendTo: FormMode {
+        .register
     }
 }

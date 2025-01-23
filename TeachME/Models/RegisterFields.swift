@@ -8,9 +8,9 @@
 import Foundation
 
 struct RegisterFields {
-    var email: String = ""
-    var password: String = ""
-    var firstName: String = ""
-    var lastName: String = ""
-    var roleType: Role = .student
+    let email: String
+    let password: String
+    let firstName: String
+    let lastName: String
+    let roleType: Role
 }

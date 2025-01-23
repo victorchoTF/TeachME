@@ -7,38 +7,37 @@
 
 import SwiftUI
 
-struct LoginRegisterScreen: View {
-    @StateObject var viewModel: LoginRegisterScreenViewModel
+struct AuthScreen: View {
+    @StateObject var viewModel: AuthScreenViewModel
     
     var body: some View {
-        VStack(spacing: SpacingConstants.spacing30) {
+        VStack(spacing: viewModel.theme.spacings.spacing30) {
             HStack {
                 Image("NamedLogo")
-                    .padding(.bottom, SpacingConstants.spacing10)
+                    .padding(.bottom, viewModel.theme.spacings.spacing10)
             }
             .frame(maxWidth: .infinity)
-            .background(ColorPalette.green)
+            .background(viewModel.theme.colors.green)
             
             Group {
                 switch viewModel.mode {
                 case .login:
+
                     LoginForm(
                         viewModel: viewModel.loginFormViewModel,
-                        formMode: $viewModel.mode
+                        toRegister: viewModel.loginToRegister
                     )
                     .transition(.move(edge: .leading))
                 case .register:
                     RegisterForm(
                         viewModel: viewModel.registerFormsViewModel,
-                        formMode: $viewModel.mode
+                        toLogin: viewModel.registerToLogin
                     )
                     .transition(.move(edge: .trailing))
                 }
             }
             .animation(.easeInOut(duration: 0.3), value: viewModel.mode)
-
-
         }
-        .background(ColorPalette.mainBlue)
+        .background(viewModel.theme.colors.mainBlue)
     }
 }

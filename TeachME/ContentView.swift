@@ -8,15 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    let theme = StartTheme(
+        colors: Colors(),
+        spacings: Spacings(),
+        radiuses: Radiuses(),
+        fonts: Fonts()
+    )
+    
     var body: some View {
-        LoginRegisterScreen(
-            viewModel: LoginRegisterScreenViewModel(
+        AuthScreen(
+            viewModel: AuthScreenViewModel(
                 loginFormViewModel: LoginFormViewModel(
-                    loginFields: LoginFields()
+                    theme: theme
                 ),
                 registerFormsViewModel: RegisterFormViewModel(
-                    registerFields: RegisterFields()
-                )
+                    theme: theme
+                ),
+                theme: theme
             )
         )
     }

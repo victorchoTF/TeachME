@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum RadiusConstants {
-    static let radius8: CGFloat = 8
+struct Radiuses {
+    let radius8: CGFloat = 8
 }

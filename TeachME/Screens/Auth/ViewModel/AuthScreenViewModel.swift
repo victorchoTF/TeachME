@@ -7,31 +7,35 @@
 
 import Foundation
 
-class LoginRegisterScreenViewModel: ObservableObject {
+final class AuthScreenViewModel: ObservableObject {
     let loginFormViewModel: LoginFormViewModel
     let registerFormsViewModel: RegisterFormViewModel
+    let theme: Theme
     
     @Published var mode: FormMode = .login
     
-    init(loginFormViewModel: LoginFormViewModel, registerFormsViewModel: RegisterFormViewModel) {
+    init(
+        loginFormViewModel: LoginFormViewModel,
+        registerFormsViewModel: RegisterFormViewModel,
+        theme: Theme
+    ) {
         self.loginFormViewModel = loginFormViewModel
         self.registerFormsViewModel = registerFormsViewModel
+        self.theme = theme
+    }
+    
+    func loginToRegister() {
+        mode = loginFormViewModel.sendTo
+    }
+    
+    func registerToLogin() {
+        mode = registerFormsViewModel.sendTo
     }
 }
 
 enum FormMode {
     case login
     case register
-    
-    mutating func toggle() {
-        if self == .register {
-            self = .login
-            return
-        }
-        
-        self = .register
-        
-    }
 }
 
 

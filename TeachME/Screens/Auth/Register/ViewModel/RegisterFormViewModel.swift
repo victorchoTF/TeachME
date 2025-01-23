@@ -7,15 +7,21 @@
 
 import Foundation
 
-class RegisterFormViewModel: ObservableObject {
-    @Published var registerFields: RegisterFields
+final class RegisterFormViewModel: ObservableObject {
+    let theme: Theme
     
-    init(registerFields: RegisterFields) {
-        self.registerFields = registerFields
+    @Published var email: String = ""
+    @Published var password: String = ""
+    @Published var firstName: String = ""
+    @Published var lastName: String = ""
+    @Published var roleType: Role = .student
+    
+    init(theme: Theme) {
+        self.theme = theme
     }
     
     var roleSelection: Role {
-        registerFields.roleType
+        roleType
     }
     
     var formTitle: String {
@@ -30,11 +36,11 @@ class RegisterFormViewModel: ObservableObject {
         "Account Details"
     }
     
-    var email: String {
+    var emailPlaceholder: String {
         "Email"
     }
     
-    var password: String {
+    var passwordPlacehoder: String {
         "Password"
     }
     
@@ -42,11 +48,11 @@ class RegisterFormViewModel: ObservableObject {
         "Personal Details"
     }
     
-    var name: String {
+    var namePlaceholder: String {
         "Name"
     }
     
-    var lastName: String {
+    var lastNamePlaceholder: String {
         "Last Name"
     }
     
@@ -68,5 +74,9 @@ class RegisterFormViewModel: ObservableObject {
     
     var formTransitionPrompt: String {
         "Log In!"
+    }
+    
+    var sendTo: FormMode {
+        .login
     }
 }
