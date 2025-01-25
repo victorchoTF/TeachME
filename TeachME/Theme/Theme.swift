@@ -14,7 +14,7 @@ protocol Theme {
     var fonts: Fonts { get }
 }
 
-struct StartTheme: Theme {
+struct PrimaryTheme: Theme {
     var colors: Colors
     var spacings: Spacings
     var radiuses: Radiuses

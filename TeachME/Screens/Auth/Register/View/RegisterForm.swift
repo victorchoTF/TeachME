@@ -26,13 +26,12 @@ struct RegisterForm: View {
                 
                 SwitchFormText(
                     text: viewModel.hasAccount,
-                    clickableText: viewModel.formTransitionPrompt,
+                    buttonLabel: viewModel.formTransitionPrompt,
                     theme: viewModel.theme,
                     switchAction: toLogin
                 )
             }
             .scrollContentBackground(.hidden)
-            .scrollDisabled(true)
             .foregroundStyle(viewModel.theme.colors.dark)
         }
     }

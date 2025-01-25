@@ -25,7 +25,7 @@ final class RegisterFormViewModel: ObservableObject {
     }
     
     var formTitle: String {
-        "Start your knoledge journey today!"
+        "Start your knowledge journey today!"
     }
     
     var formType: String {

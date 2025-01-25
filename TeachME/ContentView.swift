@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    let theme = StartTheme(
+    let theme = PrimaryTheme(
         colors: Colors(),
         spacings: Spacings(),
         radiuses: Radiuses(),

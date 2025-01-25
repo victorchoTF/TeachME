@@ -25,13 +25,13 @@ struct AuthScreen: View {
 
                     LoginForm(
                         viewModel: viewModel.loginFormViewModel,
-                        toRegister: viewModel.loginToRegister
+                        toRegister: viewModel.switchToRegister
                     )
                     .transition(.move(edge: .leading))
                 case .register:
                     RegisterForm(
                         viewModel: viewModel.registerFormsViewModel,
-                        toLogin: viewModel.registerToLogin
+                        toLogin: viewModel.switchToLogin
                     )
                     .transition(.move(edge: .trailing))
                 }

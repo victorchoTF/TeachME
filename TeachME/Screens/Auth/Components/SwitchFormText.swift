@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SwitchFormText: View {
     let text: String
-    let clickableText: String
+    let buttonLabel: String
     let theme: Theme
     let switchAction: () -> ()
     
@@ -22,7 +22,7 @@ struct SwitchFormText: View {
                     switchAction()
                 }
             } label: {
-                Text(clickableText)
+                Text(buttonLabel)
                     .bold()
                     .underline()
                     .foregroundStyle(theme.colors.dark)

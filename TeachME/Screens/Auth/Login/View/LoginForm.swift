@@ -22,7 +22,7 @@ struct LoginForm: View {
                 
                 SwitchFormText(
                     text: viewModel.noAccount,
-                    clickableText: viewModel.formTransitionPrompt,
+                    buttonLabel: viewModel.formTransitionPrompt,
                     theme: viewModel.theme,
                     switchAction: toRegister
                 )

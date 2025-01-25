@@ -7,6 +7,11 @@
 
 import Foundation
 
+enum FormMode {
+    case login
+    case register
+}
+
 final class AuthScreenViewModel: ObservableObject {
     let loginFormViewModel: LoginFormViewModel
     let registerFormsViewModel: RegisterFormViewModel
@@ -24,18 +29,11 @@ final class AuthScreenViewModel: ObservableObject {
         self.theme = theme
     }
     
-    func loginToRegister() {
+    func switchToRegister() {
         mode = loginFormViewModel.sendTo
     }
     
-    func registerToLogin() {
+    func switchToLogin() {
         mode = registerFormsViewModel.sendTo
     }
 }
-
-enum FormMode {
-    case login
-    case register
-}
-
-
