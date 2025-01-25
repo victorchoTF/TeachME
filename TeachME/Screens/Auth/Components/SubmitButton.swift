@@ -17,13 +17,13 @@ struct SubmitButton: View {
         } label: {
             Text(text)
                 .fontWeight(.bold)
-                .font(theme.fonts.system18)
-                .foregroundStyle(theme.colors.light)
+                .font(theme.fonts.headline)
+                .foregroundStyle(theme.colors.secondary)
         }
         .listRowBackground(Color.clear)
         .frame(maxWidth: .infinity, alignment: .center)
-        .padding(.vertical, theme.spacings.spacing10)
-        .background(theme.colors.green)
-        .cornerRadius(theme.radiuses.radius8)
+        .padding(.vertical, theme.spacings.medium)
+        .background(theme.colors.accent)
+        .cornerRadius(theme.radiuses.medium)
     }
 }

@@ -14,15 +14,15 @@ struct StyledTextField: ViewModifier {
     func body(content: Content) -> some View {
         content
             .disableAutocorrection(true)
-            .padding(theme.spacings.spacing10)
+            .padding(theme.spacings.medium)
             .background(
-                RoundedRectangle(cornerRadius: theme.radiuses.radius8)
-                    .fill(theme.colors.light)
+                RoundedRectangle(cornerRadius: theme.radiuses.medium)
+                    .fill(theme.colors.secondary)
             )
-            .foregroundColor(theme.colors.dark)
+            .foregroundColor(theme.colors.text)
             .overlay(
-                RoundedRectangle(cornerRadius: theme.radiuses.radius8)
-                    .stroke(theme.colors.dark, lineWidth: 1)
+                RoundedRectangle(cornerRadius: theme.radiuses.medium)
+                    .stroke(theme.colors.text, lineWidth: 1)
             )
     }
 }

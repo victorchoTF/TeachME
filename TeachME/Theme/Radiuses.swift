@@ -8,5 +8,5 @@
 import Foundation
 
 struct Radiuses {
-    let radius8: CGFloat = 8
+    let medium: CGFloat
 }

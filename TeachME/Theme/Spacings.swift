@@ -8,9 +8,8 @@
 import Foundation
 
 struct Spacings {
-    let spacing4: CGFloat = 4
-    let spacing8: CGFloat = 8
-    let spacing10: CGFloat = 10
-    let spacing20: CGFloat = 20
-    let spacing30: CGFloat = 30
+    let extraSmall: CGFloat
+    let small: CGFloat
+    let medium: CGFloat
+    let large: CGFloat
 }

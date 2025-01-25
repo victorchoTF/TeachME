@@ -10,14 +10,16 @@ import SwiftUI
 struct AuthScreen: View {
     @StateObject var viewModel: AuthScreenViewModel
     
+    let theme: Theme
+    
     var body: some View {
-        VStack(spacing: viewModel.theme.spacings.spacing30) {
+        VStack(spacing: theme.spacings.large) {
             HStack {
-                Image("NamedLogo")
-                    .padding(.bottom, viewModel.theme.spacings.spacing10)
+                Image("Logo")
+                    .padding(.bottom, theme.spacings.medium)
             }
             .frame(maxWidth: .infinity)
-            .background(viewModel.theme.colors.green)
+            .background(theme.colors.accent)
             
             Group {
                 switch viewModel.mode {
@@ -25,19 +27,21 @@ struct AuthScreen: View {
 
                     LoginForm(
                         viewModel: viewModel.loginFormViewModel,
-                        toRegister: viewModel.switchToRegister
+                        toRegister: viewModel.switchToRegister,
+                        theme: theme
                     )
                     .transition(.move(edge: .leading))
                 case .register:
                     RegisterForm(
                         viewModel: viewModel.registerFormsViewModel,
-                        toLogin: viewModel.switchToLogin
+                        toLogin: viewModel.switchToLogin,
+                        theme: theme
                     )
                     .transition(.move(edge: .trailing))
                 }
             }
             .animation(.easeInOut(duration: 0.3), value: viewModel.mode)
         }
-        .background(viewModel.theme.colors.mainBlue)
+        .background(theme.colors.primary)
     }
 }

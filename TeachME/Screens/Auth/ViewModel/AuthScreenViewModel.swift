@@ -15,18 +15,15 @@ enum FormMode {
 final class AuthScreenViewModel: ObservableObject {
     let loginFormViewModel: LoginFormViewModel
     let registerFormsViewModel: RegisterFormViewModel
-    let theme: Theme
     
     @Published var mode: FormMode = .login
     
     init(
         loginFormViewModel: LoginFormViewModel,
-        registerFormsViewModel: RegisterFormViewModel,
-        theme: Theme
+        registerFormsViewModel: RegisterFormViewModel
     ) {
         self.loginFormViewModel = loginFormViewModel
         self.registerFormsViewModel = registerFormsViewModel
-        self.theme = theme
     }
     
     func switchToRegister() {

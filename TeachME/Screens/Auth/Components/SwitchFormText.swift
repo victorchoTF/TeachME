@@ -16,7 +16,7 @@ struct SwitchFormText: View {
     var body: some View {
         HStack {
             Text(text)
-                .foregroundStyle(theme.colors.dark)
+                .foregroundStyle(theme.colors.text)
             Button {
                 withAnimation {
                     switchAction()
@@ -25,7 +25,7 @@ struct SwitchFormText: View {
                 Text(buttonLabel)
                     .bold()
                     .underline()
-                    .foregroundStyle(theme.colors.dark)
+                    .foregroundStyle(theme.colors.text)
             }
         }
         .listRowBackground(Color.clear)

@@ -11,25 +11,27 @@ struct LoginForm: View {
     @StateObject var viewModel: LoginFormViewModel
     let toRegister: () -> ()
     
+    let theme: Theme
+    
     var body: some View {
         VStack {
-            FormTitle(title: viewModel.formTitle, theme: viewModel.theme)
+            FormTitle(title: viewModel.formTitle, theme: theme)
             
             Form {
                 accountDetails
                 
-                SubmitButton(text: viewModel.formType, theme: viewModel.theme)
+                SubmitButton(text: viewModel.formType, theme: theme)
                 
                 SwitchFormText(
                     text: viewModel.noAccount,
                     buttonLabel: viewModel.formTransitionPrompt,
-                    theme: viewModel.theme,
+                    theme: theme,
                     switchAction: toRegister
                 )
             }
             .scrollContentBackground(.hidden)
             .scrollDisabled(true)
-            .foregroundStyle(viewModel.theme.colors.dark)
+            .foregroundStyle(theme.colors.text)
         }
     }
 }
@@ -38,12 +40,12 @@ private extension LoginForm {
     var accountDetails: some View {
         Section {
             TextField(viewModel.emailPlaceholder, text: $viewModel.email)
-                .styledTextField(theme: viewModel.theme)
+                .styledTextField(theme: theme)
             TextField(viewModel.passwordPlaceholder, text: $viewModel.password)
-                .styledTextField(theme: viewModel.theme)
+                .styledTextField(theme: theme)
         }
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
-        .font(viewModel.theme.fonts.system14)
+        .font(theme.fonts.body)
     }
 }

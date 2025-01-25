@@ -14,7 +14,7 @@ struct FormTitle: View {
     var body: some View {
         Text(title)
             .fontWeight(.bold)
-            .font(theme.fonts.system20)
-            .foregroundStyle(theme.colors.dark)
+            .font(theme.fonts.title)
+            .foregroundStyle(theme.colors.text)
     }
 }

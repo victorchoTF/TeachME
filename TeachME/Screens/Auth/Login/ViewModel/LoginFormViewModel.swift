@@ -8,14 +8,8 @@
 import Foundation
 
 final class LoginFormViewModel: ObservableObject {
-    let theme: Theme
-    
     @Published var email: String = ""
     @Published var password: String = ""
-    
-    init(theme: Theme) {
-        self.theme = theme
-    }
     
     var formTitle: String {
         "Learning and teaching made simple"

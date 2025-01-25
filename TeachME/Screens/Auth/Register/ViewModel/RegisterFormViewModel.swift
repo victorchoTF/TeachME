@@ -8,17 +8,11 @@
 import Foundation
 
 final class RegisterFormViewModel: ObservableObject {
-    let theme: Theme
-    
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var firstName: String = ""
     @Published var lastName: String = ""
     @Published var roleType: Role = .student
-    
-    init(theme: Theme) {
-        self.theme = theme
-    }
     
     var roleSelection: Role {
         roleType
