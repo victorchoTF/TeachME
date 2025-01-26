@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    let theme = PrimaryTheme()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        AuthScreen(
+            viewModel: AuthScreenViewModel(
+                loginFormViewModel: LoginFormViewModel(),
+                registerFormsViewModel: RegisterFormViewModel()
+            ),
+            theme: theme
+        )
     }
 }
 
