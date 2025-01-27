@@ -8,21 +8,17 @@
 import SwiftUI
 
 struct LessonCard: View {
-    let lessonType: String
-    let subtitle: String
-    let startDateLabel: String
-    let endDateLabel: String
+    let lesson: LessonDisplay
     let teacherProfilePicture: Image
-    let teacherName: String
     
     let theme: Theme
     
     var body: some View {
         VStack (alignment: .leading, spacing: theme.spacings.medium) {
-            Text(lessonType)
+            Text(lesson.lessonType)
                 .font(theme.fonts.headline)
             
-            Text(subtitle)
+            Text(lesson.subtitle)
                 .font(theme.fonts.body)
             
             additionalInfo
@@ -49,10 +45,10 @@ private extension LessonCard {
     
     var timeLabel: some View {
         VStack(spacing: theme.spacings.extraSmall) {
-            Text(startDateLabel)
+            Text(lesson.startDate)
                 .font(theme.fonts.footnote)
             
-            Text(startDateLabel)
+            Text(lesson.endDate)
                 .font(theme.fonts.footnote)
         }
     }
@@ -60,7 +56,7 @@ private extension LessonCard {
     var profileLabel: some View {
         HStack {
             teacherProfilePicture
-            Text(teacherName)
+            Text(lesson.teacherName)
                 .font(theme.fonts.footnote)
         }
     }
@@ -68,12 +64,15 @@ private extension LessonCard {
 
 #Preview {
     LessonCard(
-        lessonType: "Chemistry",
-        subtitle: "Learning the basics of evening equations",
-        startDateLabel: "Start: 10:00AM 14.03.2025",
-        endDateLabel: "End: 11:40AM 14.03.2025",
+        lesson: LessonDisplay(
+            id: UUID(),
+            lessonType: "Chemistry",
+            subtitle: "Learning the basics of evening equations",
+            startDate: "Start: 10:00AM 14.03.2025",
+            endDate: "End: 11:40AM 14.03.2025",
+            teacherName: "George Demo"
+        ),
         teacherProfilePicture: Image(systemName: "person.crop.circle"),
-        teacherName: "George Demo",
         theme: PrimaryTheme()
     )
 }
