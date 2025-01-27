@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Fonts {
+    let footnote: Font
     let body: Font
     let headline: Font
     let title: Font
