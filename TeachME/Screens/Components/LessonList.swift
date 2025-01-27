@@ -21,6 +21,7 @@ struct LessonList: View {
                     theme: theme
                 )
                 .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
             }
         }
         .listStyle(.inset)
