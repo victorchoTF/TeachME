@@ -20,6 +20,7 @@ struct PrimaryTheme: Theme {
         secondary: Color("SecondaryBg"),
         text: Color("Text"),
         accent: Color("Accent"),
+        secondaryAccent: Color("SecondaryAccent"),
         success: Color("Success"),
         warning: Color("Warning"),
         error: Color("Error")

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LessonList: View {
-    let lessons: [LessonDisplay]
+    let lessons: [LessonItem]
     
     let theme: Theme
     

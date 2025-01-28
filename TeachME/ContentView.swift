@@ -13,7 +13,7 @@ struct ContentView: View {
     var body: some View {
         LessonList(
             lessons: [
-                LessonDisplay(
+                LessonItem(
                     id: UUID(),
                     lessonType: "Chemistry",
                     subtitle: "Learning the basics of evening equations",
@@ -21,7 +21,7 @@ struct ContentView: View {
                     endDate: "End: 11:40AM 14.03.2025",
                     teacherName: "George Demo"
                 ),
-                LessonDisplay(
+                LessonItem(
                     id: UUID(),
                     lessonType: "Chemistry",
                     subtitle: "Learning the basics of evening equations",
@@ -29,7 +29,7 @@ struct ContentView: View {
                     endDate: "End: 11:40AM 14.03.2025",
                     teacherName: "George Demo"
                 ),
-                LessonDisplay(
+                LessonItem(
                     id: UUID(),
                     lessonType: "Chemistry",
                     subtitle: "Learning the basics of evening equations",
@@ -37,7 +37,7 @@ struct ContentView: View {
                     endDate: "End: 11:40AM 14.03.2025",
                     teacherName: "George Demo"
                 ),
-                LessonDisplay(
+                LessonItem(
                     id: UUID(),
                     lessonType: "Chemistry",
                     subtitle: "Learning the basics of evening equations",
@@ -45,7 +45,7 @@ struct ContentView: View {
                     endDate: "End: 11:40AM 14.03.2025",
                     teacherName: "George Demo"
                 ),
-                LessonDisplay(
+                LessonItem(
                     id: UUID(),
                     lessonType: "Chemistry",
                     subtitle: "Learning the basics of evening equations",

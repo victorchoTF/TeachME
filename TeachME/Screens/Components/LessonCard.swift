@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LessonCard: View {
-    let lesson: LessonDisplay
+    let lesson: LessonItem
     let teacherProfilePicture: Image
     
     let theme: Theme
@@ -25,7 +25,7 @@ struct LessonCard: View {
         }
         .padding(theme.spacings.small)
         .foregroundStyle(theme.colors.text)
-        .background(theme.colors.accent)
+        .background(theme.colors.secondaryAccent)
         .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))
         
         
@@ -44,7 +44,7 @@ private extension LessonCard {
     }
     
     var timeLabel: some View {
-        VStack(spacing: theme.spacings.extraSmall) {
+        VStack(alignment: .leading, spacing: theme.spacings.extraSmall) {
             Text(lesson.startDate)
                 .font(theme.fonts.footnote)
             
@@ -64,7 +64,7 @@ private extension LessonCard {
 
 #Preview {
     LessonCard(
-        lesson: LessonDisplay(
+        lesson: LessonItem(
             id: UUID(),
             lessonType: "Chemistry",
             subtitle: "Learning the basics of evening equations",
