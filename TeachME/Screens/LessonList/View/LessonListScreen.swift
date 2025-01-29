@@ -12,7 +12,7 @@ struct LessonListScreen: View {
     let theme: Theme
     
     var body: some View {
-        VStack(spacing: theme.spacings.large) {
+        VStack(spacing: theme.spacings.medium) {
             Header(theme: theme)
             
             LessonList(lessons: viewModel.lessons, theme: theme)
