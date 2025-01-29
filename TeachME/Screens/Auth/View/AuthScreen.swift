@@ -14,12 +14,7 @@ struct AuthScreen: View {
     
     var body: some View {
         VStack(spacing: theme.spacings.large) {
-            HStack {
-                Image("Logo")
-                    .padding(.bottom, theme.spacings.medium)
-            }
-            .frame(maxWidth: .infinity)
-            .background(theme.colors.accent)
+            Header(theme: theme)
             
             Group {
                 switch viewModel.mode {

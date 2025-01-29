@@ -17,7 +17,6 @@ struct LessonList: View {
             ForEach(lessons) { lesson in
                 LessonCard(
                     lesson: lesson,
-                    teacherProfilePicture: Image(systemName: "person.crop.circle"),
                     theme: theme
                 )
                 .listRowBackground(Color.clear)
