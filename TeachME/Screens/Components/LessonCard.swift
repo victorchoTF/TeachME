@@ -26,9 +26,7 @@ struct LessonCard: View {
         .padding(theme.spacings.small)
         .foregroundStyle(theme.colors.text)
         .background(theme.colors.secondaryAccent)
-        .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))
-        
-        
+        .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))  
     }
 }
 
