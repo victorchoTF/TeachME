@@ -16,10 +16,11 @@ protocol Theme {
 
 struct PrimaryTheme: Theme {
     var colors: Colors = Colors(
-        primary: Color("Primary"),
-        secondary: Color("Secondary"),
+        primary: Color("PrimaryBg"),
+        secondary: Color("SecondaryBg"),
         text: Color("Text"),
         accent: Color("Accent"),
+        secondaryAccent: Color("SecondaryAccent"),
         success: Color("Success"),
         warning: Color("Warning"),
         error: Color("Error")
@@ -37,6 +38,7 @@ struct PrimaryTheme: Theme {
     )
     
     var fonts: Fonts = Fonts(
+        footnote: .system(size:12),
         body: .system(size: 14),
         headline: .system(size: 18),
         title: .system(size: 20)

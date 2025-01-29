@@ -24,6 +24,7 @@ struct SubmitButton: View {
         .frame(maxWidth: .infinity, alignment: .center)
         .padding(.vertical, theme.spacings.medium)
         .background(theme.colors.accent)
+        .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))
         .cornerRadius(theme.radiuses.medium)
     }
 }
