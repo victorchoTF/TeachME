@@ -11,65 +11,7 @@ struct ContentView: View {
     let theme = PrimaryTheme()
     
     var body: some View {
-        LessonPickScreen(
-            viewModel: LessonPickScreenViewModel(
-                lesson: LessonItem(
-                    id: UUID(),
-                    lessonType: "Chemistry",
-                    subtitle: "Learning the basics of evening equations",
-                    startDate: "Start: 10:00AM 14.03.2025",
-                    endDate: "End: 11:40AM 14.03.2025",
-                    teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                    teacherName: "George Demo"
-                ),
-                teacher: UserItem(
-                    name: "George Demo",
-                    profilePicture: Image(systemName: "person.crop.circle"),
-                    email: "george_demo@gmail.com",
-                    phoneNumber: "0874567243",
-                    bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves"
-                ),
-                otherLessons: [
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "Maths",
-                        subtitle: "Statistics made simple",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    ),
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "Biology",
-                        subtitle: "Cranial system; Anatomy",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    ),
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "English",
-                        subtitle: "Learning the tenses",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    ),
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "Physics",
-                        subtitle: "Motion and mechanics",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    )
-                ]
-            ),
-            theme: theme
-        )
+        lessonPickScreen
     }
 }
 
@@ -94,6 +36,8 @@ private extension ContentView {
             }
         }
         .tint(theme.colors.accent)
+        .background(theme.colors.primary)
+        .foregroundStyle(theme.colors.text)
     }
     
     var studentHomeScreen: some View {
@@ -205,8 +149,66 @@ private extension ContentView {
             theme: theme
         )
     }
-}
-
-#Preview {
-    ContentView()
+    
+    var lessonPickScreen: some View {
+        LessonPickScreen(
+            viewModel: LessonPickScreenViewModel(
+                lesson: LessonItem(
+                    id: UUID(),
+                    lessonType: "Chemistry",
+                    subtitle: "Learning the basics of evening equations",
+                    startDate: "Start: 10:00AM 14.03.2025",
+                    endDate: "End: 11:40AM 14.03.2025",
+                    teacherProfilePicture: Image(systemName: "person.crop.circle"),
+                    teacherName: "George Demo"
+                ),
+                teacher: UserItem(
+                    name: "George Demo",
+                    profilePicture: Image(systemName: "person.crop.circle"),
+                    email: "george_demo@gmail.com",
+                    phoneNumber: "0874567243",
+                    bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves"
+                ),
+                otherLessons: [
+                    LessonItem(
+                        id: UUID(),
+                        lessonType: "Maths",
+                        subtitle: "Statistics made simple",
+                        startDate: "Start: 10:00AM 14.03.2025",
+                        endDate: "End: 11:40AM 14.03.2025",
+                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
+                        teacherName: "George Demo"
+                    ),
+                    LessonItem(
+                        id: UUID(),
+                        lessonType: "Biology",
+                        subtitle: "Cranial system; Anatomy",
+                        startDate: "Start: 10:00AM 14.03.2025",
+                        endDate: "End: 11:40AM 14.03.2025",
+                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
+                        teacherName: "George Demo"
+                    ),
+                    LessonItem(
+                        id: UUID(),
+                        lessonType: "English",
+                        subtitle: "Learning the tenses",
+                        startDate: "Start: 10:00AM 14.03.2025",
+                        endDate: "End: 11:40AM 14.03.2025",
+                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
+                        teacherName: "George Demo"
+                    ),
+                    LessonItem(
+                        id: UUID(),
+                        lessonType: "Physics",
+                        subtitle: "Motion and mechanics",
+                        startDate: "Start: 10:00AM 14.03.2025",
+                        endDate: "End: 11:40AM 14.03.2025",
+                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
+                        teacherName: "George Demo"
+                    )
+                ]
+            ),
+            theme: theme
+        )
+    }
 }
