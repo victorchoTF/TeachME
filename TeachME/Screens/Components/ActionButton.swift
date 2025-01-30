@@ -21,7 +21,7 @@ struct ActionButton: View {
                 .foregroundStyle(theme.colors.secondary)
         }
         .padding(.vertical, theme.spacings.medium)
-        .padding(.horizontal, theme.spacings.large)
+        .padding(.horizontal, theme.spacings.extraLarge)
         .background(theme.colors.accent)
         .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))
     }

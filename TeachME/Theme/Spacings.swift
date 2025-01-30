@@ -12,4 +12,6 @@ struct Spacings {
     let small: CGFloat
     let medium: CGFloat
     let large: CGFloat
+    let extraLarge: CGFloat
+    let extraExtraLarge: CGFloat
 }

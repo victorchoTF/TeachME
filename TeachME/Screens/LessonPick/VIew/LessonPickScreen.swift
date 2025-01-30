@@ -21,7 +21,7 @@ struct LessonPickScreen: View {
             Text(viewModel.moreAboutTitle)
                 .font(theme.fonts.title)
             
-            Spacer()
+            UserCard(user: viewModel.teacher, theme: theme)
             
             Text(viewModel.otherLessonsTitle)
                 .font(theme.fonts.title)

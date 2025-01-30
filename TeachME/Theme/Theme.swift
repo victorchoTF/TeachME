@@ -30,7 +30,9 @@ struct PrimaryTheme: Theme {
         extraSmall: 4,
         small: 8,
         medium: 10,
-        large: 30
+        large: 20,
+        extraLarge: 30,
+        extraExtraLarge: 50
     )
     
     var radiuses: Radiuses = Radiuses(

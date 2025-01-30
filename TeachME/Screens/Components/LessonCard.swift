@@ -53,6 +53,11 @@ private extension LessonCard {
     var profileLabel: some View {
         HStack {
             lesson.teacherProfilePicture
+                .resizable()
+                .frame(
+                    width: theme.spacings.large,
+                    height: theme.spacings.large
+                )
             Text(lesson.teacherName)
                 .font(theme.fonts.footnote)
         }

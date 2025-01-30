@@ -10,6 +10,8 @@
 		8E20F5712D4B83A1007B3154 /* LessonPickScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5702D4B83A1007B3154 /* LessonPickScreen.swift */; };
 		8E20F5732D4B8425007B3154 /* LessonPickScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5722D4B8425007B3154 /* LessonPickScreenViewModel.swift */; };
 		8E20F5752D4B8918007B3154 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5742D4B8918007B3154 /* ActionButton.swift */; };
+		8E20F5772D4B8C9C007B3154 /* UserCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5762D4B8C9C007B3154 /* UserCard.swift */; };
+		8E20F5792D4B8CAA007B3154 /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5782D4B8CAA007B3154 /* UserItem.swift */; };
 		8E29828B2D4A347500588D8E /* LessonListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E29828A2D4A347500588D8E /* LessonListScreen.swift */; };
 		8E29828D2D4A381600588D8E /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E29828C2D4A381600588D8E /* Header.swift */; };
 		8E2982902D4A38CF00588D8E /* LessonListScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E29828F2D4A38CF00588D8E /* LessonListScreenViewModel.swift */; };
@@ -42,6 +44,8 @@
 		8E20F5702D4B83A1007B3154 /* LessonPickScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonPickScreen.swift; sourceTree = "<group>"; };
 		8E20F5722D4B8425007B3154 /* LessonPickScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonPickScreenViewModel.swift; sourceTree = "<group>"; };
 		8E20F5742D4B8918007B3154 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
+		8E20F5762D4B8C9C007B3154 /* UserCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCard.swift; sourceTree = "<group>"; };
+		8E20F5782D4B8CAA007B3154 /* UserItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItem.swift; sourceTree = "<group>"; };
 		8E29828A2D4A347500588D8E /* LessonListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonListScreen.swift; sourceTree = "<group>"; };
 		8E29828C2D4A381600588D8E /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		8E29828F2D4A38CF00588D8E /* LessonListScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonListScreenViewModel.swift; sourceTree = "<group>"; };
@@ -303,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */,
+				8E20F5782D4B8CAA007B3154 /* UserItem.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -314,6 +319,7 @@
 				8EC1D32E2D47666E00987973 /* LessonList.swift */,
 				8E29828C2D4A381600588D8E /* Header.swift */,
 				8E20F5742D4B8918007B3154 /* ActionButton.swift */,
+				8E20F5762D4B8C9C007B3154 /* UserCard.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -405,6 +411,7 @@
 				8E20F5752D4B8918007B3154 /* ActionButton.swift in Sources */,
 				8E20F5712D4B83A1007B3154 /* LessonPickScreen.swift in Sources */,
 				8E20F5732D4B8425007B3154 /* LessonPickScreenViewModel.swift in Sources */,
+				8E20F5792D4B8CAA007B3154 /* UserItem.swift in Sources */,
 				8E863BA22D3F76A8001773F4 /* LoginFormViewModel.swift in Sources */,
 				8E7EBE552D3E420200C7C017 /* Radiuses.swift in Sources */,
 				8E84E2802D42531D00CB8C05 /* SubmitButton.swift in Sources */,
@@ -414,6 +421,7 @@
 				8E29828B2D4A347500588D8E /* LessonListScreen.swift in Sources */,
 				8E863BA02D3F7617001773F4 /* LoginForm.swift in Sources */,
 				8E7EBE512D3E409500C7C017 /* StyledTextField.swift in Sources */,
+				8E20F5772D4B8C9C007B3154 /* UserCard.swift in Sources */,
 				8E75D4412D3E268B0082F5FE /* Role.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

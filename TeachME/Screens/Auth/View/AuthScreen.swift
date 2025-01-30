@@ -13,7 +13,7 @@ struct AuthScreen: View {
     let theme: Theme
     
     var body: some View {
-        VStack(spacing: theme.spacings.large) {
+        VStack(spacing: theme.spacings.extraLarge) {
             Header(theme: theme)
             
             Group {
