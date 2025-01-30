@@ -9,7 +9,6 @@ import SwiftUI
 
 struct LessonCard: View {
     let lesson: LessonItem
-    let teacherProfilePicture: Image
     
     let theme: Theme
     
@@ -53,7 +52,7 @@ private extension LessonCard {
     
     var profileLabel: some View {
         HStack {
-            teacherProfilePicture
+            lesson.teacherProfilePicture
             Text(lesson.teacherName)
                 .font(theme.fonts.footnote)
         }
@@ -68,9 +67,9 @@ private extension LessonCard {
             subtitle: "Learning the basics of evening equations",
             startDate: "Start: 10:00AM 14.03.2025",
             endDate: "End: 11:40AM 14.03.2025",
+            teacherProfilePicture: Image(systemName: "person.crop.circle"),
             teacherName: "George Demo"
         ),
-        teacherProfilePicture: Image(systemName: "person.crop.circle"),
         theme: PrimaryTheme()
     )
 }

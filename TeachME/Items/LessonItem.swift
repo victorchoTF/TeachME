@@ -5,7 +5,7 @@
 //  Created by TumbaDev on 28.01.25.
 //
 
-import Foundation
+import SwiftUI
 
 struct LessonItem: Identifiable {
     let id: UUID
@@ -13,5 +13,6 @@ struct LessonItem: Identifiable {
     let subtitle: String
     let startDate: String
     let endDate: String
+    let teacherProfilePicture: Image
     let teacherName: String
 }
