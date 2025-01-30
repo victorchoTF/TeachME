@@ -1,13 +1,13 @@
 //
-//  SwiftUIView.swift
+//  ActionButton.swift
 //  TeachME
 //
-//  Created by TumbaDev on 23.01.25.
+//  Created by TumbaDev on 30.01.25.
 //
 
 import SwiftUI
 
-struct SubmitButton: View {
+struct ActionButton: View {
     let text: String
     let theme: Theme
     
@@ -20,9 +20,8 @@ struct SubmitButton: View {
                 .font(theme.fonts.headline)
                 .foregroundStyle(theme.colors.secondary)
         }
-        .listRowBackground(Color.clear)
-        .frame(maxWidth: .infinity, alignment: .center)
         .padding(.vertical, theme.spacings.medium)
+        .padding(.horizontal, theme.spacings.large)
         .background(theme.colors.accent)
         .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))
     }

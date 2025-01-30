@@ -16,8 +16,8 @@ protocol Theme {
 
 struct PrimaryTheme: Theme {
     var colors: Colors = Colors(
-        primary: Color("PrimaryBg"),
-        secondary: Color("SecondaryBg"),
+        primary: Color("Primary"),
+        secondary: Color("Secondary"),
         text: Color("Text"),
         accent: Color("Accent"),
         secondaryAccent: Color("SecondaryAccent"),
