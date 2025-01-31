@@ -43,7 +43,8 @@ struct PrimaryTheme: Theme {
         footnote: .system(size:12),
         body: .system(size: 14),
         headline: .system(size: 18),
-        title: .system(size: 20)
+        title: .system(size: 20),
+        bigTitle: .system(size: 25)
     )
     
     var frames: Frames = Frames(medium: 20, large: 70)

@@ -8,12 +8,12 @@
 import Foundation
 
 final class LessonPickScreenViewModel {
-    let lesson: LessonItem
+    let pickedLesson: LessonItem
     let teacher: UserItem
     let otherLessons: [LessonItem]
     
     init(lesson: LessonItem, teacher: UserItem, otherLessons: [LessonItem]) {
-        self.lesson = lesson
+        self.pickedLesson = lesson
         self.teacher = teacher
         self.otherLessons = otherLessons
     }

@@ -16,18 +16,20 @@ struct LessonPickScreen: View {
         VStack {
             Header(theme: theme)
             
-            lessonCard
-            
-            Text(viewModel.moreAboutTitle)
-                .font(theme.fonts.title)
-            
-            UserCard(user: viewModel.teacher, theme: theme)
-                .padding(.horizontal, theme.spacings.medium)
-            
-            Text(viewModel.otherLessonsTitle)
-                .font(theme.fonts.title)
-            
-            LessonList(lessons: viewModel.otherLessons, theme: theme)
+            ScrollView {
+                lessonCard
+                
+                Text(viewModel.moreAboutTitle)
+                    .font(theme.fonts.title)
+                
+                UserCard(user: viewModel.teacher, theme: theme)
+                    .padding(.horizontal, theme.spacings.medium)
+                
+                Text(viewModel.otherLessonsTitle)
+                    .font(theme.fonts.title)
+                
+                lessonScroll
+            }
         }
         .background(theme.colors.primary)
     }
@@ -35,17 +37,71 @@ struct LessonPickScreen: View {
 
 private extension LessonPickScreen {
     var lessonCard: some View {
-        VStack(spacing: theme.spacings.small) {
-            LessonCard(lesson: viewModel.lesson, theme: theme)
+        VStack(alignment: .leading, spacing: theme.spacings.large) {
+            Text(viewModel.pickedLesson.lessonType)
+                .font(theme.fonts.bigTitle)
+                .fontWeight(.bold)
             
-            ActionButton(
-                text: viewModel.pickLessonButtonText,
-                theme: theme
-            )
+            HStack(spacing: theme.spacings.extraLarge) {
+                startDate
+                endDate
+            }
+            
+            description
+            
         }
+        .foregroundStyle(theme.colors.text)
         .padding(theme.spacings.small)
-        .background(theme.colors.secondaryAccent)
-        .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))
-        .padding(theme.spacings.medium)
+    }
+    
+    var lessonScroll: some View {
+        ScrollView {
+            ForEach(viewModel.otherLessons) { lesson in
+                LessonCard(
+                    lesson: lesson,
+                    theme: theme
+                )
+            }
+        }
+        .padding(.horizontal, theme.spacings.medium)
+    }
+    
+    var startDate: some View {
+        VStack(alignment: .leading) {
+            Text("Starts at")
+                .foregroundStyle(.opacity(0.6))
+            
+            Text(viewModel.pickedLesson.startDate)
+                .font(theme.fonts.body)
+                .padding(theme.spacings.extraSmall)
+                .background(theme.colors.secondaryAccent)
+                .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))
+        }
+    }
+    
+    var endDate: some View {
+        VStack(alignment: .leading) {
+            Text("Ends at")
+                .foregroundStyle(.opacity(0.6))
+            
+            Text(viewModel.pickedLesson.endDate)
+                .font(theme.fonts.body)
+                .padding(theme.spacings.extraSmall)
+                .background(theme.colors.secondaryAccent)
+                .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))
+        }
+    }
+    
+    var description: some View {
+        VStack(alignment: .leading) {
+            Text("Description")
+                .foregroundStyle(.opacity(0.6))
+            
+            Text(viewModel.pickedLesson.subtitle)
+                .font(theme.fonts.body)
+                .padding(theme.spacings.small)
+                .background(theme.colors.secondaryAccent)
+                .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))
+        }
     }
 }

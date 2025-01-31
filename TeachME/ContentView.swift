@@ -156,9 +156,9 @@ private extension ContentView {
                 lesson: LessonItem(
                     id: UUID(),
                     lessonType: "Chemistry",
-                    subtitle: "Learning the basics of evening equations",
-                    startDate: "Start: 10:00AM 14.03.2025",
-                    endDate: "End: 11:40AM 14.03.2025",
+                    subtitle: "Explore the fascinating world of chemistry in this engaging and interactive lesson! Dive into the fundamental concepts of atomic structure, chemical bonding, and the periodic table. Understand how elements interact to form compounds and discover the role of chemical reactions in everyday life. Learn about acids, bases, and pH, and conduct experiments to observe reactions firsthand. Explore states of matter, thermodynamics, and the principles of stoichiometry.",
+                    startDate: "10:00AM 14.03.2025",
+                    endDate: "11:40AM 14.03.2025",
                     teacherProfilePicture: Image(systemName: "person.crop.circle"),
                     teacherName: "George Demo"
                 ),
