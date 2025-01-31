@@ -13,14 +13,12 @@ struct UserCard: View {
     let theme: Theme
     
     var body: some View {
-        VStack(spacing: theme.spacings.medium) {
-            imageNamePair
+        VStack(alignment: .leading, spacing: theme.spacings.medium) {
+            userContacts
             
             biography
-            
-            contacts
         }
-        .padding(theme.spacings.small)
+        .padding(theme.spacings.medium)
         .background(theme.colors.secondary)
         .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))
         .foregroundStyle(theme.colors.text)
@@ -29,35 +27,41 @@ struct UserCard: View {
 }
 
 private extension UserCard {
-    var imageNamePair: some View {
-        HStack {
+    var userContacts: some View {
+        HStack(spacing: theme.spacings.large) {
             user.profilePicture
                 .resizable()
                 .frame(
-                    width: theme.spacings.extraExtraLarge,
-                    height: theme.spacings.extraExtraLarge
+                    width: theme.frames.large,
+                    height: theme.frames.large
                 )
             
-            Text(user.name)
-                .font(theme.fonts.headline)
+            VStack(alignment: .leading, spacing: theme.spacings.small) {
+                Text(user.name)
+                    .font(theme.fonts.headline)
+                
+                contacts
+            }
         }
     }
     
     var biography: some View {
         Text(user.bio)
             .font(theme.fonts.body)
+            .multilineTextAlignment(.leading)
     }
     
     var contacts: some View {
-        HStack(spacing: theme.spacings.extraLarge) {
+        VStack(alignment: .leading, spacing: theme.spacings.small) {
             email
             
             phoneNumber
         }
+        .foregroundStyle(.opacity(0.6))
     }
     
     var email: some View {
-        HStack {
+        HStack(spacing: theme.spacings.small) {
             Image(systemName: "envelope.fill")
             
             Text(user.email)
@@ -66,7 +70,7 @@ private extension UserCard {
     }
     
     var phoneNumber: some View {
-        HStack {
+        HStack(spacing: theme.spacings.small) {
             Image(systemName: "phone.fill")
             
             Text(user.phoneNumber)

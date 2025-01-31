@@ -22,6 +22,7 @@ struct LessonPickScreen: View {
                 .font(theme.fonts.title)
             
             UserCard(user: viewModel.teacher, theme: theme)
+                .padding(.horizontal, theme.spacings.medium)
             
             Text(viewModel.otherLessonsTitle)
                 .font(theme.fonts.title)
