@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LessonList: View {
     let lessons: [LessonItem]
+    let onLessonTapped: (LessonItem) -> ()
     
     let theme: Theme
     
@@ -21,6 +22,9 @@ struct LessonList: View {
                 )
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
+                .onTapGesture {
+                    onLessonTapped(lesson)
+                }
             }
         }
         .listStyle(.inset)

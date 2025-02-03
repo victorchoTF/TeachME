@@ -31,7 +31,7 @@ class LessonsRouter: ObservableObject {
             LessonItem(
                 id: UUID(),
                 lessonType: "Chemistry",
-                subtitle: "Learning the basics of evening equations",
+                subtitle: "Explore the fascinating world of chemistry in this engaging and interactive lesson! Dive into the fundamental concepts of atomic structure, chemical bonding, and the periodic table. Understand how elements interact to form compounds and discover the role of chemical reactions in everyday life. Learn about acids, bases, and pH, and conduct experiments to observe reactions firsthand. Explore states of matter, thermodynamics, and the principles of stoichiometry.",
                 startDate: "Start: 10:00AM 14.03.2025",
                 endDate: "End: 11:40AM 14.03.2025",
                 teacherProfilePicture: Image(systemName: "person.crop.circle"),
@@ -69,9 +69,11 @@ class LessonsRouter: ObservableObject {
 
     @MainActor
     var initialDestination: some View {
-        let viewModel = LessonListScreenViewModel(
-            lessons: lessons
-        )
+        let viewModel = LessonListScreenViewModel(lessons: lessons) { [weak self] lesson in
+            guard let self else { return }
+            
+            path.append(.lesson(LessonPickScreenViewModel(lesson: lesson), theme))
+        }
 
         return LessonListScreen(viewModel: viewModel, theme: theme)
     }

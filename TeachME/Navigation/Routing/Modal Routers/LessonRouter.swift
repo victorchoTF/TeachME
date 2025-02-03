@@ -23,9 +23,3 @@ class IdentifiableRouter: Identifiable {
         AnyView(router.start())
     }
 }
-
-class LessonRouter: Router {
-    func start() -> any View {
-        Text("")
-    }
-}

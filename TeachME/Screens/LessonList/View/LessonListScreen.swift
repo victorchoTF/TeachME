@@ -13,9 +13,11 @@ struct LessonListScreen: View {
     
     var body: some View {
         VStack(spacing: theme.spacings.medium) {
-            Header(theme: theme)
-            
-            LessonList(lessons: viewModel.lessons, theme: theme)
+            LessonList(
+                lessons: viewModel.lessons,
+                onLessonTapped: viewModel.onLessonTapped,
+                theme: theme
+            )
         }
         .background(theme.colors.primary)
     }

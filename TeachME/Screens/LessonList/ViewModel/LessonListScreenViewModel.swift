@@ -9,9 +9,13 @@ import Foundation
 
 final class LessonListScreenViewModel {
     let lessons: [LessonItem]
-    let onLessonTapped: () -> ()
+    let onLessonTapped: (LessonItem) -> ()
     
-    init(lessons: [LessonItem]) {
+    init(
+        lessons: [LessonItem],
+        onLessonTapped: @escaping(LessonItem) -> ()
+    ) {
         self.lessons = lessons
+        self.onLessonTapped = onLessonTapped
     }
 }

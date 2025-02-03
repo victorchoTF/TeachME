@@ -11,7 +11,7 @@ struct ContentView: View {
     let theme = PrimaryTheme()
     
     var body: some View {
-        lessonPickScreen
+        tabView
     }
 }
 
@@ -41,174 +41,10 @@ private extension ContentView {
     }
     
     var studentHomeScreen: some View {
-        LessonListScreen(
-            viewModel: LessonListScreenViewModel(
-                lessons: [
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "Chemistry",
-                        subtitle: "Learning the basics of evening equations",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    ),
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "Chemistry",
-                        subtitle: "Learning the basics of evening equations",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    ),
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "Chemistry",
-                        subtitle: "Learning the basics of evening equations",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    ),
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "Chemistry",
-                        subtitle: "Learning the basics of evening equations",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    ),
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "Chemistry",
-                        subtitle: "Learning the basics of evening equations",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    )
-                ]
-            ),
-            theme: theme
-        )
+        LessonNavigationView(title: "Home", lessons: LessonsRouter())
     }
     
     var lessonScreen: some View {
-        LessonListScreen(
-            viewModel: LessonListScreenViewModel(
-                lessons: [
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "Maths",
-                        subtitle: "Statistics made simple",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    ),
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "Chemistry",
-                        subtitle: "Learning the basics of evening equations",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    ),
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "Biology",
-                        subtitle: "Cranial system; Anatomy",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    ),
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "English",
-                        subtitle: "Learning the tenses",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    ),
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "Physics",
-                        subtitle: "Motion and mechanics",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    )
-                ]
-            ),
-            theme: theme
-        )
-    }
-    
-    var lessonPickScreen: some View {
-        LessonPickScreen(
-            viewModel: LessonPickScreenViewModel(
-                lesson: LessonItem(
-                    id: UUID(),
-                    lessonType: "Chemistry",
-                    subtitle: "Explore the fascinating world of chemistry in this engaging and interactive lesson! Dive into the fundamental concepts of atomic structure, chemical bonding, and the periodic table. Understand how elements interact to form compounds and discover the role of chemical reactions in everyday life. Learn about acids, bases, and pH, and conduct experiments to observe reactions firsthand. Explore states of matter, thermodynamics, and the principles of stoichiometry.",
-                    startDate: "10:00AM 14.03.2025",
-                    endDate: "11:40AM 14.03.2025",
-                    teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                    teacherName: "George Demo"
-                ),
-                teacher: UserItem(
-                    name: "George Demo",
-                    profilePicture: Image(systemName: "person.crop.circle"),
-                    email: "george_demo@gmail.com",
-                    phoneNumber: "0874567243",
-                    bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves"
-                ),
-                otherLessons: [
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "Maths",
-                        subtitle: "Statistics made simple",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    ),
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "Biology",
-                        subtitle: "Cranial system; Anatomy",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    ),
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "English",
-                        subtitle: "Learning the tenses",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    ),
-                    LessonItem(
-                        id: UUID(),
-                        lessonType: "Physics",
-                        subtitle: "Motion and mechanics",
-                        startDate: "Start: 10:00AM 14.03.2025",
-                        endDate: "End: 11:40AM 14.03.2025",
-                        teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                        teacherName: "George Demo"
-                    )
-                ]
-            ),
-            theme: theme
-        )
+        LessonNavigationView(title: "Lessons", lessons: LessonsRouter())
     }
 }

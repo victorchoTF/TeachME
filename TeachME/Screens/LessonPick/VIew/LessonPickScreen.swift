@@ -14,8 +14,6 @@ struct LessonPickScreen: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Header(theme: theme)
-            
             ScrollView {
                 lessonCard
                 
@@ -31,18 +29,16 @@ struct LessonPickScreen: View {
                 lessonScroll
             }
         }
+        .navigationTitle(viewModel.pickedLesson.lessonType)
         .background(theme.colors.primary)
+        .toolbar(.hidden, for: .tabBar)
     }
 }
 
 private extension LessonPickScreen {
     var lessonCard: some View {
         VStack(alignment: .leading, spacing: theme.spacings.large) {
-            Text(viewModel.pickedLesson.lessonType)
-                .font(theme.fonts.bigTitle)
-                .fontWeight(.bold)
-            
-            HStack(spacing: theme.spacings.extraLarge) {
+            HStack(spacing: theme.spacings.medium) {
                 startDate
                 endDate
             }
@@ -50,6 +46,7 @@ private extension LessonPickScreen {
             description
             
         }
+        .frame(maxWidth: .infinity)
         .foregroundStyle(theme.colors.text)
         .padding(theme.spacings.small)
     }
