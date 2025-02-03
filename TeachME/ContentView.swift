@@ -11,7 +11,14 @@ struct ContentView: View {
     let theme = PrimaryTheme()
     
     var body: some View {
-        tabView
+        ZStack {
+            tabView
+                .padding(.top, theme.spacings.extraExtraLarge)
+            VStack {
+                Header(theme: theme)
+                Spacer()
+            }
+        }
     }
 }
 

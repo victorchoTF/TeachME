@@ -9,13 +9,13 @@
 /* Begin PBXBuildFile section */
 		8E20F5712D4B83A1007B3154 /* LessonPickScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5702D4B83A1007B3154 /* LessonPickScreen.swift */; };
 		8E20F5732D4B8425007B3154 /* LessonPickScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5722D4B8425007B3154 /* LessonPickScreenViewModel.swift */; };
-		8E20F5752D4B8918007B3154 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5742D4B8918007B3154 /* ActionButton.swift */; };
 		8E20F5772D4B8C9C007B3154 /* UserCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5762D4B8C9C007B3154 /* UserCard.swift */; };
 		8E20F5792D4B8CAA007B3154 /* UserItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5782D4B8CAA007B3154 /* UserItem.swift */; };
 		8E29828B2D4A347500588D8E /* LessonListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E29828A2D4A347500588D8E /* LessonListScreen.swift */; };
 		8E29828D2D4A381600588D8E /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E29828C2D4A381600588D8E /* Header.swift */; };
 		8E2982902D4A38CF00588D8E /* LessonListScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E29828F2D4A38CF00588D8E /* LessonListScreenViewModel.swift */; };
 		8E3427AD2D3E649900A38A2D /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3427AC2D3E649900A38A2D /* Fonts.swift */; };
+		8E4D0F8B2D50B9A3007F57B8 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4D0F8A2D50B9A3007F57B8 /* ActionButton.swift */; };
 		8E5B274C2D4CA6930054B001 /* Frames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B274B2D4CA6930054B001 /* Frames.swift */; };
 		8E65F7452D3D2BDF00D3A793 /* TeachMEApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E65F7442D3D2BDF00D3A793 /* TeachMEApp.swift */; };
 		8E65F7472D3D2BDF00D3A793 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E65F7462D3D2BDF00D3A793 /* ContentView.swift */; };
@@ -38,7 +38,6 @@
 		8E863BA22D3F76A8001773F4 /* LoginFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E863BA12D3F76A8001773F4 /* LoginFormViewModel.swift */; };
 		8E9669CB2D48AEEA00B5D6BA /* LessonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */; };
 		8EC1D32D2D475B5500987973 /* LessonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC1D32C2D475B5400987973 /* LessonCard.swift */; };
-		8EC1D32F2D47666E00987973 /* LessonList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC1D32E2D47666E00987973 /* LessonList.swift */; };
 		8EFED0662D50A1F900046F1D /* LessonRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFED0652D50A1F900046F1D /* LessonRouter.swift */; };
 		8EFED0682D50A2BB00046F1D /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFED0672D50A2BB00046F1D /* Destination.swift */; };
 		8EFED06B2D50A34700046F1D /* LessonsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFED06A2D50A34700046F1D /* LessonsRouter.swift */; };
@@ -48,13 +47,13 @@
 /* Begin PBXFileReference section */
 		8E20F5702D4B83A1007B3154 /* LessonPickScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonPickScreen.swift; sourceTree = "<group>"; };
 		8E20F5722D4B8425007B3154 /* LessonPickScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonPickScreenViewModel.swift; sourceTree = "<group>"; };
-		8E20F5742D4B8918007B3154 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		8E20F5762D4B8C9C007B3154 /* UserCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCard.swift; sourceTree = "<group>"; };
 		8E20F5782D4B8CAA007B3154 /* UserItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserItem.swift; sourceTree = "<group>"; };
 		8E29828A2D4A347500588D8E /* LessonListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonListScreen.swift; sourceTree = "<group>"; };
 		8E29828C2D4A381600588D8E /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		8E29828F2D4A38CF00588D8E /* LessonListScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonListScreenViewModel.swift; sourceTree = "<group>"; };
 		8E3427AC2D3E649900A38A2D /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		8E4D0F8A2D50B9A3007F57B8 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		8E5B274B2D4CA6930054B001 /* Frames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frames.swift; sourceTree = "<group>"; };
 		8E65F7412D3D2BDF00D3A793 /* TeachME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeachME.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E65F7442D3D2BDF00D3A793 /* TeachMEApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachMEApp.swift; sourceTree = "<group>"; };
@@ -78,7 +77,6 @@
 		8E863BA12D3F76A8001773F4 /* LoginFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormViewModel.swift; sourceTree = "<group>"; };
 		8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonItem.swift; sourceTree = "<group>"; };
 		8EC1D32C2D475B5400987973 /* LessonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCard.swift; sourceTree = "<group>"; };
-		8EC1D32E2D47666E00987973 /* LessonList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonList.swift; sourceTree = "<group>"; };
 		8EFED0652D50A1F900046F1D /* LessonRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonRouter.swift; sourceTree = "<group>"; };
 		8EFED0672D50A2BB00046F1D /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		8EFED06A2D50A34700046F1D /* LessonsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsRouter.swift; sourceTree = "<group>"; };
@@ -311,6 +309,7 @@
 				8E84E2792D424AF400CB8C05 /* FormTitle.swift */,
 				8E84E27D2D42524E00CB8C05 /* SwitchFormText.swift */,
 				8E84E27F2D42531D00CB8C05 /* SubmitButton.swift */,
+				8E4D0F8A2D50B9A3007F57B8 /* ActionButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -328,9 +327,7 @@
 			isa = PBXGroup;
 			children = (
 				8EC1D32C2D475B5400987973 /* LessonCard.swift */,
-				8EC1D32E2D47666E00987973 /* LessonList.swift */,
 				8E29828C2D4A381600588D8E /* Header.swift */,
-				8E20F5742D4B8918007B3154 /* ActionButton.swift */,
 				8E20F5762D4B8C9C007B3154 /* UserCard.swift */,
 			);
 			path = Components;
@@ -455,10 +452,10 @@
 				8E75D4432D3E2DF90082F5FE /* AuthScreen.swift in Sources */,
 				8E65F7452D3D2BDF00D3A793 /* TeachMEApp.swift in Sources */,
 				8E84E27C2D424B8000CB8C05 /* Theme.swift in Sources */,
+				8E4D0F8B2D50B9A3007F57B8 /* ActionButton.swift in Sources */,
 				8E75D4392D3E233F0082F5FE /* RegisterForm.swift in Sources */,
 				8EFED0682D50A2BB00046F1D /* Destination.swift in Sources */,
 				8E9669CB2D48AEEA00B5D6BA /* LessonItem.swift in Sources */,
-				8E20F5752D4B8918007B3154 /* ActionButton.swift in Sources */,
 				8E20F5712D4B83A1007B3154 /* LessonPickScreen.swift in Sources */,
 				8E20F5732D4B8425007B3154 /* LessonPickScreenViewModel.swift in Sources */,
 				8E5B274C2D4CA6930054B001 /* Frames.swift in Sources */,
@@ -468,7 +465,6 @@
 				8E7EBE552D3E420200C7C017 /* Radiuses.swift in Sources */,
 				8E84E2802D42531D00CB8C05 /* SubmitButton.swift in Sources */,
 				8E29828D2D4A381600588D8E /* Header.swift in Sources */,
-				8EC1D32F2D47666E00987973 /* LessonList.swift in Sources */,
 				8E84E27A2D424AF400CB8C05 /* FormTitle.swift in Sources */,
 				8E29828B2D4A347500588D8E /* LessonListScreen.swift in Sources */,
 				8E863BA02D3F7617001773F4 /* LoginForm.swift in Sources */,

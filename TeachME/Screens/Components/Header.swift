@@ -13,9 +13,12 @@ struct Header: View {
     var body: some View {
         HStack {
             Image("Logo")
+                .resizable()
+                .scaledToFit()
+                .frame(height: theme.frames.large)
                 .padding(.bottom, theme.spacings.medium)
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: theme.frames.madium)
         .background(theme.colors.accent)
     }
 }

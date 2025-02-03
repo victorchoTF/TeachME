@@ -8,6 +8,8 @@
 import Foundation
 
 struct Frames {
-    let medium: CGFloat
+    let small: CGFloat
+    let madium: CGFloat
     let large: CGFloat
+    let extraLarge: CGFloat
 }

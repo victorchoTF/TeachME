@@ -29,8 +29,15 @@ struct LessonPickScreen: View {
                 lessonScroll
             }
         }
-        .navigationTitle(viewModel.pickedLesson.lessonType)
         .background(theme.colors.primary)
+        .navigationTitle(viewModel.pickedLesson.lessonType)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                ActionButton(title: viewModel.pickLessonButtonText, theme: theme) {
+                    print("Saved")
+                }
+            }
+        }
         .toolbar(.hidden, for: .tabBar)
     }
 }
@@ -38,7 +45,7 @@ struct LessonPickScreen: View {
 private extension LessonPickScreen {
     var lessonCard: some View {
         VStack(alignment: .leading, spacing: theme.spacings.large) {
-            HStack(spacing: theme.spacings.medium) {
+            HStack(spacing: theme.spacings.extraLarge) {
                 startDate
                 endDate
             }

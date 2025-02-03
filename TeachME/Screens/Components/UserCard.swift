@@ -32,8 +32,8 @@ private extension UserCard {
             user.profilePicture
                 .resizable()
                 .frame(
-                    width: theme.frames.large,
-                    height: theme.frames.large
+                    width: theme.frames.extraLarge,
+                    height: theme.frames.extraLarge
                 )
             
             VStack(alignment: .leading, spacing: theme.spacings.small) {

@@ -32,7 +32,8 @@ struct PrimaryTheme: Theme {
         small: 8,
         medium: 10,
         large: 20,
-        extraLarge: 30
+        extraLarge: 30,
+        extraExtraLarge: 40
     )
     
     var radiuses: Radiuses = Radiuses(
@@ -47,5 +48,10 @@ struct PrimaryTheme: Theme {
         bigTitle: .system(size: 25)
     )
     
-    var frames: Frames = Frames(medium: 20, large: 70)
+    var frames: Frames = Frames(
+        small: 20,
+        madium: 40,
+        large: 45,
+        extraLarge: 70
+    )
 }

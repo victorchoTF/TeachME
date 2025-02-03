@@ -55,8 +55,8 @@ private extension LessonCard {
             lesson.teacherProfilePicture
                 .resizable()
                 .frame(
-                    width: theme.frames.medium,
-                    height: theme.frames.medium
+                    width: theme.frames.small,
+                    height: theme.frames.small
                 )
             Text(lesson.teacherName)
                 .font(theme.fonts.footnote)
