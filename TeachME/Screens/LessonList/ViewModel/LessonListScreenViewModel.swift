@@ -9,6 +9,7 @@ import Foundation
 
 final class LessonListScreenViewModel {
     let lessons: [LessonItem]
+    let onLessonTapped: () -> ()
     
     init(lessons: [LessonItem]) {
         self.lessons = lessons

@@ -39,6 +39,10 @@
 		8E9669CB2D48AEEA00B5D6BA /* LessonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */; };
 		8EC1D32D2D475B5500987973 /* LessonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC1D32C2D475B5400987973 /* LessonCard.swift */; };
 		8EC1D32F2D47666E00987973 /* LessonList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC1D32E2D47666E00987973 /* LessonList.swift */; };
+		8EFED0662D50A1F900046F1D /* LessonRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFED0652D50A1F900046F1D /* LessonRouter.swift */; };
+		8EFED0682D50A2BB00046F1D /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFED0672D50A2BB00046F1D /* Destination.swift */; };
+		8EFED06B2D50A34700046F1D /* LessonsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFED06A2D50A34700046F1D /* LessonsRouter.swift */; };
+		8EFED06D2D50A71500046F1D /* LessonNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFED06C2D50A71500046F1D /* LessonNavigationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +79,10 @@
 		8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonItem.swift; sourceTree = "<group>"; };
 		8EC1D32C2D475B5400987973 /* LessonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCard.swift; sourceTree = "<group>"; };
 		8EC1D32E2D47666E00987973 /* LessonList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonList.swift; sourceTree = "<group>"; };
+		8EFED0652D50A1F900046F1D /* LessonRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonRouter.swift; sourceTree = "<group>"; };
+		8EFED0672D50A2BB00046F1D /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
+		8EFED06A2D50A34700046F1D /* LessonsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsRouter.swift; sourceTree = "<group>"; };
+		8EFED06C2D50A71500046F1D /* LessonNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonNavigationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +215,7 @@
 		8E65F7432D3D2BDF00D3A793 /* TeachME */ = {
 			isa = PBXGroup;
 			children = (
+				8EFED0612D50A16800046F1D /* Navigation */,
 				8E9669C92D48AED200B5D6BA /* Items */,
 				8E75D4442D3E2EA80082F5FE /* Theme */,
 				8E75D43A2D3E240E0082F5FE /* Models */,
@@ -327,6 +336,41 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		8EFED0612D50A16800046F1D /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				8EFED0632D50A19D00046F1D /* Routing */,
+				8EFED0622D50A18000046F1D /* Navigation Views */,
+				8EFED0672D50A2BB00046F1D /* Destination.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		8EFED0622D50A18000046F1D /* Navigation Views */ = {
+			isa = PBXGroup;
+			children = (
+				8EFED06C2D50A71500046F1D /* LessonNavigationView.swift */,
+			);
+			path = "Navigation Views";
+			sourceTree = "<group>";
+		};
+		8EFED0632D50A19D00046F1D /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				8EFED0642D50A1D800046F1D /* Modal Routers */,
+				8EFED06A2D50A34700046F1D /* LessonsRouter.swift */,
+			);
+			path = Routing;
+			sourceTree = "<group>";
+		};
+		8EFED0642D50A1D800046F1D /* Modal Routers */ = {
+			isa = PBXGroup;
+			children = (
+				8EFED0652D50A1F900046F1D /* LessonRouter.swift */,
+			);
+			path = "Modal Routers";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -398,11 +442,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E75D4462D3E2ED20082F5FE /* Colors.swift in Sources */,
+				8EFED06B2D50A34700046F1D /* LessonsRouter.swift in Sources */,
 				8EC1D32D2D475B5500987973 /* LessonCard.swift in Sources */,
 				8E7EBE4E2D3E3AE500C7C017 /* RegisterFormViewModel.swift in Sources */,
 				8E65F7472D3D2BDF00D3A793 /* ContentView.swift in Sources */,
 				8E7EBE4B2D3E3A1800C7C017 /* AuthScreenViewModel.swift in Sources */,
 				8E3427AD2D3E649900A38A2D /* Fonts.swift in Sources */,
+				8EFED0662D50A1F900046F1D /* LessonRouter.swift in Sources */,
 				8E2982902D4A38CF00588D8E /* LessonListScreenViewModel.swift in Sources */,
 				8E7EBE532D3E417100C7C017 /* Spacings.swift in Sources */,
 				8E84E27E2D42524E00CB8C05 /* SwitchFormText.swift in Sources */,
@@ -410,12 +456,14 @@
 				8E65F7452D3D2BDF00D3A793 /* TeachMEApp.swift in Sources */,
 				8E84E27C2D424B8000CB8C05 /* Theme.swift in Sources */,
 				8E75D4392D3E233F0082F5FE /* RegisterForm.swift in Sources */,
+				8EFED0682D50A2BB00046F1D /* Destination.swift in Sources */,
 				8E9669CB2D48AEEA00B5D6BA /* LessonItem.swift in Sources */,
 				8E20F5752D4B8918007B3154 /* ActionButton.swift in Sources */,
 				8E20F5712D4B83A1007B3154 /* LessonPickScreen.swift in Sources */,
 				8E20F5732D4B8425007B3154 /* LessonPickScreenViewModel.swift in Sources */,
 				8E5B274C2D4CA6930054B001 /* Frames.swift in Sources */,
 				8E20F5792D4B8CAA007B3154 /* UserItem.swift in Sources */,
+				8EFED06D2D50A71500046F1D /* LessonNavigationView.swift in Sources */,
 				8E863BA22D3F76A8001773F4 /* LoginFormViewModel.swift in Sources */,
 				8E7EBE552D3E420200C7C017 /* Radiuses.swift in Sources */,
 				8E84E2802D42531D00CB8C05 /* SubmitButton.swift in Sources */,
