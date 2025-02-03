@@ -10,10 +10,11 @@ import SwiftUI
 struct ActionButton: View {
     let text: String
     let theme: Theme
+    let action: () -> ()
     
     var body: some View {
         Button {
-            print("Action")
+            action()
         } label: {
             Text(text)
                 .fontWeight(.bold)

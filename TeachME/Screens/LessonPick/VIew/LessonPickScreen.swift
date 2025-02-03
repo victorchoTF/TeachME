@@ -13,7 +13,7 @@ struct LessonPickScreen: View {
     let theme: Theme
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Header(theme: theme)
             
             ScrollView {
