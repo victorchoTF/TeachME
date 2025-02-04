@@ -9,13 +9,19 @@ import Foundation
 
 final class LessonListScreenViewModel {
     let lessons: [LessonItem]
-    let onLessonTapped: (LessonItem) -> ()
     
-    init(
-        lessons: [LessonItem],
-        onLessonTapped: @escaping(LessonItem) -> ()
-    ) {
+    private weak var router: LessonsRouter?
+    
+    init(lessons: [LessonItem], router: LessonsRouter?) {
         self.lessons = lessons
-        self.onLessonTapped = onLessonTapped
+        self.router = router
+    }
+    
+    func onLessonTap(lesson: LessonItem) {
+        guard let router = router else {
+            return
+        }
+        
+        router.onLessonTapped(lesson: lesson)
     }
 }

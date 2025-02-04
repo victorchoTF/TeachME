@@ -12,7 +12,6 @@ protocol Theme {
     var spacings: Spacings { get }
     var radiuses: Radiuses { get }
     var fonts: Fonts { get }
-    var frames: Frames { get }
 }
 
 struct PrimaryTheme: Theme {
@@ -46,12 +45,5 @@ struct PrimaryTheme: Theme {
         headline: .system(size: 18),
         title: .system(size: 20),
         bigTitle: .system(size: 25)
-    )
-    
-    var frames: Frames = Frames(
-        small: 20,
-        madium: 40,
-        large: 45,
-        extraLarge: 70
     )
 }

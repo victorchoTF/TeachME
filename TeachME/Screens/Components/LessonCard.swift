@@ -12,6 +12,8 @@ struct LessonCard: View {
     
     let theme: Theme
     
+    let userProfilePictureSize: CGFloat = 20
+    
     var body: some View {
         VStack (alignment: .leading, spacing: theme.spacings.medium) {
             Text(lesson.lessonType)
@@ -25,7 +27,7 @@ struct LessonCard: View {
         .padding(theme.spacings.small)
         .foregroundStyle(theme.colors.text)
         .background(theme.colors.secondaryAccent)
-        .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))  
+        .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))
     }
 }
 
@@ -55,8 +57,8 @@ private extension LessonCard {
             lesson.teacherProfilePicture
                 .resizable()
                 .frame(
-                    width: theme.frames.small,
-                    height: theme.frames.small
+                    width: userProfilePictureSize,
+                    height: userProfilePictureSize
                 )
             Text(lesson.teacherName)
                 .font(theme.fonts.footnote)

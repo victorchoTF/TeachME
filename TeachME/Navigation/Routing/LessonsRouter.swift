@@ -69,12 +69,14 @@ class LessonsRouter: ObservableObject {
 
     @MainActor
     var initialDestination: some View {
-        let viewModel = LessonListScreenViewModel(lessons: lessons) { [weak self] lesson in
-            guard let self else { return }
-            
-            path.append(.lesson(LessonPickScreenViewModel(lesson: lesson), theme))
-        }
+        let viewModel = LessonListScreenViewModel(lessons: lessons, router: self)
 
         return LessonListScreen(viewModel: viewModel, theme: theme)
+    }
+}
+
+extension LessonsRouter: LessonRouter {
+    func onLessonTapped(lesson: LessonItem) {
+        path.append(.lesson(LessonPickScreenViewModel(pickedLesson: lesson, router: self), theme))
     }
 }

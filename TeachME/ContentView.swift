@@ -11,14 +11,7 @@ struct ContentView: View {
     let theme = PrimaryTheme()
     
     var body: some View {
-        ZStack {
-            tabView
-                .padding(.top, theme.spacings.extraExtraLarge)
-            VStack {
-                Header(theme: theme)
-                Spacer()
-            }
-        }
+        tabView
     }
 }
 
@@ -48,10 +41,10 @@ private extension ContentView {
     }
     
     var studentHomeScreen: some View {
-        LessonNavigationView(title: "Home", lessons: LessonsRouter())
+        LessonNavigationView(title: "Home", router: LessonsRouter())
     }
     
     var lessonScreen: some View {
-        LessonNavigationView(title: "Lessons", lessons: LessonsRouter())
+        LessonNavigationView(title: "Lessons", router: LessonsRouter())
     }
 }

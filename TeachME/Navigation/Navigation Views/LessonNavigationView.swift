@@ -9,11 +9,11 @@ import SwiftUI
 
 struct LessonNavigationView: View {
     let title: String
-    @StateObject var lessons: LessonsRouter
+    @ObservedObject var router: LessonsRouter
     
     var body: some View {
-        NavigationStack(path: $lessons.path) {
-            lessons.initialDestination
+        NavigationStack(path: $router.path) {
+            router.initialDestination
                 .navigationDestination(for: Destination.self) { $0 }
                 .navigationTitle(title)
         }

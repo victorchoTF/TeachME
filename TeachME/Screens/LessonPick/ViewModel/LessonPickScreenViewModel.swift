@@ -13,10 +13,21 @@ final class LessonPickScreenViewModel {
     var teacher: UserItem = UserItem()
     var otherLessons: [LessonItem] = []
     
-    init(lesson: LessonItem) {
-        self.pickedLesson = lesson
+    private weak var router: LessonsRouter?
+    
+    init(pickedLesson: LessonItem, router: LessonsRouter?) {
+        self.pickedLesson = pickedLesson
+        self.router = router
         
         loadData()
+    }
+    
+    func onLessonTap(lesson: LessonItem) {
+        guard let router = router else {
+            return
+        }
+        
+        router.onLessonTapped(lesson: lesson)
     }
     
     // TODO: Should load real data in future
@@ -34,8 +45,8 @@ final class LessonPickScreenViewModel {
                 id: UUID(),
                 lessonType: "Maths",
                 subtitle: "Statistics made simple",
-                startDate: "Start: 10:00AM 14.03.2025",
-                endDate: "End: 11:40AM 14.03.2025",
+                startDate: "10:00AM 14.03.2025",
+                endDate: "11:40AM 14.03.2025",
                 teacherProfilePicture: Image(systemName: "person.crop.circle"),
                 teacherName: "George Demo"
             ),
@@ -43,8 +54,8 @@ final class LessonPickScreenViewModel {
                 id: UUID(),
                 lessonType: "Biology",
                 subtitle: "Cranial system; Anatomy",
-                startDate: "Start: 10:00AM 14.03.2025",
-                endDate: "End: 11:40AM 14.03.2025",
+                startDate: "10:00AM 14.03.2025",
+                endDate: "11:40AM 14.03.2025",
                 teacherProfilePicture: Image(systemName: "person.crop.circle"),
                 teacherName: "George Demo"
             ),
@@ -52,8 +63,8 @@ final class LessonPickScreenViewModel {
                 id: UUID(),
                 lessonType: "English",
                 subtitle: "Learning the tenses",
-                startDate: "Start: 10:00AM 14.03.2025",
-                endDate: "End: 11:40AM 14.03.2025",
+                startDate: "10:00AM 14.03.2025",
+                endDate: "11:40AM 14.03.2025",
                 teacherProfilePicture: Image(systemName: "person.crop.circle"),
                 teacherName: "George Demo"
             ),
@@ -61,8 +72,8 @@ final class LessonPickScreenViewModel {
                 id: UUID(),
                 lessonType: "Physics",
                 subtitle: "Motion and mechanics",
-                startDate: "Start: 10:00AM 14.03.2025",
-                endDate: "End: 11:40AM 14.03.2025",
+                startDate: "10:00AM 14.03.2025",
+                endDate: "11:40AM 14.03.2025",
                 teacherProfilePicture: Image(systemName: "person.crop.circle"),
                 teacherName: "George Demo"
             )

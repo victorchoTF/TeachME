@@ -23,3 +23,7 @@ class IdentifiableRouter: Identifiable {
         AnyView(router.start())
     }
 }
+
+protocol LessonRouter {
+    func onLessonTapped(lesson: LessonItem)
+}

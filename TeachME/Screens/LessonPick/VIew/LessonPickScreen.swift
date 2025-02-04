@@ -13,20 +13,26 @@ struct LessonPickScreen: View {
     let theme: Theme
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack {
             ScrollView {
                 lessonCard
                 
-                Text(viewModel.moreAboutTitle)
-                    .font(theme.fonts.title)
+                VStack(alignment: .leading) {
+                    Text(viewModel.moreAboutTitle)
+                        .font(theme.fonts.title)
+                        .padding(.horizontal, theme.spacings.small)
+                    
+                    UserCard(user: viewModel.teacher, theme: theme)
+                        .frame(maxWidth: .infinity)
+                }
                 
-                UserCard(user: viewModel.teacher, theme: theme)
-                    .padding(.horizontal, theme.spacings.medium)
-                
-                Text(viewModel.otherLessonsTitle)
-                    .font(theme.fonts.title)
-                
-                lessonScroll
+                VStack(alignment: .leading) {
+                    Text(viewModel.otherLessonsTitle)
+                        .font(theme.fonts.title)
+                        .padding(.horizontal, theme.spacings.small)
+                    
+                    otherLessonsList
+                }
             }
         }
         .background(theme.colors.primary)
@@ -38,7 +44,6 @@ struct LessonPickScreen: View {
                 }
             }
         }
-        .toolbar(.hidden, for: .tabBar)
     }
 }
 
@@ -51,20 +56,22 @@ private extension LessonPickScreen {
             }
             
             description
-            
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .foregroundStyle(theme.colors.text)
         .padding(theme.spacings.small)
     }
     
-    var lessonScroll: some View {
-        ScrollView {
+    var otherLessonsList: some View {
+        VStack {
             ForEach(viewModel.otherLessons) { lesson in
                 LessonCard(
                     lesson: lesson,
                     theme: theme
                 )
+                .onTapGesture {
+                    viewModel.onLessonTap(lesson: lesson)
+                }
             }
         }
         .padding(.horizontal, theme.spacings.medium)
