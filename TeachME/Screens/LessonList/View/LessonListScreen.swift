@@ -17,5 +17,6 @@ struct LessonListScreen: View {
             
             LessonList(lessons: viewModel.lessons, theme: theme)
         }
+        .background(theme.colors.primary)
     }
 }

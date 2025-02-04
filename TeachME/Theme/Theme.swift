@@ -16,8 +16,8 @@ protocol Theme {
 
 struct PrimaryTheme: Theme {
     var colors: Colors = Colors(
-        primary: Color("PrimaryBg"),
-        secondary: Color("SecondaryBg"),
+        primary: Color("Primary"),
+        secondary: Color("Secondary"),
         text: Color("Text"),
         accent: Color("Accent"),
         secondaryAccent: Color("SecondaryAccent"),
@@ -30,7 +30,8 @@ struct PrimaryTheme: Theme {
         extraSmall: 4,
         small: 8,
         medium: 10,
-        large: 30
+        large: 20,
+        extraLarge: 30
     )
     
     var radiuses: Radiuses = Radiuses(
@@ -41,6 +42,7 @@ struct PrimaryTheme: Theme {
         footnote: .system(size:12),
         body: .system(size: 14),
         headline: .system(size: 18),
-        title: .system(size: 20)
+        title: .system(size: 20),
+        bigTitle: .system(size: 25)
     )
 }

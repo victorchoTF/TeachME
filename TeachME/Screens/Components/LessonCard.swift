@@ -12,6 +12,8 @@ struct LessonCard: View {
     
     let theme: Theme
     
+    let userProfilePictureSize: CGFloat = 20
+    
     var body: some View {
         VStack (alignment: .leading, spacing: theme.spacings.medium) {
             Text(lesson.lessonType)
@@ -53,6 +55,11 @@ private extension LessonCard {
     var profileLabel: some View {
         HStack {
             lesson.teacherProfilePicture
+                .resizable()
+                .frame(
+                    width: userProfilePictureSize,
+                    height: userProfilePictureSize
+                )
             Text(lesson.teacherName)
                 .font(theme.fonts.footnote)
         }

@@ -12,4 +12,5 @@ struct Fonts {
     let body: Font
     let headline: Font
     let title: Font
+    let bigTitle: Font
 }
