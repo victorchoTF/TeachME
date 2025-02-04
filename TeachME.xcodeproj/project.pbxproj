@@ -16,7 +16,6 @@
 		8E29828D2D4A381600588D8E /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E29828C2D4A381600588D8E /* Header.swift */; };
 		8E2982902D4A38CF00588D8E /* LessonListScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E29828F2D4A38CF00588D8E /* LessonListScreenViewModel.swift */; };
 		8E3427AD2D3E649900A38A2D /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3427AC2D3E649900A38A2D /* Fonts.swift */; };
-		8E5B274C2D4CA6930054B001 /* Frames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5B274B2D4CA6930054B001 /* Frames.swift */; };
 		8E65F7452D3D2BDF00D3A793 /* TeachMEApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E65F7442D3D2BDF00D3A793 /* TeachMEApp.swift */; };
 		8E65F7472D3D2BDF00D3A793 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E65F7462D3D2BDF00D3A793 /* ContentView.swift */; };
 		8E65F7492D3D2BE100D3A793 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E65F7482D3D2BE100D3A793 /* Assets.xcassets */; };
@@ -51,7 +50,6 @@
 		8E29828C2D4A381600588D8E /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		8E29828F2D4A38CF00588D8E /* LessonListScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonListScreenViewModel.swift; sourceTree = "<group>"; };
 		8E3427AC2D3E649900A38A2D /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
-		8E5B274B2D4CA6930054B001 /* Frames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frames.swift; sourceTree = "<group>"; };
 		8E65F7412D3D2BDF00D3A793 /* TeachME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeachME.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E65F7442D3D2BDF00D3A793 /* TeachMEApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachMEApp.swift; sourceTree = "<group>"; };
 		8E65F7462D3D2BDF00D3A793 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -275,7 +273,6 @@
 				8E7EBE542D3E420200C7C017 /* Radiuses.swift */,
 				8E3427AC2D3E649900A38A2D /* Fonts.swift */,
 				8E84E27B2D424B8000CB8C05 /* Theme.swift */,
-				8E5B274B2D4CA6930054B001 /* Frames.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -414,7 +411,6 @@
 				8E20F5752D4B8918007B3154 /* ActionButton.swift in Sources */,
 				8E20F5712D4B83A1007B3154 /* LessonPickScreen.swift in Sources */,
 				8E20F5732D4B8425007B3154 /* LessonPickScreenViewModel.swift in Sources */,
-				8E5B274C2D4CA6930054B001 /* Frames.swift in Sources */,
 				8E20F5792D4B8CAA007B3154 /* UserItem.swift in Sources */,
 				8E863BA22D3F76A8001773F4 /* LoginFormViewModel.swift in Sources */,
 				8E7EBE552D3E420200C7C017 /* Radiuses.swift in Sources */,

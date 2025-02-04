@@ -19,16 +19,22 @@ struct LessonPickScreen: View {
             ScrollView {
                 lessonCard
                 
-                Text(viewModel.moreAboutTitle)
-                    .font(theme.fonts.title)
+                VStack(alignment: .leading) {
+                    Text(viewModel.moreAboutTitle)
+                        .font(theme.fonts.title)
+                        .padding(.horizontal, theme.spacings.small)
+                    
+                    UserCard(user: viewModel.teacher, theme: theme)
+                        .frame(maxWidth: .infinity)
+                }
                 
-                UserCard(user: viewModel.teacher, theme: theme)
-                    .padding(.horizontal, theme.spacings.medium)
-                
-                Text(viewModel.otherLessonsTitle)
-                    .font(theme.fonts.title)
-                
-                lessonScroll
+                VStack(alignment: .leading) {
+                    Text(viewModel.otherLessonsTitle)
+                        .font(theme.fonts.title)
+                        .padding(.horizontal, theme.spacings.small)
+                    
+                    otherLessonsList
+                }
             }
         }
         .background(theme.colors.primary)
@@ -54,8 +60,8 @@ private extension LessonPickScreen {
         .padding(theme.spacings.small)
     }
     
-    var lessonScroll: some View {
-        ScrollView {
+    var otherLessonsList: some View {
+        VStack {
             ForEach(viewModel.otherLessons) { lesson in
                 LessonCard(
                     lesson: lesson,

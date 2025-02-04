@@ -12,6 +12,8 @@ struct UserCard: View {
     
     let theme: Theme
     
+    let userProfilePictureSize: CGFloat = 70
+    
     var body: some View {
         VStack(alignment: .leading, spacing: theme.spacings.medium) {
             userContacts
@@ -22,7 +24,6 @@ struct UserCard: View {
         .background(theme.colors.secondary)
         .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))
         .foregroundStyle(theme.colors.text)
-        .padding([.horizontal, .bottom], theme.spacings.medium)
     }
 }
 
@@ -32,8 +33,8 @@ private extension UserCard {
             user.profilePicture
                 .resizable()
                 .frame(
-                    width: theme.frames.large,
-                    height: theme.frames.large
+                    width: userProfilePictureSize,
+                    height: userProfilePictureSize
                 )
             
             VStack(alignment: .leading, spacing: theme.spacings.small) {
