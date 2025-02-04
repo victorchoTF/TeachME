@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LessonNavigationView: View {
     let title: String
-    @ObservedObject var router: LessonsRouter
+    @ObservedObject var router: HomeRouter
     
     var body: some View {
         NavigationStack(path: $router.path) {

@@ -13,9 +13,9 @@ final class LessonPickScreenViewModel {
     var teacher: UserItem = UserItem()
     var otherLessons: [LessonItem] = []
     
-    private weak var router: LessonsRouter?
+    private weak var router: HomeRouter?
     
-    init(pickedLesson: LessonItem, router: LessonsRouter?) {
+    init(pickedLesson: LessonItem, router: HomeRouter?) {
         self.pickedLesson = pickedLesson
         self.router = router
         

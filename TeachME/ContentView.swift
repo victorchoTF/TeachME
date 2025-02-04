@@ -10,6 +10,8 @@ import SwiftUI
 struct ContentView: View {
     let theme = PrimaryTheme()
     
+    @StateObject var tabRouter = TabRouter()
+    
     var body: some View {
         tabView
     }
@@ -17,13 +19,15 @@ struct ContentView: View {
 
 private extension ContentView {
     var tabView: some View {
-        TabView {
+        TabView(selection: $tabRouter.selectedTab) {
             studentHomeScreen
+                .tag(Tab.home)
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
                 }
             
             lessonScreen
+                .tag(Tab.lessons)
                 .tabItem {
                     Label("Lessons", systemImage: "graduationcap.fill")
                 }
@@ -31,6 +35,7 @@ private extension ContentView {
             VStack {
                 Text("To be made...")
             }
+            .tag(Tab.profile)
             .tabItem {
                 Label("Profile", systemImage: "person.fill")
             }
@@ -41,10 +46,10 @@ private extension ContentView {
     }
     
     var studentHomeScreen: some View {
-        LessonNavigationView(title: "Home", router: LessonsRouter())
+        LessonNavigationView(title: "Home", router: tabRouter.homeRouter)
     }
     
     var lessonScreen: some View {
-        LessonNavigationView(title: "Lessons", router: LessonsRouter())
+        LessonNavigationView(title: "Lessons", router: tabRouter.lessonRouter)
     }
 }

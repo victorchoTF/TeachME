@@ -10,9 +10,9 @@ import Foundation
 final class LessonListScreenViewModel {
     let lessons: [LessonItem]
     
-    private weak var router: LessonsRouter?
+    private weak var router: HomeRouter?
     
-    init(lessons: [LessonItem], router: LessonsRouter?) {
+    init(lessons: [LessonItem], router: HomeRouter?) {
         self.lessons = lessons
         self.router = router
     }

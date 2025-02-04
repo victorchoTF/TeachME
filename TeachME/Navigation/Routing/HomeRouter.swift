@@ -8,9 +8,8 @@
 import Foundation
 import SwiftUI
 
-class LessonsRouter: ObservableObject {
+class HomeRouter: ObservableObject {
     @Published var path = [Destination]()
-    @Published var sheetRouter: IdentifiableRouter? = nil
     
     let lessons: [LessonItem]
     let theme: Theme
@@ -75,8 +74,12 @@ class LessonsRouter: ObservableObject {
     }
 }
 
-extension LessonsRouter: LessonRouter {
+extension HomeRouter: Router {
     func onLessonTapped(lesson: LessonItem) {
         path.append(.lesson(LessonPickScreenViewModel(pickedLesson: lesson, router: self), theme))
+    }
+    
+    func popToRoot() {
+        path.removeAll()
     }
 }
