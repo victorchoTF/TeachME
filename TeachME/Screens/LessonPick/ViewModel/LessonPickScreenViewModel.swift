@@ -8,26 +8,20 @@
 import Foundation
 import SwiftUI // TODO: Remove after DataLoading is implemented
 
-final class LessonPickScreenViewModel {
+final class LessonPickScreenViewModel: ObservableObject {
     let pickedLesson: LessonItem
-    var teacher: UserItem = UserItem()
-    var otherLessons: [LessonItem] = []
+    @Published var teacher: UserItem = UserItem()
+    @Published var otherLessons: [LessonItem] = []
     
     private weak var router: HomeRouter?
     
     init(pickedLesson: LessonItem, router: HomeRouter?) {
         self.pickedLesson = pickedLesson
         self.router = router
-        
-        loadData()
     }
     
     func onLessonTap(lesson: LessonItem) {
-        guard let router = router else {
-            return
-        }
-        
-        router.onLessonTapped(lesson: lesson)
+        router?.onLessonTapped(lesson: lesson)
     }
     
     // TODO: Should load real data in future
@@ -90,5 +84,11 @@ final class LessonPickScreenViewModel {
     
     var pickLessonButtonText: String {
         "Save"
+    }
+}
+
+extension LessonPickScreenViewModel: Equatable {
+    static func == (lhs: LessonPickScreenViewModel, rhs: LessonPickScreenViewModel) -> Bool {
+        lhs.pickedLesson.id == rhs.pickedLesson.id
     }
 }

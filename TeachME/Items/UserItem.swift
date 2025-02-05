@@ -15,24 +15,16 @@ struct UserItem {
     let bio: String
     
     init(
-        name: String,
-        profilePicture: Image,
-        email: String,
-        phoneNumber: String,
-        bio: String
+        name: String = "default",
+        profilePicture: Image = Image(systemName: "person.crop.circle"),
+        email: String = "default",
+        phoneNumber: String = "default",
+        bio: String = "default"
     ) {
         self.name = name
         self.profilePicture = profilePicture
         self.email = email
         self.phoneNumber = phoneNumber
         self.bio = bio
-    }
-    
-    init() {
-        name = ""
-        profilePicture = Image(systemName: "person.crop.circle")
-        email = ""
-        phoneNumber = ""
-        bio = ""
     }
 }

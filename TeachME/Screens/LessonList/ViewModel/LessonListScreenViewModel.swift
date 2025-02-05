@@ -18,10 +18,6 @@ final class LessonListScreenViewModel {
     }
     
     func onLessonTap(lesson: LessonItem) {
-        guard let router = router else {
-            return
-        }
-        
-        router.onLessonTapped(lesson: lesson)
+        router?.onLessonTapped(lesson: lesson)
     }
 }

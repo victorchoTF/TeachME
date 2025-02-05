@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LessonPickScreen: View {
-    let viewModel: LessonPickScreenViewModel
+    @ObservedObject var viewModel: LessonPickScreenViewModel
     
     let theme: Theme
     
@@ -44,6 +44,7 @@ struct LessonPickScreen: View {
                 }
             }
         }
+        .onAppear(perform: viewModel.loadData)
     }
 }
 
