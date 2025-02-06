@@ -22,7 +22,7 @@ struct LessonPickScreen: View {
                         .font(theme.fonts.title)
                         .padding(.horizontal, theme.spacings.small)
                     
-                    UserCard(user: viewModel.teacher, theme: theme)
+                    UserCard(user: viewModel.unwrappedTeacher, theme: theme)
                         .frame(maxWidth: .infinity)
                 }
                 
@@ -65,7 +65,7 @@ private extension LessonPickScreen {
     
     var otherLessonsList: some View {
         VStack {
-            ForEach(viewModel.otherLessons) { lesson in
+            ForEach(viewModel.unwrappedOtherLessons) { lesson in
                 LessonCard(
                     lesson: lesson,
                     theme: theme

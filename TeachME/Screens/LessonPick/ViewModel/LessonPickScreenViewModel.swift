@@ -10,8 +10,8 @@ import SwiftUI // TODO: Remove after DataLoading is implemented
 
 final class LessonPickScreenViewModel: ObservableObject {
     let pickedLesson: LessonItem
-    @Published var teacher: UserItem = UserItem()
-    @Published var otherLessons: [LessonItem] = []
+    @Published var teacher: UserItem?
+    @Published var otherLessons: [LessonItem]?
     
     private weak var router: HomeRouter?
     
@@ -72,6 +72,22 @@ final class LessonPickScreenViewModel: ObservableObject {
                 teacherName: "George Demo"
             )
         ]
+    }
+    
+    var unwrappedTeacher: UserItem {
+        guard let teacher = teacher else {
+            return UserItem()
+        }
+        
+        return teacher
+    }
+    
+    var unwrappedOtherLessons: [LessonItem] {
+        guard let otherLessons = otherLessons else {
+            return []
+        }
+        
+        return otherLessons
     }
     
     var moreAboutTitle: String {

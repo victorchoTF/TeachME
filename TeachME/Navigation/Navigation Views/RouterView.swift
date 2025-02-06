@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NavigationViewFacade: View {
+struct RouterView: View {
     let title: String
     @ObservedObject var router: HomeRouter
     

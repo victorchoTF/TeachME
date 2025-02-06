@@ -46,10 +46,10 @@ private extension ContentView {
     }
     
     var studentHomeScreen: some View {
-        NavigationViewFacade(title: "Home", router: tabRouter.homeRouter)
+        RouterView(title: "Home", router: tabRouter.homeRouter)
     }
     
     var lessonScreen: some View {
-        NavigationViewFacade(title: "Lessons", router: tabRouter.lessonRouter)
+        RouterView(title: "Lessons", router: tabRouter.lessonRouter)
     }
 }

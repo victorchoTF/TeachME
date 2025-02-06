@@ -12,7 +12,7 @@ final class LessonListScreenViewModel {
     
     private weak var router: HomeRouter?
     
-    init(lessons: [LessonItem], router: HomeRouter?) {
+    init(lessons: [LessonItem], router: HomeRouter) {
         self.lessons = lessons
         self.router = router
     }
