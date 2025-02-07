@@ -32,7 +32,7 @@ private extension LessonListScreen {
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
                 .onTapGesture {
-                    viewModel.onLessonTap(lesson: lesson)
+                    viewModel.onLessonTap(lesson: lesson, theme: theme)
                 }
             }
         }

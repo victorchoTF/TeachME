@@ -83,7 +83,7 @@ private extension LessonPickScreen {
                     theme: theme
                 )
                 .onTapGesture {
-                    viewModel.onLessonTap(lesson: lesson)
+                    viewModel.onLessonTap(lesson: lesson, theme: theme)
                 }
             }
         }

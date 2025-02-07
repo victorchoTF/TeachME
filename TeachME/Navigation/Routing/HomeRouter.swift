@@ -75,8 +75,8 @@ extension HomeRouter: Router {
         return LessonListScreen(viewModel: viewModel, theme: theme)
     }
     
-    func onLessonTapped(lesson: LessonItem) {
-        path.append(.lesson(LessonPickScreenViewModel(pickedLesson: lesson, router: self), theme))
+    func push(_ destination: Destination) {
+        path.append(destination)
     }
     
     func popToRoot() {

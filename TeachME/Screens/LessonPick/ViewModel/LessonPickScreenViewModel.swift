@@ -20,8 +20,20 @@ final class LessonPickScreenViewModel: ObservableObject {
         self.router = router
     }
     
-    func onLessonTap(lesson: LessonItem) {
-        router?.onLessonTapped(lesson: lesson)
+    func onLessonTap(lesson: LessonItem, theme: Theme) {
+        guard let router = router else {
+            return
+        }
+        
+        router.push(
+            .lesson(
+                LessonPickScreenViewModel(
+                    pickedLesson: lesson,
+                    router: router
+                ),
+                theme
+            )
+        )
     }
     
     // TODO: Should load real data in future

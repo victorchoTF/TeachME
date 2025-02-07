@@ -11,7 +11,7 @@ import SwiftUI
 protocol Router: ObservableObject {
     associatedtype V: View
     
-    func onLessonTapped(lesson: LessonItem)
+    func push(_ destination: Destination)
     func popToRoot()
     
     var path: [Destination] {get set}
