@@ -17,13 +17,14 @@ struct LessonPickScreen: View {
             ScrollView {
                 lessonCard
                 
+                teacherCard
+                
                 VStack(alignment: .leading) {
                     Text(viewModel.moreAboutTitle)
                         .font(theme.fonts.title)
                         .padding(.horizontal, theme.spacings.small)
-
-                    UserCard(user: viewModel.unwrappedTeacher, theme: theme)
-                        .frame(maxWidth: .infinity)
+                    
+                    
                 }
                 
                 VStack(alignment: .leading) {
@@ -63,9 +64,20 @@ private extension LessonPickScreen {
         .padding(theme.spacings.small)
     }
     
+    @ViewBuilder
+    var teacherCard: some View {
+        if let teacher = viewModel.teacher {
+            UserCard(user: teacher, theme: theme)
+                .frame(maxWidth: .infinity)
+        } else {
+            // TODO: Implement in another PR
+            Text("Loading...")
+        }
+    }
+    
     var otherLessonsList: some View {
         VStack {
-            ForEach(viewModel.unwrappedOtherLessons) { lesson in
+            ForEach(viewModel.otherLessons) { lesson in
                 LessonCard(
                     lesson: lesson,
                     theme: theme
