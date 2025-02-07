@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct RouterView: View {
+struct RouterView<R: Router>: View {
     let title: String
-    @ObservedObject var router: HomeRouter
+    @ObservedObject var router: R
     
     var body: some View {
         NavigationStack(path: $router.path) {

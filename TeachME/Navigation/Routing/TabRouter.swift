@@ -21,7 +21,7 @@ final class TabRouter: ObservableObject {
         }
     }
     
-    private var currentTabRouter: Router {
+    private var currentTabRouter: any Router {
         switch selectedTab {
         case .home:
             return homeRouter

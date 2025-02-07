@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class HomeRouter: ObservableObject {
+class HomeRouter {
     @Published var path = [Destination]()
     
     let lessons: [LessonItem]
@@ -65,16 +65,16 @@ class HomeRouter: ObservableObject {
             )
         ]
     }
+}
 
+extension HomeRouter: Router {
     @MainActor
     var initialDestination: some View {
         let viewModel = LessonListScreenViewModel(lessons: lessons, router: self)
 
         return LessonListScreen(viewModel: viewModel, theme: theme)
     }
-}
-
-extension HomeRouter: Router {
+    
     func onLessonTapped(lesson: LessonItem) {
         path.append(.lesson(LessonPickScreenViewModel(pickedLesson: lesson, router: self), theme))
     }

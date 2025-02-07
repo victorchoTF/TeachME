@@ -8,7 +8,12 @@
 import Foundation
 import SwiftUI
 
-protocol Router {
+protocol Router: ObservableObject {
+    associatedtype V: View
+    
     func onLessonTapped(lesson: LessonItem)
     func popToRoot()
+    
+    var path: [Destination] {get set}
+    var initialDestination: V { get }
 }
