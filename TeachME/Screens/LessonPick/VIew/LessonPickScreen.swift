@@ -8,24 +8,23 @@
 import SwiftUI
 
 struct LessonPickScreen: View {
-    let viewModel: LessonPickScreenViewModel
+    @ObservedObject var viewModel: LessonPickScreenViewModel
     
     let theme: Theme
     
     var body: some View {
-        VStack(spacing: 0) {
-            Header(theme: theme)
-            
+        VStack {
             ScrollView {
                 lessonCard
+                
+                teacherCard
                 
                 VStack(alignment: .leading) {
                     Text(viewModel.moreAboutTitle)
                         .font(theme.fonts.title)
                         .padding(.horizontal, theme.spacings.small)
                     
-                    UserCard(user: viewModel.teacher, theme: theme)
-                        .frame(maxWidth: .infinity)
+                    
                 }
                 
                 VStack(alignment: .leading) {
@@ -38,26 +37,42 @@ struct LessonPickScreen: View {
             }
         }
         .background(theme.colors.primary)
+        .navigationTitle(viewModel.pickedLesson.lessonType)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                ActionButton(title: viewModel.pickLessonButtonText, theme: theme) {
+                    print("Saved")
+                }
+            }
+        }
+        .onAppear(perform: viewModel.loadData)
     }
 }
 
 private extension LessonPickScreen {
     var lessonCard: some View {
         VStack(alignment: .leading, spacing: theme.spacings.large) {
-            Text(viewModel.pickedLesson.lessonType)
-                .font(theme.fonts.bigTitle)
-                .fontWeight(.bold)
-            
             HStack(spacing: theme.spacings.extraLarge) {
                 startDate
                 endDate
             }
             
             description
-            
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .foregroundStyle(theme.colors.text)
         .padding(theme.spacings.small)
+    }
+    
+    @ViewBuilder
+    var teacherCard: some View {
+        if let teacher = viewModel.teacher {
+            UserCard(user: teacher, theme: theme)
+                .frame(maxWidth: .infinity)
+        } else {
+            // TODO: Implement in another PR
+            Text("Loading...")
+        }
     }
     
     var otherLessonsList: some View {
@@ -67,6 +82,9 @@ private extension LessonPickScreen {
                     lesson: lesson,
                     theme: theme
                 )
+                .onTapGesture {
+                    viewModel.onLessonTap(lesson: lesson, theme: theme)
+                }
             }
         }
         .padding(.horizontal, theme.spacings.medium)

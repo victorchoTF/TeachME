@@ -13,10 +13,30 @@ struct LessonListScreen: View {
     
     var body: some View {
         VStack(spacing: theme.spacings.medium) {
-            Header(theme: theme)
-            
-            LessonList(lessons: viewModel.lessons, theme: theme)
+            lessonList
         }
         .background(theme.colors.primary)
+    }
+}
+
+private extension LessonListScreen {
+    var lessonList: some View {
+        List {
+            ForEach(viewModel.lessons) { lesson in
+                LessonCard(
+                    lesson: lesson,
+                    theme: theme
+                )
+                .lineLimit(1)
+                .truncationMode(.tail)
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
+                .onTapGesture {
+                    viewModel.onLessonTap(lesson: lesson, theme: theme)
+                }
+            }
+        }
+        .listStyle(.inset)
+        .scrollContentBackground(.hidden)
     }
 }
