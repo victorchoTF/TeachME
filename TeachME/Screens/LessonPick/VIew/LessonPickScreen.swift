@@ -21,7 +21,7 @@ struct LessonPickScreen: View {
                     Text(viewModel.moreAboutTitle)
                         .font(theme.fonts.title)
                         .padding(.horizontal, theme.spacings.small)
-                    
+
                     UserCard(user: viewModel.unwrappedTeacher, theme: theme)
                         .frame(maxWidth: .infinity)
                 }
