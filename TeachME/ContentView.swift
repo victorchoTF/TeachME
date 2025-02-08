@@ -32,13 +32,11 @@ private extension ContentView {
                     Label("Lessons", systemImage: "graduationcap.fill")
                 }
             
-            VStack {
-                Text("To be made...")
-            }
-            .tag(Tab.profile)
-            .tabItem {
-                Label("Profile", systemImage: "person.fill")
-            }
+            profileScreen
+                .tag(Tab.profile)
+                .tabItem {
+                    Label("Profile", systemImage: "person.fill")
+                }
         }
         .tint(theme.colors.accent)
         .background(theme.colors.primary)
@@ -51,5 +49,9 @@ private extension ContentView {
     
     var lessonScreen: some View {
         RouterView(title: "Lessons", router: tabRouter.lessonRouter)
+    }
+    
+    var profileScreen: some View {
+        RouterView(title: "Profile", router: tabRouter.profileRouter)
     }
 }
