@@ -12,7 +12,17 @@ struct ProfileScreen: View {
     let theme: Theme
     
     var body: some View {
-        userCard
+        VStack {
+            userCard
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        ActionButton(title: viewModel.editButtonText, theme: theme) {
+                            print("Edit")
+                        }
+                    }
+                }
+            Spacer()
+        }
     }
 }
 

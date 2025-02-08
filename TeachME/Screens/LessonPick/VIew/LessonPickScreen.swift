@@ -17,14 +17,12 @@ struct LessonPickScreen: View {
             ScrollView {
                 lessonCard
                 
-                teacherCard
-                
                 VStack(alignment: .leading) {
                     Text(viewModel.moreAboutTitle)
                         .font(theme.fonts.title)
                         .padding(.horizontal, theme.spacings.small)
                     
-                    
+                    teacherCard
                 }
                 
                 VStack(alignment: .leading) {

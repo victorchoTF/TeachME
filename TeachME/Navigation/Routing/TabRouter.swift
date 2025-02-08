@@ -11,7 +11,7 @@ final class TabRouter: ObservableObject {
     let homeRouter: HomeRouter = HomeRouter()
     
     let lessonRouter: HomeRouter = HomeRouter()
-    let profileRouter: HomeRouter = HomeRouter()
+    let profileRouter: ProfileRouter = ProfileRouter()
     
     @Published var selectedTab: Tab = .home {
         willSet {

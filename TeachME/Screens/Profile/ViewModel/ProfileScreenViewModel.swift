@@ -13,4 +13,8 @@ final class ProfileScreenViewModel: ObservableObject {
     init(userItem: UserItem) {
         self.userItem = userItem
     }
+    
+    var editButtonText: String {
+        "Edit"
+    }
 }
