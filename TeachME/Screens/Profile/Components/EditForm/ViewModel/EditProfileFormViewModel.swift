@@ -50,11 +50,14 @@ final class EditProfileFormViewModel: ObservableObject {
         "Edit"
     }
     
-    func onSubmit() {
-        print(email)
-        print(firstName)
-        print(lastName)
-        print(phoneNumber)
-        print(bio)
+    func onSubmit(user: UserItem) -> UserItem {
+        print("Submitted")
+        
+        return UserItem(
+            name: "\(firstName) \(lastName)",
+            email: email,
+            phoneNumber: phoneNumber,
+            bio: bio
+        )
     }
 }

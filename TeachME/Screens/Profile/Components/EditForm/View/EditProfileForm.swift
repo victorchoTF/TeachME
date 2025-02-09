@@ -9,7 +9,9 @@ import SwiftUI
 
 struct EditProfileForm: View {
     @ObservedObject var viewModel: EditProfileFormViewModel
+    
     @Binding var isEditingProfile: Bool
+    @Binding var userItem: UserItem?
     
     let theme: Theme
     
@@ -24,7 +26,12 @@ struct EditProfileForm: View {
             editFields
             
             SubmitButton(text: viewModel.buttonText, theme: theme) {
-                viewModel.onSubmit()
+                guard let user = userItem else{
+                    isEditingProfile = false
+                    return
+                }
+                
+                userItem = viewModel.onSubmit(user: user)
                 isEditingProfile = false
             }
         }

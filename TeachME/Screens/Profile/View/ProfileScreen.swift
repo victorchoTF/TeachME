@@ -14,7 +14,6 @@ struct ProfileScreen: View {
     var body: some View {
         VStack {
             userCard
-                .background(theme.colors.primary)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         ActionButton(title: viewModel.editButtonText, theme: theme) {
@@ -34,6 +33,7 @@ struct ProfileScreen: View {
                                 bio: user.bio
                             ),
                             isEditingProfile: $viewModel.isEditingProfile,
+                            userItem: $viewModel.userItem,
                             theme: theme
                         )
                         .background(theme.colors.primary)
@@ -50,6 +50,7 @@ private extension ProfileScreen {
     var userCard: some View {
         if let user = viewModel.userItem {
             UserCard(user: user, theme: theme)
+                .background(theme.colors.primary)
                 .frame(maxWidth: .infinity)
         } else {
             // TODO: Implement in another PR

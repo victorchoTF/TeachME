@@ -67,6 +67,7 @@ private extension LessonPickScreen {
     var teacherCard: some View {
         if let teacher = viewModel.teacher {
             UserCard(user: teacher, theme: theme)
+                .background(theme.colors.secondary)
                 .frame(maxWidth: .infinity)
         } else {
             // TODO: Implement in another PR
