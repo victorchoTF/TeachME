@@ -20,7 +20,9 @@ struct LoginForm: View {
             Form {
                 accountDetails
                 
-                SubmitButton(text: viewModel.formType, theme: theme)
+                SubmitButton(text: viewModel.formType, theme: theme) {
+                    print("Login")
+                }
                 
                 SwitchFormText(
                     text: viewModel.noAccount,

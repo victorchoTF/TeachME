@@ -10,6 +10,8 @@ import Foundation
 final class ProfileScreenViewModel: ObservableObject {
     @Published var userItem: UserItem?
     
+    @Published var isEditingProfile: Bool = false
+    
     init(userItem: UserItem) {
         self.userItem = userItem
     }

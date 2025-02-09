@@ -41,6 +41,7 @@ struct LessonPickScreen: View {
                 ActionButton(title: viewModel.pickLessonButtonText, theme: theme) {
                     print("Saved")
                 }
+                .foregroundStyle(theme.colors.accent)
             }
         }
         .onAppear(perform: viewModel.loadData)

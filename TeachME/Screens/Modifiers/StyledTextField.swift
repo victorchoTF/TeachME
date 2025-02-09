@@ -10,11 +10,12 @@ import SwiftUI
 
 struct StyledTextField: ViewModifier {
     let theme: Theme
+    let padding: CGFloat
     
     func body(content: Content) -> some View {
         content
             .disableAutocorrection(true)
-            .padding(theme.spacings.medium)
+            .padding(padding)
             .background(
                 RoundedRectangle(cornerRadius: theme.radiuses.medium)
                     .fill(theme.colors.secondary)
@@ -28,7 +29,11 @@ struct StyledTextField: ViewModifier {
 }
 
 extension View {
-    func styledTextField(theme: Theme) -> some View {
-        modifier(StyledTextField(theme: theme))
+    func styledTextField(theme: Theme, padding: CGFloat? = nil) -> some View {
+        guard let padding = padding else {
+            return modifier(StyledTextField(theme: theme, padding: theme.spacings.medium))
+        }
+        
+        return modifier(StyledTextField(theme: theme, padding: padding))
     }
 }
