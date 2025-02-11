@@ -14,6 +14,11 @@ protocol Router: ObservableObject {
     func push(_ destination: Destination)
     func popToRoot()
     
-    var path: [Destination] {get set}
+    var path: [Destination] { get set }
     var initialDestination: V { get }
+}
+
+protocol PresentationRouter: Router {
+    func open()
+    func dismiss()
 }

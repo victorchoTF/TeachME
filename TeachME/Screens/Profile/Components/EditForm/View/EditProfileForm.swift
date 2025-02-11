@@ -9,10 +9,6 @@ import SwiftUI
 
 struct EditProfileForm: View {
     @ObservedObject var viewModel: EditProfileFormViewModel
-    
-    @Binding var isEditingProfile: Bool
-    @Binding var userItem: UserItem?
-    
     let theme: Theme
     
     let bioFieldHeight: CGFloat = 100
@@ -26,13 +22,7 @@ struct EditProfileForm: View {
             editFields
             
             SubmitButton(text: viewModel.buttonText, theme: theme) {
-                guard let user = userItem else{
-                    isEditingProfile = false
-                    return
-                }
-                
-                userItem = viewModel.onSubmit(user: user)
-                isEditingProfile = false
+                viewModel.onSubmit()
             }
         }
     }

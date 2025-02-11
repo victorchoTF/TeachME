@@ -17,33 +17,26 @@ struct ProfileScreen: View {
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         ActionButton(title: viewModel.editButtonText, theme: theme) {
-                            viewModel.isEditingProfile = true
+                            viewModel.openEditProfile()
                         }
                         .foregroundStyle(theme.colors.accent)
                     }
                 }
                 .sheet(isPresented: $viewModel.isEditingProfile) {
-                    if let user = viewModel.userItem {
+                    if let editProfileFormViewModel = viewModel.editProfileFormViewModel {
                         EditProfileForm(
-                            viewModel: EditProfileFormViewModel(
-                                email: user.email,
-                                firstName: String(user.name.split(separator: " ")[0]),
-                                lastName: String(user.name.split(separator: " ")[1]),
-                                phoneNumber: user.phoneNumber,
-                                bio: user.bio
-                            ),
-                            isEditingProfile: $viewModel.isEditingProfile,
-                            userItem: $viewModel.userItem,
+                            viewModel: editProfileFormViewModel,
                             theme: theme
                         )
                         .background(theme.colors.primary)
                     }
                 }
-            Spacer()
+            
+                Spacer()
+            }
+            .background(theme.colors.primary)
         }
-        .background(theme.colors.primary)
     }
-}
 
 private extension ProfileScreen {
     @ViewBuilder

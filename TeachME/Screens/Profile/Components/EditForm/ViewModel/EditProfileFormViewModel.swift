@@ -8,18 +8,27 @@
 import Foundation
 
 final class EditProfileFormViewModel: ObservableObject {
-    @Published var email: String
-    @Published var firstName: String
-    @Published var lastName: String
-    @Published var phoneNumber: String
-    @Published var bio: String
+    @Published var email: String = ""
+    @Published var firstName: String = ""
+    @Published var lastName: String = ""
+    @Published var phoneNumber: String = ""
+    @Published var bio: String = ""
     
-    init(email: String, firstName: String, lastName: String, phoneNumber: String, bio: String) {
-        self.email = email
-        self.firstName = firstName
-        self.lastName = lastName
-        self.phoneNumber = phoneNumber
-        self.bio = bio
+    @Published var userItem: UserItem?
+    
+    let onSubmit: () -> ()
+    
+    init(userItem: UserItem?, onSubmit: @escaping () -> ()) {
+        self.userItem = userItem
+        self.onSubmit = onSubmit
+        
+        if let user = userItem {
+            self.email = user.email
+            self.firstName = String(user.name.split(separator: " ")[0])
+            self.lastName = String(user.name.split(separator: " ")[1])
+            self.phoneNumber = user.phoneNumber
+            self.bio = user.bio
+        }
     }
     
     var formTitle: String {
@@ -50,9 +59,7 @@ final class EditProfileFormViewModel: ObservableObject {
         "Edit"
     }
     
-    func onSubmit(user: UserItem) -> UserItem {
-        print("Submitted")
-        
+    func userFromForm(user: UserItem) -> UserItem {
         return UserItem(
             name: "\(firstName) \(lastName)",
             email: email,
