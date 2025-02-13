@@ -9,12 +9,7 @@ import SwiftUI
 
 final class ProfileScreenViewModel: ObservableObject {
     @Published var userItem: UserItem?
-    @Published var isEditingProfile: Bool = false
-    @Published var editProfileFormViewModel: EditProfileFormViewModel? = nil
-
-    init() {
-        loadData()
-    }
+    @Published var editProfileFormViewModel: EditProfileFormViewModel?
     
     func loadData() {
         userItem = UserItem(
@@ -32,21 +27,14 @@ final class ProfileScreenViewModel: ObservableObject {
     
     func openEditProfile() {
         guard let user = userItem else { return }
-        editProfileFormViewModel = EditProfileFormViewModel(userItem: user) { [weak self] in
-            guard let self = self else {
-                return
-            }
-            
-            self.saveProfile()
+        editProfileFormViewModel = EditProfileFormViewModel(userItem: user) { [weak self] user in
+            self?.updateProfile(userItem: user)
         }
-        isEditingProfile = true
     }
 
-    func saveProfile() {
-        if let user = userItem {
-            userItem = editProfileFormViewModel?.userFromForm(user: user)
-        }
+    func updateProfile(userItem: UserItem) {
+        self.userItem = userItem
         
-        isEditingProfile = false
+        editProfileFormViewModel = nil
     }
 }

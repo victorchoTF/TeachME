@@ -7,28 +7,26 @@
 
 import Foundation
 
-final class EditProfileFormViewModel: ObservableObject {
+final class EditProfileFormViewModel: ObservableObject, Identifiable {
     @Published var email: String = ""
     @Published var firstName: String = ""
     @Published var lastName: String = ""
     @Published var phoneNumber: String = ""
     @Published var bio: String = ""
     
-    @Published var userItem: UserItem?
+    let userItem: UserItem
     
-    let onSubmit: () -> ()
+    let updateUser: (UserItem) -> ()
     
-    init(userItem: UserItem?, onSubmit: @escaping () -> ()) {
+    init(userItem: UserItem, updateUser: @escaping (UserItem) -> ()) {
+        self.updateUser = updateUser
         self.userItem = userItem
-        self.onSubmit = onSubmit
         
-        if let user = userItem {
-            self.email = user.email
-            self.firstName = String(user.name.split(separator: " ")[0])
-            self.lastName = String(user.name.split(separator: " ")[1])
-            self.phoneNumber = user.phoneNumber
-            self.bio = user.bio
-        }
+        self.email = userItem.email
+        self.firstName = String(userItem.name.split(separator: " ")[0])
+        self.lastName = String(userItem.name.split(separator: " ")[1])
+        self.phoneNumber = userItem.phoneNumber
+        self.bio = userItem.bio
     }
     
     var formTitle: String {
@@ -63,12 +61,42 @@ final class EditProfileFormViewModel: ObservableObject {
         bio.isEmpty
     }
     
-    func userFromForm(user: UserItem) -> UserItem {
-        return UserItem(
-            name: "\(firstName) \(lastName)",
-            email: email,
+    func onSubmit() {
+        let user = UserItem(
+            name: checkName(),
+            email: checkEmail(),
             phoneNumber: phoneNumber,
             bio: bio
         )
+        
+        updateUser(user)
+    }
+}
+
+private extension EditProfileFormViewModel {
+    func checkName() -> String {
+        var name: String = ""
+        
+        if firstName.isEmpty {
+            name += String(userItem.name.split(separator: " ")[0]) + " "
+        } else {
+            name += firstName + " "
+        }
+        
+        if lastName.isEmpty {
+            name += String(userItem.name.split(separator: " ")[0])
+        } else {
+            name += lastName
+        }
+        
+        return name
+    }
+    
+    func checkEmail() -> String {
+        if email.isEmpty {
+            return userItem.email
+        }
+        
+        return email
     }
 }

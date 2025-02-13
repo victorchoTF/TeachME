@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RegisterForm: View {
-    @StateObject var viewModel: RegisterFormViewModel
+    @ObservedObject var viewModel: RegisterFormViewModel
     let toLogin: () -> ()
     
     let theme: Theme
