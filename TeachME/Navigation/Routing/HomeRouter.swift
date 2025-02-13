@@ -1,8 +1,8 @@
 //
-//  LessonsRouter.swift
+//  HomeRouter.swift
 //  TeachME
 //
-//  Created by TumbaDev on 3.02.25.
+//  Created by TumbaDev on 13.02.25.
 //
 
 import Foundation
@@ -13,8 +13,10 @@ class HomeRouter {
     
     let lessons: [LessonItem]
     let theme: Theme
+    let userRole: Role
     
     init() {
+        userRole = .teacher
         theme = PrimaryTheme()
         
         lessons = [
@@ -68,11 +70,19 @@ class HomeRouter {
 }
 
 extension HomeRouter: Router {
+    @ViewBuilder
     @MainActor
     var initialDestination: some View {
-        let viewModel = LessonListScreenViewModel(lessons: lessons, router: self)
+        switch userRole {
+        case .student:
+            let viewModel = LessonListScreenViewModel(lessons: lessons, router: self)
+            
+            LessonListScreen(viewModel: viewModel, theme: theme)
+        case .teacher:
+            let viewModel = TeacherHomeScreenViewModel(lessons: lessons)
 
-        return LessonListScreen(viewModel: viewModel, theme: theme)
+            TeacherHomeScreen(viewModel: viewModel, theme: theme)
+        }
     }
     
     func push(_ destination: Destination) {

@@ -17,8 +17,3 @@ protocol Router: ObservableObject {
     var path: [Destination] { get set }
     var initialDestination: V { get }
 }
-
-protocol PresentationRouter: Router {
-    func open()
-    func dismiss()
-}

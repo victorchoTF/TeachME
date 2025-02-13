@@ -9,7 +9,6 @@ import Foundation
 
 final class TabRouter: ObservableObject {
     let homeRouter: HomeRouter = HomeRouter()
-    
     let lessonRouter: HomeRouter = HomeRouter()
     let profileRouter: ProfileRouter = ProfileRouter()
     

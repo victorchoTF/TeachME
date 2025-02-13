@@ -18,6 +18,9 @@
 		8E2982902D4A38CF00588D8E /* LessonListScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E29828F2D4A38CF00588D8E /* LessonListScreenViewModel.swift */; };
 		8E3427AD2D3E649900A38A2D /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3427AC2D3E649900A38A2D /* Fonts.swift */; };
 		8E4D0F8B2D50B9A3007F57B8 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4D0F8A2D50B9A3007F57B8 /* ActionButton.swift */; };
+		8E5F200B2D5DDF5500BE9C24 /* TeacherHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5F200A2D5DDF5500BE9C24 /* TeacherHomeScreen.swift */; };
+		8E5F200D2D5DE11300BE9C24 /* TeacherHomeScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5F200C2D5DE11300BE9C24 /* TeacherHomeScreenViewModel.swift */; };
+		8E5F20142D5DE76C00BE9C24 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5F20132D5DE76C00BE9C24 /* HomeRouter.swift */; };
 		8E65F7452D3D2BDF00D3A793 /* TeachMEApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E65F7442D3D2BDF00D3A793 /* TeachMEApp.swift */; };
 		8E65F7472D3D2BDF00D3A793 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E65F7462D3D2BDF00D3A793 /* ContentView.swift */; };
 		8E65F7492D3D2BE100D3A793 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E65F7482D3D2BE100D3A793 /* Assets.xcassets */; };
@@ -46,7 +49,6 @@
 		8EDBFF202D57A9C4008441D6 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDBFF1F2D57A9C4008441D6 /* ProfileRouter.swift */; };
 		8EFED0662D50A1F900046F1D /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFED0652D50A1F900046F1D /* Router.swift */; };
 		8EFED0682D50A2BB00046F1D /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFED0672D50A2BB00046F1D /* Destination.swift */; };
-		8EFED06B2D50A34700046F1D /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFED06A2D50A34700046F1D /* HomeRouter.swift */; };
 		8EFED06D2D50A71500046F1D /* RouterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFED06C2D50A71500046F1D /* RouterView.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +64,9 @@
 		8E29828F2D4A38CF00588D8E /* LessonListScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonListScreenViewModel.swift; sourceTree = "<group>"; };
 		8E3427AC2D3E649900A38A2D /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		8E4D0F8A2D50B9A3007F57B8 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
+		8E5F200A2D5DDF5500BE9C24 /* TeacherHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherHomeScreen.swift; sourceTree = "<group>"; };
+		8E5F200C2D5DE11300BE9C24 /* TeacherHomeScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherHomeScreenViewModel.swift; sourceTree = "<group>"; };
+		8E5F20132D5DE76C00BE9C24 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		8E65F7412D3D2BDF00D3A793 /* TeachME.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeachME.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E65F7442D3D2BDF00D3A793 /* TeachMEApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachMEApp.swift; sourceTree = "<group>"; };
 		8E65F7462D3D2BDF00D3A793 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -91,7 +96,6 @@
 		8EDBFF1F2D57A9C4008441D6 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
 		8EFED0652D50A1F900046F1D /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		8EFED0672D50A2BB00046F1D /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
-		8EFED06A2D50A34700046F1D /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		8EFED06C2D50A71500046F1D /* RouterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -214,6 +218,48 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		8E5F20052D5DDF1500BE9C24 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				8E5F20072D5DDF2700BE9C24 /* Student */,
+				8E5F20062D5DDF2200BE9C24 /* Teacher */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		8E5F20062D5DDF2200BE9C24 /* Teacher */ = {
+			isa = PBXGroup;
+			children = (
+				8E5F20092D5DDF4200BE9C24 /* ViewModel */,
+				8E5F20082D5DDF3C00BE9C24 /* View */,
+			);
+			path = Teacher;
+			sourceTree = "<group>";
+		};
+		8E5F20072D5DDF2700BE9C24 /* Student */ = {
+			isa = PBXGroup;
+			children = (
+				8E2982872D4A333800588D8E /* LessonList */,
+			);
+			path = Student;
+			sourceTree = "<group>";
+		};
+		8E5F20082D5DDF3C00BE9C24 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8E5F200A2D5DDF5500BE9C24 /* TeacherHomeScreen.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8E5F20092D5DDF4200BE9C24 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8E5F200C2D5DE11300BE9C24 /* TeacherHomeScreenViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		8E65F7382D3D2BDF00D3A793 = {
 			isa = PBXGroup;
 			children = (
@@ -258,10 +304,10 @@
 		8E75D4362D3E231C0082F5FE /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				8E5F20052D5DDF1500BE9C24 /* Home */,
 				8E7EBE4F2D3E406400C7C017 /* Modifiers */,
 				8EDBFF182D57A79F008441D6 /* Profile */,
 				8E20F56C2D4B8378007B3154 /* LessonPick */,
-				8E2982872D4A333800588D8E /* LessonList */,
 				8EC1D32B2D475B3E00987973 /* Components */,
 				8E75D43E2D3E25040082F5FE /* Auth */,
 			);
@@ -435,9 +481,9 @@
 			isa = PBXGroup;
 			children = (
 				8EFED0642D50A1D800046F1D /* Modal Routers */,
-				8EFED06A2D50A34700046F1D /* HomeRouter.swift */,
 				8E180D2D2D5272FA00327E29 /* TabRouter.swift */,
 				8EDBFF1F2D57A9C4008441D6 /* ProfileRouter.swift */,
+				8E5F20132D5DE76C00BE9C24 /* HomeRouter.swift */,
 			);
 			path = Routing;
 			sourceTree = "<group>";
@@ -522,7 +568,6 @@
 			files = (
 				8E75D4462D3E2ED20082F5FE /* Colors.swift in Sources */,
 				8E866E7E2D58E9C8007FAE6B /* EditProfileForm.swift in Sources */,
-				8EFED06B2D50A34700046F1D /* HomeRouter.swift in Sources */,
 				8EC1D32D2D475B5500987973 /* LessonCard.swift in Sources */,
 				8E7EBE4E2D3E3AE500C7C017 /* RegisterFormViewModel.swift in Sources */,
 				8E65F7472D3D2BDF00D3A793 /* ContentView.swift in Sources */,
@@ -535,11 +580,13 @@
 				8E75D4432D3E2DF90082F5FE /* AuthScreen.swift in Sources */,
 				8EDBFF1E2D57A807008441D6 /* ProfileScreenViewModel.swift in Sources */,
 				8E65F7452D3D2BDF00D3A793 /* TeachMEApp.swift in Sources */,
+				8E5F200B2D5DDF5500BE9C24 /* TeacherHomeScreen.swift in Sources */,
 				8E866E832D58EB2C007FAE6B /* EditProfileFormViewModel.swift in Sources */,
 				8E84E27C2D424B8000CB8C05 /* Theme.swift in Sources */,
 				8E4D0F8B2D50B9A3007F57B8 /* ActionButton.swift in Sources */,
 				8E75D4392D3E233F0082F5FE /* RegisterForm.swift in Sources */,
 				8EFED0682D50A2BB00046F1D /* Destination.swift in Sources */,
+				8E5F200D2D5DE11300BE9C24 /* TeacherHomeScreenViewModel.swift in Sources */,
 				8E9669CB2D48AEEA00B5D6BA /* LessonItem.swift in Sources */,
 				8E20F5712D4B83A1007B3154 /* LessonPickScreen.swift in Sources */,
 				8E20F5732D4B8425007B3154 /* LessonPickScreenViewModel.swift in Sources */,
@@ -554,6 +601,7 @@
 				8E84E27A2D424AF400CB8C05 /* FormTitle.swift in Sources */,
 				8E180D2C2D5271E100327E29 /* Tab.swift in Sources */,
 				8EDBFF1C2D57A7BF008441D6 /* ProfileScreen.swift in Sources */,
+				8E5F20142D5DE76C00BE9C24 /* HomeRouter.swift in Sources */,
 				8E29828B2D4A347500588D8E /* LessonListScreen.swift in Sources */,
 				8E863BA02D3F7617001773F4 /* LoginForm.swift in Sources */,
 				8E7EBE512D3E409500C7C017 /* StyledTextField.swift in Sources */,

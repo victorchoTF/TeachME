@@ -10,6 +10,8 @@ import SwiftUI
 struct ContentView: View {
     let theme = PrimaryTheme()
     
+    let userRole: Role = .teacher
+    
     @StateObject var tabRouter = TabRouter()
     
     var body: some View {
@@ -20,7 +22,7 @@ struct ContentView: View {
 private extension ContentView {
     var tabView: some View {
         TabView(selection: $tabRouter.selectedTab) {
-            studentHomeScreen
+                homeScreen
                 .tag(Tab.home)
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
@@ -43,7 +45,7 @@ private extension ContentView {
         .foregroundStyle(theme.colors.text)
     }
     
-    var studentHomeScreen: some View {
+    var homeScreen: some View {
         RouterView(title: "Home", router: tabRouter.homeRouter)
     }
     

@@ -28,7 +28,7 @@ class ProfileRouter {
     
 }
 
-extension ProfileRouter: PresentationRouter {
+extension ProfileRouter: Router {
     @MainActor
     var initialDestination: some View {
         let viewModel = ProfileScreenViewModel(userItem: userItem)
@@ -42,13 +42,5 @@ extension ProfileRouter: PresentationRouter {
     
     func popToRoot() {
         path.removeAll()
-    }
-    
-    func dismiss() {
-        _ = path.popLast()
-    }
-    
-    func open() {
-        
     }
 }
