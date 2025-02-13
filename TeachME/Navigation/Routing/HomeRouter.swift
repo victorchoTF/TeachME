@@ -14,8 +14,8 @@ class HomeRouter {
     let lessons: [LessonItem]
     let theme: Theme
     
-    init() {
-        theme = PrimaryTheme()
+    init(theme: Theme) {
+        self.theme = theme
         
         lessons = [
             LessonItem(

@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    let theme = PrimaryTheme()
-    
-    @StateObject var tabRouter = TabRouter()
+    let theme: Theme = PrimaryTheme()
+    @StateObject var tabRouter: TabRouter = TabRouter(theme: PrimaryTheme())
     
     var body: some View {
         tabView

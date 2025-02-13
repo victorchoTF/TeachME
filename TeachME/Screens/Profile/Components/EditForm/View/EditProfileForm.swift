@@ -55,7 +55,7 @@ private extension EditProfileForm {
             TextEditor(text: $viewModel.bio)
                 .frame(minHeight: bioFieldHeight)
                 .styledTextField(theme: theme, padding: theme.spacings.extraSmall)
-            if viewModel.bio.isEmpty {
+            if viewModel.shouldShowBioPlaceholder {
                 Text(viewModel.bioPlaceholder)
                     .foregroundColor(.gray.opacity(0.5))
                     .padding(theme.spacings.medium)

@@ -59,6 +59,10 @@ final class EditProfileFormViewModel: ObservableObject {
         "Edit"
     }
     
+    var shouldShowBioPlaceholder: Bool {
+        bio.isEmpty
+    }
+    
     func userFromForm(user: UserItem) -> UserItem {
         return UserItem(
             name: "\(firstName) \(lastName)",
