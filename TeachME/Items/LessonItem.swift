@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LessonItem: Identifiable {
+struct LessonItem: Identifiable, Equatable {
     let id: UUID
     let lessonType: String
     let subtitle: String

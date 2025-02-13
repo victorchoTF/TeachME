@@ -37,8 +37,13 @@ private extension TeacherHomeScreen {
         }
         .listStyle(.inset)
         .scrollContentBackground(.hidden)
-        .sheet(item: $viewModel.selectedLesson) { selectedLesson in
-            Text("Editing: \(selectedLesson.lessonType)")
+        .sheet(item: $viewModel.selectedLesson) { lesson in
+            if let editLessonFormViewModel = viewModel.editLessonFormViewModel {
+                EditLessonForm(
+                    viewModel: editLessonFormViewModel,
+                    theme: theme
+                )
+            }
         }
     }
 }
