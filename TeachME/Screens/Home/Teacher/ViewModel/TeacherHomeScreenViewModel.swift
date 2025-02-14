@@ -22,22 +22,20 @@ final class TeacherHomeScreenViewModel: ObservableObject {
         }
         
         self.selectedLesson = lesson
-        self.editLessonFormViewModel = EditLessonFormViewModel(lesson: lesson) { [weak self] in
-            guard let self = self else {
+        self.editLessonFormViewModel = EditLessonFormViewModel(lesson: lesson) { [weak self] lesson in
+            
+            guard let editLessonFormViewModel = self?.editLessonFormViewModel else {
                 return
             }
             
-            guard let editLessonFormViewModel = self.editLessonFormViewModel else {
-                return
-            }
-            
-            self.lessons.removeAll(where: { $0 == lesson })
-            self.lessons.insert(
-                editLessonFormViewModel.lessonFromForm(),
+            self?.lessons.removeAll(where: { $0 == self?.selectedLesson })
+            self?.lessons.insert(
+                lesson,
                 at: 0
             )
             
-            self.selectedLesson = nil
+            self?.selectedLesson = nil
+            self?.editLessonFormViewModel = nil
         }
     }
 }

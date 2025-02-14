@@ -16,7 +16,7 @@ struct ContentView: View {
         self.theme = PrimaryTheme()
         self.userRole = .teacher
         self._tabRouter = StateObject(wrappedValue: TabRouter(theme: PrimaryTheme()))
-    }TeachME/Navigation/Routing/HomeRouter.swift
+    }
     
     
     var body: some View {

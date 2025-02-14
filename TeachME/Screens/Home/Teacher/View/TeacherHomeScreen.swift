@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct TeacherHomeScreen: View {
-    @ObservedObject var viewModel: TeacherHomeScreenViewModel
+    @StateObject var viewModel: TeacherHomeScreenViewModel
     let theme: Theme
+    
+    init(viewModel: TeacherHomeScreenViewModel, theme: Theme) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+        self.theme = theme
+    }
     
     var body: some View {
         VStack {

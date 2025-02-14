@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct ProfileScreen: View {
-    @ObservedObject var viewModel: ProfileScreenViewModel
+    @StateObject var viewModel: ProfileScreenViewModel
     let theme: Theme
+    
+    init(viewModel: ProfileScreenViewModel, theme: Theme) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+        self.theme = theme
+    }
     
     var body: some View {
         VStack {
@@ -22,19 +27,18 @@ struct ProfileScreen: View {
                         .foregroundStyle(theme.colors.accent)
                     }
                 }
-                .sheet(isPresented: $viewModel.isEditingProfile) {
-                    if let editProfileFormViewModel = viewModel.editProfileFormViewModel {
-                        EditProfileForm(
-                            viewModel: editProfileFormViewModel,
-                            theme: theme
-                        )
-                        .background(theme.colors.primary)
-                    }
+                .sheet(item: $viewModel.editProfileFormViewModel) { editProfileFormViewModel in
+                    EditProfileForm(
+                        viewModel: editProfileFormViewModel,
+                        theme: theme
+                    )
+                    .background(theme.colors.primary)
                 }
             
                 Spacer()
             }
             .background(theme.colors.primary)
+            .onAppear(perform: viewModel.loadData)
         }
     }
 

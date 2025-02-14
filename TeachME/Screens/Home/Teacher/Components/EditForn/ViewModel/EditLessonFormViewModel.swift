@@ -8,27 +8,29 @@
 import Foundation
 
 final class EditLessonFormViewModel: ObservableObject {
-    @Published var lessonType = "Math"
-    @Published var subtitle = ""
-    @Published var startDate = Date()
-    @Published var endDate = Date()
-        
+    @Published var lessonType: String
+    @Published var subtitle: String
+    @Published var startDate: Date
+    @Published var endDate: Date
+    
+    // TODO: Load from LessonTypes
     let lessonTypes = ["Maths", "Science", "History", "Art", "Other"]
     
     let lesson: LessonItem
-    let onSubmit: () -> ()
+    let updateLesson: (LessonItem) -> ()
     
-    init(lesson: LessonItem, onSubmit: @escaping () -> ()) {
+    init(lesson: LessonItem, updateLesson: @escaping (LessonItem) -> ()) {
         self.lesson = lesson
-        self.onSubmit = onSubmit
+        self.updateLesson = updateLesson
         
-        // TODO: Load data for fields from db by id
         self.lessonType = lesson.lessonType
         self.subtitle = lesson.subtitle
+        self.startDate = Date()
+        self.endDate = Date()
     }
-    
-    func lessonFromForm() -> LessonItem {
-        LessonItem(
+
+    func onSubmit() {
+        let lesson = LessonItem(
             id: UUID(),
             lessonType: lessonType,
             subtitle: subtitle,
@@ -37,6 +39,8 @@ final class EditLessonFormViewModel: ObservableObject {
             teacherProfilePicture: lesson.teacherProfilePicture,
             teacherName: lesson.teacherName
         )
+        
+        updateLesson(lesson)
     }
     
     var formTitle: String {

@@ -14,8 +14,8 @@ class ProfileRouter {
     let userItem: UserItem
     let theme: Theme
     
-    init() {
-        theme = PrimaryTheme()
+    init(theme: Theme) {
+        self.theme = theme
         
         self.userItem = UserItem(
             name: "George Demo",
@@ -31,7 +31,7 @@ class ProfileRouter {
 extension ProfileRouter: Router {
     @MainActor
     var initialDestination: some View {
-        let viewModel = ProfileScreenViewModel(userItem: userItem)
+        let viewModel = ProfileScreenViewModel()
 
         return ProfileScreen(viewModel: viewModel, theme: theme)
     }
