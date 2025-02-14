@@ -12,6 +12,11 @@ struct AuthScreen: View {
     
     let theme: Theme
     
+    init(viewModel: AuthScreenViewModel, theme: Theme) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+        self.theme = theme
+    }
+    
     var body: some View {
         VStack(spacing: theme.spacings.extraLarge) {
             Header(theme: theme)

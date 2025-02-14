@@ -26,6 +26,11 @@ final class TabRouter: ObservableObject {
             profileRouter = ProfileRouter(theme: theme)
         }
     
+        homeRouter = HomeRouter(theme: theme)
+        lessonRouter = HomeRouter(theme: theme)
+        profileRouter = ProfileRouter(theme: theme)
+    }
+    
     private var currentTabRouter: any Router {
         switch selectedTab {
         case .home:

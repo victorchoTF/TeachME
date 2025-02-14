@@ -11,7 +11,6 @@ import SwiftUI
 class ProfileRouter {
     @Published var path = [Destination]()
     
-    let userItem: UserItem
     let theme: Theme
     
     init(theme: Theme) {

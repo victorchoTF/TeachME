@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct LessonPickScreen: View {
-    @ObservedObject var viewModel: LessonPickScreenViewModel
+    @StateObject var viewModel: LessonPickScreenViewModel
     
     let theme: Theme
+    
+    init(viewModel: LessonPickScreenViewModel, theme: Theme) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+        self.theme = theme
+    }
     
     var body: some View {
         VStack {

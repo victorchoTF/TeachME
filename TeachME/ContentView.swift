@@ -18,7 +18,6 @@ struct ContentView: View {
         self._tabRouter = StateObject(wrappedValue: TabRouter(theme: PrimaryTheme()))
     }
     
-    
     var body: some View {
         tabView
     }
