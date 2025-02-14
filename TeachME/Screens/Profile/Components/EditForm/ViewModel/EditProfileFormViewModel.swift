@@ -8,15 +8,15 @@
 import Foundation
 
 final class EditProfileFormViewModel: ObservableObject, Identifiable {
-    @Published var email: String = ""
-    @Published var firstName: String = ""
-    @Published var lastName: String = ""
-    @Published var phoneNumber: String = ""
-    @Published var bio: String = ""
+    @Published var email: String
+    @Published var firstName: String
+    @Published var lastName: String
+    @Published var phoneNumber: String
+    @Published var bio: String
     
     let userItem: UserItem
     
-    let updateUser: (UserItem) -> ()
+    private let updateUser: (UserItem) -> ()
     
     init(userItem: UserItem, updateUser: @escaping (UserItem) -> ()) {
         self.updateUser = updateUser
