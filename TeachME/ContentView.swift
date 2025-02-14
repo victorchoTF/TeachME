@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    let theme = PrimaryTheme()
+    let theme: Theme
+    let userRole: Role
+    @StateObject var tabRouter: TabRouter
     
-    let userRole: Role = .teacher
+    init() {
+        self.theme = PrimaryTheme()
+        self.userRole = .teacher
+        self._tabRouter = StateObject(wrappedValue: TabRouter(theme: PrimaryTheme()))
+    }TeachME/Navigation/Routing/HomeRouter.swift
     
-    @StateObject var tabRouter = TabRouter()
     
     var body: some View {
         tabView

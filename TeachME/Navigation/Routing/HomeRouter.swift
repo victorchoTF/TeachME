@@ -14,10 +14,10 @@ class HomeRouter {
     let lessons: [LessonItem]
     let theme: Theme
     let userRole: Role
-    
-    init() {
+
+    init(theme: Theme) {
+        self.theme = theme
         userRole = .teacher
-        theme = PrimaryTheme()
         
         lessons = [
             LessonItem(
