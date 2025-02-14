@@ -18,7 +18,6 @@ struct ActionButton: View {
             action()
         } label: {
             Text(title)
-                .foregroundStyle(theme.colors.accent)
         }
     }
 }

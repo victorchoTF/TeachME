@@ -8,23 +8,26 @@
 import SwiftUI
 
 struct LessonPickScreen: View {
-    @ObservedObject var viewModel: LessonPickScreenViewModel
+    @StateObject var viewModel: LessonPickScreenViewModel
     
     let theme: Theme
+    
+    init(viewModel: LessonPickScreenViewModel, theme: Theme) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+        self.theme = theme
+    }
     
     var body: some View {
         VStack {
             ScrollView {
                 lessonCard
                 
-                teacherCard
-                
                 VStack(alignment: .leading) {
                     Text(viewModel.moreAboutTitle)
                         .font(theme.fonts.title)
                         .padding(.horizontal, theme.spacings.small)
                     
-                    
+                    teacherCard
                 }
                 
                 VStack(alignment: .leading) {
@@ -43,6 +46,7 @@ struct LessonPickScreen: View {
                 ActionButton(title: viewModel.pickLessonButtonText, theme: theme) {
                     print("Saved")
                 }
+                .foregroundStyle(theme.colors.accent)
             }
         }
         .onAppear(perform: viewModel.loadData)
@@ -68,6 +72,7 @@ private extension LessonPickScreen {
     var teacherCard: some View {
         if let teacher = viewModel.teacher {
             UserCard(user: teacher, theme: theme)
+                .background(theme.colors.secondary)
                 .frame(maxWidth: .infinity)
         } else {
             // TODO: Implement in another PR

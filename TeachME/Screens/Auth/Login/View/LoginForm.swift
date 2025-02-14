@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoginForm: View {
-    @StateObject var viewModel: LoginFormViewModel
+    @ObservedObject var viewModel: LoginFormViewModel
     let toRegister: () -> ()
     
     let theme: Theme
@@ -20,7 +20,9 @@ struct LoginForm: View {
             Form {
                 accountDetails
                 
-                SubmitButton(text: viewModel.formType, theme: theme)
+                SubmitButton(text: viewModel.formType, theme: theme) {
+                    print("Login")
+                }
                 
                 SwitchFormText(
                     text: viewModel.noAccount,

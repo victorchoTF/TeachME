@@ -21,7 +21,6 @@ struct UserCard: View {
             biography
         }
         .padding(theme.spacings.medium)
-        .background(theme.colors.secondary)
         .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))
         .foregroundStyle(theme.colors.text)
     }
