@@ -9,12 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     let theme: Theme
-    let userRole: Role
     @StateObject var tabRouter: TabRouter
     
     init() {
         self.theme = PrimaryTheme()
-        self.userRole = .teacher
         self._tabRouter = StateObject(wrappedValue: TabRouter(theme: PrimaryTheme()))
     }
     

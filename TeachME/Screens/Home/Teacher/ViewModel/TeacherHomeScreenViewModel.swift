@@ -23,11 +23,6 @@ final class TeacherHomeScreenViewModel: ObservableObject {
         
         self.selectedLesson = lesson
         self.editLessonFormViewModel = EditLessonFormViewModel(lesson: lesson) { [weak self] lesson in
-            
-            guard let editLessonFormViewModel = self?.editLessonFormViewModel else {
-                return
-            }
-            
             self?.lessons.removeAll(where: { $0 == self?.selectedLesson })
             self?.lessons.insert(
                 lesson,

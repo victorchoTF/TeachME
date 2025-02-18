@@ -21,11 +21,6 @@ final class TabRouter: ObservableObject {
     }
     
     init(theme: Theme) {
-            homeRouter = HomeRouter(theme: theme)
-            lessonRouter = HomeRouter(theme: theme)
-            profileRouter = ProfileRouter(theme: theme)
-        }
-    
         homeRouter = HomeRouter(theme: theme)
         lessonRouter = HomeRouter(theme: theme)
         profileRouter = ProfileRouter(theme: theme)
