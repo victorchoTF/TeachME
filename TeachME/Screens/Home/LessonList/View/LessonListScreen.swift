@@ -8,14 +8,37 @@
 import SwiftUI
 
 struct LessonListScreen: View {
-    let viewModel: LessonListScreenViewModel
+    @StateObject var viewModel: LessonListScreenViewModel
     let theme: Theme
+    
+    init(viewModel: LessonListScreenViewModel, theme: Theme) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+        self.theme = theme
+    }
     
     var body: some View {
         VStack(spacing: theme.spacings.medium) {
             lessonList
         }
         .background(theme.colors.primary)
+        .toolbar {
+            if viewModel.shouldShowAddLessonButton {
+                ToolbarItem(placement: .topBarTrailing) {
+                    ActionButton(icon: viewModel.addButtonIcon, theme: theme) {
+                        viewModel.onAddButtonTap()
+                    }
+                    .foregroundStyle(theme.colors.accent)
+                }
+            }
+        }
+        .sheet(item: $viewModel.lessonFormViewModel) { lessonFormViewModel in
+            LessonForm(
+                viewModel: lessonFormViewModel,
+                theme: theme
+            )
+            .background(theme.colors.primary)
+        }
+        .onAppear(perform: viewModel.loadData)
     }
 }
 

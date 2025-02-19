@@ -1,5 +1,5 @@
 //
-//  EditLessonForm.swift
+//  LessonForm.swift
 //  TeachME
 //
 //  Created by TumbaDev on 13.02.25.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct EditLessonForm: View {
-    @ObservedObject var viewModel: EditLessonFormViewModel
+struct LessonForm: View {
+    @ObservedObject var viewModel: LessonFormViewModel
     let theme: Theme
     let editSubtitleMinHeight: CGFloat = 5
     
@@ -38,7 +38,7 @@ struct EditLessonForm: View {
     }
 }
 
-private extension EditLessonForm {
+private extension LessonForm {
     var editFields: some View {
         VStack(spacing: theme.spacings.large) {
             lessonDetailFields

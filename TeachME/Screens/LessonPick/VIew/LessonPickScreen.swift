@@ -50,9 +50,9 @@ struct LessonPickScreen: View {
             }
         }
         .onAppear(perform: viewModel.loadData)
-        .sheet(item: $viewModel.editLessonFormViewModel) { editLessonFormViewModel in
-            EditLessonForm(
-                viewModel: editLessonFormViewModel,
+        .sheet(item: $viewModel.lessonFormViewModel) { lessonFormViewModel in
+            LessonForm(
+                viewModel: lessonFormViewModel,
                 theme: theme
             )
             .background(theme.colors.primary)

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  LessonFormViewModel.swift
 //  TeachME
 //
 //  Created by TumbaDev on 13.02.25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class EditLessonFormViewModel: ObservableObject, Identifiable {
+final class LessonFormViewModel: ObservableObject, Identifiable {
     @Published var lessonType: String
     @Published var subtitle: String
     @Published var startDate: Date
@@ -91,7 +91,7 @@ final class EditLessonFormViewModel: ObservableObject, Identifiable {
     }
 }
 
-private extension EditLessonFormViewModel {
+private extension LessonFormViewModel {
     func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "h:mma dd.MM.yyyy"
@@ -99,5 +99,4 @@ private extension EditLessonFormViewModel {
         formatter.pmSymbol = "PM"
         return formatter.string(from: date)
     }
-
 }

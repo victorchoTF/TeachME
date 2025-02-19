@@ -6,15 +6,29 @@
 //
 
 import Foundation
+import SwiftUI
 
-final class LessonListScreenViewModel {
-    let lessons: [LessonItem]
+final class LessonListScreenViewModel: ObservableObject {
+    @Published var lessons: [LessonItem]
     
     private weak var router: HomeRouter?
+    @Published var lessonFormViewModel: LessonFormViewModel?
+    
+    @Published var userItem: UserItem?
     
     init(lessons: [LessonItem], router: HomeRouter) {
         self.lessons = lessons
         self.router = router
+    }
+    
+    func loadData() {
+        userItem = UserItem(
+            name: "George Demo",
+            profilePicture: Image(systemName: "person.crop.circle"),
+            email: "george_demo@gmail.com",
+            phoneNumber: "0874567243",
+            bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves"
+        )
     }
     
     func onLessonTap(lesson: LessonItem, theme: Theme) {
@@ -31,5 +45,36 @@ final class LessonListScreenViewModel {
                 theme
             )
         )
+    }
+    
+    var shouldShowAddLessonButton: Bool {
+        router?.userRole == .teacher
+    }
+    
+    var addButtonIcon: Image {
+        Image(systemName: "plus.app.fill")
+    }
+    
+    func onAddButtonTap() {
+        guard let userItem = userItem else {
+            return
+        }
+        
+        self.lessonFormViewModel = LessonFormViewModel(
+            lesson: LessonItem(
+                teacherName: userItem.name,
+                teacherProfilePicture: userItem.profilePicture
+            ),
+            onCancel: { [weak self] in
+                self?.lessonFormViewModel = nil
+            }
+        ) { [weak self] lesson in
+            self?.lessons.removeAll(where: { $0 == lesson })
+            self?.lessons.insert(
+                lesson,
+                at: 0
+            )
+            self?.lessonFormViewModel = nil
+        }
     }
 }
