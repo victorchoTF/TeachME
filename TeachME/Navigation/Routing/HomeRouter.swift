@@ -15,9 +15,9 @@ class HomeRouter {
     let theme: Theme
     let userRole: Role
 
-    init(theme: Theme) {
+    init(theme: Theme, userRole: Role) {
         self.theme = theme
-        userRole = .teacher
+        self.userRole = userRole
         
         lessons = [
             LessonItem(
@@ -70,19 +70,11 @@ class HomeRouter {
 }
 
 extension HomeRouter: Router {
-    @ViewBuilder
     @MainActor
     var initialDestination: some View {
-        switch userRole {
-        case .student:
-            let viewModel = LessonListScreenViewModel(lessons: lessons, router: self)
+        let viewModel = LessonListScreenViewModel(lessons: lessons, router: self)
             
-            LessonListScreen(viewModel: viewModel, theme: theme)
-        case .teacher:
-            let viewModel = TeacherHomeScreenViewModel(lessons: lessons)
-
-            TeacherHomeScreen(viewModel: viewModel, theme: theme)
-        }
+        return LessonListScreen(viewModel: viewModel, theme: theme)
     }
     
     func push(_ destination: Destination) {

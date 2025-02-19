@@ -20,7 +20,7 @@ struct ProfileScreen: View {
         VStack {
             userCard
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
+                    ToolbarItem(placement: .topBarTrailing) {
                         ActionButton(title: viewModel.editButtonText, theme: theme) {
                             viewModel.openEditProfile()
                         }

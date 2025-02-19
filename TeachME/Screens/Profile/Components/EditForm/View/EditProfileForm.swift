@@ -11,19 +11,30 @@ struct EditProfileForm: View {
     @ObservedObject var viewModel: EditProfileFormViewModel
     let theme: Theme
     
-    let bioFieldHeight: CGFloat = 100
+    let bioFieldMinHeight: CGFloat = 5
     
     var body: some View {
-        Form {
-            FormTitle(title: viewModel.formTitle, theme: theme)
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
-            
-            editFields
-            
-            SubmitButton(text: viewModel.buttonText, theme: theme) {
-                viewModel.onSubmit()
+        NavigationView {
+            Form {
+                editFields
             }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    ActionButton(title: viewModel.cancelButtonText, theme: theme) {
+                        viewModel.onCancel()
+                    }
+                    .foregroundStyle(theme.colors.accent)
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    ActionButton(title: viewModel.editButtonText, theme: theme) {
+                        viewModel.onSubmit()
+                    }
+                    .foregroundStyle(theme.colors.accent)
+                }
+            }
+            .navigationTitle(viewModel.formTitle)
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -53,7 +64,7 @@ private extension EditProfileForm {
     var bioField: some View {
         ZStack(alignment: .topLeading) {
             TextEditor(text: $viewModel.bio)
-                .frame(minHeight: bioFieldHeight)
+                .frame(minHeight: bioFieldMinHeight)
                 .styledTextField(theme: theme, padding: theme.spacings.extraSmall)
             if viewModel.shouldShowBioPlaceholder {
                 Text(viewModel.bioPlaceholder)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class EditLessonFormViewModel: ObservableObject {
+final class EditLessonFormViewModel: ObservableObject, Identifiable {
     @Published var lessonType: String
     @Published var subtitle: String
     @Published var startDate: Date
@@ -17,10 +17,17 @@ final class EditLessonFormViewModel: ObservableObject {
     let lessonTypes = ["Maths", "Science", "History", "Art", "Other"]
     
     let lesson: LessonItem
-    let updateLesson: (LessonItem) -> ()
     
-    init(lesson: LessonItem, updateLesson: @escaping (LessonItem) -> ()) {
+    private let updateLesson: (LessonItem) -> ()
+    let onCancel: () -> ()
+    
+    init(
+        lesson: LessonItem,
+        onCancel: @escaping() -> (),
+        updateLesson: @escaping (LessonItem) -> ()
+    ) {
         self.lesson = lesson
+        self.onCancel = onCancel
         self.updateLesson = updateLesson
         
         self.lessonType = lesson.lessonType
@@ -44,35 +51,43 @@ final class EditLessonFormViewModel: ObservableObject {
     }
     
     var formTitle: String {
-        "Edit a lesson"
+        "Edit your lesson"
     }
     
     var pickerLabel: String {
         "Lesson Type"
     }
     
-    var lessonDetailSectionTitle: String {
-        "Lesson Details"
-    }
-    
     var lessonSubtitlePlaceholder: String {
         "Lesson Subtitle"
     }
     
-    var scheduleSectionTitle: String {
-        "Schedule"
+    var shouldShowSubtitlePlaceholder: Bool {
+        subtitle.isEmpty
     }
     
     var startDateLabel: String {
-        "Start Date"
+        "Starts at"
+    }
+    
+    var startDateHint: String {
+        "Pick start date for your lesson"
+    }
+    
+    var endDateHint: String {
+        "Pick end date for your lesson"
     }
     
     var endDateLabel: String {
-        "End Date"
+        "Ends at"
     }
     
-    var buttonText: String {
-        "Edit"
+    var cancelButtonText: String {
+        "Cancel"
+    }
+    
+    var editButtonText: String {
+        "Done"
     }
 }
 

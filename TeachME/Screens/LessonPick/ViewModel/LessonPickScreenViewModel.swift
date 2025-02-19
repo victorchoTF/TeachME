@@ -9,8 +9,9 @@ import Foundation
 import SwiftUI // TODO: Remove after DataLoading is implemented
 
 final class LessonPickScreenViewModel: ObservableObject {
-    let pickedLesson: LessonItem
+    @Published var pickedLesson: LessonItem
     @Published var teacher: UserItem?
+    @Published var editLessonFormViewModel: EditLessonFormViewModel?
     @Published var otherLessons: [LessonItem] = []
     
     private weak var router: HomeRouter?
@@ -95,7 +96,27 @@ final class LessonPickScreenViewModel: ObservableObject {
     }
     
     var pickLessonButtonText: String {
-        "Save"
+        switch router?.userRole {
+        case .teacher: "Edit"
+        default: "Save"
+        }
+    }
+    
+    var pickLessonButtonAction: () -> () {
+        switch router?.userRole {
+        case .teacher: {
+            self.editLessonFormViewModel = EditLessonFormViewModel(lesson: self.pickedLesson, onCancel: { [weak self] in
+                    self?.editLessonFormViewModel = nil
+                }
+            ) { [weak self] lesson in
+                self?.pickedLesson = lesson
+                self?.editLessonFormViewModel = nil
+            }
+        }
+        default: {
+            print("Saving: \(self.pickedLesson)")
+        }
+        }
     }
 }
 
