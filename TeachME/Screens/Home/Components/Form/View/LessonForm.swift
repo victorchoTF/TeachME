@@ -10,7 +10,7 @@ import SwiftUI
 struct LessonForm: View {
     @ObservedObject var viewModel: LessonFormViewModel
     let theme: Theme
-    let editSubtitleMinHeight: CGFloat = 5
+    let subtitleFieldMinHeight: CGFloat = 5
     
     var body: some View {
         NavigationView {
@@ -26,7 +26,7 @@ struct LessonForm: View {
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
-                    ActionButton(title: viewModel.editButtonText, theme: theme) {
+                    ActionButton(title: viewModel.doneButtonText, theme: theme) {
                         viewModel.onSubmit()
                     }
                     .foregroundStyle(theme.colors.accent)
@@ -65,7 +65,7 @@ private extension LessonForm {
     var subtitleField: some View {
         ZStack(alignment: .topLeading) {
             TextEditor(text: $viewModel.subtitle)
-                .frame(minHeight: editSubtitleMinHeight)
+                .frame(minHeight: subtitleFieldMinHeight)
                 .styledTextField(theme: theme, padding: theme.spacings.extraSmall)
             if viewModel.shouldShowSubtitlePlaceholder {
                 Text(viewModel.lessonSubtitlePlaceholder)

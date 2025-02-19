@@ -41,7 +41,7 @@ struct EditProfileForm: View {
 
 private extension EditProfileForm {
     var editFields: some View {
-        Section {
+        VStack {
             TextField(viewModel.emailPlaceholder, text: $viewModel.email)
                 .styledTextField(theme: theme)
             
