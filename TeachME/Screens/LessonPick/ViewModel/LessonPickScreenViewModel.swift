@@ -105,8 +105,11 @@ final class LessonPickScreenViewModel: ObservableObject {
     var pickLessonButtonAction: () -> () {
         switch router?.userRole {
         case .teacher: {
-            self.lessonFormViewModel = LessonFormViewModel(lesson: self.pickedLesson, onCancel: { [weak self] in
-                self?.lessonFormViewModel = nil
+            self.lessonFormViewModel = LessonFormViewModel(
+                lesson: self.pickedLesson,
+                formType: "Edit",
+                onCancel: { [weak self] in
+                    self?.lessonFormViewModel = nil
                 }
             ) { [weak self] lesson in
                 self?.pickedLesson = lesson

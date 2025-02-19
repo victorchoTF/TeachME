@@ -65,6 +65,7 @@ final class LessonListScreenViewModel: ObservableObject {
                 teacherName: userItem.name,
                 teacherProfilePicture: userItem.profilePicture
             ),
+            formType: "Add",
             onCancel: { [weak self] in
                 self?.lessonFormViewModel = nil
             }

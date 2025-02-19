@@ -17,18 +17,21 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
     let lessonTypes = ["Maths", "Science", "History", "Art", "Other"]
     
     let lesson: LessonItem
+    let formType: String
     
     private let updateLesson: (LessonItem) -> ()
     let onCancel: () -> ()
     
     init(
         lesson: LessonItem,
+        formType: String,
         onCancel: @escaping() -> (),
         updateLesson: @escaping (LessonItem) -> ()
     ) {
         self.lesson = lesson
         self.onCancel = onCancel
         self.updateLesson = updateLesson
+        self.formType = formType
         
         self.lessonType = lesson.lessonType
         self.subtitle = lesson.subtitle
@@ -51,7 +54,7 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
     }
     
     var formTitle: String {
-        "Edit your lesson"
+        "\(formType) your lesson"
     }
     
     var pickerLabel: String {
