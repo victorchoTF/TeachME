@@ -102,23 +102,32 @@ final class LessonPickScreenViewModel: ObservableObject {
         }
     }
     
-    var pickLessonButtonAction: () -> () {
-        switch router?.userRole {
+    func pickLessonButtonAction() {
+        guard let router = router else {
+            return
+        }
+        
+        switch router.userRole {
         case .teacher: {
-            self.lessonFormViewModel = LessonFormViewModel(
-                lesson: self.pickedLesson,
-                formType: "Edit",
-                onCancel: { [weak self] in
+            do {
+                self.lessonFormViewModel = try LessonFormViewModel(
+                    lesson: self.pickedLesson,
+                    formType: FormType.edit,
+                    dateFormatter: DateFormatter(),
+                    onCancel: { [weak self] in
+                        self?.lessonFormViewModel = nil
+                    }
+                ) { [weak self] lesson in
+                    self?.pickedLesson = lesson
                     self?.lessonFormViewModel = nil
                 }
-            ) { [weak self] lesson in
-                self?.pickedLesson = lesson
-                self?.lessonFormViewModel = nil
+            } catch {
+                self.lessonFormViewModel = nil
             }
-        }
-        default: {
+        }()
+        case .student: {
             print("Saving: \(self.pickedLesson)")
-        }
+        }()
         }
     }
 }

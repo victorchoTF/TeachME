@@ -24,7 +24,10 @@ struct LessonListScreen: View {
         .toolbar {
             if viewModel.shouldShowAddLessonButton {
                 ToolbarItem(placement: .topBarTrailing) {
-                    ActionButton(icon: viewModel.addButtonIcon, theme: theme) {
+                    ActionButton(
+                        buttonContent: .icon(viewModel.addButtonIcon),
+                        theme: theme
+                    ) {
                         viewModel.onAddButtonTap()
                     }
                     .foregroundStyle(theme.colors.accent)

@@ -63,7 +63,7 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
         "Cancel"
     }
     
-    var editButtonText: String {
+    var doneButtonText: String {
         "Done"
     }
     

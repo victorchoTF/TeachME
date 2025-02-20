@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct ActionButton: View {
-    let title: String?
-    let icon: Image?
+    let buttonContent: ActionButtonContent
     let theme: Theme
     
     let action: () -> ()
     
-    init(title: String? = nil, icon: Image? = nil, theme: Theme, action: @escaping () -> Void) {
-        self.title = title
-        self.icon = icon
+    init(buttonContent: ActionButtonContent, theme: Theme, action: @escaping () -> Void) {
+        self.buttonContent = buttonContent
         self.theme = theme
         self.action = action
     }
@@ -25,11 +23,17 @@ struct ActionButton: View {
         Button {
             action()
         } label: {
-            if let title = title {
-                Text(title)
+            switch buttonContent {
+            case .text(let text):
+                text
+            case .icon(let icon):
+                icon
             }
-            
-            icon
         }
     }
+}
+
+enum ActionButtonContent {
+    case text(Text)
+    case icon(Image)
 }

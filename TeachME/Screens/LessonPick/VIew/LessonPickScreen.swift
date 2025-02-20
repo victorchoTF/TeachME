@@ -43,7 +43,12 @@ struct LessonPickScreen: View {
         .navigationTitle(viewModel.pickedLesson.lessonType)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                ActionButton(title: viewModel.pickLessonButtonText, theme: theme) {
+                ActionButton(
+                    buttonContent: .text(
+                        Text(viewModel.pickLessonButtonText)
+                    ),
+                    theme: theme
+                ) {
                     viewModel.pickLessonButtonAction()
                 }
                 .foregroundStyle(theme.colors.accent)

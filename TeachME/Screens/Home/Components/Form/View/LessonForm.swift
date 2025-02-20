@@ -19,17 +19,11 @@ struct LessonForm: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    ActionButton(title: viewModel.cancelButtonText, theme: theme) {
-                        viewModel.onCancel()
-                    }
-                    .foregroundStyle(theme.colors.accent)
+                    cancelButton
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
-                    ActionButton(title: viewModel.doneButtonText, theme: theme) {
-                        viewModel.onSubmit()
-                    }
-                    .foregroundStyle(theme.colors.accent)
+                    doneButton
                 }
             }
             .navigationTitle(viewModel.formTitle)
@@ -121,5 +115,29 @@ private extension LessonForm {
                 .font(theme.fonts.footnote)
                 .opacity(0.5)
         }
+    }
+    
+    var cancelButton: some View {
+        ActionButton(
+            buttonContent: .text(
+                Text(viewModel.cancelButtonText)
+            ),
+            theme: theme
+        ) {
+            viewModel.onCancel()
+        }
+        .foregroundStyle(theme.colors.accent)
+    }
+    
+    var doneButton: some View {
+        ActionButton(
+            buttonContent: .text(
+                Text(viewModel.doneButtonText)
+            ),
+            theme: theme
+        ) {
+            viewModel.onSubmit()
+        }
+        .foregroundStyle(theme.colors.accent)
     }
 }

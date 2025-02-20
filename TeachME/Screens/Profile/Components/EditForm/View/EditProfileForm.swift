@@ -20,19 +20,14 @@ struct EditProfileForm: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    ActionButton(title: viewModel.cancelButtonText, theme: theme) {
-                        viewModel.onCancel()
-                    }
-                    .foregroundStyle(theme.colors.accent)
+                    cancelButton
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
-                    ActionButton(title: viewModel.editButtonText, theme: theme) {
-                        viewModel.onSubmit()
-                    }
-                    .foregroundStyle(theme.colors.accent)
+                    doneButton
                 }
             }
+
             .navigationTitle(viewModel.formTitle)
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -72,5 +67,29 @@ private extension EditProfileForm {
                     .padding(theme.spacings.medium)
             }
         }
+    }
+    
+    var cancelButton: some View {
+        ActionButton(
+            buttonContent: .text(
+                Text(viewModel.cancelButtonText)
+            ),
+            theme: theme
+        ) {
+            viewModel.onCancel()
+        }
+        .foregroundStyle(theme.colors.accent)
+    }
+    
+    var doneButton: some View {
+        ActionButton(
+            buttonContent: .text(
+                Text(viewModel.doneButtonText)
+            ),
+            theme: theme
+        ) {
+            viewModel.onSubmit()
+        }
+        .foregroundStyle(theme.colors.accent)
     }
 }

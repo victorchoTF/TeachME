@@ -52,7 +52,7 @@ final class LessonListScreenViewModel: ObservableObject {
     }
     
     var addButtonIcon: Image {
-        Image(systemName: "plus.app.fill")
+        Image(systemName: "plus")
     }
     
     func onAddButtonTap() {
@@ -60,22 +60,27 @@ final class LessonListScreenViewModel: ObservableObject {
             return
         }
         
-        self.lessonFormViewModel = LessonFormViewModel(
-            lesson: LessonItem(
-                teacherName: userItem.name,
-                teacherProfilePicture: userItem.profilePicture
-            ),
-            formType: "Add",
-            onCancel: { [weak self] in
+        do {
+            self.lessonFormViewModel = try LessonFormViewModel(
+                lesson: LessonItem(
+                    teacherName: userItem.name,
+                    teacherProfilePicture: userItem.profilePicture
+                ),
+                formType: FormType.add,
+                dateFormatter: DateFormatter(),
+                onCancel: { [weak self] in
+                    self?.lessonFormViewModel = nil
+                }
+            ) { [weak self] lesson in
+                self?.lessons.removeAll(where: { $0 == lesson })
+                self?.lessons.insert(
+                    lesson,
+                    at: 0
+                )
                 self?.lessonFormViewModel = nil
             }
-        ) { [weak self] lesson in
-            self?.lessons.removeAll(where: { $0 == lesson })
-            self?.lessons.insert(
-                lesson,
-                at: 0
-            )
-            self?.lessonFormViewModel = nil
+        } catch {
+            self.lessonFormViewModel = nil
         }
     }
 }

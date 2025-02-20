@@ -17,26 +17,45 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
     let lessonTypes = ["Maths", "Science", "History", "Art", "Other"]
     
     let lesson: LessonItem
-    let formType: String
+    let formType: FormType
+    
+    let dateFormatter: DateFormatter
     
     private let updateLesson: (LessonItem) -> ()
     let onCancel: () -> ()
     
     init(
         lesson: LessonItem,
-        formType: String,
+        formType: FormType,
+        dateFormatter: DateFormatter,
         onCancel: @escaping() -> (),
         updateLesson: @escaping (LessonItem) -> ()
-    ) {
+    ) throws {
         self.lesson = lesson
         self.onCancel = onCancel
         self.updateLesson = updateLesson
         self.formType = formType
+        self.dateFormatter = dateFormatter
         
         self.lessonType = lesson.lessonType
         self.subtitle = lesson.subtitle
-        self.startDate = Date()
-        self.endDate = Date()
+        
+        let validateDate: (String) throws -> (Date) = { date in
+            if date.isEmpty {
+                return Date()
+            }
+                
+            guard let date = dateFormatter.toDate(dateString: date) else {
+                throw LessonFormError.invalidDate(
+                    "Date: \(date) is not a valid date"
+                )
+            }
+                
+            return date
+        }
+        
+        self.startDate = try validateDate(lesson.startDate)
+        self.endDate = try validateDate(lesson.endDate)
     }
 
     func onSubmit() {
@@ -44,8 +63,8 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
             id: UUID(),
             lessonType: lessonType,
             subtitle: subtitle,
-            startDate: formatDate(startDate),
-            endDate: formatDate(endDate),
+            startDate: dateFormatter.toString(startDate),
+            endDate: dateFormatter.toString(endDate),
             teacherProfilePicture: lesson.teacherProfilePicture,
             teacherName: lesson.teacherName
         )
@@ -54,7 +73,7 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
     }
     
     var formTitle: String {
-        "\(formType) your lesson"
+        "\(formType.rawValue) your lesson"
     }
     
     var pickerLabel: String {
@@ -94,12 +113,6 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
     }
 }
 
-private extension LessonFormViewModel {
-    func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mma dd.MM.yyyy"
-        formatter.amSymbol = "AM"
-        formatter.pmSymbol = "PM"
-        return formatter.string(from: date)
-    }
+enum LessonFormError: Error {
+    case invalidDate(String)
 }
