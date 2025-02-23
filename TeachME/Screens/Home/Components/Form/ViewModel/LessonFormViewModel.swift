@@ -40,7 +40,7 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
         self.lessonType = lesson.lessonType
         self.subtitle = lesson.subtitle
         
-        let validateDate: (String) throws -> (Date) = { date in
+        let setDate: (String) throws -> (Date) = { date in
             if date.isEmpty {
                 return Date()
             }
@@ -54,8 +54,8 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
             return date
         }
         
-        self.startDate = try validateDate(lesson.startDate)
-        self.endDate = try validateDate(lesson.endDate)
+        self.startDate = try setDate(lesson.startDate)
+        self.endDate = try setDate(lesson.endDate)
     }
 
     func onSubmit() {

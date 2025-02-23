@@ -108,27 +108,33 @@ final class LessonPickScreenViewModel: ObservableObject {
         }
         
         switch router.userRole {
-        case .teacher: {
-            do {
-                self.lessonFormViewModel = try LessonFormViewModel(
-                    lesson: self.pickedLesson,
-                    formType: FormType.edit,
-                    dateFormatter: DateFormatter(),
-                    onCancel: { [weak self] in
-                        self?.lessonFormViewModel = nil
-                    }
-                ) { [weak self] lesson in
-                    self?.pickedLesson = lesson
+        case .teacher: teacherAction()
+        case .student: studentAction()
+        }
+    }
+}
+
+private extension LessonPickScreenViewModel {
+    func teacherAction() {
+        do {
+            self.lessonFormViewModel = try LessonFormViewModel(
+                lesson: self.pickedLesson,
+                formType: FormType.edit,
+                dateFormatter: DateFormatter(),
+                onCancel: { [weak self] in
                     self?.lessonFormViewModel = nil
                 }
-            } catch {
-                self.lessonFormViewModel = nil
+            ) { [weak self] lesson in
+                self?.pickedLesson = lesson
+                self?.lessonFormViewModel = nil
             }
-        }()
-        case .student: {
-            print("Saving: \(self.pickedLesson)")
-        }()
+        } catch {
+            self.lessonFormViewModel = nil
         }
+    }
+    
+    func studentAction() {
+        print("Saving: \(self.pickedLesson)")
     }
 }
 

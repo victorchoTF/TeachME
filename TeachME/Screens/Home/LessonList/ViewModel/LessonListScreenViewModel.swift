@@ -1,12 +1,12 @@
 //
-//  StudentHomeScreenViewModel.swift
+//  LessonListScreenViewModel.swift
 //  TeachME
 //
 //  Created by TumbaDev on 29.01.25.
 //
 
 import Foundation
-import SwiftUI
+import SwiftUI // TODO: Remove after DataLoading is implemented
 
 final class LessonListScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem]
@@ -21,6 +21,7 @@ final class LessonListScreenViewModel: ObservableObject {
         self.router = router
     }
     
+    // TODO: Should load real data in future
     func loadData() {
         userItem = UserItem(
             name: "George Demo",
@@ -49,10 +50,6 @@ final class LessonListScreenViewModel: ObservableObject {
     
     var shouldShowAddLessonButton: Bool {
         router?.userRole == .teacher
-    }
-    
-    var addButtonIcon: Image {
-        Image(systemName: "plus")
     }
     
     func onAddButtonTap() {

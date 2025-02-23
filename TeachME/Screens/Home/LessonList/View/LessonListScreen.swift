@@ -25,7 +25,7 @@ struct LessonListScreen: View {
             if viewModel.shouldShowAddLessonButton {
                 ToolbarItem(placement: .topBarTrailing) {
                     ActionButton(
-                        buttonContent: .icon(viewModel.addButtonIcon),
+                        buttonContent: .icon(Image(systemName: "plus")),
                         theme: theme
                     ) {
                         viewModel.onAddButtonTap()
