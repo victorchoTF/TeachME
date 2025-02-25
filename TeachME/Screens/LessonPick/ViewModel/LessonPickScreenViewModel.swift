@@ -116,20 +116,16 @@ final class LessonPickScreenViewModel: ObservableObject {
 
 private extension LessonPickScreenViewModel {
     func teacherAction() {
-        do {
-            self.lessonFormViewModel = try LessonFormViewModel(
-                lesson: self.pickedLesson,
-                formType: FormType.edit,
-                dateFormatter: DateFormatter(),
-                onCancel: { [weak self] in
-                    self?.lessonFormViewModel = nil
-                }
-            ) { [weak self] lesson in
-                self?.pickedLesson = lesson
+        self.lessonFormViewModel = LessonFormViewModel(
+            lesson: self.pickedLesson,
+            formType: FormType.edit,
+            dateFormatter: DateFormatter(),
+            onCancel: { [weak self] in
                 self?.lessonFormViewModel = nil
             }
-        } catch {
-            self.lessonFormViewModel = nil
+        ) { [weak self] lesson in
+            self?.pickedLesson = lesson
+            self?.lessonFormViewModel = nil
         }
     }
     

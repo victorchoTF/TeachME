@@ -30,7 +30,7 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
         dateFormatter: DateFormatter,
         onCancel: @escaping() -> (),
         updateLesson: @escaping (LessonItem) -> ()
-    ) throws {
+    ) {
         self.lesson = lesson
         self.onCancel = onCancel
         self.updateLesson = updateLesson
@@ -40,22 +40,16 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
         self.lessonType = lesson.lessonType
         self.subtitle = lesson.subtitle
         
-        let setDate: (String) throws -> (Date) = { date in
+        let setDate: (String) -> (Date) = { date in
             if date.isEmpty {
                 return Date()
             }
                 
-            guard let date = dateFormatter.toDate(dateString: date) else {
-                throw LessonFormError.invalidDate(
-                    "Date: \(date) is not a valid date"
-                )
-            }
-                
-            return date
+            return dateFormatter.toDate(dateString: date) ?? Date()
         }
         
-        self.startDate = try setDate(lesson.startDate)
-        self.endDate = try setDate(lesson.endDate)
+        self.startDate = setDate(lesson.startDate)
+        self.endDate = setDate(lesson.endDate)
     }
 
     func onSubmit() {
@@ -111,8 +105,4 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
     var doneButtonText: String {
         "Done"
     }
-}
-
-enum LessonFormError: Error {
-    case invalidDate(String)
 }

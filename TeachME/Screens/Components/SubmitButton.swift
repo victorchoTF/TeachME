@@ -14,7 +14,7 @@ struct SubmitButton: View {
     let action: () -> ()
     
     var body: some View {
-        ActionButton(buttonContent: .text(Text(text)), theme: theme, action: action)
+        ActionButton(buttonContent: .text(Text(text)), action: action)
             .fontWeight(.bold)
             .font(theme.fonts.headline)
             .foregroundStyle(theme.colors.secondary)

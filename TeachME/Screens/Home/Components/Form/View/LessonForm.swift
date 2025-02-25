@@ -121,8 +121,7 @@ private extension LessonForm {
         ActionButton(
             buttonContent: .text(
                 Text(viewModel.cancelButtonText)
-            ),
-            theme: theme
+            )
         ) {
             viewModel.onCancel()
         }
@@ -133,8 +132,7 @@ private extension LessonForm {
         ActionButton(
             buttonContent: .text(
                 Text(viewModel.doneButtonText)
-            ),
-            theme: theme
+            )
         ) {
             viewModel.onSubmit()
         }

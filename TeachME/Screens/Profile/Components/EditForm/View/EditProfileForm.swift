@@ -73,8 +73,7 @@ private extension EditProfileForm {
         ActionButton(
             buttonContent: .text(
                 Text(viewModel.cancelButtonText)
-            ),
-            theme: theme
+            )
         ) {
             viewModel.onCancel()
         }
@@ -85,8 +84,7 @@ private extension EditProfileForm {
         ActionButton(
             buttonContent: .text(
                 Text(viewModel.doneButtonText)
-            ),
-            theme: theme
+            )
         ) {
             viewModel.onSubmit()
         }

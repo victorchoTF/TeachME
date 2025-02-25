@@ -46,8 +46,7 @@ struct LessonPickScreen: View {
                 ActionButton(
                     buttonContent: .text(
                         Text(viewModel.pickLessonButtonText)
-                    ),
-                    theme: theme
+                    )
                 ) {
                     viewModel.pickLessonButtonAction()
                 }

@@ -57,27 +57,34 @@ final class LessonListScreenViewModel: ObservableObject {
             return
         }
         
-        do {
-            self.lessonFormViewModel = try LessonFormViewModel(
-                lesson: LessonItem(
-                    teacherName: userItem.name,
-                    teacherProfilePicture: userItem.profilePicture
-                ),
-                formType: FormType.add,
-                dateFormatter: DateFormatter(),
-                onCancel: { [weak self] in
-                    self?.lessonFormViewModel = nil
-                }
-            ) { [weak self] lesson in
-                self?.lessons.removeAll(where: { $0 == lesson })
-                self?.lessons.insert(
-                    lesson,
-                    at: 0
-                )
+        self.lessonFormViewModel = LessonFormViewModel(
+            lesson: emptyLessonItem(userItem: userItem),
+            formType: FormType.add,
+            dateFormatter: DateFormatter(),
+            onCancel: { [weak self] in
                 self?.lessonFormViewModel = nil
             }
-        } catch {
-            self.lessonFormViewModel = nil
+        ) { [weak self] lesson in
+            self?.lessons.removeAll(where: { $0 == lesson })
+            self?.lessons.insert(
+                lesson,
+                at: 0
+            )
+            self?.lessonFormViewModel = nil
         }
+    }
+}
+
+private extension LessonListScreenViewModel {
+    func emptyLessonItem(userItem: UserItem) -> LessonItem {
+        LessonItem(
+            id: UUID(),
+            lessonType: "Maths",
+            subtitle: "",
+            startDate: "",
+            endDate: "",
+            teacherProfilePicture: userItem.profilePicture,
+            teacherName: userItem.name
+        )
     }
 }

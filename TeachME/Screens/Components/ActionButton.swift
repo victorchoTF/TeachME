@@ -9,13 +9,11 @@ import SwiftUI
 
 struct ActionButton: View {
     let buttonContent: ActionButtonContent
-    let theme: Theme
     
     let action: () -> ()
     
-    init(buttonContent: ActionButtonContent, theme: Theme, action: @escaping () -> Void) {
+    init(buttonContent: ActionButtonContent, action: @escaping () -> Void) {
         self.buttonContent = buttonContent
-        self.theme = theme
         self.action = action
     }
     
