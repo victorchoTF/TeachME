@@ -24,8 +24,7 @@ struct ProfileScreen: View {
                         ActionButton(
                             buttonContent: .text(
                                 Text(viewModel.editButtonText)
-                            ),
-                            theme: theme
+                            )
                         ) {
                             viewModel.openEditProfile()
                         }
