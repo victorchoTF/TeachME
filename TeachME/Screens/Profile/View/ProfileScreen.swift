@@ -20,8 +20,12 @@ struct ProfileScreen: View {
         VStack {
             userCard
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        ActionButton(title: viewModel.editButtonText, theme: theme) {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        ActionButton(
+                            buttonContent: .text(
+                                Text(viewModel.editButtonText)
+                            )
+                        ) {
                             viewModel.openEditProfile()
                         }
                         .foregroundStyle(theme.colors.accent)

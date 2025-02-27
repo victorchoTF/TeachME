@@ -11,26 +11,32 @@ struct EditProfileForm: View {
     @ObservedObject var viewModel: EditProfileFormViewModel
     let theme: Theme
     
-    let bioFieldHeight: CGFloat = 100
+    let bioFieldMinHeight: CGFloat = 5
     
     var body: some View {
-        Form {
-            FormTitle(title: viewModel.formTitle, theme: theme)
-                .listRowSeparator(.hidden)
-                .listRowBackground(Color.clear)
-            
-            editFields
-            
-            SubmitButton(text: viewModel.buttonText, theme: theme) {
-                viewModel.onSubmit()
+        NavigationView {
+            Form {
+                editFields
             }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    cancelButton
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    doneButton
+                }
+            }
+
+            .navigationTitle(viewModel.formTitle)
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
 
 private extension EditProfileForm {
     var editFields: some View {
-        Section {
+        VStack {
             TextField(viewModel.emailPlaceholder, text: $viewModel.email)
                 .styledTextField(theme: theme)
             
@@ -53,7 +59,7 @@ private extension EditProfileForm {
     var bioField: some View {
         ZStack(alignment: .topLeading) {
             TextEditor(text: $viewModel.bio)
-                .frame(minHeight: bioFieldHeight)
+                .frame(minHeight: bioFieldMinHeight)
                 .styledTextField(theme: theme, padding: theme.spacings.extraSmall)
             if viewModel.shouldShowBioPlaceholder {
                 Text(viewModel.bioPlaceholder)
@@ -61,5 +67,27 @@ private extension EditProfileForm {
                     .padding(theme.spacings.medium)
             }
         }
+    }
+    
+    var cancelButton: some View {
+        ActionButton(
+            buttonContent: .text(
+                Text(viewModel.cancelButtonText)
+            )
+        ) {
+            viewModel.onCancel()
+        }
+        .foregroundStyle(theme.colors.accent)
+    }
+    
+    var doneButton: some View {
+        ActionButton(
+            buttonContent: .text(
+                Text(viewModel.doneButtonText)
+            )
+        ) {
+            viewModel.onSubmit()
+        }
+        .foregroundStyle(theme.colors.accent)
     }
 }

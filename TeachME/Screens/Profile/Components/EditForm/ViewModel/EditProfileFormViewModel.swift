@@ -17,8 +17,14 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
     let userItem: UserItem
     
     private let updateUser: (UserItem) -> ()
+    let onCancel: () -> ()
     
-    init(userItem: UserItem, updateUser: @escaping (UserItem) -> ()) {
+    init(
+        userItem: UserItem,
+        onCancel: @escaping () -> (),
+        updateUser: @escaping (UserItem) -> ()
+    ) {
+        self.onCancel = onCancel
         self.updateUser = updateUser
         self.userItem = userItem
         
@@ -30,7 +36,7 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
     }
     
     var formTitle: String {
-        "Edit your TeachME profile"
+        "Edit your profile"
     }
     
     var emailPlaceholder: String {
@@ -53,8 +59,12 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
         "Tell us more about yourself"
     }
     
-    var buttonText: String {
-        "Edit"
+    var cancelButtonText: String {
+        "Cancel"
+    }
+    
+    var doneButtonText: String {
+        "Done"
     }
     
     var shouldShowBioPlaceholder: Bool {

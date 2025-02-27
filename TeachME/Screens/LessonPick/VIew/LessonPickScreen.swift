@@ -42,14 +42,25 @@ struct LessonPickScreen: View {
         .background(theme.colors.primary)
         .navigationTitle(viewModel.pickedLesson.lessonType)
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                ActionButton(title: viewModel.pickLessonButtonText, theme: theme) {
-                    print("Saved")
+            ToolbarItem(placement: .topBarTrailing) {
+                ActionButton(
+                    buttonContent: .text(
+                        Text(viewModel.pickLessonButtonText)
+                    )
+                ) {
+                    viewModel.pickLessonButtonAction()
                 }
                 .foregroundStyle(theme.colors.accent)
             }
         }
         .onAppear(perform: viewModel.loadData)
+        .sheet(item: $viewModel.lessonFormViewModel) { lessonFormViewModel in
+            LessonForm(
+                viewModel: lessonFormViewModel,
+                theme: theme
+            )
+            .background(theme.colors.primary)
+        }
     }
 }
 
@@ -74,6 +85,7 @@ private extension LessonPickScreen {
             UserCard(user: teacher, theme: theme)
                 .background(theme.colors.secondary)
                 .frame(maxWidth: .infinity)
+                .padding(theme.spacings.small)
         } else {
             // TODO: Implement in another PR
             Text("Loading...")

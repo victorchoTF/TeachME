@@ -5,6 +5,7 @@
 //  Created by TumbaDev on 8.02.25.
 //
 
+import Foundation
 import SwiftUI
 
 final class ProfileScreenViewModel: ObservableObject {
@@ -27,7 +28,9 @@ final class ProfileScreenViewModel: ObservableObject {
     
     func openEditProfile() {
         guard let user = userItem else { return }
-        editProfileFormViewModel = EditProfileFormViewModel(userItem: user) { [weak self] user in
+        editProfileFormViewModel = EditProfileFormViewModel(userItem: user, onCancel: { [weak self] in
+            self?.editProfileFormViewModel = nil
+        }) { [weak self] user in
             self?.updateProfile(userItem: user)
         }
     }

@@ -8,16 +8,30 @@
 import SwiftUI
 
 struct ActionButton: View {
-    let title: String
-    let theme: Theme
+    let buttonContent: ActionButtonContent
     
     let action: () -> ()
+    
+    init(buttonContent: ActionButtonContent, action: @escaping () -> Void) {
+        self.buttonContent = buttonContent
+        self.action = action
+    }
     
     var body: some View {
         Button {
             action()
         } label: {
-            Text(title)
+            switch buttonContent {
+            case .text(let text):
+                text
+            case .icon(let icon):
+                icon
+            }
         }
     }
+}
+
+enum ActionButtonContent {
+    case text(Text)
+    case icon(Image)
 }
