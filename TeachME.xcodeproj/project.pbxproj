@@ -46,6 +46,10 @@
 		8E866E7E2D58E9C8007FAE6B /* EditProfileForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E866E7D2D58E9C8007FAE6B /* EditProfileForm.swift */; };
 		8E866E832D58EB2C007FAE6B /* EditProfileFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E866E822D58EB2C007FAE6B /* EditProfileFormViewModel.swift */; };
 		8E9669CB2D48AEEA00B5D6BA /* LessonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */; };
+		8E99E78A2D71AD5C00CF9CC8 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E7892D71AD5C00CF9CC8 /* DataSource.swift */; };
+		8E99E78C2D71AEE500CF9CC8 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E78B2D71AEE500CF9CC8 /* HTTPClient.swift */; };
+		8E99E78F2D71B02400CF9CC8 /* DataSourceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E78E2D71B02400CF9CC8 /* DataSourceError.swift */; };
+		8E99E7912D71BD3900CF9CC8 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E7902D71BD3900CF9CC8 /* DataModel.swift */; };
 		8EC1D32D2D475B5500987973 /* LessonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC1D32C2D475B5400987973 /* LessonCard.swift */; };
 		8EDBFF1C2D57A7BF008441D6 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDBFF1B2D57A7BF008441D6 /* ProfileScreen.swift */; };
 		8EDBFF1E2D57A807008441D6 /* ProfileScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDBFF1D2D57A807008441D6 /* ProfileScreenViewModel.swift */; };
@@ -96,6 +100,10 @@
 		8E866E7D2D58E9C8007FAE6B /* EditProfileForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileForm.swift; sourceTree = "<group>"; };
 		8E866E822D58EB2C007FAE6B /* EditProfileFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileFormViewModel.swift; sourceTree = "<group>"; };
 		8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonItem.swift; sourceTree = "<group>"; };
+		8E99E7892D71AD5C00CF9CC8 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		8E99E78B2D71AEE500CF9CC8 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		8E99E78E2D71B02400CF9CC8 /* DataSourceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceError.swift; sourceTree = "<group>"; };
+		8E99E7902D71BD3900CF9CC8 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		8EC1D32C2D475B5400987973 /* LessonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCard.swift; sourceTree = "<group>"; };
 		8EDBFF1B2D57A7BF008441D6 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		8EDBFF1D2D57A807008441D6 /* ProfileScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewModel.swift; sourceTree = "<group>"; };
@@ -286,6 +294,7 @@
 		8E65F7432D3D2BDF00D3A793 /* TeachME */ = {
 			isa = PBXGroup;
 			children = (
+				8E99E7862D71ABFB00CF9CC8 /* DataLayer */,
 				8E6D1C8D2D673A7600C400C4 /* Extensions */,
 				8E180D2A2D5271D400327E29 /* Helpers */,
 				8EFED0612D50A16800046F1D /* Navigation */,
@@ -335,6 +344,7 @@
 			isa = PBXGroup;
 			children = (
 				8E75D4402D3E268B0082F5FE /* Role.swift */,
+				8E99E7902D71BD3900CF9CC8 /* DataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -435,6 +445,40 @@
 				8E20F5782D4B8CAA007B3154 /* UserItem.swift */,
 			);
 			path = Items;
+			sourceTree = "<group>";
+		};
+		8E99E7862D71ABFB00CF9CC8 /* DataLayer */ = {
+			isa = PBXGroup;
+			children = (
+				8E99E78D2D71B01100CF9CC8 /* Errors */,
+				8E99E7882D71AC2000CF9CC8 /* DataSources */,
+				8E99E7872D71AC0800CF9CC8 /* Repositories */,
+				8E99E78B2D71AEE500CF9CC8 /* HTTPClient.swift */,
+			);
+			path = DataLayer;
+			sourceTree = "<group>";
+		};
+		8E99E7872D71AC0800CF9CC8 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		8E99E7882D71AC2000CF9CC8 /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				8E99E7892D71AD5C00CF9CC8 /* DataSource.swift */,
+			);
+			path = DataSources;
+			sourceTree = "<group>";
+		};
+		8E99E78D2D71B01100CF9CC8 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				8E99E78E2D71B02400CF9CC8 /* DataSourceError.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 		8EC1D32B2D475B3E00987973 /* Components */ = {
@@ -586,7 +630,9 @@
 				8E75D4462D3E2ED20082F5FE /* Colors.swift in Sources */,
 				8E866E7E2D58E9C8007FAE6B /* EditProfileForm.swift in Sources */,
 				8EC1D32D2D475B5500987973 /* LessonCard.swift in Sources */,
+				8E99E78A2D71AD5C00CF9CC8 /* DataSource.swift in Sources */,
 				8E7EBE4E2D3E3AE500C7C017 /* RegisterFormViewModel.swift in Sources */,
+				8E99E7912D71BD3900CF9CC8 /* DataModel.swift in Sources */,
 				8E65F7472D3D2BDF00D3A793 /* ContentView.swift in Sources */,
 				8E7EBE4B2D3E3A1800C7C017 /* AuthScreenViewModel.swift in Sources */,
 				8E6D1C8F2D673A9300C400C4 /* DateFormatter+toString.swift in Sources */,
@@ -594,6 +640,7 @@
 				8EFED0662D50A1F900046F1D /* Router.swift in Sources */,
 				8E2982902D4A38CF00588D8E /* LessonListScreenViewModel.swift in Sources */,
 				8E7EBE532D3E417100C7C017 /* Spacings.swift in Sources */,
+				8E99E78F2D71B02400CF9CC8 /* DataSourceError.swift in Sources */,
 				8E84E27E2D42524E00CB8C05 /* SwitchFormText.swift in Sources */,
 				8E75D4432D3E2DF90082F5FE /* AuthScreen.swift in Sources */,
 				8EDBFF1E2D57A807008441D6 /* ProfileScreenViewModel.swift in Sources */,
@@ -602,6 +649,7 @@
 				8E866E832D58EB2C007FAE6B /* EditProfileFormViewModel.swift in Sources */,
 				8E84E27C2D424B8000CB8C05 /* Theme.swift in Sources */,
 				8E4D0F8B2D50B9A3007F57B8 /* ActionButton.swift in Sources */,
+				8E99E78C2D71AEE500CF9CC8 /* HTTPClient.swift in Sources */,
 				8E75D4392D3E233F0082F5FE /* RegisterForm.swift in Sources */,
 				8EFED0682D50A2BB00046F1D /* Destination.swift in Sources */,
 				8E6D1C8A2D67344400C400C4 /* FormType.swift in Sources */,
