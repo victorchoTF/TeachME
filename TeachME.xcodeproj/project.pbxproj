@@ -124,6 +124,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E11604A2D7481CD0097774B /* DataTransferObjects */ = {
+			isa = PBXGroup;
+			children = (
+				8E99E7902D71BD3900CF9CC8 /* DataModel.swift */,
+			);
+			path = DataTransferObjects;
+			sourceTree = "<group>";
+		};
 		8E180D2A2D5271D400327E29 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,7 +352,6 @@
 			isa = PBXGroup;
 			children = (
 				8E75D4402D3E268B0082F5FE /* Role.swift */,
-				8E99E7902D71BD3900CF9CC8 /* DataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -450,6 +457,7 @@
 		8E99E7862D71ABFB00CF9CC8 /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
+				8E11604A2D7481CD0097774B /* DataTransferObjects */,
 				8E99E78D2D71B01100CF9CC8 /* Errors */,
 				8E99E7882D71AC2000CF9CC8 /* DataSources */,
 				8E99E7872D71AC0800CF9CC8 /* Repositories */,

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol DataSource {
-    associatedtype DataType: DataModel
+    associatedtype DataType: DataTransferObject
     
     var client: HTTPClient { get }
     var url: URL { get }
