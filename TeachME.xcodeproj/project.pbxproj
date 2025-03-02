@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E11604C2D7482DD0097774B /* RoleDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11604B2D7482DD0097774B /* RoleDTO.swift */; };
+		8E11604E2D7482F90097774B /* LessonTypeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11604D2D7482F90097774B /* LessonTypeDTO.swift */; };
+		8E1160502D7483280097774B /* UserDetailDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11604F2D7483280097774B /* UserDetailDTO.swift */; };
+		8E1160522D7483A30097774B /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1160512D7483A30097774B /* UserDTO.swift */; };
+		8E1160542D7484240097774B /* LessonDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1160532D7484240097774B /* LessonDTO.swift */; };
 		8E180D2C2D5271E100327E29 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E180D2B2D5271E100327E29 /* Tab.swift */; };
 		8E180D2E2D5272FA00327E29 /* TabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E180D2D2D5272FA00327E29 /* TabRouter.swift */; };
 		8E20F5712D4B83A1007B3154 /* LessonPickScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5702D4B83A1007B3154 /* LessonPickScreen.swift */; };
@@ -60,6 +65,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E11604B2D7482DD0097774B /* RoleDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleDTO.swift; sourceTree = "<group>"; };
+		8E11604D2D7482F90097774B /* LessonTypeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTypeDTO.swift; sourceTree = "<group>"; };
+		8E11604F2D7483280097774B /* UserDetailDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailDTO.swift; sourceTree = "<group>"; };
+		8E1160512D7483A30097774B /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
+		8E1160532D7484240097774B /* LessonDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDTO.swift; sourceTree = "<group>"; };
 		8E180D2B2D5271E100327E29 /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		8E180D2D2D5272FA00327E29 /* TabRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabRouter.swift; sourceTree = "<group>"; };
 		8E20F5702D4B83A1007B3154 /* LessonPickScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonPickScreen.swift; sourceTree = "<group>"; };
@@ -128,6 +138,11 @@
 			isa = PBXGroup;
 			children = (
 				8E99E7902D71BD3900CF9CC8 /* DataModel.swift */,
+				8E11604B2D7482DD0097774B /* RoleDTO.swift */,
+				8E11604D2D7482F90097774B /* LessonTypeDTO.swift */,
+				8E11604F2D7483280097774B /* UserDetailDTO.swift */,
+				8E1160512D7483A30097774B /* UserDTO.swift */,
+				8E1160532D7484240097774B /* LessonDTO.swift */,
 			);
 			path = DataTransferObjects;
 			sourceTree = "<group>";
@@ -642,8 +657,10 @@
 				8E7EBE4E2D3E3AE500C7C017 /* RegisterFormViewModel.swift in Sources */,
 				8E99E7912D71BD3900CF9CC8 /* DataModel.swift in Sources */,
 				8E65F7472D3D2BDF00D3A793 /* ContentView.swift in Sources */,
+				8E11604E2D7482F90097774B /* LessonTypeDTO.swift in Sources */,
 				8E7EBE4B2D3E3A1800C7C017 /* AuthScreenViewModel.swift in Sources */,
 				8E6D1C8F2D673A9300C400C4 /* DateFormatter+toString.swift in Sources */,
+				8E11604C2D7482DD0097774B /* RoleDTO.swift in Sources */,
 				8E3427AD2D3E649900A38A2D /* Fonts.swift in Sources */,
 				8EFED0662D50A1F900046F1D /* Router.swift in Sources */,
 				8E2982902D4A38CF00588D8E /* LessonListScreenViewModel.swift in Sources */,
@@ -651,6 +668,7 @@
 				8E99E78F2D71B02400CF9CC8 /* DataSourceError.swift in Sources */,
 				8E84E27E2D42524E00CB8C05 /* SwitchFormText.swift in Sources */,
 				8E75D4432D3E2DF90082F5FE /* AuthScreen.swift in Sources */,
+				8E1160522D7483A30097774B /* UserDTO.swift in Sources */,
 				8EDBFF1E2D57A807008441D6 /* ProfileScreenViewModel.swift in Sources */,
 				8E6D1C8C2D673A1900C400C4 /* DateFormatter+toDate.swift in Sources */,
 				8E65F7452D3D2BDF00D3A793 /* TeachMEApp.swift in Sources */,
@@ -678,10 +696,12 @@
 				8E5F20142D5DE76C00BE9C24 /* HomeRouter.swift in Sources */,
 				8E29828B2D4A347500588D8E /* LessonListScreen.swift in Sources */,
 				8E5F201C2D5DEE2900BE9C24 /* LessonFormViewModel.swift in Sources */,
+				8E1160502D7483280097774B /* UserDetailDTO.swift in Sources */,
 				8E863BA02D3F7617001773F4 /* LoginForm.swift in Sources */,
 				8E7EBE512D3E409500C7C017 /* StyledTextField.swift in Sources */,
 				8E5F20172D5DEDA000BE9C24 /* LessonForm.swift in Sources */,
 				8E20F5772D4B8C9C007B3154 /* UserCard.swift in Sources */,
+				8E1160542D7484240097774B /* LessonDTO.swift in Sources */,
 				8E75D4412D3E268B0082F5FE /* Role.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
