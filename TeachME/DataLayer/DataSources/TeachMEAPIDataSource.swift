@@ -1,30 +1,16 @@
 //
-//  DataSource.swift
+//  TeachMEAPIDataSource.swift
 //  TeachME
 //
-//  Created by TumbaDev on 28.02.25.
+//  Created by TumbaDev on 4.03.25.
 //
 
 import Foundation
 
-protocol DataSource {
-    associatedtype DataType: DataTransferObject
-    
-    var client: HTTPClient { get }
-    var url: URL { get }
-    
-    var encoder: JSONEncoder { get }
-    var decoder: JSONDecoder { get }
-    
-    func create(_ data: DataType) async throws
-    func fetchById(_ id: UUID) async throws -> DataType
-    func update(_ data: DataType) async throws
-    func delete(_ id: UUID) async throws
-    func fetchAll() async throws -> [DataType]
-}
+protocol TeachMEAPIDataSource: APIDataSource {}
 
-extension DataSource {
-    func create(_ data: DataType) async throws {
+extension TeachMEAPIDataSource {
+    func create(_ data: DataType) async throws -> DataType {
         var request = URLRequest(url: url)
 
         request.httpMethod = "POST"
@@ -37,11 +23,21 @@ extension DataSource {
            throw DataSourceError.encodingError("Data of \(data) could not be encoded!")
         }
 
+        let returnedData: Data
         do {
-           let _ = try await client.request(request)
+            (returnedData, _) = try await client.request(request)
         } catch {
            throw DataSourceError.postingError("Data of \(data) could not be created!")
         }
+        
+        let createdData: DataType
+        do {
+            createdData = try decoder.decode(DataType.self, from: returnedData)
+        } catch {
+            throw DataSourceError.decodingError("Data of \(data) could not be decoded!")
+        }
+        
+        return createdData
     }
     
     func fetchById(_ id: UUID) async throws -> DataType{
