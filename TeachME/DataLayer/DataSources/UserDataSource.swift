@@ -23,9 +23,12 @@ final class UserTypeDataSource: TeachMEAPIDataSource {
     }
     
     func getUsersByRoleId(_ id: UUID) async throws -> [UserDTO] {
-        let subURL = url.appendingPathComponent("list")
-        
-        var request = URLRequest(url: subURL.appendingPathComponent("\(id)"))
+        guard let request = URLRequestBuilder(baseURL: url, path: "list/\(id)")
+            .setMethod(.get)
+            .build()
+        else {
+            throw DataSourceError.invalidURL("\(url)/list/\(id) not found")
+        }
         
         let fetchedData: Data
         do {

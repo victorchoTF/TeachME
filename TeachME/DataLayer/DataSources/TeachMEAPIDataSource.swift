@@ -49,7 +49,7 @@ extension TeachMEAPIDataSource {
             .setMethod(.get)
             .build()
         else {
-            throw DataSourceError.invalidURL("\(url) not found")
+            throw DataSourceError.invalidURL("\(url)/\(id) not found")
         }
         
         let fetchedData: Data
@@ -83,7 +83,7 @@ extension TeachMEAPIDataSource {
             .setBody(jsonData)
             .build()
         else {
-            throw DataSourceError.invalidURL("\(url) not found")
+            throw DataSourceError.invalidURL("\(url)/\(data.id) not found")
         }
 
         do {
@@ -99,7 +99,7 @@ extension TeachMEAPIDataSource {
             .setMethod(.delete)
             .build()
         else {
-            throw DataSourceError.invalidURL("\(url) not found")
+            throw DataSourceError.invalidURL("\(url)/\(id) not found")
         }
 
         do {
