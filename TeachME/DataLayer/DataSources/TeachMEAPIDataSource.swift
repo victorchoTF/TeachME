@@ -11,16 +11,20 @@ protocol TeachMEAPIDataSource: APIDataSource {}
 
 extension TeachMEAPIDataSource {
     func create(_ data: DataType) async throws -> DataType {
-        var request = URLRequest(url: url)
-
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        let jsonData: Data
         do {
-           let jsonData = try encoder.encode(data)
-           request.httpBody = jsonData
+           jsonData = try encoder.encode(data)
         } catch {
            throw DataSourceError.encodingError("Data of \(data) could not be encoded!")
+        }
+        
+        guard let request = URLRequestBuilder(baseURL: url)
+            .setMethod(.post)
+            .setHeaders(["application/json": "Content-Type"])
+            .setBody(jsonData)
+            .build()
+        else {
+            throw DataSourceError.invalidURL("\(url) not found")
         }
 
         let returnedData: Data
@@ -41,7 +45,12 @@ extension TeachMEAPIDataSource {
     }
     
     func fetchById(_ id: UUID) async throws -> DataType{
-        var request = URLRequest(url: url.appendingPathComponent("\(id)"))
+        guard let request = URLRequestBuilder(baseURL: url, path: "\(id)")
+            .setMethod(.get)
+            .build()
+        else {
+            throw DataSourceError.invalidURL("\(url) not found")
+        }
         
         let fetchedData: Data
         do {
@@ -61,15 +70,20 @@ extension TeachMEAPIDataSource {
     }
     
     func update(_ data: DataType) async throws {
-        var request = URLRequest(url: url.appendingPathComponent("\(data.id)"))
-        request.httpMethod = "PUT"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        let jsonData: Data
         do {
-            let jsonData = try encoder.encode(data)
-            request.httpBody = jsonData
+            jsonData = try encoder.encode(data)
         } catch {
             throw DataSourceError.encodingError("Data of \(data) could not be encoded!")
+        }
+        
+        guard let request = URLRequestBuilder(baseURL: url, path: "\(data.id)")
+            .setMethod(.put)
+            .setHeaders(["application/json": "Content-Type"])
+            .setBody(jsonData)
+            .build()
+        else {
+            throw DataSourceError.invalidURL("\(url) not found")
         }
 
         do {
@@ -81,8 +95,12 @@ extension TeachMEAPIDataSource {
 
     
     func delete(_ id: UUID) async throws {
-        var request = URLRequest(url: url.appendingPathComponent("\(id)"))
-        request.httpMethod = "DELETE"
+        guard let request = URLRequestBuilder(baseURL: url, path: "\(id)")
+            .setMethod(.delete)
+            .build()
+        else {
+            throw DataSourceError.invalidURL("\(url) not found")
+        }
 
         do {
             let _ = try await client.request(request)
@@ -92,7 +110,12 @@ extension TeachMEAPIDataSource {
     }
     
     func fetchAll() async throws -> [DataType] {
-        var request = URLRequest(url: url)
+        guard let request = URLRequestBuilder(baseURL: url)
+            .setMethod(.get)
+            .build()
+        else {
+            throw DataSourceError.invalidURL("\(url) not found")
+        }
         
         let fetchedData: Data
         do {

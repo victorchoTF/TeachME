@@ -14,4 +14,5 @@ enum DataSourceError: Error {
     case fetchingError(String)
     case updatingError(String)
     case deletingError(String)
+    case invalidURL(String)
 }

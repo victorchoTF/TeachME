@@ -7,15 +7,15 @@
 
 import Foundation
 
-final class UserTypeDataSource: DataSource {
+final class UserTypeDataSource: TeachMEAPIDataSource {
     typealias DataType = UserDTO
     
-    var client: HTTPClient
-    var url: URL
-    var encoder: JSONEncoder
-    var decoder: JSONDecoder
+    let client: HTTPClient
+    let url: String
+    let encoder: JSONEncoder
+    let decoder: JSONDecoder
     
-    init(client: HTTPClient, url: URL, encoder: JSONEncoder, decoder: JSONDecoder) {
+    init(client: HTTPClient, url: String, encoder: JSONEncoder, decoder: JSONDecoder) {
         self.client = client
         self.url = url
         self.encoder = encoder
