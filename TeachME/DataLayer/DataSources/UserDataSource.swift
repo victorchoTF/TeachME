@@ -11,23 +11,23 @@ final class UserTypeDataSource: TeachMEAPIDataSource {
     typealias DataType = UserDTO
     
     let client: HTTPClient
-    let url: String
+    let baseURL: String
     let encoder: JSONEncoder
     let decoder: JSONDecoder
     
-    init(client: HTTPClient, url: String, encoder: JSONEncoder, decoder: JSONDecoder) {
+    init(client: HTTPClient, baseURL: String, encoder: JSONEncoder, decoder: JSONDecoder) {
         self.client = client
-        self.url = url
+        self.baseURL = baseURL
         self.encoder = encoder
         self.decoder = decoder
     }
     
     func getUsersByRoleId(_ id: UUID) async throws -> [UserDTO] {
-        guard let request = URLRequestBuilder(baseURL: url, path: "list/\(id)")
+        guard let request = try URLRequestBuilder(baseURL: baseURL, path: "list/\(id)")
             .setMethod(.get)
             .build()
         else {
-            throw DataSourceError.invalidURL("\(url)/list/\(id) not found")
+            throw DataSourceError.invalidURL("\(baseURL)/list/\(id) not found")
         }
         
         let fetchedData: Data

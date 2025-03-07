@@ -11,23 +11,23 @@ final class LessonDataSource: TeachMEAPIDataSource {
     typealias DataType = LessonDTO
     
     let client: HTTPClient
-    let url: String
+    let baseURL: String
     let encoder: JSONEncoder
     let decoder: JSONDecoder
     
-    init(client: HTTPClient, url: String, encoder: JSONEncoder, decoder: JSONDecoder) {
+    init(client: HTTPClient, baseURL: String, encoder: JSONEncoder, decoder: JSONDecoder) {
         self.client = client
-        self.url = url
+        self.baseURL = baseURL
         self.encoder = encoder
         self.decoder = decoder
     }
     
     func getOpenLessons() async throws -> [LessonDTO] {
-        guard let request = URLRequestBuilder(baseURL: url, path: "open")
+        guard let request = try URLRequestBuilder(baseURL: baseURL, path: "open")
             .setMethod(.get)
             .build()
         else {
-            throw DataSourceError.invalidURL("\(url)/open not found")
+            throw DataSourceError.invalidURL("\(baseURL)/open not found")
         }
         
         let fetchedData: Data
@@ -48,11 +48,11 @@ final class LessonDataSource: TeachMEAPIDataSource {
     }
     
     func getLessonsByTeacherId(_ id: UUID) async throws -> [LessonDTO] {
-        guard let request = URLRequestBuilder(baseURL: url, path: "teacher/\(id)")
+        guard let request = try URLRequestBuilder(baseURL: baseURL, path: "teacher/\(id)")
             .setMethod(.get)
             .build()
         else {
-            throw DataSourceError.invalidURL("\(url)/teacher/\(id) not found")
+            throw DataSourceError.invalidURL("\(baseURL)/teacher/\(id) not found")
         }
         
         let fetchedData: Data
@@ -77,11 +77,11 @@ final class LessonDataSource: TeachMEAPIDataSource {
     }
     
     func getLessonsByStudentId(_ id: UUID) async throws -> [LessonDTO] {
-        guard let request = URLRequestBuilder(baseURL: url, path: "student/\(id)")
+        guard let request = try URLRequestBuilder(baseURL: baseURL, path: "student/\(id)")
             .setMethod(.get)
             .build()
         else {
-            throw DataSourceError.invalidURL("\(url)/student/\(id) not found")
+            throw DataSourceError.invalidURL("\(baseURL)/student/\(id) not found")
         }
         
         let fetchedData: Data
@@ -106,11 +106,11 @@ final class LessonDataSource: TeachMEAPIDataSource {
     }
     
     func getLessonsByLessonTypeId(_ id: UUID) async throws -> [LessonDTO] {
-        guard let request = URLRequestBuilder(baseURL: url, path: "lesson-type/\(id)")
+        guard let request = try URLRequestBuilder(baseURL: baseURL, path: "lesson-type/\(id)")
             .setMethod(.get)
             .build()
         else {
-            throw DataSourceError.invalidURL("\(url)/lesson-type/\(id) not found")
+            throw DataSourceError.invalidURL("\(baseURL)/lesson-type/\(id) not found")
         }
         
         let fetchedData: Data
@@ -142,13 +142,13 @@ final class LessonDataSource: TeachMEAPIDataSource {
             throw DataSourceError.encodingError("Lesson of \(lesson) could not be encoded!")
         }
         
-        guard let request = URLRequestBuilder(baseURL: url, path: "\(lesson.id)")
+        guard let request = try URLRequestBuilder(baseURL: baseURL, path: "\(lesson.id)")
             .setMethod(.put)
             .setHeaders(["application/json": "Content-Type"])
             .setBody(jsonData)
             .build()
         else {
-            throw DataSourceError.invalidURL("\(url)/take-lesson/\(lesson.id) not found")
+            throw DataSourceError.invalidURL("\(baseURL)/take-lesson/\(lesson.id) not found")
         }
 
         do {

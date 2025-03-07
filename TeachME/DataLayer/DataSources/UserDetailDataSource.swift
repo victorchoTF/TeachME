@@ -11,13 +11,13 @@ final class UserDetailTypeDataSource: TeachMEAPIDataSource {
     typealias DataType = UserDetailDTO
     
     let client: HTTPClient
-    let url: String
+    let baseURL: String
     let encoder: JSONEncoder
     let decoder: JSONDecoder
     
-    init(client: HTTPClient, url: String, encoder: JSONEncoder, decoder: JSONDecoder) {
+    init(client: HTTPClient, baseURL: String, encoder: JSONEncoder, decoder: JSONDecoder) {
         self.client = client
-        self.url = url
+        self.baseURL = baseURL
         self.encoder = encoder
         self.decoder = decoder
     }

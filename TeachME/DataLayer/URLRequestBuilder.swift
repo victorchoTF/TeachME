@@ -13,22 +13,26 @@ class URLRequestBuilder {
     private var headers: [String: String] = [:]
     private var body: Data?
     
-    init(baseURL: String, path: String = "") {
+    init(baseURL: String, path: String = "") throws {
         guard let components = URLComponents(string: baseURL + path) else {
-            fatalError("Invalid URL")
+            throw DataSourceError.invalidURL("\(baseURL)/\(path) not found")
         }
         self.urlComponents = components
     }
     
     func setMethod(_ method: HTTPMethod) -> Self {
         self.method = method
+        
         return self
     }
     
     func addQueryItem(name: String, value: String) -> Self {
-        var queryItems = urlComponents.queryItems ?? []
-        queryItems.append(URLQueryItem(name: name, value: value))
-        urlComponents.queryItems = queryItems
+        if urlComponents.queryItems == nil {
+            urlComponents.queryItems = []
+        }
+        
+        urlComponents.queryItems?.append(URLQueryItem(name: name, value: value))
+        
         return self
     }
     
@@ -39,6 +43,7 @@ class URLRequestBuilder {
     
     func setBody(_ body: Data) -> Self {
         self.body = body
+        
         return self
     }
     
@@ -48,6 +53,7 @@ class URLRequestBuilder {
         request.httpMethod = method.rawValue
         request.allHTTPHeaderFields = headers
         request.httpBody = body
+        
         return request
     }
 }
