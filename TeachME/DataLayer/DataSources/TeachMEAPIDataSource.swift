@@ -11,16 +11,20 @@ protocol TeachMEAPIDataSource: APIDataSource {}
 
 extension TeachMEAPIDataSource {
     func create(_ data: DataType) async throws -> DataType {
-        var request = URLRequest(url: url)
-
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        let jsonData: Data
         do {
-           let jsonData = try encoder.encode(data)
-           request.httpBody = jsonData
+           jsonData = try encoder.encode(data)
         } catch {
            throw DataSourceError.encodingError("Data of \(data) could not be encoded!")
+        }
+        
+        guard let request = try URLRequestBuilder(baseURL: baseURL)
+            .setMethod(.post)
+            .setHeaders(["application/json": "Content-Type"])
+            .setBody(jsonData)
+            .build()
+        else {
+            throw DataSourceError.invalidURL("\(baseURL) not found")
         }
 
         let returnedData: Data
@@ -41,7 +45,12 @@ extension TeachMEAPIDataSource {
     }
     
     func fetchById(_ id: UUID) async throws -> DataType{
-        var request = URLRequest(url: url.appendingPathComponent("\(id)"))
+        guard let request = try URLRequestBuilder(baseURL: baseURL, path: "\(id)")
+            .setMethod(.get)
+            .build()
+        else {
+            throw DataSourceError.invalidURL("\(baseURL)/\(id) not found")
+        }
         
         let fetchedData: Data
         do {
@@ -61,15 +70,20 @@ extension TeachMEAPIDataSource {
     }
     
     func update(_ data: DataType) async throws {
-        var request = URLRequest(url: url.appendingPathComponent("\(data.id)"))
-        request.httpMethod = "PUT"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        let jsonData: Data
         do {
-            let jsonData = try encoder.encode(data)
-            request.httpBody = jsonData
+            jsonData = try encoder.encode(data)
         } catch {
             throw DataSourceError.encodingError("Data of \(data) could not be encoded!")
+        }
+        
+        guard let request = try URLRequestBuilder(baseURL: baseURL, path: "\(data.id)")
+            .setMethod(.put)
+            .setHeaders(["application/json": "Content-Type"])
+            .setBody(jsonData)
+            .build()
+        else {
+            throw DataSourceError.invalidURL("\(baseURL)/\(data.id) not found")
         }
 
         do {
@@ -81,8 +95,12 @@ extension TeachMEAPIDataSource {
 
     
     func delete(_ id: UUID) async throws {
-        var request = URLRequest(url: url.appendingPathComponent("\(id)"))
-        request.httpMethod = "DELETE"
+        guard let request = try URLRequestBuilder(baseURL: baseURL, path: "\(id)")
+            .setMethod(.delete)
+            .build()
+        else {
+            throw DataSourceError.invalidURL("\(baseURL)/\(id) not found")
+        }
 
         do {
             let _ = try await client.request(request)
@@ -92,20 +110,25 @@ extension TeachMEAPIDataSource {
     }
     
     func fetchAll() async throws -> [DataType] {
-        var request = URLRequest(url: url)
+        guard let request = try URLRequestBuilder(baseURL: baseURL)
+            .setMethod(.get)
+            .build()
+        else {
+            throw DataSourceError.invalidURL("\(baseURL) not found")
+        }
         
         let fetchedData: Data
         do {
             (fetchedData, _) = try await client.request(request)
         } catch {
-            throw DataSourceError.fetchingError("Values on url: \(url) could not be fetched!")
+            throw DataSourceError.fetchingError("Values on url: \(baseURL) could not be fetched!")
         }
         
         let data: [DataType]
         do {
             data = try decoder.decode([DataType].self, from: fetchedData)
         } catch {
-            throw DataSourceError.decodingError("Value on url: \(url) could not be decoded!")
+            throw DataSourceError.decodingError("Value on url: \(baseURL) could not be decoded!")
         }
         
         return data

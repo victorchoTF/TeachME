@@ -11,7 +11,7 @@ protocol APIDataSource {
     associatedtype DataType: DataTransferObject
     
     var client: HTTPClient { get }
-    var url: URL { get }
+    var baseURL: String { get }
     
     var encoder: JSONEncoder { get }
     var decoder: JSONDecoder { get }
