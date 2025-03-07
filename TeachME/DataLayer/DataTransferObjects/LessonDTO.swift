@@ -13,11 +13,11 @@ struct LessonDTO: DataTransferObject {
     let subtitle: String
     let startDate: Int
     let endDate: Int
-    let teacher: UserLessonBody
-    let student: UserLessonBody?
+    let teacher: UserLessonBodyDTO
+    let student: UserLessonBodyDTO?
 }
 
-struct UserLessonBody: Codable {
+struct UserLessonBodyDTO: Codable {
     let id: UUID
     let firstName: String
     let lastName: String
