@@ -16,9 +16,3 @@ struct LessonDTO: DataTransferObject {
     let teacher: UserLessonBodyDTO
     let student: UserLessonBodyDTO?
 }
-
-struct UserLessonBodyDTO: DataTransferObject {
-    let id: UUID
-    let firstName: String
-    let lastName: String
-}

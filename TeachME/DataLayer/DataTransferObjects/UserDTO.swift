@@ -15,3 +15,9 @@ struct UserDTO: DataTransferObject {
     let userDetail: UserDetailDTO?
     let role: RoleDTO
 }
+
+struct UserLessonBodyDTO: DataTransferObject {
+    let id: UUID
+    let firstName: String
+    let lastName: String
+}

@@ -15,3 +15,9 @@ struct UserModel: Model {
     let userDetail: UserDetailModel?
     let role: RoleModel
 }
+
+struct UserLessonBodyModel: Model {
+    let id: UUID
+    let firstName: String
+    let lastName: String
+}
