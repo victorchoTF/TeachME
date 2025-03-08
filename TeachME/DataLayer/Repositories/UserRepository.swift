@@ -19,4 +19,16 @@ final class UserRepository: Repository {
         self.dataSource = dataSource
         self.mapper = mapper
     }
+    
+    func getUsersByRoleId(_ id: UUID) async throws -> [UserModel] {
+        let users = try await dataSource.getUsersByRoleId(id)
+        
+        var userModels: [UserModel] = []
+        
+        for user in users {
+            userModels.append(mapper.dataToModel(user))
+        }
+        
+        return userModels
+    }
 }
