@@ -21,3 +21,16 @@ struct UserLessonBodyModel: Model {
     let firstName: String
     let lastName: String
 }
+
+struct UserCredentialsBodyModel {
+    let email: String
+    let password: String
+}
+
+struct UserRegisterBodyModel {
+    let email: String
+    let password: String
+    let firstName: String
+    let lastName: String
+    let roleId: UUID
+}

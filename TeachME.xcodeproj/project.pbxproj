@@ -31,6 +31,7 @@
 		8E3CF23F2D7D946D009D30D5 /* AuthDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3CF23E2D7D946D009D30D5 /* AuthDataSource.swift */; };
 		8E3CF2412D7D9590009D30D5 /* TokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3CF2402D7D9590009D30D5 /* TokenResponse.swift */; };
 		8E3CF2452D7D97A6009D30D5 /* RefreshTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3CF2442D7D97A6009D30D5 /* RefreshTokenRequest.swift */; };
+		8E3CF2472D7D9D13009D30D5 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3CF2462D7D9D13009D30D5 /* AuthRepository.swift */; };
 		8E4D0F8B2D50B9A3007F57B8 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4D0F8A2D50B9A3007F57B8 /* ActionButton.swift */; };
 		8E5F20142D5DE76C00BE9C24 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5F20132D5DE76C00BE9C24 /* HomeRouter.swift */; };
 		8E5F20172D5DEDA000BE9C24 /* LessonForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5F20162D5DEDA000BE9C24 /* LessonForm.swift */; };
@@ -118,6 +119,7 @@
 		8E3CF23E2D7D946D009D30D5 /* AuthDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDataSource.swift; sourceTree = "<group>"; };
 		8E3CF2402D7D9590009D30D5 /* TokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenResponse.swift; sourceTree = "<group>"; };
 		8E3CF2442D7D97A6009D30D5 /* RefreshTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenRequest.swift; sourceTree = "<group>"; };
+		8E3CF2462D7D9D13009D30D5 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		8E4D0F8A2D50B9A3007F57B8 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		8E5F20132D5DE76C00BE9C24 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		8E5F20162D5DEDA000BE9C24 /* LessonForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonForm.swift; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 				8EB0936C2D7C8FF30073C0F6 /* UserDetailRepository.swift */,
 				8EB0936E2D7C90480073C0F6 /* UserRepository.swift */,
 				8EB093702D7C908F0073C0F6 /* LessonRepository.swift */,
+				8E3CF2462D7D9D13009D30D5 /* AuthRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -798,6 +801,7 @@
 				8E65F7452D3D2BDF00D3A793 /* TeachMEApp.swift in Sources */,
 				8EB093692D7C8F450073C0F6 /* RoleRepository.swift in Sources */,
 				8E866E832D58EB2C007FAE6B /* EditProfileFormViewModel.swift in Sources */,
+				8E3CF2472D7D9D13009D30D5 /* AuthRepository.swift in Sources */,
 				8E84E27C2D424B8000CB8C05 /* Theme.swift in Sources */,
 				8E11605E2D7486FD0097774B /* RoleDataSource.swift in Sources */,
 				8E4D0F8B2D50B9A3007F57B8 /* ActionButton.swift in Sources */,

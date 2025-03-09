@@ -56,4 +56,32 @@ struct UserMapper: Mapper {
     func lessonBodyModelToData(_ model: UserLessonBodyModel) -> UserLessonBodyDTO {
         UserLessonBodyDTO(id: model.id, firstName: model.firstName, lastName: model.lastName)
     }
+    
+    func credentialBodyDataToModel(_ data: UserCredentialsBodyDTO) -> UserCredentialsBodyModel {
+        UserCredentialsBodyModel(email: data.email, password: data.password)
+    }
+    
+    func credentialBodyModelToData(_ model: UserCredentialsBodyModel) -> UserCredentialsBodyDTO {
+        UserCredentialsBodyDTO(email: model.email, password: model.password)
+    }
+    
+    func registerBodyDataToModel(_ data: UserRegisterBodyDTO) -> UserRegisterBodyModel {
+        UserRegisterBodyModel(
+            email: data.email,
+            password: data.password,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            roleId: data.roleId //TODO: Appoint via the Role enum
+        )
+    }
+    
+    func registerBodyModelToData(_ model: UserRegisterBodyModel) -> UserRegisterBodyDTO {
+        UserRegisterBodyDTO(
+            email: model.email,
+            password: model.password,
+            firstName: model.firstName,
+            lastName: model.lastName,
+            roleId: model.roleId //TODO: Role enum -> roleID
+        )
+    }
 }
