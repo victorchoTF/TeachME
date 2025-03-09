@@ -69,7 +69,7 @@ extension TeachMEAPIDataSource {
         return data
     }
     
-    func update(_ data: DataType) async throws {
+    func update(_ data: DataType) async throws where DataType: Identifiable {
         let jsonData: Data
         do {
             jsonData = try encoder.encode(data)
