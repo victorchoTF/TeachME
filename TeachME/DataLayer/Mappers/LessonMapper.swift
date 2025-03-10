@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct LessonMapper: Mapper {
     let lessonTypeMapper: LessonTypeMapper
     let userMapper: UserMapper
+    let dateFormatter: DateFormatter
     
     func dataToModel(_ data: LessonDTO) -> LessonModel {
         let studentModel: UserLessonBodyModel?
@@ -48,6 +50,22 @@ struct LessonMapper: Mapper {
             endDate: model.endDate,
             teacher: userMapper.lessonBodyModelToData(model.teacher),
             student: studentData
+        )
+    }
+    
+    func modelToItem(_ model: LessonModel) -> LessonItem {
+        LessonItem(
+            id: model.id,
+            lessonType: model.lessonType.name,
+            subtitle: model.subtitle,
+            startDate: dateFormatter.toString(
+                Date(timeIntervalSince1970: TimeInterval(model.startDate))
+            ),
+            endDate: dateFormatter.toString(
+                Date(timeIntervalSince1970: TimeInterval(model.endDate))
+            ),
+            teacherProfilePicture: Image(systemName: "profile"), //TODO: Pass image from the API
+            teacherName: "\(model.teacher.firstName) \(model.teacher.lastName)"
         )
     }
 }
