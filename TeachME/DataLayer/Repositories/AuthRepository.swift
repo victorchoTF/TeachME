@@ -17,7 +17,7 @@ final class AuthRepository {
     }
     
     func login(user: UserCredentialsBodyModel) async throws -> TokenResponse {
-        let userData = mapper.credentialBodyModelToData(user)
+        let userData = mapper.credentialBodyModelToDTO(user)
         
         return try await dataSource.login(user: userData)
     }

@@ -8,11 +8,11 @@
 import Foundation
 
 struct LessonTypeMapper: Mapper {
-    func dataToModel(_ data: LessonTypeDTO) -> LessonTypeModel {
+    func dtoToModel(_ data: LessonTypeDTO) -> LessonTypeModel {
         LessonTypeModel(id: data.id, name: data.name)
     }
     
-    func modelToData(_ model: LessonTypeModel) -> LessonTypeDTO {
+    func modelToDTO(_ model: LessonTypeModel) -> LessonTypeDTO {
         LessonTypeDTO(id: model.id, name: model.name)
     }
 }

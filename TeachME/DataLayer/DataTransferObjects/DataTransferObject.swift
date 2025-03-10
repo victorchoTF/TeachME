@@ -7,4 +7,4 @@
 
 import Foundation
 
-protocol DataTransferObject: Codable {}
+protocol DataTransferObject: Codable, Identifiable {}
