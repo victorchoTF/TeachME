@@ -54,7 +54,24 @@ struct LessonMapper: Mapper {
     }
     
     func modelToItem(_ model: LessonModel) -> LessonItem {
-        LessonItem(
+        guard let profilePictureData = model.teacher.profilePicture,
+              let image = UIImage(data: profilePictureData) else {
+            return LessonItem(
+                id: model.id,
+                lessonType: model.lessonType.name,
+                subtitle: model.subtitle,
+                startDate: dateFormatter.toString(
+                    Date(timeIntervalSince1970: TimeInterval(model.startDate))
+                ),
+                endDate: dateFormatter.toString(
+                    Date(timeIntervalSince1970: TimeInterval(model.endDate))
+                ),
+                teacherProfilePicture: Image(systemName: "person.crop.circle"),
+                teacherName: "\(model.teacher.firstName) \(model.teacher.lastName)"
+            )
+        }
+        
+        return LessonItem(
             id: model.id,
             lessonType: model.lessonType.name,
             subtitle: model.subtitle,
@@ -64,7 +81,7 @@ struct LessonMapper: Mapper {
             endDate: dateFormatter.toString(
                 Date(timeIntervalSince1970: TimeInterval(model.endDate))
             ),
-            teacherProfilePicture: Image(systemName: "profile"), //TODO: Pass image from the API
+            teacherProfilePicture: Image(uiImage: image),
             teacherName: "\(model.teacher.firstName) \(model.teacher.lastName)"
         )
     }
