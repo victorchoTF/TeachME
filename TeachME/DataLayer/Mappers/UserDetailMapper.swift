@@ -8,7 +8,7 @@
 import Foundation
 
 struct UserDetailMapper: Mapper {
-    func dataToModel(_ data: UserDetailDTO) -> UserDetailModel {
+    func dtoToModel(_ data: UserDetailDTO) -> UserDetailModel {
         UserDetailModel(
             id: data.id,
             bio: data.bio,
@@ -17,7 +17,7 @@ struct UserDetailMapper: Mapper {
         )
     }
     
-    func modelToData(_ model: UserDetailModel) -> UserDetailDTO {
+    func modelToDTO(_ model: UserDetailModel) -> UserDetailDTO {
         UserDetailDTO(
             id: model.id,
             bio: model.bio,

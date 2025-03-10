@@ -11,11 +11,11 @@ struct UserMapper: Mapper {
     let userDetailMapper: UserDetailMapper
     let roleMapper: RoleMapper
     
-    func dataToModel(_ data: UserDTO) -> UserModel {
+    func dtoToModel(_ data: UserDTO) -> UserModel {
         let userDetailModel: UserDetailModel?
         
         if let userDetail = data.userDetail {
-            userDetailModel = userDetailMapper.dataToModel(userDetail)
+            userDetailModel = userDetailMapper.dtoToModel(userDetail)
         } else {
             userDetailModel = nil
         }
@@ -26,15 +26,15 @@ struct UserMapper: Mapper {
             firstName: data.firstName,
             lastName: data.lastName,
             userDetail: userDetailModel,
-            role: roleMapper.dataToModel(data.role)
+            role: roleMapper.dtoToModel(data.role)
         )
     }
     
-    func modelToData(_ model: UserModel) -> UserDTO {
+    func modelToDTO(_ model: UserModel) -> UserDTO {
         let userDetailData: UserDetailDTO?
         
         if let userDetail = model.userDetail {
-            userDetailData = userDetailMapper.modelToData(userDetail)
+            userDetailData = userDetailMapper.modelToDTO(userDetail)
         } else {
             userDetailData = nil
         }
@@ -45,7 +45,7 @@ struct UserMapper: Mapper {
             firstName: model.firstName,
             lastName: model.lastName,
             userDetail: userDetailData,
-            role: roleMapper.modelToData(model.role)
+            role: roleMapper.modelToDTO(model.role)
         )
     }
     
