@@ -25,15 +25,15 @@ protocol Repository {
 
 extension Repository {
     func create(_ model: ModelType) async throws -> ModelType {
-        try await mapper.dataToModel(dataSource.create(mapper.modelToData(model)))
+        try await mapper.dtoToModel(dataSource.create(mapper.modelToDTO(model)))
     }
     
     func getById(_ id: UUID) async throws -> ModelType {
-        try await mapper.dataToModel(dataSource.fetchById(id))
+        try await mapper.dtoToModel(dataSource.fetchById(id))
     }
     
     func update(_ model: ModelType) async throws {
-        try await dataSource.update(mapper.modelToData(model))
+        try await dataSource.update(mapper.modelToDTO(model))
     }
     
     func delete(_ id: UUID) async throws {
@@ -41,6 +41,6 @@ extension Repository {
     }
     
     func getAll() async throws -> [ModelType] {
-        try await dataSource.fetchAll().map { mapper.dataToModel($0) }
+        try await dataSource.fetchAll().map { mapper.dtoToModel($0) }
     }
 }

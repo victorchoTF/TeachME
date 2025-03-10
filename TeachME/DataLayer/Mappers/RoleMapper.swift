@@ -8,11 +8,11 @@
 import Foundation
 
 struct RoleMapper: Mapper {
-    func dataToModel(_ data: RoleDTO) -> RoleModel {
+    func dtoToModel(_ data: RoleDTO) -> RoleModel {
         RoleModel(id: data.id, title: data.title)
     }
     
-    func modelToData(_ model: RoleModel) -> RoleDTO {
+    func modelToDTO(_ model: RoleModel) -> RoleDTO {
         RoleDTO(id: model.id, title: model.title)
     }
 }

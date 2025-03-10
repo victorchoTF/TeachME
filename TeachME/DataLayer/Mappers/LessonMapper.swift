@@ -11,7 +11,7 @@ struct LessonMapper: Mapper {
     let lessonTypeMapper: LessonTypeMapper
     let userMapper: UserMapper
     
-    func dataToModel(_ data: LessonDTO) -> LessonModel {
+    func dtoToModel(_ data: LessonDTO) -> LessonModel {
         let studentModel: UserLessonBodyModel?
         
         if let student = data.student {
@@ -22,7 +22,7 @@ struct LessonMapper: Mapper {
         
         return LessonModel(
             id: data.id,
-            lessonType: lessonTypeMapper.dataToModel(data.lessonType),
+            lessonType: lessonTypeMapper.dtoToModel(data.lessonType),
             subtitle: data.subtitle,
             startDate: data.startDate,
             endDate: data.endDate,
@@ -31,7 +31,7 @@ struct LessonMapper: Mapper {
         )
     }
     
-    func modelToData(_ model: LessonModel) -> LessonDTO {
+    func modelToDTO(_ model: LessonModel) -> LessonDTO {
         let studentData: UserLessonBodyDTO?
         
         if let student = model.student {
@@ -42,7 +42,7 @@ struct LessonMapper: Mapper {
         
         return LessonDTO(
             id: model.id,
-            lessonType: lessonTypeMapper.modelToData(model.lessonType),
+            lessonType: lessonTypeMapper.modelToDTO(model.lessonType),
             subtitle: model.subtitle,
             startDate: model.startDate,
             endDate: model.endDate,

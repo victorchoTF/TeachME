@@ -21,6 +21,6 @@ final class UserRepository: Repository {
     }
     
     func getUsersByRoleId(_ id: UUID) async throws -> [UserModel] {
-        try await dataSource.getUsersByRoleId(id).map { mapper.dataToModel($0) }
+        try await dataSource.getUsersByRoleId(id).map { mapper.dtoToModel($0) }
     }
 }
