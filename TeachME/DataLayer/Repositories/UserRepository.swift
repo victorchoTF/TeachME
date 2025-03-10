@@ -12,8 +12,8 @@ final class UserRepository: Repository {
     typealias MapperType = UserMapper
     typealias DataSource = UserDataSource
     
-    var dataSource: UserDataSource
-    var mapper: UserMapper
+    let dataSource: UserDataSource
+    let mapper: UserMapper
     
     init(dataSource: UserDataSource, mapper: UserMapper) {
         self.dataSource = dataSource
@@ -21,14 +21,6 @@ final class UserRepository: Repository {
     }
     
     func getUsersByRoleId(_ id: UUID) async throws -> [UserModel] {
-        let users = try await dataSource.getUsersByRoleId(id)
-        
-        var userModels: [UserModel] = []
-        
-        for user in users {
-            userModels.append(mapper.dataToModel(user))
-        }
-        
-        return userModels
+        try await dataSource.getUsersByRoleId(id).map { mapper.dataToModel($0) }
     }
 }
