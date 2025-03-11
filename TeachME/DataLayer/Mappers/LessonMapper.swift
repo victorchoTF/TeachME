@@ -13,42 +13,42 @@ struct LessonMapper: Mapper {
     let userMapper: UserMapper
     let dateFormatter: DateFormatter
     
-    func dataToModel(_ data: LessonDTO) -> LessonModel {
+    func dtoToModel(_ data: LessonDTO) -> LessonModel {
         let studentModel: UserLessonBodyModel?
         
         if let student = data.student {
-            studentModel = userMapper.lessonBodyDataToModel(student)
+            studentModel = userMapper.lessonBodyDTOToModel(student)
         } else {
             studentModel = nil
         }
         
         return LessonModel(
             id: data.id,
-            lessonType: lessonTypeMapper.dataToModel(data.lessonType),
+            lessonType: lessonTypeMapper.dtoToModel(data.lessonType),
             subtitle: data.subtitle,
             startDate: data.startDate,
             endDate: data.endDate,
-            teacher: userMapper.lessonBodyDataToModel(data.teacher),
+            teacher: userMapper.lessonBodyDTOToModel(data.teacher),
             student: studentModel
         )
     }
     
-    func modelToData(_ model: LessonModel) -> LessonDTO {
+    func modelToDTO(_ model: LessonModel) -> LessonDTO {
         let studentData: UserLessonBodyDTO?
         
         if let student = model.student {
-            studentData = userMapper.lessonBodyModelToData(student)
+            studentData = userMapper.lessonBodyModelToDTO(student)
         } else {
             studentData = nil
         }
         
         return LessonDTO(
             id: model.id,
-            lessonType: lessonTypeMapper.modelToData(model.lessonType),
+            lessonType: lessonTypeMapper.modelToDTO(model.lessonType),
             subtitle: model.subtitle,
             startDate: model.startDate,
             endDate: model.endDate,
-            teacher: userMapper.lessonBodyModelToData(model.teacher),
+            teacher: userMapper.lessonBodyModelToDTO(model.teacher),
             student: studentData
         )
     }

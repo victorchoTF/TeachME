@@ -11,6 +11,6 @@ protocol Mapper {
     associatedtype DataType: DataTransferObject
     associatedtype ModelType: Model
     
-    func dataToModel(_ data: DataType) -> ModelType
-    func modelToData(_ model: ModelType) -> DataType
+    func dtoToModel(_ data: DataType) -> ModelType
+    func modelToDTO(_ model: ModelType) -> DataType
 }

@@ -8,11 +8,11 @@
 import Foundation
 
 final class AuthDataSource {
-    let client: HTTPClient
-    let baseURL: String
+    private let client: HTTPClient
+    private let baseURL: String
     
-    let encoder: JSONEncoder
-    let decoder: JSONDecoder
+    private let encoder: JSONEncoder
+    private let decoder: JSONDecoder
     
     init(client: HTTPClient, baseURL: String, encoder: JSONEncoder, decoder: JSONDecoder) {
         self.client = client

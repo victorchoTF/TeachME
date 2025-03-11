@@ -12,8 +12,8 @@ final class UserDetailRepository: Repository {
     typealias MapperType = UserDetailMapper
     typealias DataSource = UserDetailDataSource
     
-    var dataSource: UserDetailDataSource
-    var mapper: UserDetailMapper
+    let dataSource: UserDetailDataSource
+    let mapper: UserDetailMapper
     
     init(dataSource: UserDetailDataSource, mapper: UserDetailMapper) {
         self.dataSource = dataSource

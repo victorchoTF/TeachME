@@ -7,4 +7,6 @@
 
 import Foundation
 
-protocol DataTransferObject: Codable {}
+protocol DataTransferObject: Codable, Identifiable {
+    var id: UUID { get }
+}

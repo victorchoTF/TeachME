@@ -23,12 +23,12 @@ struct UserLessonBodyDTO: DataTransferObject {
     let profilePicture: Data?
 }
 
-struct UserCredentialsBodyDTO: DataTransferObject {
+struct UserCredentialsBodyDTO: Codable {
     let email: String
     let password: String
 }
 
-struct UserRegisterBodyDTO: DataTransferObject {
+struct UserRegisterBodyDTO: Codable {
     let email: String
     let password: String
     let firstName: String
