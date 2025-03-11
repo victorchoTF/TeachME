@@ -97,19 +97,11 @@ struct UserMapper: Mapper {
     }
     
     func modelToItem(_ model: UserModel) -> UserItem {
-        guard let profilePictureData = model.userDetail?.profilePicture,
-              let image = UIImage(data: profilePictureData) else {
-            return UserItem(
-                name: "\(model.firstName) \(model.lastName)",
-                email: model.email,
-                phoneNumber: model.userDetail?.phoneNumber ?? "",
-                bio: model.userDetail?.bio ?? ""
-            )
-        }
-        
         return UserItem(
             name: "\(model.firstName) \(model.lastName)",
-            profilePicture: Image(uiImage: image),
+            profilePicture: Image(
+                systemName: "person.crop.circle"
+            ).dataToImage(model.userDetail?.profilePicture),
             email: model.email,
             phoneNumber: model.userDetail?.phoneNumber ?? "",
             bio: model.userDetail?.bio ?? ""

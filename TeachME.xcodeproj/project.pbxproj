@@ -40,6 +40,7 @@
 		8E65F7472D3D2BDF00D3A793 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E65F7462D3D2BDF00D3A793 /* ContentView.swift */; };
 		8E65F7492D3D2BE100D3A793 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E65F7482D3D2BE100D3A793 /* Assets.xcassets */; };
 		8E65F74C2D3D2BE100D3A793 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E65F74B2D3D2BE100D3A793 /* Preview Assets.xcassets */; };
+		8E6646CE2D800B6D000EBDC4 /* Image+dataToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6646CD2D800B6D000EBDC4 /* Image+dataToImage.swift */; };
 		8E6D1C8A2D67344400C400C4 /* FormType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6D1C892D67344400C400C4 /* FormType.swift */; };
 		8E6D1C8C2D673A1900C400C4 /* DateFormatter+toDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6D1C8B2D673A1900C400C4 /* DateFormatter+toDate.swift */; };
 		8E6D1C8F2D673A9300C400C4 /* DateFormatter+toString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6D1C8E2D673A9300C400C4 /* DateFormatter+toString.swift */; };
@@ -129,6 +130,7 @@
 		8E65F7462D3D2BDF00D3A793 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8E65F7482D3D2BE100D3A793 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8E65F74B2D3D2BE100D3A793 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8E6646CD2D800B6D000EBDC4 /* Image+dataToImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+dataToImage.swift"; sourceTree = "<group>"; };
 		8E6D1C892D67344400C400C4 /* FormType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormType.swift; sourceTree = "<group>"; };
 		8E6D1C8B2D673A1900C400C4 /* DateFormatter+toDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+toDate.swift"; sourceTree = "<group>"; };
 		8E6D1C8E2D673A9300C400C4 /* DateFormatter+toString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+toString.swift"; sourceTree = "<group>"; };
@@ -416,6 +418,7 @@
 			children = (
 				8E6D1C8E2D673A9300C400C4 /* DateFormatter+toString.swift */,
 				8E6D1C8B2D673A1900C400C4 /* DateFormatter+toDate.swift */,
+				8E6646CD2D800B6D000EBDC4 /* Image+dataToImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -828,6 +831,7 @@
 				8E7EBE552D3E420200C7C017 /* Radiuses.swift in Sources */,
 				8E84E2802D42531D00CB8C05 /* SubmitButton.swift in Sources */,
 				8E29828D2D4A381600588D8E /* Header.swift in Sources */,
+				8E6646CE2D800B6D000EBDC4 /* Image+dataToImage.swift in Sources */,
 				8E180D2E2D5272FA00327E29 /* TabRouter.swift in Sources */,
 				8E84E27A2D424AF400CB8C05 /* FormTitle.swift in Sources */,
 				8E180D2C2D5271E100327E29 /* Tab.swift in Sources */,
