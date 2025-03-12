@@ -75,7 +75,7 @@ struct UserMapper: Mapper {
         )
     }
     
-    func registerBodyModelToData(_ model: UserRegisterBodyModel) -> UserRegisterBodyDTO {
+    func registerBodyModelToDTO(_ model: UserRegisterBodyModel) -> UserRegisterBodyDTO {
         UserRegisterBodyDTO(
             email: model.email,
             password: model.password,

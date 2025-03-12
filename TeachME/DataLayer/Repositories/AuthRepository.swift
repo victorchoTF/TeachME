@@ -23,7 +23,7 @@ final class AuthRepository {
     }
     
     func register(user: UserRegisterBodyModel) async throws -> TokenResponse {
-        let userData = mapper.registerBodyModelToData(user)
+        let userData = mapper.registerBodyModelToDTO(user)
         
         return try await dataSource.register(user: userData)
     }

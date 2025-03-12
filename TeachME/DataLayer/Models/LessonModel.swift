@@ -11,8 +11,8 @@ struct LessonModel: Model {
     let id: UUID
     let lessonType: LessonTypeModel
     let subtitle: String
-    let startDate: Int
-    let endDate: Int
+    let startDate: Date
+    let endDate: Date
     let teacher: UserLessonBodyModel
     let student: UserLessonBodyModel?
 }
