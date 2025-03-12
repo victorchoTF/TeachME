@@ -65,8 +65,9 @@ struct LessonMapper: Mapper {
                 Date(timeIntervalSince1970: TimeInterval(model.endDate))
             ),
             teacherProfilePicture: Image(
-                systemName: "person.crop.circle"
-            ).dataToImage(model.teacher.profilePicture),
+                data: model.teacher.profilePicture,
+                fallbackImageName: "person.crop.circle"
+            ),
             teacherName: "\(model.teacher.firstName) \(model.teacher.lastName)"
         )
     }

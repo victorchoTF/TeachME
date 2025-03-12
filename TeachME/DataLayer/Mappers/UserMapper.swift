@@ -100,8 +100,9 @@ struct UserMapper: Mapper {
         return UserItem(
             name: "\(model.firstName) \(model.lastName)",
             profilePicture: Image(
-                systemName: "person.crop.circle"
-            ).dataToImage(model.userDetail?.profilePicture),
+                data: model.userDetail?.profilePicture,
+                fallbackImageName: "person.crop.circle"
+            ),
             email: model.email,
             phoneNumber: model.userDetail?.phoneNumber ?? "",
             bio: model.userDetail?.bio ?? ""
