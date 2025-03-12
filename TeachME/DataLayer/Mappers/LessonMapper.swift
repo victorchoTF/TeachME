@@ -24,8 +24,8 @@ struct LessonMapper: Mapper {
             id: data.id,
             lessonType: lessonTypeMapper.dtoToModel(data.lessonType),
             subtitle: data.subtitle,
-            startDate: data.startDate,
-            endDate: data.endDate,
+            startDate: Date(timeIntervalSince1970: TimeInterval(data.startDate)),
+            endDate: Date(timeIntervalSince1970: TimeInterval(data.endDate)),
             teacher: userMapper.lessonBodyDataToModel(data.teacher),
             student: studentModel
         )
@@ -44,8 +44,8 @@ struct LessonMapper: Mapper {
             id: model.id,
             lessonType: lessonTypeMapper.modelToDTO(model.lessonType),
             subtitle: model.subtitle,
-            startDate: model.startDate,
-            endDate: model.endDate,
+            startDate: Int(model.startDate.timeIntervalSince1970),
+            endDate: Int(model.endDate.timeIntervalSince1970),
             teacher: userMapper.lessonBodyModelToData(model.teacher),
             student: studentData
         )
