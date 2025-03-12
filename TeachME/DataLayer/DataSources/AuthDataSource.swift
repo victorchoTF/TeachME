@@ -22,9 +22,9 @@ final class AuthDataSource {
     }
     
     func login(user: UserCredentialsBodyDTO) async throws -> TokenResponse {
-        let jsonData: Data
+        let userCredentialsData: Data
         do {
-           jsonData = try encoder.encode(user)
+           userCredentialsData = try encoder.encode(user)
         } catch {
            throw DataSourceError.encodingError("User of \(user) could not be encoded!")
         }
@@ -32,7 +32,7 @@ final class AuthDataSource {
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "user-login")
             .setMethod(.post)
             .setHeaders(["application/json": "Content-Type"])
-            .setBody(jsonData)
+            .setBody(userCredentialsData)
             .build()
         else {
             throw DataSourceError.invalidURL("\(baseURL) not found")
@@ -58,9 +58,9 @@ final class AuthDataSource {
     }
     
     func register(user: UserRegisterBodyDTO) async throws -> TokenResponse {
-        let jsonData: Data
+        let userRegisterBodyData: Data
         do {
-           jsonData = try encoder.encode(user)
+           userRegisterBodyData = try encoder.encode(user)
         } catch {
            throw DataSourceError.encodingError("User of \(user) could not be encoded!")
         }
@@ -68,7 +68,7 @@ final class AuthDataSource {
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "user-register")
             .setMethod(.post)
             .setHeaders(["application/json": "Content-Type"])
-            .setBody(jsonData)
+            .setBody(userRegisterBodyData)
             .build()
         else {
             throw DataSourceError.invalidURL("\(baseURL) not found")
@@ -94,9 +94,9 @@ final class AuthDataSource {
     }
     
     func refreshToken(tokenRequest: RefreshTokenRequest) async throws -> TokenResponse {
-        let jsonData: Data
+        let refreshTokenRequestData: Data
         do {
-           jsonData = try encoder.encode(tokenRequest)
+           refreshTokenRequestData = try encoder.encode(tokenRequest)
         } catch {
             throw DataSourceError.encodingError(
                 "RefreshTokenRequest of \(tokenRequest) could not be encoded!"
@@ -106,7 +106,7 @@ final class AuthDataSource {
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "refresh-token")
             .setMethod(.post)
             .setHeaders(["application/json": "Content-Type"])
-            .setBody(jsonData)
+            .setBody(refreshTokenRequestData)
             .build()
         else {
             throw DataSourceError.invalidURL("\(baseURL) not found")

@@ -136,9 +136,9 @@ final class LessonDataSource: TeachMEAPIDataSource {
     }
     
     func takeLesson(lesson: LessonDTO) async throws {
-        let jsonData: Data
+        let lessonData: Data
         do {
-            jsonData = try encoder.encode(lesson)
+            lessonData = try encoder.encode(lesson)
         } catch {
             throw DataSourceError.encodingError("Lesson of \(lesson) could not be encoded!")
         }
@@ -146,7 +146,7 @@ final class LessonDataSource: TeachMEAPIDataSource {
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "\(lesson.id)")
             .setMethod(.put)
             .setHeaders(["application/json": "Content-Type"])
-            .setBody(jsonData)
+            .setBody(lessonData)
             .build()
         else {
             throw DataSourceError.invalidURL("\(baseURL)/take-lesson/\(lesson.id) not found")
