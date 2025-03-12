@@ -26,8 +26,8 @@ struct LessonMapper: Mapper {
             id: data.id,
             lessonType: lessonTypeMapper.dtoToModel(data.lessonType),
             subtitle: data.subtitle,
-            startDate: data.startDate,
-            endDate: data.endDate,
+            startDate: Date(timeIntervalSince1970: TimeInterval(data.startDate)),
+            endDate: Date(timeIntervalSince1970: TimeInterval(data.endDate)),
             teacher: userMapper.lessonBodyDTOToModel(data.teacher),
             student: studentModel
         )
@@ -46,8 +46,8 @@ struct LessonMapper: Mapper {
             id: model.id,
             lessonType: lessonTypeMapper.modelToDTO(model.lessonType),
             subtitle: model.subtitle,
-            startDate: model.startDate,
-            endDate: model.endDate,
+            startDate: Int(model.startDate.timeIntervalSince1970),
+            endDate: Int(model.endDate.timeIntervalSince1970),
             teacher: userMapper.lessonBodyModelToDTO(model.teacher),
             student: studentData
         )
@@ -58,12 +58,8 @@ struct LessonMapper: Mapper {
             id: model.id,
             lessonType: model.lessonType.name,
             subtitle: model.subtitle,
-            startDate: dateFormatter.toString(
-                Date(timeIntervalSince1970: TimeInterval(model.startDate))
-            ),
-            endDate: dateFormatter.toString(
-                Date(timeIntervalSince1970: TimeInterval(model.endDate))
-            ),
+            startDate: dateFormatter.toString(model.startDate),
+            endDate: dateFormatter.toString(model.endDate),
             teacherProfilePicture: Image(
                 data: model.teacher.profilePicture,
                 fallbackImageName: "person.crop.circle"
