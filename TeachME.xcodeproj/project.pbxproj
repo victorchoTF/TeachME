@@ -387,6 +387,7 @@
 		8E65F7432D3D2BDF00D3A793 /* TeachME */ = {
 			isa = PBXGroup;
 			children = (
+				8EB7CA322D81DEE5005E82F1 /* DomainLayer */,
 				8E99E7862D71ABFB00CF9CC8 /* DataLayer */,
 				8E6D1C8D2D673A7600C400C4 /* Extensions */,
 				8E180D2A2D5271D400327E29 /* Helpers */,
@@ -543,7 +544,6 @@
 			children = (
 				8E3CF2422D7D977A009D30D5 /* Tokens */,
 				8EB0935B2D7C839F0073C0F6 /* Mappers */,
-				8EB0934E2D7C81440073C0F6 /* Models */,
 				8E11604A2D7481CD0097774B /* DataTransferObjects */,
 				8E99E78D2D71B01100CF9CC8 /* Errors */,
 				8E99E7882D71AC2000CF9CC8 /* DataSources */,
@@ -616,6 +616,14 @@
 				8EB093662D7C87030073C0F6 /* LessonMapper.swift */,
 			);
 			path = Mappers;
+			sourceTree = "<group>";
+		};
+		8EB7CA322D81DEE5005E82F1 /* DomainLayer */ = {
+			isa = PBXGroup;
+			children = (
+				8EB0934E2D7C81440073C0F6 /* Models */,
+			);
+			path = DomainLayer;
 			sourceTree = "<group>";
 		};
 		8EC1D32B2D475B3E00987973 /* Components */ = {
