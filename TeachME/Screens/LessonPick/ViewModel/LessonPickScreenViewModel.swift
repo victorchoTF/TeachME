@@ -44,7 +44,8 @@ final class LessonPickScreenViewModel: ObservableObject {
             profilePicture: Image(systemName: "person.crop.circle"),
             email: "george_demo@gmail.com",
             phoneNumber: "0874567243",
-            bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves"
+            bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves",
+            role: .Student
         )
         
         otherLessons = [
@@ -97,7 +98,7 @@ final class LessonPickScreenViewModel: ObservableObject {
     
     var pickLessonButtonText: String {
         switch router?.userRole {
-        case .teacher: "Edit"
+        case .Teacher: "Edit"
         default: "Save"
         }
     }
@@ -108,8 +109,8 @@ final class LessonPickScreenViewModel: ObservableObject {
         }
         
         switch router.userRole {
-        case .teacher: teacherAction()
-        case .student: studentAction()
+        case .Teacher: teacherAction()
+        case .Student: studentAction()
         }
     }
 }

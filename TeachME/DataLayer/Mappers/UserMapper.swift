@@ -82,7 +82,7 @@ struct UserMapper: Mapper {
             password: data.password,
             firstName: data.firstName,
             lastName: data.lastName,
-            roleId: data.roleId //TODO: Appoint via the Role enum
+            roleId: data.roleId
         )
     }
     
@@ -92,7 +92,7 @@ struct UserMapper: Mapper {
             password: model.password,
             firstName: model.firstName,
             lastName: model.lastName,
-            roleId: model.roleId //TODO: Role enum -> roleID
+            roleId: model.roleId
         )
     }
     
@@ -105,7 +105,8 @@ struct UserMapper: Mapper {
             ),
             email: model.email,
             phoneNumber: model.userDetail?.phoneNumber ?? "",
-            bio: model.userDetail?.bio ?? ""
+            bio: model.userDetail?.bio ?? "",
+            role: Role.Student.caseName == model.role.title ? Role.Student : Role.Teacher
         )
     }
 }

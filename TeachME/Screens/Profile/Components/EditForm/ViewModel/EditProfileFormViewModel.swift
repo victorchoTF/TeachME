@@ -76,7 +76,8 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
             name: checkName(),
             email: checkEmail(),
             phoneNumber: phoneNumber,
-            bio: bio
+            bio: bio,
+            role: .Student // TODO: Fix hard code
         )
         
         updateUser(user)

@@ -31,7 +31,7 @@ final class AuthDataSource {
         
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "user-login")
             .setMethod(.post)
-            .setHeaders(["application/json": "Content-Type"])
+            .setHeaders(["Content-Type": "application/json"])
             .setBody(userCredentialsData)
             .build()
         else {
@@ -42,7 +42,7 @@ final class AuthDataSource {
         do {
             (token, _) = try await client.request(request)
         } catch {
-           throw DataSourceError.postingError("User of \(user) could not login!")
+            throw DataSourceError.postingError("User of \(user) could not login!")
         }
         
         let tokenResponse: TokenResponse
@@ -67,7 +67,7 @@ final class AuthDataSource {
         
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "user-register")
             .setMethod(.post)
-            .setHeaders(["application/json": "Content-Type"])
+            .setHeaders(["Content-Type": "application/json"])
             .setBody(userRegisterBodyData)
             .build()
         else {

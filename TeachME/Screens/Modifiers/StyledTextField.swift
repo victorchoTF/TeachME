@@ -25,6 +25,8 @@ struct StyledTextField: ViewModifier {
                 RoundedRectangle(cornerRadius: theme.radiuses.medium)
                     .stroke(theme.colors.text, lineWidth: 1)
             )
+            .autocorrectionDisabled()
+            .textInputAutocapitalization(.never)
     }
 }
 

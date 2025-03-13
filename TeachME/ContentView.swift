@@ -10,8 +10,7 @@ import SwiftUI
 struct ContentView: View {
     let theme: Theme
     let authRepository: AuthRepository
-    let roleRepository: RoleRepository
-    @State var isLoggedIn: Bool
+    @State var isLoggedIn: Bool = false
     @StateObject var tabRouter: TabRouter
     
     init() {
@@ -22,6 +21,7 @@ struct ContentView: View {
         let jsonDecoder = JSONDecoder()
         let jsonEncoder = JSONEncoder()
         let httpClient = URLSession(configuration: .ephemeral)
+        let keychainStore = KeychainStore(identifier: "com.teachME.tokens") // TODO: Handle in a better way
         
         self.authRepository = AuthRepository(
             dataSource: AuthDataSource(
@@ -36,22 +36,10 @@ struct ContentView: View {
             ),
             tokenSetter: TokenSetter(
                 key: "token", // TODO: Handle in a better way
-                keychainStore: KeychainStore(identifier: "com.teachME.credentials"), // TODO: Handle in a better way,
+                keychainStore: keychainStore,
                 encoder: jsonEncoder
             )
         )
-        
-        self.roleRepository = RoleRepository(
-            dataSource: RoleDataSource(
-                client: httpClient,
-                baseURL: Endpoints.baseURL.rawValue,
-                encoder: jsonEncoder,
-                decoder: jsonDecoder
-            ),
-            mapper: roleMapper
-        )
-        
-        self.isLoggedIn = false
     }
     
     var body: some View {
@@ -69,14 +57,15 @@ private extension ContentView {
             viewModel: AuthScreenViewModel(
                 loginFormViewModel: LoginFormViewModel(
                     repository: authRepository
-                ) {
+                ) { userItem in
                     isLoggedIn = true
+                    tabRouter.update(userItem: userItem, theme: theme)
                 },
                 registerFormsViewModel: RegisterFormViewModel(
-                    repository: authRepository,
-                    roleRepository: roleRepository
-                ) {
+                    repository: authRepository
+                ) { userItem in
                     isLoggedIn = true
+                    tabRouter.update(userItem: userItem, theme: theme)
                 }
             ),
             theme: theme

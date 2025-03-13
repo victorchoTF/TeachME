@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 struct LessonListScreen: View {
     @StateObject var viewModel: LessonListScreenViewModel
     let theme: Theme

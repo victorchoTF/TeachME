@@ -7,11 +7,12 @@
 
 import Foundation
 
-final class TabRouter: ObservableObject {
-    let homeRouter: HomeRouter
-    let lessonRouter: HomeRouter
-    let profileRouter: ProfileRouter
-    let userRole: Role
+@MainActor final class TabRouter: ObservableObject {
+    var homeRouter: HomeRouter
+    var lessonRouter: HomeRouter
+    var profileRouter: ProfileRouter
+    
+    @Published var userItem: UserItem
     
     @Published var selectedTab: Tab = .home {
         willSet {
@@ -22,9 +23,24 @@ final class TabRouter: ObservableObject {
     }
     
     init(theme: Theme) {
-        userRole = .teacher
-        homeRouter = HomeRouter(theme: theme, userRole: userRole)
-        lessonRouter = HomeRouter(theme: theme, userRole: userRole)
+        userItem = UserItem(
+            name: "Loading",
+            email: "...",
+            phoneNumber: "...",
+            bio: "...",
+            role: .Student
+        )
+        
+        homeRouter = HomeRouter(theme: theme, userRole: .Student)
+        lessonRouter = HomeRouter(theme: theme, userRole: .Student)
+        profileRouter = ProfileRouter(theme: theme)
+    }
+    
+    func update(userItem: UserItem, theme: Theme) {
+        self.userItem = userItem
+        
+        homeRouter = HomeRouter(theme: theme, userRole: userItem.role)
+        lessonRouter = HomeRouter(theme: theme, userRole: userItem.role)
         profileRouter = ProfileRouter(theme: theme)
     }
     

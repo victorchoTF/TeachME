@@ -12,13 +12,15 @@ final class ProfileScreenViewModel: ObservableObject {
     @Published var userItem: UserItem?
     @Published var editProfileFormViewModel: EditProfileFormViewModel?
     
+    // TODO: Fetch real data
     func loadData() {
         userItem = UserItem(
             name: "George Demo",
             profilePicture: Image(systemName: "person.crop.circle"),
             email: "george_demo@gmail.com",
             phoneNumber: "0874567243",
-            bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves"
+            bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves",
+            role: .Student
         )
     }
     

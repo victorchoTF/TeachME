@@ -39,7 +39,7 @@ class HomeRouter {
                 client: AuthHTTPClient(
                     tokenProvider: TokenProvider(
                         key: "token", // TODO: Handle in a better way
-                        keychainStore: KeychainStore(identifier: "com.teachME.credentials"), // TODO: Handle in a better way
+                        keychainStore: KeychainStore(identifier: "com.teachME.tokens"), // TODO: Handle in a better way
                         decoder: jsonDecoder
                     ),
                     httpClient: URLSession(configuration: .ephemeral)

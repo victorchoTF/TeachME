@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI // TODO: Remove after DataLoading is implemented
 
-final class LessonListScreenViewModel: ObservableObject {
+@MainActor final class LessonListScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
     
     private weak var router: HomeRouter?
@@ -32,7 +32,8 @@ final class LessonListScreenViewModel: ObservableObject {
             profilePicture: Image(systemName: "person.crop.circle"),
             email: "george_demo@gmail.com",
             phoneNumber: "0874567243",
-            bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves"
+            bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves",
+            role: .Student
         )
         
         do {
@@ -59,7 +60,7 @@ final class LessonListScreenViewModel: ObservableObject {
     }
     
     var shouldShowAddLessonButton: Bool {
-        router?.userRole == .teacher
+        router?.userRole == .Teacher
     }
     
     func onAddButtonTap() {

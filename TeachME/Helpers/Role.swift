@@ -7,7 +7,11 @@
 
 import Foundation
 
-enum Role: String {
-    case student = "Student"
-    case teacher = "Teacher"
+enum Role: String, CaseIterable {
+    case Student = "aeaa842a-d829-4aa6-91f8-75efee072c7e"
+    case Teacher = "748accfc-58d9-4d2f-aaa7-703901ee4433"
+    
+    var caseName: String {
+        return String(describing: self)
+    }
 }

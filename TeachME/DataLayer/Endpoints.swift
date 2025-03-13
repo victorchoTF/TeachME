@@ -7,7 +7,8 @@
 
 import Foundation
 
+// TODO: Add all endpoints
 enum Endpoints: String {
-    case baseURL = "{base}"
-    case authURL = "{base}\teach-me"
+    case baseURL = "http://127.0.0.1:8080/"
+    case authURL = "http://127.0.0.1:8080/teach-me"
 }

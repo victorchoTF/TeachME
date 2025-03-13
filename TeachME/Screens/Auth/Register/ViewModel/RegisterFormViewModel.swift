@@ -12,25 +12,21 @@ final class RegisterFormViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var firstName: String = ""
     @Published var lastName: String = ""
-    @Published var roleType: Role = .student
+    @Published var roleType: Role = .Student
     
     private let reposiotry: AuthRepository
-    private let roleRepository: RoleRepository
     
-    let onSubmit: () -> ()
+    let onSubmit: (UserItem) -> ()
     
-    init(
-        repository: AuthRepository,
-        roleRepository: RoleRepository,
-        onSubmit: @escaping () -> ()
-    ) {
+    init(repository: AuthRepository,onSubmit: @escaping (UserItem) -> ()) {
         self.reposiotry = repository
-        self.roleRepository = roleRepository
         self.onSubmit = onSubmit
     }
     
     func registerUser() async throws -> TokenResponse {
-        let role = try await roleRepository.getAll().filter { $0.title == roleType.rawValue }[0]
+        guard let roleId = UUID(uuidString: roleType.rawValue) else {
+            throw RegisterFormError.invalidRoleID
+        }
         
         let token = try await reposiotry.register(
             user: UserRegisterBodyModel(
@@ -38,11 +34,18 @@ final class RegisterFormViewModel: ObservableObject {
                 password: password,
                 firstName: firstName,
                 lastName: lastName,
-                roleId: role.id
+                roleId: roleId
             )
         )
         
-        onSubmit()
+        // TODO: Fix after implementing get by email on API
+        onSubmit(UserItem(
+            name: "\(firstName) \(lastName)",
+            email: email,
+            phoneNumber: "",
+            bio: "...",
+            role: roleType
+        ))
         
         return token
     }
@@ -88,11 +91,11 @@ final class RegisterFormViewModel: ObservableObject {
     }
     
     var studentRole: String {
-        Role.student.rawValue
+        Role.Student.caseName
     }
     
     var teacherRole: String {
-        Role.teacher.rawValue
+        Role.Teacher.caseName
     }
     
     var hasAccount: String {
@@ -106,4 +109,8 @@ final class RegisterFormViewModel: ObservableObject {
     var sendTo: FormMode {
         .login
     }
+}
+
+enum RegisterFormError: Error {
+    case invalidRoleID
 }
