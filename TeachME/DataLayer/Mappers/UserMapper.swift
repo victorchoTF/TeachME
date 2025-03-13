@@ -49,11 +49,39 @@ struct UserMapper: Mapper {
         )
     }
     
-    func lessonBodyDataToModel(_ data: UserLessonBodyDTO) -> UserLessonBodyModel {
+    func lessonBodyDTOToModel(_ data: UserLessonBodyDTO) -> UserLessonBodyModel {
         UserLessonBodyModel(id: data.id, firstName: data.firstName, lastName: data.lastName)
     }
     
-    func lessonBodyModelToData(_ model: UserLessonBodyModel) -> UserLessonBodyDTO {
+    func lessonBodyModelToDTO(_ model: UserLessonBodyModel) -> UserLessonBodyDTO {
         UserLessonBodyDTO(id: model.id, firstName: model.firstName, lastName: model.lastName)
+    }
+    
+    func credentialBodyDTOToModel(_ data: UserCredentialsBodyDTO) -> UserCredentialsBodyModel {
+        UserCredentialsBodyModel(email: data.email, password: data.password)
+    }
+    
+    func credentialBodyModelToDTO(_ model: UserCredentialsBodyModel) -> UserCredentialsBodyDTO {
+        UserCredentialsBodyDTO(email: model.email, password: model.password)
+    }
+    
+    func registerBodyDTOToModel(_ data: UserRegisterBodyDTO) -> UserRegisterBodyModel {
+        UserRegisterBodyModel(
+            email: data.email,
+            password: data.password,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            roleId: data.roleId //TODO: Appoint via the Role enum
+        )
+    }
+    
+    func registerBodyModelToDTO(_ model: UserRegisterBodyModel) -> UserRegisterBodyDTO {
+        UserRegisterBodyDTO(
+            email: model.email,
+            password: model.password,
+            firstName: model.firstName,
+            lastName: model.lastName,
+            roleId: model.roleId //TODO: Role enum -> roleID
+        )
     }
 }

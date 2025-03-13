@@ -21,3 +21,16 @@ struct UserLessonBodyDTO: DataTransferObject {
     let firstName: String
     let lastName: String
 }
+
+struct UserCredentialsBodyDTO: Codable {
+    let email: String
+    let password: String
+}
+
+struct UserRegisterBodyDTO: Codable {
+    let email: String
+    let password: String
+    let firstName: String
+    let lastName: String
+    let roleId: UUID
+}

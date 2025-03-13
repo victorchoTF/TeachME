@@ -28,6 +28,10 @@
 		8E29828D2D4A381600588D8E /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E29828C2D4A381600588D8E /* Header.swift */; };
 		8E2982902D4A38CF00588D8E /* LessonListScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E29828F2D4A38CF00588D8E /* LessonListScreenViewModel.swift */; };
 		8E3427AD2D3E649900A38A2D /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3427AC2D3E649900A38A2D /* Fonts.swift */; };
+		8E3CF23F2D7D946D009D30D5 /* AuthDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3CF23E2D7D946D009D30D5 /* AuthDataSource.swift */; };
+		8E3CF2412D7D9590009D30D5 /* TokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3CF2402D7D9590009D30D5 /* TokenResponse.swift */; };
+		8E3CF2452D7D97A6009D30D5 /* RefreshTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3CF2442D7D97A6009D30D5 /* RefreshTokenRequest.swift */; };
+		8E3CF2472D7D9D13009D30D5 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3CF2462D7D9D13009D30D5 /* AuthRepository.swift */; };
 		8E4D0F8B2D50B9A3007F57B8 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4D0F8A2D50B9A3007F57B8 /* ActionButton.swift */; };
 		8E5F20142D5DE76C00BE9C24 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5F20132D5DE76C00BE9C24 /* HomeRouter.swift */; };
 		8E5F20172D5DEDA000BE9C24 /* LessonForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5F20162D5DEDA000BE9C24 /* LessonForm.swift */; };
@@ -112,6 +116,10 @@
 		8E29828C2D4A381600588D8E /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		8E29828F2D4A38CF00588D8E /* LessonListScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonListScreenViewModel.swift; sourceTree = "<group>"; };
 		8E3427AC2D3E649900A38A2D /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		8E3CF23E2D7D946D009D30D5 /* AuthDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDataSource.swift; sourceTree = "<group>"; };
+		8E3CF2402D7D9590009D30D5 /* TokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenResponse.swift; sourceTree = "<group>"; };
+		8E3CF2442D7D97A6009D30D5 /* RefreshTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshTokenRequest.swift; sourceTree = "<group>"; };
+		8E3CF2462D7D9D13009D30D5 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
 		8E4D0F8A2D50B9A3007F57B8 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		8E5F20132D5DE76C00BE9C24 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		8E5F20162D5DEDA000BE9C24 /* LessonForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonForm.swift; sourceTree = "<group>"; };
@@ -204,6 +212,7 @@
 			children = (
 				8E180D2B2D5271E100327E29 /* Tab.swift */,
 				8E6D1C892D67344400C400C4 /* FormType.swift */,
+				8E75D4402D3E268B0082F5FE /* Role.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -256,6 +265,15 @@
 				8E29828F2D4A38CF00588D8E /* LessonListScreenViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8E3CF2422D7D977A009D30D5 /* Tokens */ = {
+			isa = PBXGroup;
+			children = (
+				8E3CF2402D7D9590009D30D5 /* TokenResponse.swift */,
+				8E3CF2442D7D97A6009D30D5 /* RefreshTokenRequest.swift */,
+			);
+			path = Tokens;
 			sourceTree = "<group>";
 		};
 		8E445ACC2D413C1F00140498 /* Register */ = {
@@ -369,6 +387,7 @@
 		8E65F7432D3D2BDF00D3A793 /* TeachME */ = {
 			isa = PBXGroup;
 			children = (
+				8EB7CA322D81DEE5005E82F1 /* DomainLayer */,
 				8E99E7862D71ABFB00CF9CC8 /* DataLayer */,
 				8E6D1C8D2D673A7600C400C4 /* Extensions */,
 				8E180D2A2D5271D400327E29 /* Helpers */,
@@ -418,7 +437,6 @@
 		8E75D43A2D3E240E0082F5FE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8E75D4402D3E268B0082F5FE /* Role.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -524,8 +542,8 @@
 		8E99E7862D71ABFB00CF9CC8 /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
+				8E3CF2422D7D977A009D30D5 /* Tokens */,
 				8EB0935B2D7C839F0073C0F6 /* Mappers */,
-				8EB0934E2D7C81440073C0F6 /* Models */,
 				8E11604A2D7481CD0097774B /* DataTransferObjects */,
 				8E99E78D2D71B01100CF9CC8 /* Errors */,
 				8E99E7882D71AC2000CF9CC8 /* DataSources */,
@@ -546,6 +564,7 @@
 				8EB0936C2D7C8FF30073C0F6 /* UserDetailRepository.swift */,
 				8EB0936E2D7C90480073C0F6 /* UserRepository.swift */,
 				8EB093702D7C908F0073C0F6 /* LessonRepository.swift */,
+				8E3CF2462D7D9D13009D30D5 /* AuthRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -560,6 +579,7 @@
 				8E11605F2D7488300097774B /* LessonDataSource.swift */,
 				8E99E7892D71AD5C00CF9CC8 /* APIDataSource.swift */,
 				8E1297E32D777A17009102FD /* TeachMEAPIDataSource.swift */,
+				8E3CF23E2D7D946D009D30D5 /* AuthDataSource.swift */,
 			);
 			path = DataSources;
 			sourceTree = "<group>";
@@ -596,6 +616,14 @@
 				8EB093662D7C87030073C0F6 /* LessonMapper.swift */,
 			);
 			path = Mappers;
+			sourceTree = "<group>";
+		};
+		8EB7CA322D81DEE5005E82F1 /* DomainLayer */ = {
+			isa = PBXGroup;
+			children = (
+				8EB0934E2D7C81440073C0F6 /* Models */,
+			);
+			path = DomainLayer;
 			sourceTree = "<group>";
 		};
 		8EC1D32B2D475B3E00987973 /* Components */ = {
@@ -763,6 +791,7 @@
 				8EFED0662D50A1F900046F1D /* Router.swift in Sources */,
 				8EB0936D2D7C8FF30073C0F6 /* UserDetailRepository.swift in Sources */,
 				8E2982902D4A38CF00588D8E /* LessonListScreenViewModel.swift in Sources */,
+				8E3CF2412D7D9590009D30D5 /* TokenResponse.swift in Sources */,
 				8E7EBE532D3E417100C7C017 /* Spacings.swift in Sources */,
 				8E99E78F2D71B02400CF9CC8 /* DataSourceError.swift in Sources */,
 				8E84E27E2D42524E00CB8C05 /* SwitchFormText.swift in Sources */,
@@ -772,6 +801,7 @@
 				8EB093582D7C83050073C0F6 /* UserModel.swift in Sources */,
 				8EB0936F2D7C90480073C0F6 /* UserRepository.swift in Sources */,
 				8EB093652D7C85770073C0F6 /* UserMapper.swift in Sources */,
+				8E3CF23F2D7D946D009D30D5 /* AuthDataSource.swift in Sources */,
 				8E9E51BC2D7975870035E4E3 /* HTTPMethod.swift in Sources */,
 				8EB0936B2D7C8FB40073C0F6 /* LessonTypeRepository.swift in Sources */,
 				8EDBFF1E2D57A807008441D6 /* ProfileScreenViewModel.swift in Sources */,
@@ -779,6 +809,7 @@
 				8E65F7452D3D2BDF00D3A793 /* TeachMEApp.swift in Sources */,
 				8EB093692D7C8F450073C0F6 /* RoleRepository.swift in Sources */,
 				8E866E832D58EB2C007FAE6B /* EditProfileFormViewModel.swift in Sources */,
+				8E3CF2472D7D9D13009D30D5 /* AuthRepository.swift in Sources */,
 				8E84E27C2D424B8000CB8C05 /* Theme.swift in Sources */,
 				8E11605E2D7486FD0097774B /* RoleDataSource.swift in Sources */,
 				8E4D0F8B2D50B9A3007F57B8 /* ActionButton.swift in Sources */,
@@ -821,6 +852,7 @@
 				8E1160582D7485D00097774B /* LessonTypeDataSource.swift in Sources */,
 				8E5F20172D5DEDA000BE9C24 /* LessonForm.swift in Sources */,
 				8E20F5772D4B8C9C007B3154 /* UserCard.swift in Sources */,
+				8E3CF2452D7D97A6009D30D5 /* RefreshTokenRequest.swift in Sources */,
 				8E1160542D7484240097774B /* LessonDTO.swift in Sources */,
 				8E75D4412D3E268B0082F5FE /* Role.swift in Sources */,
 			);

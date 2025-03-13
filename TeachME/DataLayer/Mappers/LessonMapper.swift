@@ -15,7 +15,7 @@ struct LessonMapper: Mapper {
         let studentModel: UserLessonBodyModel?
         
         if let student = data.student {
-            studentModel = userMapper.lessonBodyDataToModel(student)
+            studentModel = userMapper.lessonBodyDTOToModel(student)
         } else {
             studentModel = nil
         }
@@ -26,7 +26,7 @@ struct LessonMapper: Mapper {
             subtitle: data.subtitle,
             startDate: Date(timeIntervalSince1970: TimeInterval(data.startDate)),
             endDate: Date(timeIntervalSince1970: TimeInterval(data.endDate)),
-            teacher: userMapper.lessonBodyDataToModel(data.teacher),
+            teacher: userMapper.lessonBodyDTOToModel(data.teacher),
             student: studentModel
         )
     }
@@ -35,7 +35,7 @@ struct LessonMapper: Mapper {
         let studentData: UserLessonBodyDTO?
         
         if let student = model.student {
-            studentData = userMapper.lessonBodyModelToData(student)
+            studentData = userMapper.lessonBodyModelToDTO(student)
         } else {
             studentData = nil
         }
@@ -46,7 +46,7 @@ struct LessonMapper: Mapper {
             subtitle: model.subtitle,
             startDate: Int(model.startDate.timeIntervalSince1970),
             endDate: Int(model.endDate.timeIntervalSince1970),
-            teacher: userMapper.lessonBodyModelToData(model.teacher),
+            teacher: userMapper.lessonBodyModelToDTO(model.teacher),
             student: studentData
         )
     }
