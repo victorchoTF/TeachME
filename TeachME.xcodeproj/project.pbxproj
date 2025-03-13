@@ -63,6 +63,19 @@
 		8E99E7912D71BD3900CF9CC8 /* DataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E7902D71BD3900CF9CC8 /* DataTransferObject.swift */; };
 		8E9E51BC2D7975870035E4E3 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9E51BB2D7975870035E4E3 /* HTTPMethod.swift */; };
 		8E9E51BE2D7975D40035E4E3 /* URLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9E51BD2D7975D40035E4E3 /* URLRequestBuilder.swift */; };
+		8EB0934D2D7C810C0073C0F6 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0934C2D7C810C0073C0F6 /* Repository.swift */; };
+		8EB093502D7C81590073C0F6 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0934F2D7C81590073C0F6 /* Model.swift */; };
+		8EB093522D7C828F0073C0F6 /* RoleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093512D7C828F0073C0F6 /* RoleModel.swift */; };
+		8EB093542D7C82AE0073C0F6 /* LessonTypeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093532D7C82AE0073C0F6 /* LessonTypeModel.swift */; };
+		8EB093562D7C82D30073C0F6 /* UserDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093552D7C82D30073C0F6 /* UserDetailModel.swift */; };
+		8EB093582D7C83050073C0F6 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093572D7C83050073C0F6 /* UserModel.swift */; };
+		8EB0935A2D7C83290073C0F6 /* LessonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093592D7C83290073C0F6 /* LessonModel.swift */; };
+		8EB0935D2D7C83CC0073C0F6 /* RoleMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0935C2D7C83CC0073C0F6 /* RoleMapper.swift */; };
+		8EB0935F2D7C84320073C0F6 /* LessonTypeMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0935E2D7C84320073C0F6 /* LessonTypeMapper.swift */; };
+		8EB093612D7C84840073C0F6 /* UserDetailMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093602D7C84840073C0F6 /* UserDetailMapper.swift */; };
+		8EB093632D7C849B0073C0F6 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093622D7C849B0073C0F6 /* Mapper.swift */; };
+		8EB093652D7C85770073C0F6 /* UserMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093642D7C85770073C0F6 /* UserMapper.swift */; };
+		8EB093672D7C87030073C0F6 /* LessonMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093662D7C87030073C0F6 /* LessonMapper.swift */; };
 		8EC1D32D2D475B5500987973 /* LessonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC1D32C2D475B5400987973 /* LessonCard.swift */; };
 		8EDBFF1C2D57A7BF008441D6 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDBFF1B2D57A7BF008441D6 /* ProfileScreen.swift */; };
 		8EDBFF1E2D57A807008441D6 /* ProfileScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDBFF1D2D57A807008441D6 /* ProfileScreenViewModel.swift */; };
@@ -130,6 +143,19 @@
 		8E99E7902D71BD3900CF9CC8 /* DataTransferObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferObject.swift; sourceTree = "<group>"; };
 		8E9E51BB2D7975870035E4E3 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		8E9E51BD2D7975D40035E4E3 /* URLRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestBuilder.swift; sourceTree = "<group>"; };
+		8EB0934C2D7C810C0073C0F6 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		8EB0934F2D7C81590073C0F6 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		8EB093512D7C828F0073C0F6 /* RoleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleModel.swift; sourceTree = "<group>"; };
+		8EB093532D7C82AE0073C0F6 /* LessonTypeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTypeModel.swift; sourceTree = "<group>"; };
+		8EB093552D7C82D30073C0F6 /* UserDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailModel.swift; sourceTree = "<group>"; };
+		8EB093572D7C83050073C0F6 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		8EB093592D7C83290073C0F6 /* LessonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonModel.swift; sourceTree = "<group>"; };
+		8EB0935C2D7C83CC0073C0F6 /* RoleMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleMapper.swift; sourceTree = "<group>"; };
+		8EB0935E2D7C84320073C0F6 /* LessonTypeMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTypeMapper.swift; sourceTree = "<group>"; };
+		8EB093602D7C84840073C0F6 /* UserDetailMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailMapper.swift; sourceTree = "<group>"; };
+		8EB093622D7C849B0073C0F6 /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
+		8EB093642D7C85770073C0F6 /* UserMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMapper.swift; sourceTree = "<group>"; };
+		8EB093662D7C87030073C0F6 /* LessonMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonMapper.swift; sourceTree = "<group>"; };
 		8EC1D32C2D475B5400987973 /* LessonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCard.swift; sourceTree = "<group>"; };
 		8EDBFF1B2D57A7BF008441D6 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		8EDBFF1D2D57A807008441D6 /* ProfileScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewModel.swift; sourceTree = "<group>"; };
@@ -488,6 +514,8 @@
 		8E99E7862D71ABFB00CF9CC8 /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
+				8EB0935B2D7C839F0073C0F6 /* Mappers */,
+				8EB0934E2D7C81440073C0F6 /* Models */,
 				8E11604A2D7481CD0097774B /* DataTransferObjects */,
 				8E99E78D2D71B01100CF9CC8 /* Errors */,
 				8E99E7882D71AC2000CF9CC8 /* DataSources */,
@@ -502,6 +530,7 @@
 		8E99E7872D71AC0800CF9CC8 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				8EB0934C2D7C810C0073C0F6 /* Repository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -526,6 +555,32 @@
 				8E99E78E2D71B02400CF9CC8 /* DataSourceError.swift */,
 			);
 			path = Errors;
+			sourceTree = "<group>";
+		};
+		8EB0934E2D7C81440073C0F6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8EB0934F2D7C81590073C0F6 /* Model.swift */,
+				8EB093512D7C828F0073C0F6 /* RoleModel.swift */,
+				8EB093532D7C82AE0073C0F6 /* LessonTypeModel.swift */,
+				8EB093552D7C82D30073C0F6 /* UserDetailModel.swift */,
+				8EB093572D7C83050073C0F6 /* UserModel.swift */,
+				8EB093592D7C83290073C0F6 /* LessonModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8EB0935B2D7C839F0073C0F6 /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				8EB0935C2D7C83CC0073C0F6 /* RoleMapper.swift */,
+				8EB0935E2D7C84320073C0F6 /* LessonTypeMapper.swift */,
+				8EB093602D7C84840073C0F6 /* UserDetailMapper.swift */,
+				8EB093622D7C849B0073C0F6 /* Mapper.swift */,
+				8EB093642D7C85770073C0F6 /* UserMapper.swift */,
+				8EB093662D7C87030073C0F6 /* LessonMapper.swift */,
+			);
+			path = Mappers;
 			sourceTree = "<group>";
 		};
 		8EC1D32B2D475B3E00987973 /* Components */ = {
@@ -674,8 +729,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EB0935D2D7C83CC0073C0F6 /* RoleMapper.swift in Sources */,
+				8EB093502D7C81590073C0F6 /* Model.swift in Sources */,
 				8E75D4462D3E2ED20082F5FE /* Colors.swift in Sources */,
 				8E866E7E2D58E9C8007FAE6B /* EditProfileForm.swift in Sources */,
+				8EB093632D7C849B0073C0F6 /* Mapper.swift in Sources */,
 				8EC1D32D2D475B5500987973 /* LessonCard.swift in Sources */,
 				8E99E78A2D71AD5C00CF9CC8 /* APIDataSource.swift in Sources */,
 				8E7EBE4E2D3E3AE500C7C017 /* RegisterFormViewModel.swift in Sources */,
@@ -695,6 +753,8 @@
 				8E75D4432D3E2DF90082F5FE /* AuthScreen.swift in Sources */,
 				8E1160522D7483A30097774B /* UserDTO.swift in Sources */,
 				8E1297E42D777A17009102FD /* TeachMEAPIDataSource.swift in Sources */,
+				8EB093582D7C83050073C0F6 /* UserModel.swift in Sources */,
+				8EB093652D7C85770073C0F6 /* UserMapper.swift in Sources */,
 				8E9E51BC2D7975870035E4E3 /* HTTPMethod.swift in Sources */,
 				8EDBFF1E2D57A807008441D6 /* ProfileScreenViewModel.swift in Sources */,
 				8E6D1C8C2D673A1900C400C4 /* DateFormatter+toDate.swift in Sources */,
@@ -705,6 +765,9 @@
 				8E4D0F8B2D50B9A3007F57B8 /* ActionButton.swift in Sources */,
 				8E11605C2D74865B0097774B /* UserDataSource.swift in Sources */,
 				8E99E78C2D71AEE500CF9CC8 /* HTTPClient.swift in Sources */,
+				8EB093672D7C87030073C0F6 /* LessonMapper.swift in Sources */,
+				8EB0935A2D7C83290073C0F6 /* LessonModel.swift in Sources */,
+				8EB0934D2D7C810C0073C0F6 /* Repository.swift in Sources */,
 				8E75D4392D3E233F0082F5FE /* RegisterForm.swift in Sources */,
 				8E11605A2D7486190097774B /* UserDetailDataSource.swift in Sources */,
 				8E1160602D7488300097774B /* LessonDataSource.swift in Sources */,
@@ -717,6 +780,8 @@
 				8E20F5792D4B8CAA007B3154 /* UserItem.swift in Sources */,
 				8EFED06D2D50A71500046F1D /* RouterView.swift in Sources */,
 				8E863BA22D3F76A8001773F4 /* LoginFormViewModel.swift in Sources */,
+				8EB093542D7C82AE0073C0F6 /* LessonTypeModel.swift in Sources */,
+				8EB093522D7C828F0073C0F6 /* RoleModel.swift in Sources */,
 				8E7EBE552D3E420200C7C017 /* Radiuses.swift in Sources */,
 				8E84E2802D42531D00CB8C05 /* SubmitButton.swift in Sources */,
 				8E29828D2D4A381600588D8E /* Header.swift in Sources */,
@@ -725,6 +790,9 @@
 				8E180D2C2D5271E100327E29 /* Tab.swift in Sources */,
 				8EDBFF1C2D57A7BF008441D6 /* ProfileScreen.swift in Sources */,
 				8E5F20142D5DE76C00BE9C24 /* HomeRouter.swift in Sources */,
+				8EB0935F2D7C84320073C0F6 /* LessonTypeMapper.swift in Sources */,
+				8EB093612D7C84840073C0F6 /* UserDetailMapper.swift in Sources */,
+				8EB093562D7C82D30073C0F6 /* UserDetailModel.swift in Sources */,
 				8E29828B2D4A347500588D8E /* LessonListScreen.swift in Sources */,
 				8E5F201C2D5DEE2900BE9C24 /* LessonFormViewModel.swift in Sources */,
 				8E1160502D7483280097774B /* UserDetailDTO.swift in Sources */,

@@ -1,22 +1,22 @@
 //
-//  UserDTO.swift
+//  UserModel.swift
 //  TeachME
 //
-//  Created by TumbaDev on 2.03.25.
+//  Created by TumbaDev on 8.03.25.
 //
 
 import Foundation
 
-struct UserDTO: DataTransferObject {
+struct UserModel: Model {
     let id: UUID
     let email: String
     let firstName: String
     let lastName: String
-    let userDetail: UserDetailDTO?
-    let role: RoleDTO
+    let userDetail: UserDetailModel?
+    let role: RoleModel
 }
 
-struct UserLessonBodyDTO: DataTransferObject {
+struct UserLessonBodyModel: Model {
     let id: UUID
     let firstName: String
     let lastName: String
