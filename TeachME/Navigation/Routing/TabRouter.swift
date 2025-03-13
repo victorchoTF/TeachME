@@ -23,7 +23,8 @@ import Foundation
     }
     
     init(theme: Theme) {
-        userItem = UserItem(
+        let userItem = UserItem(
+            id: UUID(),
             name: "Loading",
             email: "...",
             phoneNumber: "...",
@@ -31,16 +32,18 @@ import Foundation
             role: .Student
         )
         
-        homeRouter = HomeRouter(theme: theme, userRole: .Student)
-        lessonRouter = HomeRouter(theme: theme, userRole: .Student)
+        self.userItem = userItem
+        
+        homeRouter = HomeRouter(theme: theme, user: userItem)
+        lessonRouter = HomeRouter(theme: theme, user: userItem)
         profileRouter = ProfileRouter(theme: theme)
     }
     
     func update(userItem: UserItem, theme: Theme) {
         self.userItem = userItem
         
-        homeRouter = HomeRouter(theme: theme, userRole: userItem.role)
-        lessonRouter = HomeRouter(theme: theme, userRole: userItem.role)
+        homeRouter = HomeRouter(theme: theme, user: userItem)
+        lessonRouter = HomeRouter(theme: theme, user: userItem)
         profileRouter = ProfileRouter(theme: theme)
     }
     

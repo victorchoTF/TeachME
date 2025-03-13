@@ -12,18 +12,30 @@ class HomeRouter {
     @Published var path = [Destination]()
 
     let theme: Theme
-    let userRole: Role
+    let user: UserItem
     let lessonRepository: LessonRepository
+    let lessonTypeRepository: LessonTypeRepository
+    let userRepository: UserRepository
     let lessonMapper: LessonMapper
+    let userMapper: UserMapper
 
-    init(theme: Theme, userRole: Role) {
+    init(theme: Theme, user: UserItem) {
         self.theme = theme
-        self.userRole = userRole
+        self.user = user
         
         let jsonDecoder = JSONDecoder()
         let jsonEncoder = JSONEncoder()
         
-        let userMapper = UserMapper(
+        let authHTTPCLient = AuthHTTPClient(
+            tokenProvider: TokenProvider(
+                key: "token", // TODO: Handle in a better way
+                keychainStore: KeychainStore(identifier: "com.teachME.tokens"), // TODO: Handle in a better way
+                decoder: jsonDecoder
+            ),
+            httpClient: URLSession(configuration: .ephemeral)
+        )
+        
+        userMapper = UserMapper(
             userDetailMapper: UserDetailMapper(),
             roleMapper: RoleMapper()
         )
@@ -36,19 +48,32 @@ class HomeRouter {
         
         lessonRepository = LessonRepository(
             dataSource: LessonDataSource(
-                client: AuthHTTPClient(
-                    tokenProvider: TokenProvider(
-                        key: "token", // TODO: Handle in a better way
-                        keychainStore: KeychainStore(identifier: "com.teachME.tokens"), // TODO: Handle in a better way
-                        decoder: jsonDecoder
-                    ),
-                    httpClient: URLSession(configuration: .ephemeral)
-                ),
-                baseURL: "teach-me", // TODO: Handle in a better way
+                client: authHTTPCLient,
+                baseURL: Endpoints.authURL.rawValue,
                 encoder: jsonEncoder,
                 decoder: jsonDecoder
             ),
             mapper: lessonMapper
+        )
+        
+        lessonTypeRepository = LessonTypeRepository(
+            dataSource: LessonTypeDataSource(
+                client: authHTTPCLient,
+                baseURL: Endpoints.authURL.rawValue,
+                encoder: jsonEncoder,
+                decoder: jsonDecoder
+            ),
+            mapper: LessonTypeMapper()
+        )
+        
+        userRepository = UserRepository(
+            dataSource: UserDataSource(
+                client: authHTTPCLient,
+                baseURL: Endpoints.authURL.rawValue,
+                encoder: jsonEncoder,
+                decoder: jsonDecoder
+            ),
+            mapper: userMapper
         )
     }
 }
@@ -59,7 +84,10 @@ extension HomeRouter: Router {
         let viewModel = LessonListScreenViewModel(
             router: self,
             repository: lessonRepository,
-            mapper: lessonMapper
+            lessonTypeRepository: lessonTypeRepository,
+            userRepository: userRepository,
+            mapper: lessonMapper,
+            userMapper: userMapper
         )
             
         return LessonListScreen(viewModel: viewModel, theme: theme)

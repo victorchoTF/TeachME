@@ -73,6 +73,7 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
     
     func onSubmit() {
         let user = UserItem(
+            id: UUID(),
             name: checkName(),
             email: checkEmail(),
             phoneNumber: phoneNumber,

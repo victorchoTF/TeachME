@@ -67,4 +67,32 @@ struct LessonMapper: Mapper {
             teacherName: "\(model.teacher.firstName) \(model.teacher.lastName)"
         )
     }
+    
+    func itemToModel(
+        _ item: LessonItem,
+        lessonTypeModel: LessonTypeModel,
+        teacherItem: UserLessonBodyModel
+    ) throws -> LessonModel {
+        guard let startDate = dateFormatter.toDate(dateString: item.startDate) else {
+            throw LessonMapperError.invalidDate("\(item.startDate) is not a valid Date!")
+        }
+        
+        guard let endDate = dateFormatter.toDate(dateString: item.endDate) else {
+            throw LessonMapperError.invalidDate("\(item.endDate) is not a valid Date!")
+        }
+        
+        return LessonModel(
+            id: UUID(),
+            lessonType: lessonTypeModel,
+            subtitle: item.subtitle,
+            startDate: startDate,
+            endDate: endDate,
+            teacher: teacherItem,
+            student: nil
+        )
+    }
+}
+
+enum LessonMapperError: Error {
+    case invalidDate(String)
 }

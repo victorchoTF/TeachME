@@ -40,6 +40,7 @@ final class RegisterFormViewModel: ObservableObject {
         
         // TODO: Fix after implementing get by email on API
         onSubmit(UserItem(
+            id: UUID(),
             name: "\(firstName) \(lastName)",
             email: email,
             phoneNumber: "",

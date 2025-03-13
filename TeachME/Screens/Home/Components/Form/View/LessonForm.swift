@@ -134,7 +134,10 @@ private extension LessonForm {
                 Text(viewModel.doneButtonText)
             )
         ) {
-            viewModel.onSubmit()
+//            Task {
+//                try await viewModel.onSubmit()
+//            }
+            print("Opened")
         }
         .foregroundStyle(theme.colors.accent)
     }

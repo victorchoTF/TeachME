@@ -68,6 +68,15 @@ struct UserMapper: Mapper {
         )
     }
     
+    func modelToLessonBodyModel(_ model: UserModel) -> UserLessonBodyModel {
+        UserLessonBodyModel(
+            id: model.id,
+            firstName: model.firstName,
+            lastName: model.lastName,
+            profilePicture: model.userDetail?.profilePicture
+        )
+    }
+    
     func credentialBodyDTOToModel(_ data: UserCredentialsBodyDTO) -> UserCredentialsBodyModel {
         UserCredentialsBodyModel(email: data.email, password: data.password)
     }
@@ -98,6 +107,7 @@ struct UserMapper: Mapper {
     
     func modelToItem(_ model: UserModel) -> UserItem {
         return UserItem(
+            id: model.id,
             name: "\(model.firstName) \(model.lastName)",
             profilePicture: Image(
                 data: model.userDetail?.profilePicture,

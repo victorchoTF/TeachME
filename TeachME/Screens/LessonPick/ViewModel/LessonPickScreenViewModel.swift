@@ -40,6 +40,7 @@ final class LessonPickScreenViewModel: ObservableObject {
     // TODO: Should load real data in future
     func loadData() {
         teacher = UserItem(
+            id: UUID(),
             name: "George Demo",
             profilePicture: Image(systemName: "person.crop.circle"),
             email: "george_demo@gmail.com",
@@ -97,7 +98,7 @@ final class LessonPickScreenViewModel: ObservableObject {
     }
     
     var pickLessonButtonText: String {
-        switch router?.userRole {
+        switch router?.user.role {
         case .Teacher: "Edit"
         default: "Save"
         }
@@ -108,7 +109,7 @@ final class LessonPickScreenViewModel: ObservableObject {
             return
         }
         
-        switch router.userRole {
+        switch router.user.role {
         case .Teacher: teacherAction()
         case .Student: studentAction()
         }

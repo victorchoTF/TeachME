@@ -15,6 +15,7 @@ final class ProfileScreenViewModel: ObservableObject {
     // TODO: Fetch real data
     func loadData() {
         userItem = UserItem(
+            id: UUID(),
             name: "George Demo",
             profilePicture: Image(systemName: "person.crop.circle"),
             email: "george_demo@gmail.com",

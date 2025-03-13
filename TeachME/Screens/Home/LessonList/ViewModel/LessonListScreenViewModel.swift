@@ -17,25 +17,29 @@ import SwiftUI // TODO: Remove after DataLoading is implemented
     @Published var userItem: UserItem?
     
     private let repository: LessonRepository
-    private let mapper: LessonMapper
+    private let lessonTypeRepository: LessonTypeRepository
+    private let userRepository: UserRepository
     
-    init(router: HomeRouter, repository: LessonRepository, mapper: LessonMapper) {
+    private let mapper: LessonMapper
+    private let userMapper: UserMapper
+    
+    init(
+        router: HomeRouter,
+        repository: LessonRepository,
+        lessonTypeRepository: LessonTypeRepository,
+        userRepository: UserRepository,
+        mapper: LessonMapper,
+        userMapper: UserMapper
+    ) {
         self.router = router
         self.repository = repository
+        self.lessonTypeRepository = lessonTypeRepository
+        self.userRepository = userRepository
         self.mapper = mapper
+        self.userMapper = userMapper
     }
-    
-    // TODO: Should load real data in future
+
     func loadData() async {
-        userItem = UserItem(
-            name: "George Demo",
-            profilePicture: Image(systemName: "person.crop.circle"),
-            email: "george_demo@gmail.com",
-            phoneNumber: "0874567243",
-            bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves",
-            role: .Student
-        )
-        
         do {
             lessons = try await repository.getAll().map { mapper.modelToItem($0) }
         } catch {
@@ -60,7 +64,7 @@ import SwiftUI // TODO: Remove after DataLoading is implemented
     }
     
     var shouldShowAddLessonButton: Bool {
-        router?.userRole == .Teacher
+        router?.user.role == .Teacher
     }
     
     func onAddButtonTap() {
@@ -76,12 +80,42 @@ import SwiftUI // TODO: Remove after DataLoading is implemented
                 self?.lessonFormViewModel = nil
             }
         ) { [weak self] lesson in
-            self?.lessons.removeAll(where: { $0 == lesson })
-            self?.lessons.insert(
+            guard let self = self, let router = self.router else {
+                self?.lessonFormViewModel = nil
+                return
+            }
+            
+            let lessonTypeModel = try await self.lessonTypeRepository.getAll().filter {
+                $0.name == lesson.lessonType
+            }[0]
+            
+            guard let userRoleId = UUID(uuidString: router.user.role.rawValue) else {
+                self.lessonFormViewModel = nil
+                return
+            }
+            
+            let userModel = try await self.userRepository.getUsersByRoleId(userRoleId).filter {
+                $0.id == router.user.id
+            }[0]
+            
+            let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
+            
+            let lessonModel = try self.mapper.itemToModel(
                 lesson,
+                lessonTypeModel: lessonTypeModel,
+                teacherItem: userLessonBody
+            )
+                    
+            let lessonItem = try await self.mapper.modelToItem(
+                self.repository.create(lessonModel)
+            )
+            
+            self.lessons.removeAll(where: { $0 == lessonItem })
+            self.lessons.insert(
+                lessonItem,
                 at: 0
             )
-            self?.lessonFormViewModel = nil
+            self.lessonFormViewModel = nil
         }
     }
 }

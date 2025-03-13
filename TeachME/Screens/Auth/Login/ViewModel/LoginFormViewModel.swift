@@ -33,11 +33,12 @@ final class LoginFormViewModel: ObservableObject {
         
         // TODO: Fix after implementing get by email on API
         onSubmit(UserItem(
+            id: UUID(),
             name: "...",
             email: email,
             phoneNumber: "",
             bio: "...",
-            role: .Student // FIXME: Real bug before having getByEmail()
+            role: .Teacher // FIXME: Real bug before having getByEmail()
         ))
         
         return token

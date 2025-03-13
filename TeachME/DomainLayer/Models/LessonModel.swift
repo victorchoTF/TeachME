@@ -16,3 +16,11 @@ struct LessonModel: Model {
     let teacher: UserLessonBodyModel
     let student: UserLessonBodyModel?
 }
+
+struct LessonCreateBody {
+    let lessonTypeId: UUID
+    let subtitle: String
+    let startDate: Date
+    let endDate: Date
+    let teacher: UserLessonBodyModel
+}

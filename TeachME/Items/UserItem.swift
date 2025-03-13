@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct UserItem {
+    let id: UUID
     let name: String
     let profilePicture: Image
     let email: String
@@ -16,6 +17,7 @@ struct UserItem {
     let role: Role
     
     init(
+        id: UUID,
         name: String,
         profilePicture: Image = Image(systemName: "person.crop.circle"),
         email: String,
@@ -23,6 +25,7 @@ struct UserItem {
         bio: String,
         role: Role
     ) {
+        self.id = id
         self.name = name
         self.profilePicture = profilePicture
         self.email = email

@@ -21,15 +21,15 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
     
     let dateFormatter: DateFormatter
     
-    private let updateLesson: (LessonItem) -> ()
+    private let updateLesson: (LessonItem) async throws -> ()
     let onCancel: () -> ()
     
     init(
         lesson: LessonItem,
         formType: FormType,
         dateFormatter: DateFormatter,
-        onCancel: @escaping() -> (),
-        updateLesson: @escaping (LessonItem) -> ()
+        onCancel: @escaping () -> (),
+        updateLesson: @escaping (LessonItem) async throws -> ()
     ) {
         self.lesson = lesson
         self.onCancel = onCancel
@@ -52,7 +52,7 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
         self.endDate = setDate(lesson.endDate)
     }
 
-    func onSubmit() {
+    func onSubmit() async throws {
         let lesson = LessonItem(
             id: UUID(),
             lessonType: lessonType,
@@ -63,7 +63,7 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
             teacherName: lesson.teacherName
         )
         
-        updateLesson(lesson)
+        try await updateLesson(lesson)
     }
     
     var formTitle: String {
