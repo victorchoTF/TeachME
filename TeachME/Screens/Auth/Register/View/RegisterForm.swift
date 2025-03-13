@@ -26,11 +26,7 @@ struct RegisterForm: View {
                 
                 SubmitButton(text: viewModel.formType, theme: theme) {
                     Task {
-                        do {
-                            let _ = try await viewModel.registerUser()
-                        } catch {
-                            print("An error \(error) occured!")
-                        }
+                        let _ = try await viewModel.registerUser()
                     }
                 }
                 
