@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class UserDetailTypeDataSource: TeachMEAPIDataSource {
+final class UserDetailDataSource: TeachMEAPIDataSource {
     typealias DataType = UserDetailDTO
     
     let client: HTTPClient
