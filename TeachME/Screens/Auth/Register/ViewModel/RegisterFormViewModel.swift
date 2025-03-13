@@ -17,9 +17,16 @@ final class RegisterFormViewModel: ObservableObject {
     private let reposiotry: AuthRepository
     private let roleRepository: RoleRepository
     
-    init(repository: AuthRepository, roleRepository: RoleRepository) {
+    let onSubmit: () -> ()
+    
+    init(
+        repository: AuthRepository,
+        roleRepository: RoleRepository,
+        onSubmit: @escaping () -> ()
+    ) {
         self.reposiotry = repository
         self.roleRepository = roleRepository
+        self.onSubmit = onSubmit
     }
     
     func registerUser() async throws -> TokenResponse {
@@ -34,6 +41,8 @@ final class RegisterFormViewModel: ObservableObject {
                 roleId: role.id
             )
         )
+        
+        onSubmit()
         
         return token
     }

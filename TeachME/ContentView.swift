@@ -9,19 +9,80 @@ import SwiftUI
 
 struct ContentView: View {
     let theme: Theme
+    let authRepository: AuthRepository
+    let roleRepository: RoleRepository
+    @State var isLoggedIn: Bool
     @StateObject var tabRouter: TabRouter
     
     init() {
         self.theme = PrimaryTheme()
         self._tabRouter = StateObject(wrappedValue: TabRouter(theme: PrimaryTheme()))
+        
+        let roleMapper = RoleMapper()
+        let jsonDecoder = JSONDecoder()
+        let jsonEncoder = JSONEncoder()
+        let httpClient = URLSession(configuration: .ephemeral)
+        
+        self.authRepository = AuthRepository(
+            dataSource: AuthDataSource(
+                client: httpClient,
+                baseURL: Endpoints.baseURL.rawValue,
+                encoder: jsonEncoder,
+                decoder: jsonDecoder
+            ),
+            mapper: UserMapper(
+                userDetailMapper: UserDetailMapper(),
+                roleMapper: roleMapper
+            ),
+            tokenSetter: TokenSetter(
+                key: "token", // TODO: Handle in a better way
+                keychainStore: KeychainStore(identifier: "com.teachME.credentials"), // TODO: Handle in a better way,
+                encoder: jsonEncoder
+            )
+        )
+        
+        self.roleRepository = RoleRepository(
+            dataSource: RoleDataSource(
+                client: httpClient,
+                baseURL: Endpoints.baseURL.rawValue,
+                encoder: jsonEncoder,
+                decoder: jsonDecoder
+            ),
+            mapper: roleMapper
+        )
+        
+        self.isLoggedIn = false
     }
     
     var body: some View {
-        tabView
+        if isLoggedIn {
+            tabView
+        } else {
+            authScreen
+        }
     }
 }
 
 private extension ContentView {
+    var authScreen: some View {
+        AuthScreen(
+            viewModel: AuthScreenViewModel(
+                loginFormViewModel: LoginFormViewModel(
+                    repository: authRepository
+                ) {
+                    isLoggedIn = true
+                },
+                registerFormsViewModel: RegisterFormViewModel(
+                    repository: authRepository,
+                    roleRepository: roleRepository
+                ) {
+                    isLoggedIn = true
+                }
+            ),
+            theme: theme
+        )
+    }
+    
     var tabView: some View {
         TabView(selection: $tabRouter.selectedTab) {
                 homeScreen

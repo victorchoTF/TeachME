@@ -12,9 +12,11 @@ final class LoginFormViewModel: ObservableObject {
     @Published var password: String = ""
     
     private let repository: AuthRepository
+    let onSubmit: () -> ()
     
-    init(repository: AuthRepository) {
+    init(repository: AuthRepository, onSubmit: @escaping () -> ()) {
         self.repository = repository
+        self.onSubmit = onSubmit
     }
     
     func loginUser() async throws -> TokenResponse {
@@ -24,6 +26,8 @@ final class LoginFormViewModel: ObservableObject {
                 password: password
             )
         )
+        
+        onSubmit()
         
         return token
     }
