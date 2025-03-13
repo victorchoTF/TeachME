@@ -61,6 +61,10 @@
 		8E863BA22D3F76A8001773F4 /* LoginFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E863BA12D3F76A8001773F4 /* LoginFormViewModel.swift */; };
 		8E866E7E2D58E9C8007FAE6B /* EditProfileForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E866E7D2D58E9C8007FAE6B /* EditProfileForm.swift */; };
 		8E866E832D58EB2C007FAE6B /* EditProfileFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E866E822D58EB2C007FAE6B /* EditProfileFormViewModel.swift */; };
+		8E8C9AE22D82CD9600082B34 /* AuthHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C9AE12D82CD9600082B34 /* AuthHTTPClient.swift */; };
+		8E8C9AE42D82CDE400082B34 /* TokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C9AE32D82CDE400082B34 /* TokenProvider.swift */; };
+		8E8C9AE82D82CE3A00082B34 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C9AE72D82CE3A00082B34 /* KeychainStore.swift */; };
+		8E8C9AEA2D82D1A900082B34 /* TokenSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C9AE92D82D1A900082B34 /* TokenSetter.swift */; };
 		8E9669CB2D48AEEA00B5D6BA /* LessonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */; };
 		8E99E78A2D71AD5C00CF9CC8 /* APIDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E7892D71AD5C00CF9CC8 /* APIDataSource.swift */; };
 		8E99E78C2D71AEE500CF9CC8 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E78B2D71AEE500CF9CC8 /* HTTPClient.swift */; };
@@ -151,6 +155,10 @@
 		8E863BA12D3F76A8001773F4 /* LoginFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormViewModel.swift; sourceTree = "<group>"; };
 		8E866E7D2D58E9C8007FAE6B /* EditProfileForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileForm.swift; sourceTree = "<group>"; };
 		8E866E822D58EB2C007FAE6B /* EditProfileFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileFormViewModel.swift; sourceTree = "<group>"; };
+		8E8C9AE12D82CD9600082B34 /* AuthHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHTTPClient.swift; sourceTree = "<group>"; };
+		8E8C9AE32D82CDE400082B34 /* TokenProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenProvider.swift; sourceTree = "<group>"; };
+		8E8C9AE72D82CE3A00082B34 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
+		8E8C9AE92D82D1A900082B34 /* TokenSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenSetter.swift; sourceTree = "<group>"; };
 		8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonItem.swift; sourceTree = "<group>"; };
 		8E99E7892D71AD5C00CF9CC8 /* APIDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDataSource.swift; sourceTree = "<group>"; };
 		8E99E78B2D71AEE500CF9CC8 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
@@ -274,6 +282,8 @@
 			children = (
 				8E3CF2402D7D9590009D30D5 /* TokenResponse.swift */,
 				8E3CF2442D7D97A6009D30D5 /* RefreshTokenRequest.swift */,
+				8E8C9AE32D82CDE400082B34 /* TokenProvider.swift */,
+				8E8C9AE92D82D1A900082B34 /* TokenSetter.swift */,
 			);
 			path = Tokens;
 			sourceTree = "<group>";
@@ -389,6 +399,7 @@
 		8E65F7432D3D2BDF00D3A793 /* TeachME */ = {
 			isa = PBXGroup;
 			children = (
+				8E8C9AE52D82CE0B00082B34 /* Persistence */,
 				8EB7CA322D81DEE5005E82F1 /* DomainLayer */,
 				8E99E7862D71ABFB00CF9CC8 /* DataLayer */,
 				8E6D1C8D2D673A7600C400C4 /* Extensions */,
@@ -525,6 +536,22 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		8E8C9AE52D82CE0B00082B34 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				8E8C9AE62D82CE2500082B34 /* Keychain */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		8E8C9AE62D82CE2500082B34 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				8E8C9AE72D82CE3A00082B34 /* KeychainStore.swift */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
 		8E9669C92D48AED200B5D6BA /* Items */ = {
 			isa = PBXGroup;
 			children = (
@@ -546,6 +573,7 @@
 				8E99E78B2D71AEE500CF9CC8 /* HTTPClient.swift */,
 				8E9E51BB2D7975870035E4E3 /* HTTPMethod.swift */,
 				8E9E51BD2D7975D40035E4E3 /* URLRequestBuilder.swift */,
+				8E8C9AE12D82CD9600082B34 /* AuthHTTPClient.swift */,
 			);
 			path = DataLayer;
 			sourceTree = "<group>";
@@ -776,6 +804,7 @@
 				8E99E78A2D71AD5C00CF9CC8 /* APIDataSource.swift in Sources */,
 				8E7EBE4E2D3E3AE500C7C017 /* RegisterFormViewModel.swift in Sources */,
 				8E99E7912D71BD3900CF9CC8 /* DataTransferObject.swift in Sources */,
+				8E8C9AE22D82CD9600082B34 /* AuthHTTPClient.swift in Sources */,
 				8E65F7472D3D2BDF00D3A793 /* ContentView.swift in Sources */,
 				8E11604E2D7482F90097774B /* LessonTypeDTO.swift in Sources */,
 				8E7EBE4B2D3E3A1800C7C017 /* AuthScreenViewModel.swift in Sources */,
@@ -786,6 +815,7 @@
 				8EFED0662D50A1F900046F1D /* Router.swift in Sources */,
 				8EB0936D2D7C8FF30073C0F6 /* UserDetailRepository.swift in Sources */,
 				8E2982902D4A38CF00588D8E /* LessonListScreenViewModel.swift in Sources */,
+				8E8C9AEA2D82D1A900082B34 /* TokenSetter.swift in Sources */,
 				8E3CF2412D7D9590009D30D5 /* TokenResponse.swift in Sources */,
 				8E7EBE532D3E417100C7C017 /* Spacings.swift in Sources */,
 				8E99E78F2D71B02400CF9CC8 /* DataSourceError.swift in Sources */,
@@ -814,6 +844,7 @@
 				8EB0935A2D7C83290073C0F6 /* LessonModel.swift in Sources */,
 				8EB0934D2D7C810C0073C0F6 /* Repository.swift in Sources */,
 				8E75D4392D3E233F0082F5FE /* RegisterForm.swift in Sources */,
+				8E8C9AE42D82CDE400082B34 /* TokenProvider.swift in Sources */,
 				8E11605A2D7486190097774B /* UserDetailDataSource.swift in Sources */,
 				8E1160602D7488300097774B /* LessonDataSource.swift in Sources */,
 				8EFED0682D50A2BB00046F1D /* Destination.swift in Sources */,
@@ -822,6 +853,7 @@
 				8E20F5712D4B83A1007B3154 /* LessonPickScreen.swift in Sources */,
 				8E20F5732D4B8425007B3154 /* LessonPickScreenViewModel.swift in Sources */,
 				8EB093712D7C908F0073C0F6 /* LessonRepository.swift in Sources */,
+				8E8C9AE82D82CE3A00082B34 /* KeychainStore.swift in Sources */,
 				8EDBFF202D57A9C4008441D6 /* ProfileRouter.swift in Sources */,
 				8E20F5792D4B8CAA007B3154 /* UserItem.swift in Sources */,
 				8EFED06D2D50A71500046F1D /* RouterView.swift in Sources */,
