@@ -14,6 +14,30 @@ final class RegisterFormViewModel: ObservableObject {
     @Published var lastName: String = ""
     @Published var roleType: Role = .student
     
+    private let reposiotry: AuthRepository
+    private let roleRepository: RoleRepository
+    
+    init(repository: AuthRepository, roleRepository: RoleRepository) {
+        self.reposiotry = repository
+        self.roleRepository = roleRepository
+    }
+    
+    func registerUser() async throws -> TokenResponse {
+        let role = try await roleRepository.getAll().filter { $0.title == roleType.rawValue }[0]
+        
+        let token = try await reposiotry.register(
+            user: UserRegisterBodyModel(
+                email: email,
+                password: password,
+                firstName: firstName,
+                lastName: lastName,
+                roleId: role.id
+            )
+        )
+        
+        return token
+    }
+    
     var roleSelection: Role {
         roleType
     }

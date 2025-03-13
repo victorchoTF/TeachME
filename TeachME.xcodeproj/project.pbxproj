@@ -396,7 +396,6 @@
 				8EFED0612D50A16800046F1D /* Navigation */,
 				8E9669C92D48AED200B5D6BA /* Items */,
 				8E75D4442D3E2EA80082F5FE /* Theme */,
-				8E75D43A2D3E240E0082F5FE /* Models */,
 				8E75D4362D3E231C0082F5FE /* Screens */,
 				8E65F7442D3D2BDF00D3A793 /* TeachMEApp.swift */,
 				8E65F7462D3D2BDF00D3A793 /* ContentView.swift */,
@@ -435,13 +434,6 @@
 				8E75D43E2D3E25040082F5FE /* Auth */,
 			);
 			path = Screens;
-			sourceTree = "<group>";
-		};
-		8E75D43A2D3E240E0082F5FE /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		8E75D43E2D3E25040082F5FE /* Auth */ = {

@@ -25,7 +25,13 @@ struct RegisterForm: View {
                 roleDetails
                 
                 SubmitButton(text: viewModel.formType, theme: theme) {
-                    print("register")
+                    Task {
+                        do {
+                            let _ = try await viewModel.registerUser()
+                        } catch {
+                            print("An error \(error) occured!")
+                        }
+                    }
                 }
                 
                 SwitchFormText(
