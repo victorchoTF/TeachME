@@ -20,6 +20,7 @@ struct UserLessonBodyModel: Model {
     let id: UUID
     let firstName: String
     let lastName: String
+    let profilePicture: Data?
 }
 
 struct UserCredentialsBodyModel {

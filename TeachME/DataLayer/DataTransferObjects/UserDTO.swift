@@ -20,6 +20,7 @@ struct UserLessonBodyDTO: DataTransferObject {
     let id: UUID
     let firstName: String
     let lastName: String
+    let profilePicture: Data?
 }
 
 struct UserCredentialsBodyDTO: Codable {

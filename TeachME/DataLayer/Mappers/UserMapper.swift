@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct UserMapper: Mapper {
     let userDetailMapper: UserDetailMapper
@@ -50,11 +51,21 @@ struct UserMapper: Mapper {
     }
     
     func lessonBodyDTOToModel(_ data: UserLessonBodyDTO) -> UserLessonBodyModel {
-        UserLessonBodyModel(id: data.id, firstName: data.firstName, lastName: data.lastName)
+        UserLessonBodyModel(
+            id: data.id,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            profilePicture: data.profilePicture
+        )
     }
     
     func lessonBodyModelToDTO(_ model: UserLessonBodyModel) -> UserLessonBodyDTO {
-        UserLessonBodyDTO(id: model.id, firstName: model.firstName, lastName: model.lastName)
+        UserLessonBodyDTO(
+            id: model.id,
+            firstName: model.firstName,
+            lastName: model.lastName,
+            profilePicture: model.profilePicture
+        )
     }
     
     func credentialBodyDTOToModel(_ data: UserCredentialsBodyDTO) -> UserCredentialsBodyModel {
@@ -82,6 +93,19 @@ struct UserMapper: Mapper {
             firstName: model.firstName,
             lastName: model.lastName,
             roleId: model.roleId //TODO: Role enum -> roleID
+        )
+    }
+    
+    func modelToItem(_ model: UserModel) -> UserItem {
+        return UserItem(
+            name: "\(model.firstName) \(model.lastName)",
+            profilePicture: Image(
+                data: model.userDetail?.profilePicture,
+                fallbackImageName: "person.crop.circle"
+            ),
+            email: model.email,
+            phoneNumber: model.userDetail?.phoneNumber ?? "",
+            bio: model.userDetail?.bio ?? ""
         )
     }
 }
