@@ -9,20 +9,24 @@ import Foundation
 import SwiftUI // TODO: Remove after DataLoading is implemented
 
 final class LessonListScreenViewModel: ObservableObject {
-    @Published var lessons: [LessonItem]
+    @Published var lessons: [LessonItem] = []
     
     private weak var router: HomeRouter?
     @Published var lessonFormViewModel: LessonFormViewModel?
     
     @Published var userItem: UserItem?
     
-    init(lessons: [LessonItem], router: HomeRouter) {
-        self.lessons = lessons
+    private let repository: LessonRepository
+    private let mapper: LessonMapper
+    
+    init(router: HomeRouter, repository: LessonRepository, mapper: LessonMapper) {
         self.router = router
+        self.repository = repository
+        self.mapper = mapper
     }
     
     // TODO: Should load real data in future
-    func loadData() {
+    func loadData() async {
         userItem = UserItem(
             name: "George Demo",
             profilePicture: Image(systemName: "person.crop.circle"),
@@ -30,6 +34,12 @@ final class LessonListScreenViewModel: ObservableObject {
             phoneNumber: "0874567243",
             bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves"
         )
+        
+        do {
+            lessons = try await repository.getAll().map { mapper.modelToItem($0) }
+        } catch {
+            lessons = []
+        }
     }
     
     func onLessonTap(lesson: LessonItem, theme: Theme) {

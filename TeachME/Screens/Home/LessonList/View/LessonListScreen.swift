@@ -42,7 +42,9 @@ struct LessonListScreen: View {
             )
             .background(theme.colors.primary)
         }
-        .onAppear(perform: viewModel.loadData)
+        .task {
+            await viewModel.loadData()
+        }
     }
 }
 
