@@ -14,11 +14,18 @@ final class LessonPickScreenViewModel: ObservableObject {
     @Published var lessonFormViewModel: LessonFormViewModel?
     @Published var otherLessons: [LessonItem] = []
     
+    let lessonTypeRepository: LessonTypeRepository
+    
     private weak var router: HomeRouter?
     
-    init(pickedLesson: LessonItem, router: HomeRouter) {
+    init(
+        pickedLesson: LessonItem,
+        router: HomeRouter,
+        lessonTypeRepository: LessonTypeRepository
+    ) {
         self.pickedLesson = pickedLesson
         self.router = router
+        self.lessonTypeRepository = lessonTypeRepository
     }
     
     func onLessonTap(lesson: LessonItem, theme: Theme) {
@@ -30,7 +37,8 @@ final class LessonPickScreenViewModel: ObservableObject {
             .lesson(
                 LessonPickScreenViewModel(
                     pickedLesson: lesson,
-                    router: router
+                    router: router, 
+                    lessonTypeRepository: lessonTypeRepository
                 ),
                 theme
             )
@@ -52,35 +60,8 @@ final class LessonPickScreenViewModel: ObservableObject {
         otherLessons = [
             LessonItem(
                 id: UUID(),
-                lessonType: "Maths",
+                lessonType: "Other",
                 subtitle: "Statistics made simple",
-                startDate: "10:00AM 14.03.2025",
-                endDate: "11:40AM 14.03.2025",
-                teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                teacherName: "George Demo"
-            ),
-            LessonItem(
-                id: UUID(),
-                lessonType: "Biology",
-                subtitle: "Cranial system; Anatomy",
-                startDate: "10:00AM 14.03.2025",
-                endDate: "11:40AM 14.03.2025",
-                teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                teacherName: "George Demo"
-            ),
-            LessonItem(
-                id: UUID(),
-                lessonType: "English",
-                subtitle: "Learning the tenses",
-                startDate: "10:00AM 14.03.2025",
-                endDate: "11:40AM 14.03.2025",
-                teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                teacherName: "George Demo"
-            ),
-            LessonItem(
-                id: UUID(),
-                lessonType: "Physics",
-                subtitle: "Motion and mechanics",
                 startDate: "10:00AM 14.03.2025",
                 endDate: "11:40AM 14.03.2025",
                 teacherProfilePicture: Image(systemName: "person.crop.circle"),
@@ -121,6 +102,7 @@ private extension LessonPickScreenViewModel {
         self.lessonFormViewModel = LessonFormViewModel(
             lesson: self.pickedLesson,
             formType: FormType.edit,
+            repository: lessonTypeRepository,
             dateFormatter: DateFormatter(),
             onCancel: { [weak self] in
                 self?.lessonFormViewModel = nil

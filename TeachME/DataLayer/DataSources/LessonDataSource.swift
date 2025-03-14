@@ -145,7 +145,7 @@ final class LessonDataSource: TeachMEAPIDataSource {
         
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "\(lesson.id)")
             .setMethod(.put)
-            .setHeaders(["application/json": "Content-Type"])
+            .setHeaders(["Content-Type": "application/json"])
             .setBody(lessonData)
             .build()
         else {

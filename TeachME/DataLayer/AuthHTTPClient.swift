@@ -19,8 +19,12 @@ class AuthHTTPClient: HTTPClient {
     func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
         var signedRequest = request
         
-        let token = try tokenProvider.token()
-        signedRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let tokenData = try tokenProvider.token()
+        
+        signedRequest.setValue(
+            "Bearer \(tokenData.accessToken.token)",
+            forHTTPHeaderField: "Authorization"
+        )
             
         let response = try await httpClient.request(signedRequest)
         

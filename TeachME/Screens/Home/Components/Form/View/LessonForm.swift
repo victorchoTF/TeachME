@@ -29,6 +29,9 @@ struct LessonForm: View {
             .navigationTitle(viewModel.formTitle)
             .navigationBarTitleDisplayMode(.inline)
         }
+        .task {
+            await viewModel.loadData()
+        }
     }
 }
 
@@ -134,10 +137,7 @@ private extension LessonForm {
                 Text(viewModel.doneButtonText)
             )
         ) {
-//            Task {
-//                try await viewModel.onSubmit()
-//            }
-            print("Opened")
+            viewModel.onSubmit()
         }
         .foregroundStyle(theme.colors.accent)
     }

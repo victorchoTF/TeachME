@@ -105,7 +105,7 @@ final class AuthDataSource {
         
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "refresh-token")
             .setMethod(.post)
-            .setHeaders(["application/json": "Content-Type"])
+            .setHeaders(["Content-Type": "application/json"])
             .setBody(refreshTokenRequestData)
             .build()
         else {

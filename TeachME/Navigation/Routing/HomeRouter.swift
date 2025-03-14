@@ -49,7 +49,7 @@ class HomeRouter {
         lessonRepository = LessonRepository(
             dataSource: LessonDataSource(
                 client: authHTTPCLient,
-                baseURL: Endpoints.authURL.rawValue,
+                baseURL: Endpoints.lessonsURL.rawValue,
                 encoder: jsonEncoder,
                 decoder: jsonDecoder
             ),
@@ -59,7 +59,7 @@ class HomeRouter {
         lessonTypeRepository = LessonTypeRepository(
             dataSource: LessonTypeDataSource(
                 client: authHTTPCLient,
-                baseURL: Endpoints.authURL.rawValue,
+                baseURL: Endpoints.lessonTypesURL.rawValue,
                 encoder: jsonEncoder,
                 decoder: jsonDecoder
             ),
@@ -69,7 +69,7 @@ class HomeRouter {
         userRepository = UserRepository(
             dataSource: UserDataSource(
                 client: authHTTPCLient,
-                baseURL: Endpoints.authURL.rawValue,
+                baseURL: Endpoints.usersURL.rawValue,
                 encoder: jsonEncoder,
                 decoder: jsonDecoder
             ),

@@ -14,8 +14,6 @@ import SwiftUI // TODO: Remove after DataLoading is implemented
     private weak var router: HomeRouter?
     @Published var lessonFormViewModel: LessonFormViewModel?
     
-    @Published var userItem: UserItem?
-    
     private let repository: LessonRepository
     private let lessonTypeRepository: LessonTypeRepository
     private let userRepository: UserRepository
@@ -56,7 +54,8 @@ import SwiftUI // TODO: Remove after DataLoading is implemented
             .lesson(
                 LessonPickScreenViewModel(
                     pickedLesson: lesson,
-                    router: router
+                    router: router,
+                    lessonTypeRepository: lessonTypeRepository
                 ),
                 theme
             )
@@ -68,55 +67,59 @@ import SwiftUI // TODO: Remove after DataLoading is implemented
     }
     
     func onAddButtonTap() {
-        guard let userItem = userItem else {
+        guard let router = router else {
             return
         }
         
         self.lessonFormViewModel = LessonFormViewModel(
-            lesson: emptyLessonItem(userItem: userItem),
+            lesson: emptyLessonItem(userItem: router.user),
             formType: FormType.add,
+            repository: lessonTypeRepository,
             dateFormatter: DateFormatter(),
             onCancel: { [weak self] in
                 self?.lessonFormViewModel = nil
             }
         ) { [weak self] lesson in
-            guard let self = self, let router = self.router else {
+            Task {
+                guard let lessonItem = try await self?.addLesson(lesson: lesson) else {
+                    self?.lessonFormViewModel = nil
+                    return
+                }
+                
+                self?.lessons.removeAll(where: { $0 == lessonItem })
+                self?.lessons.insert(
+                    lessonItem,
+                    at: 0
+                )
                 self?.lessonFormViewModel = nil
-                return
             }
-            
-            let lessonTypeModel = try await self.lessonTypeRepository.getAll().filter {
-                $0.name == lesson.lessonType
-            }[0]
-            
-            guard let userRoleId = UUID(uuidString: router.user.role.rawValue) else {
-                self.lessonFormViewModel = nil
-                return
-            }
-            
-            let userModel = try await self.userRepository.getUsersByRoleId(userRoleId).filter {
-                $0.id == router.user.id
-            }[0]
-            
-            let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
-            
-            let lessonModel = try self.mapper.itemToModel(
-                lesson,
-                lessonTypeModel: lessonTypeModel,
-                teacherItem: userLessonBody
-            )
-                    
-            let lessonItem = try await self.mapper.modelToItem(
-                self.repository.create(lessonModel)
-            )
-            
-            self.lessons.removeAll(where: { $0 == lessonItem })
-            self.lessons.insert(
-                lessonItem,
-                at: 0
-            )
-            self.lessonFormViewModel = nil
         }
+    }
+    
+    func addLesson(lesson: LessonItem) async throws -> LessonItem? {
+        guard let router = self.router else {
+            return nil
+        }
+
+        let lessonTypeModel = try await self.lessonTypeRepository.getAll().filter {
+            $0.name == lesson.lessonType
+        }[0]
+        
+        let userModel = try await self.userRepository.getById(router.user.id)
+        
+        let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
+        
+        let lessonModel = try self.mapper.itemToModel(
+            lesson,
+            lessonTypeModel: lessonTypeModel,
+            teacherItem: userLessonBody
+        )
+        
+        let lessonItem = try await self.mapper.modelToItem(
+            self.repository.create(lessonModel)
+        )
+        
+        return lessonItem
     }
 }
 
@@ -124,7 +127,7 @@ private extension LessonListScreenViewModel {
     func emptyLessonItem(userItem: UserItem) -> LessonItem {
         LessonItem(
             id: UUID(),
-            lessonType: "Maths",
+            lessonType: "Other",
             subtitle: "",
             startDate: "",
             endDate: "",

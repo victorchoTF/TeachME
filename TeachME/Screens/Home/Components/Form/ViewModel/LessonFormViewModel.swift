@@ -7,34 +7,35 @@
 
 import Foundation
 
-final class LessonFormViewModel: ObservableObject, Identifiable {
+@MainActor final class LessonFormViewModel: ObservableObject, Identifiable {
     @Published var lessonType: String
     @Published var subtitle: String
     @Published var startDate: Date
     @Published var endDate: Date
-    
-    // TODO: Load from LessonTypes
-    let lessonTypes = ["Maths", "Science", "History", "Art", "Other"]
+    @Published var lessonTypes: [String] = []
     
     let lesson: LessonItem
     let formType: FormType
+    let repository: LessonTypeRepository
     
     let dateFormatter: DateFormatter
     
-    private let updateLesson: (LessonItem) async throws -> ()
+    private let updateLesson: (LessonItem) -> ()
     let onCancel: () -> ()
     
     init(
         lesson: LessonItem,
         formType: FormType,
+        repository: LessonTypeRepository,
         dateFormatter: DateFormatter,
         onCancel: @escaping () -> (),
-        updateLesson: @escaping (LessonItem) async throws -> ()
+        updateLesson: @escaping (LessonItem) -> ()
     ) {
         self.lesson = lesson
         self.onCancel = onCancel
         self.updateLesson = updateLesson
         self.formType = formType
+        self.repository = repository
         self.dateFormatter = dateFormatter
         
         self.lessonType = lesson.lessonType
@@ -52,7 +53,7 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
         self.endDate = setDate(lesson.endDate)
     }
 
-    func onSubmit() async throws {
+    func onSubmit() {
         let lesson = LessonItem(
             id: UUID(),
             lessonType: lessonType,
@@ -63,7 +64,17 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
             teacherName: lesson.teacherName
         )
         
-        try await updateLesson(lesson)
+        updateLesson(lesson)
+    }
+    
+    func loadData() async {
+        do {
+            lessonTypes = try await self.repository.getAll().map { $0.name }
+        } catch {
+            lessonTypes = ["Other"]
+        }
+        
+        lessonType = lessonTypes[0]
     }
     
     var formTitle: String {

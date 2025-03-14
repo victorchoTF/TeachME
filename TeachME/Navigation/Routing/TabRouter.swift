@@ -29,7 +29,7 @@ import Foundation
             email: "...",
             phoneNumber: "...",
             bio: "...",
-            role: .Student
+            role: .Teacher
         )
         
         self.userItem = userItem
