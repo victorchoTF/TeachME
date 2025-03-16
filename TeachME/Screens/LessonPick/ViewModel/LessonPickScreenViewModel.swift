@@ -71,7 +71,11 @@ import Foundation
             
             otherLessons = try await repository.getLessonsByTeacherId(
                 pickedLesson.teacherId
-            ).map {
+            )
+            .filter {
+                $0.student == nil
+            }
+            .map {
                 mapper.modelToItem($0)
             }
             .filter {

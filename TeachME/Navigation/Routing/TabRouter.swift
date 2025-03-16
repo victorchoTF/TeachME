@@ -22,6 +22,7 @@ import Foundation
         }
     }
     
+    //FIXME: Updating loading state issue
     init(theme: Theme) {
         let userItem = UserItem(
             id: UUID(),
