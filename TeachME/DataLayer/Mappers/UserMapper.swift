@@ -119,4 +119,36 @@ struct UserMapper: Mapper {
             role: Role.Student.caseName == model.role.title ? Role.Student : Role.Teacher
         )
     }
+    
+    func itemBodyToBodyModel(
+        _ item: UserItemBody,
+        userId: UUID,
+        profilePicture: Data?
+    ) -> UserBodyModel {
+        return UserBodyModel(
+            email: item.email,
+            firstName: item.firstName,
+            lastName: item.lastName,
+            userDetails: UserDetailBodyModel(
+                userId: userId,
+                bio: item.bio != "" ? item.bio : nil,
+                profilePicture: profilePicture,
+                phoneNumber: item.phoneNumber != "" ? item.phoneNumber : nil
+            )
+        )
+    }
+    
+    func bodyModelToBodyDTO(_ model: UserBodyModel, userId: UUID) -> UserBodyDTO {
+        UserBodyDTO(
+            email: model.email,
+            firstName: model.firstName,
+            lastName: model.lastName,
+            userDetails: UserDetailBodyDTO(
+                userId: userId,
+                bio: model.userDetails?.bio,
+                profilePicture: model.userDetails?.profilePicture,
+                phoneNumber: model.userDetails?.phoneNumber
+            )
+        )
+    }
 }

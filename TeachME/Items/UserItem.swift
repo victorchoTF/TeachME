@@ -34,3 +34,11 @@ struct UserItem {
         self.role = role
     }
 }
+
+struct UserItemBody {
+    let firstName: String
+    let lastName: String
+    let email: String
+    let phoneNumber: String
+    let bio: String
+}

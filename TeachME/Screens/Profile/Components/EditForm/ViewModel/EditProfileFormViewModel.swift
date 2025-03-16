@@ -16,13 +16,13 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
     
     let userItem: UserItem
     
-    private let updateUser: (UserItem) -> ()
+    private let updateUser: (UserItemBody) -> ()
     let onCancel: () -> ()
     
     init(
         userItem: UserItem,
         onCancel: @escaping () -> (),
-        updateUser: @escaping (UserItem) -> ()
+        updateUser: @escaping (UserItemBody) -> ()
     ) {
         self.onCancel = onCancel
         self.updateUser = updateUser
@@ -72,13 +72,12 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
     }
     
     func onSubmit() {
-        let user = UserItem(
-            id: UUID(),
-            name: checkName(),
+        let user = UserItemBody(
+            firstName: checkFirstName(),
+            lastName: checkLastName(),
             email: checkEmail(),
             phoneNumber: phoneNumber,
-            bio: bio,
-            role: .Student // TODO: Fix hard code
+            bio: bio
         )
         
         updateUser(user)
@@ -86,22 +85,19 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
 }
 
 private extension EditProfileFormViewModel {
-    func checkName() -> String {
-        var name: String = ""
-        
+    func checkFirstName() -> String {
         if firstName.isEmpty {
-            name += String(userItem.name.split(separator: " ")[0]) + " "
-        } else {
-            name += firstName + " "
+            return String(userItem.name.split(separator: " ")[0]) + " "
         }
         
+        return firstName
+    }
+    
+    func checkLastName() -> String {
         if lastName.isEmpty {
-            name += String(userItem.name.split(separator: " ")[0])
-        } else {
-            name += lastName
+            return String(userItem.name.split(separator: " ")[0])
         }
-        
-        return name
+        return lastName
     }
     
     func checkEmail() -> String {

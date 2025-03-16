@@ -13,3 +13,10 @@ struct UserDetailDTO: DataTransferObject {
     let profilePicture: Data?
     let phoneNumber: String?
 }
+
+struct UserDetailBodyDTO: Encodable {
+    let userId: UUID
+    let bio: String?
+    let profilePicture: Data?
+    let phoneNumber: String?
+}

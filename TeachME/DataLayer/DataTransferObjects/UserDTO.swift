@@ -23,6 +23,13 @@ struct UserLessonBodyDTO: DataTransferObject {
     let profilePicture: Data?
 }
 
+struct UserBodyDTO: Encodable {
+    let email: String
+    let firstName: String
+    let lastName: String
+    let userDetails: UserDetailBodyDTO?
+}
+
 struct UserCredentialsBodyDTO: Codable {
     let email: String
     let password: String

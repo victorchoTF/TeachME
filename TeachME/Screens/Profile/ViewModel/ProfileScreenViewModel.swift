@@ -12,8 +12,13 @@ final class ProfileScreenViewModel: ObservableObject {
     @Published var userItem: UserItem
     @Published var editProfileFormViewModel: EditProfileFormViewModel?
     
-    init(userItem: UserItem) {
+    private let repository: UserRepository
+    private let mapper: UserMapper
+    
+    init(userItem: UserItem, repository: UserRepository, mapper: UserMapper) {
         self.userItem = userItem
+        self.repository = repository
+        self.mapper = mapper
     }
     
     var editButtonText: String {
@@ -30,9 +35,27 @@ final class ProfileScreenViewModel: ObservableObject {
         }
     }
 
-    func updateProfile(userItem: UserItem) {
-        self.userItem = userItem
+    func updateProfile(userItem: UserItemBody) {
+        Task {
+            self.userItem = try await updateUser(user: userItem)
+            
+            editProfileFormViewModel = nil
+        }
+    }
+}
+
+private extension ProfileScreenViewModel {
+    func updateUser(user: UserItemBody) async throws -> UserItem {
+        let profilePicture = try await repository.getById(userItem.id).userDetail?.profilePicture
         
-        editProfileFormViewModel = nil
+        let userModelBody = mapper.itemBodyToBodyModel(
+            user,
+            userId: userItem.id,
+            profilePicture: profilePicture
+        )
+        
+        try await repository.update(userModelBody, id: userItem.id)
+        
+        return try await mapper.modelToItem(repository.getById(userItem.id))
     }
 }
