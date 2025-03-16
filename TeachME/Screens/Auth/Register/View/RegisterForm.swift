@@ -25,9 +25,7 @@ struct RegisterForm: View {
                 roleDetails
                 
                 SubmitButton(text: viewModel.formType, theme: theme) {
-                    Task {
-                        let _ = try await viewModel.registerUser()
-                    }
+                    viewModel.registerUser()
                 }
                 
                 SwitchFormText(

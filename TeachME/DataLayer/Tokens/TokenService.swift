@@ -8,10 +8,10 @@
 import Foundation
 
 final class TokenService: TokenSetter, TokenProvider {
-    var key: String
-    var keychainStore: KeychainStore
-    var encoder: JSONEncoder
-    var decoder: JSONDecoder
+    let key: String
+    let keychainStore: KeychainStore
+    let encoder: JSONEncoder
+    let decoder: JSONDecoder
     
     init(key: String, keychainStore: KeychainStore, encoder: JSONEncoder, decoder: JSONDecoder) {
         self.key = key

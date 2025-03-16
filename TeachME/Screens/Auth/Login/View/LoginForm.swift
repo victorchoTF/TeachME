@@ -21,9 +21,7 @@ struct LoginForm: View {
                 accountDetails
                 
                 SubmitButton(text: viewModel.formType, theme: theme) {
-                    Task {
-                        let _ = try await viewModel.loginUser()
-                    }
+                    viewModel.loginUser()
                 }
                 
                 SwitchFormText(
