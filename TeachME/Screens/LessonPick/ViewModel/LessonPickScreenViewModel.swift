@@ -120,6 +120,8 @@ private extension LessonPickScreenViewModel {
                 self?.lessonFormViewModel = nil
             }
         ) { [weak self] lesson in
+            self?.updateLesson(lesson: lesson)
+            
             self?.pickedLesson = lesson
             self?.lessonFormViewModel = nil
         }
@@ -127,6 +129,30 @@ private extension LessonPickScreenViewModel {
     
     func studentAction() {
         print("Saving: \(self.pickedLesson)")
+    }
+    
+    func updateLesson(lesson: LessonItem) {
+        Task {
+            guard let router = self.router else {
+                return
+            }
+            
+            let lessonTypeModel = try await self.lessonTypeRepository.getAll().filter {
+                $0.name == lesson.lessonType
+            }[0]
+            
+            let userModel = try await self.userRepository.getById(router.user.id)
+            
+            let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
+            
+            let lessonModel = try self.mapper.itemToBodyModel(
+                lesson,
+                lessonTypeModel: lessonTypeModel,
+                teacherItem: userLessonBody
+            )
+        
+            try await self.repository.update(lessonModel, id: lesson.id)
+        }
     }
 }
 

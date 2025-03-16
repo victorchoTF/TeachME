@@ -126,7 +126,7 @@ import SwiftUI // TODO: Remove after DataLoading is implemented
         
         let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
         
-        let lessonModel = try self.mapper.itemToCreateBodyModel(
+        let lessonModel = try self.mapper.itemToBodyModel(
             lesson,
             lessonTypeModel: lessonTypeModel,
             teacherItem: userLessonBody

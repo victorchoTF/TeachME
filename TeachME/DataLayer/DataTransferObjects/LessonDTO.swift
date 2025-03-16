@@ -17,7 +17,7 @@ struct LessonDTO: DataTransferObject {
     let student: UserLessonBodyDTO?
 }
 
-struct LessonCreateBodyDTO: Codable {
+struct LessonBodyDTO: Codable {
     let lessonTypeId: UUID
     let subtitle: String
     let startDate: Int

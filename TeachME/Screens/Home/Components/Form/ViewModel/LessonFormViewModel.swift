@@ -55,7 +55,7 @@ import Foundation
 
     func onSubmit() {
         let lesson = LessonItem(
-            id: UUID(),
+            id: lesson.id,
             lessonType: lessonType,
             subtitle: subtitle,
             startDate: dateFormatter.toString(startDate),
