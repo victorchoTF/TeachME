@@ -68,7 +68,11 @@ import SwiftUI // TODO: Remove after DataLoading is implemented
                 LessonPickScreenViewModel(
                     pickedLesson: lesson,
                     router: router,
-                    lessonTypeRepository: lessonTypeRepository
+                    repository: repository,
+                    userRepostirory: userRepository,
+                    lessonTypeRepository: lessonTypeRepository,
+                    mapper: mapper,
+                    userMapper: userMapper
                 ),
                 theme
             )
@@ -146,6 +150,7 @@ private extension LessonListScreenViewModel {
             subtitle: "",
             startDate: "",
             endDate: "",
+            teacherId: userItem.id,
             teacherProfilePicture: userItem.profilePicture,
             teacherName: userItem.name
         )

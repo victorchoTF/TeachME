@@ -60,6 +60,7 @@ import Foundation
             subtitle: subtitle,
             startDate: dateFormatter.toString(startDate),
             endDate: dateFormatter.toString(endDate),
+            teacherId: lesson.teacherId,
             teacherProfilePicture: lesson.teacherProfilePicture,
             teacherName: lesson.teacherName
         )

@@ -99,6 +99,8 @@ private extension LessonPickScreen {
                     lesson: lesson,
                     theme: theme
                 )
+                .lineLimit(1)
+                .truncationMode(.tail)
                 .onTapGesture {
                     viewModel.onLessonTap(lesson: lesson, theme: theme)
                 }

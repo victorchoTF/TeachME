@@ -60,6 +60,7 @@ struct LessonMapper: Mapper {
             subtitle: model.subtitle,
             startDate: dateFormatter.toString(model.startDate),
             endDate: dateFormatter.toString(model.endDate),
+            teacherId: model.teacher.id,
             teacherProfilePicture: Image(
                 data: model.teacher.profilePicture,
                 fallbackImageName: "person.crop.circle"

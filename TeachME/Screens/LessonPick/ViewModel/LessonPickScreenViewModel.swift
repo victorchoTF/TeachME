@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI // TODO: Remove after DataLoading is implemented
 
 @MainActor final class LessonPickScreenViewModel: ObservableObject {
     @Published var pickedLesson: LessonItem
@@ -14,18 +13,31 @@ import SwiftUI // TODO: Remove after DataLoading is implemented
     @Published var lessonFormViewModel: LessonFormViewModel?
     @Published var otherLessons: [LessonItem] = []
     
-    let lessonTypeRepository: LessonTypeRepository
+    private let repository: LessonRepository
+    private let userRepository: UserRepository
+    private let lessonTypeRepository: LessonTypeRepository
+    
+    private let mapper: LessonMapper
+    private let userMapper: UserMapper
     
     private weak var router: HomeRouter?
     
     init(
         pickedLesson: LessonItem,
         router: HomeRouter,
-        lessonTypeRepository: LessonTypeRepository
+        repository: LessonRepository,
+        userRepostirory: UserRepository,
+        lessonTypeRepository: LessonTypeRepository,
+        mapper: LessonMapper,
+        userMapper: UserMapper
     ) {
         self.pickedLesson = pickedLesson
         self.router = router
+        self.repository = repository
+        self.userRepository = userRepostirory
         self.lessonTypeRepository = lessonTypeRepository
+        self.mapper = mapper
+        self.userMapper = userMapper
     }
     
     func onLessonTap(lesson: LessonItem, theme: Theme) {
@@ -38,36 +50,34 @@ import SwiftUI // TODO: Remove after DataLoading is implemented
                 LessonPickScreenViewModel(
                     pickedLesson: lesson,
                     router: router, 
-                    lessonTypeRepository: lessonTypeRepository
+                    repository: repository,
+                    userRepostirory: userRepository,
+                    lessonTypeRepository: lessonTypeRepository,
+                    mapper: mapper,
+                    userMapper: userMapper
                 ),
                 theme
             )
         )
     }
     
-    // TODO: Should load real data in future
     func loadData() {
-        teacher = UserItem(
-            id: UUID(),
-            name: "George Demo",
-            profilePicture: Image(systemName: "person.crop.circle"),
-            email: "george_demo@gmail.com",
-            phoneNumber: "0874567243",
-            bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves",
-            role: .Student
-        )
-        
-        otherLessons = [
-            LessonItem(
-                id: UUID(),
-                lessonType: "Other",
-                subtitle: "Statistics made simple",
-                startDate: "10:00AM 14.03.2025",
-                endDate: "11:40AM 14.03.2025",
-                teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                teacherName: "George Demo"
+        Task {
+            teacher = try await userMapper.modelToItem(
+                userRepository.getById(
+                    pickedLesson.teacherId
+                )
             )
-        ]
+            
+            otherLessons = try await repository.getLessonsByTeacherId(
+                pickedLesson.teacherId
+            ).map {
+                mapper.modelToItem($0)
+            }
+            .filter {
+                $0.id != pickedLesson.id
+            }
+        }
     }
     
     var moreAboutTitle: String {
