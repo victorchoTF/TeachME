@@ -7,20 +7,10 @@
 
 import Foundation
 
-class TokenSetter {
-    private let key: String
-    private let keychainStore: KeychainStore
-    private let encoder: JSONEncoder
+protocol TokenSetter {
+    var key: String { get }
+    var keychainStore: KeychainStore { get }
+    var encoder: JSONEncoder { get }
     
-    init(key: String, keychainStore: KeychainStore, encoder: JSONEncoder) {
-        self.key = key
-        self.keychainStore = keychainStore
-        self.encoder = encoder
-    }
-    
-    func setToken(token: TokenResponse) throws {
-        let tokenData = try encoder.encode(token)
-        
-        try keychainStore.addItem(key: key, item: tokenData)
-    }
+    func setToken(token: TokenResponse) throws
 }
