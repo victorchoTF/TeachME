@@ -12,9 +12,11 @@ class ProfileRouter {
     @Published var path = [Destination]()
     
     let theme: Theme
+    let user: UserItem
     
-    init(theme: Theme) {
+    init(theme: Theme, user: UserItem) {
         self.theme = theme
+        self.user = user
     }
     
 }
@@ -22,7 +24,7 @@ class ProfileRouter {
 extension ProfileRouter: Router {
     @MainActor
     var initialDestination: some View {
-        let viewModel = ProfileScreenViewModel()
+        let viewModel = ProfileScreenViewModel(userItem: user)
 
         return ProfileScreen(viewModel: viewModel, theme: theme)
     }

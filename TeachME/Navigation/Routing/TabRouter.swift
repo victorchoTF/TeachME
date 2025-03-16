@@ -37,7 +37,7 @@ import Foundation
         
         homeRouter = HomeRouter(theme: theme, user: userItem)
         lessonRouter = HomeRouter(theme: theme, user: userItem)
-        profileRouter = ProfileRouter(theme: theme)
+        profileRouter = ProfileRouter(theme: theme, user: userItem)
     }
     
     func update(userItem: UserItem, theme: Theme) {
@@ -45,7 +45,7 @@ import Foundation
         
         homeRouter = HomeRouter(theme: theme, user: userItem)
         lessonRouter = HomeRouter(theme: theme, user: userItem)
-        profileRouter = ProfileRouter(theme: theme)
+        profileRouter = ProfileRouter(theme: theme, user: userItem)
     }
     
     private var currentTabRouter: any Router {
