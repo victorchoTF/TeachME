@@ -11,3 +11,7 @@ struct RoleModel: Model {
     let id: UUID
     let title: String
 }
+
+struct RoleBodyModel {
+    let title: String
+}

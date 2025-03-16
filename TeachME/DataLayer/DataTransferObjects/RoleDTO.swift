@@ -11,3 +11,7 @@ struct RoleDTO: DataTransferObject {
     let id: UUID
     let title: String
 }
+
+struct RoleBodyDTO {
+    let title: String
+}

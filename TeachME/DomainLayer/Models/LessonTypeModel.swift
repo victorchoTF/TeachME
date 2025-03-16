@@ -11,3 +11,7 @@ struct LessonTypeModel: Model {
     let id: UUID
     let name: String
 }
+
+struct LessonTypeBodyModel {
+    let name: String
+}
