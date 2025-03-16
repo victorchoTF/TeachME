@@ -61,8 +61,8 @@ import Foundation
         )
     }
     
-    func loadData() {
-        Task {
+    func loadData() async{
+        do {
             teacher = try await userMapper.modelToItem(
                 userRepository.getById(
                     pickedLesson.teacherId
@@ -77,6 +77,8 @@ import Foundation
             .filter {
                 $0.id != pickedLesson.id
             }
+        } catch {
+            print("An error occured")
         }
     }
     

@@ -53,7 +53,7 @@ struct LessonPickScreen: View {
                 .foregroundStyle(theme.colors.accent)
             }
         }
-        .onAppear(perform: viewModel.loadData)
+        .task { await viewModel.loadData() }
         .sheet(item: $viewModel.lessonFormViewModel) { lessonFormViewModel in
             LessonForm(
                 viewModel: lessonFormViewModel,
