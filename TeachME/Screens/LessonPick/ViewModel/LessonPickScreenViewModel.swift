@@ -127,32 +127,81 @@ private extension LessonPickScreenViewModel {
         }
     }
     
+    // TODO: Notify user of what has happened
+    // FIXME: Not reloading data as expected on popToRoot()
     func studentAction() {
-        print("Saving: \(self.pickedLesson)")
+        takeLesson()
+        router?.popToRoot()
+    }
+    
+    func takeLesson() {
+        Task {
+            guard let lessonBody = try await lessonBodyModelByLessonItem(
+                lesson: pickedLesson
+            ) else {
+                return
+            }
+            
+            guard let lessonBodyWithStudent = try await addStudentToLessonBody(lessonBody) else {
+                return
+            }
+            
+            try await self.repository.takeLesson(lessonBodyWithStudent, id: pickedLesson.id)
+        }
     }
     
     func updateLesson(lesson: LessonItem) {
         Task {
-            guard let router = self.router else {
+            guard let lessonBody = try await lessonBodyModelByLessonItem(lesson: lesson) else {
                 return
             }
             
-            let lessonTypeModel = try await self.lessonTypeRepository.getAll().filter {
-                $0.name == lesson.lessonType
-            }[0]
-            
-            let userModel = try await self.userRepository.getById(router.user.id)
-            
-            let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
-            
-            let lessonModel = try self.mapper.itemToBodyModel(
-                lesson,
-                lessonTypeModel: lessonTypeModel,
-                teacherItem: userLessonBody
-            )
-        
-            try await self.repository.update(lessonModel, id: lesson.id)
+            try await self.repository.update(lessonBody, id: lesson.id)
         }
+    }
+    
+    func lessonBodyModelByLessonItem(lesson: LessonItem) async throws -> LessonBodyModel? {
+        guard let router = self.router else {
+            return nil
+        }
+        
+        let lessonTypeModel = try await self.lessonTypeRepository.getAll().filter {
+            $0.name == lesson.lessonType
+        }[0]
+        
+        let userModel = try await self.userRepository.getById(router.user.id)
+        
+        let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
+        
+        let lessonModel = try self.mapper.itemToBodyModel(
+            lesson,
+            lessonTypeModel: lessonTypeModel,
+            teacherItem: userLessonBody
+        )
+        
+        return lessonModel
+    }
+    
+    func addStudentToLessonBody(_ body: LessonBodyModel) async throws -> LessonBodyModel? {
+        guard let router = router else {
+            return nil
+        }
+        
+        let student = try await userRepository.getById(router.user.id)
+        
+        return LessonBodyModel(
+            lessonType: body.lessonType,
+            subtitle: body.subtitle,
+            startDate: body.startDate,
+            endDate: body.endDate,
+            teacher: body.teacher,
+            student: UserLessonBodyModel(
+                id: student.id,
+                firstName: student.firstName,
+                lastName: student.lastName,
+                profilePicture: student.userDetail?.profilePicture
+            )
+        )
     }
 }
 

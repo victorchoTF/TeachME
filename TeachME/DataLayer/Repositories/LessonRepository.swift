@@ -48,7 +48,7 @@ final class LessonRepository: Repository {
         try await dataSource.getLessonsByLessonTypeId(id).map {mapper.dtoToModel($0)}
     }
     
-    func takeLesson(lesson: LessonModel) async throws {
-        try await dataSource.takeLesson(lesson: mapper.modelToDTO(lesson))
+    func takeLesson(_ body: LessonBodyModel, id: UUID) async throws {
+        try await dataSource.takeLesson(mapper.bodyModelToBodyDTO(body), id: id)
     }
 }

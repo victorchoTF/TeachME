@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI // TODO: Remove after DataLoading is implemented
 
 @MainActor final class LessonListScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
