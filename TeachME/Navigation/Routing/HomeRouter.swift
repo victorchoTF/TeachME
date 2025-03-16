@@ -27,9 +27,10 @@ class HomeRouter {
         let jsonEncoder = JSONEncoder()
         
         let authHTTPCLient = AuthHTTPClient(
-            tokenProvider: TokenProvider(
+            tokenProvider: TokenService(
                 key: "token", // TODO: Handle in a better way
-                keychainStore: KeychainStore(identifier: "com.teachME.tokens"), // TODO: Handle in a better way
+                keychainStore: KeychainStore(identifier: "com.teachME.tokens"), // TODO: Handle in a better way,
+                encoder: jsonEncoder,
                 decoder: jsonDecoder
             ),
             httpClient: URLSession(configuration: .ephemeral)

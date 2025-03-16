@@ -53,6 +53,7 @@
 		8E7EBE512D3E409500C7C017 /* StyledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EBE502D3E409500C7C017 /* StyledTextField.swift */; };
 		8E7EBE532D3E417100C7C017 /* Spacings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EBE522D3E417100C7C017 /* Spacings.swift */; };
 		8E7EBE552D3E420200C7C017 /* Radiuses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7EBE542D3E420200C7C017 /* Radiuses.swift */; };
+		8E808D702D86EB360011B422 /* TokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E808D6F2D86EB360011B422 /* TokenService.swift */; };
 		8E84E27A2D424AF400CB8C05 /* FormTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E84E2792D424AF400CB8C05 /* FormTitle.swift */; };
 		8E84E27C2D424B8000CB8C05 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E84E27B2D424B8000CB8C05 /* Theme.swift */; };
 		8E84E27E2D42524E00CB8C05 /* SwitchFormText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E84E27D2D42524E00CB8C05 /* SwitchFormText.swift */; };
@@ -148,6 +149,7 @@
 		8E7EBE502D3E409500C7C017 /* StyledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledTextField.swift; sourceTree = "<group>"; };
 		8E7EBE522D3E417100C7C017 /* Spacings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacings.swift; sourceTree = "<group>"; };
 		8E7EBE542D3E420200C7C017 /* Radiuses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Radiuses.swift; sourceTree = "<group>"; };
+		8E808D6F2D86EB360011B422 /* TokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenService.swift; sourceTree = "<group>"; };
 		8E84E2792D424AF400CB8C05 /* FormTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormTitle.swift; sourceTree = "<group>"; };
 		8E84E27B2D424B8000CB8C05 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		8E84E27D2D42524E00CB8C05 /* SwitchFormText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchFormText.swift; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				8E3CF2442D7D97A6009D30D5 /* RefreshTokenRequest.swift */,
 				8E8C9AE32D82CDE400082B34 /* TokenProvider.swift */,
 				8E8C9AE92D82D1A900082B34 /* TokenSetter.swift */,
+				8E808D6F2D86EB360011B422 /* TokenService.swift */,
 			);
 			path = Tokens;
 			sourceTree = "<group>";
@@ -798,6 +801,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E808D702D86EB360011B422 /* TokenService.swift in Sources */,
 				8EB0935D2D7C83CC0073C0F6 /* RoleMapper.swift in Sources */,
 				8EB093502D7C81590073C0F6 /* Model.swift in Sources */,
 				8E75D4462D3E2ED20082F5FE /* Colors.swift in Sources */,

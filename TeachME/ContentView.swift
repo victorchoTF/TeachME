@@ -24,6 +24,12 @@ struct ContentView: View {
         let jsonEncoder = JSONEncoder()
         let httpClient = URLSession(configuration: .ephemeral)
         let keychainStore = KeychainStore(identifier: "com.teachME.tokens") // TODO: Handle in a better way
+        let tokenService = TokenService(
+            key: "token", // TODO: Handle in a better way
+            keychainStore: keychainStore,
+            encoder: jsonEncoder,
+            decoder: jsonDecoder
+        )
         
         userMapper = UserMapper(
             userDetailMapper: UserDetailMapper(),
@@ -38,21 +44,13 @@ struct ContentView: View {
                 decoder: jsonDecoder
             ),
             mapper: userMapper,
-            tokenSetter: TokenSetter(
-                key: "token", // TODO: Handle in a better way
-                keychainStore: keychainStore,
-                encoder: jsonEncoder
-            )
+            tokenSetter: tokenService
         )
         
         userRepository = UserRepository(
             dataSource: UserDataSource(
                 client: AuthHTTPClient(
-                    tokenProvider: TokenProvider(
-                        key: "token", // TODO: Handle in a better way
-                        keychainStore: keychainStore,
-                        decoder: jsonDecoder
-                    ),
+                    tokenProvider: tokenService,
                     httpClient: httpClient
                 ),
                 baseURL: Endpoints.usersURL.rawValue,

@@ -28,20 +28,26 @@ final class LoginFormViewModel: ObservableObject {
         self.userMapper = userMapper
         self.onSubmit = onSubmit
     }
-    
-    func loginUser() async throws -> TokenResponse {
-        let token = try await repository.login(
-            user: UserCredentialsBodyModel(
-                email: email,
-                password: password
-            )
-        )
-        
-        let userItem = try await userMapper.modelToItem(userRepository.getUserByEmail(email))
-        
-        onSubmit(userItem)
-        
-        return token
+
+    func loginUser() {
+        Task {
+            do {
+                let _ = try await repository.login(
+                    user: UserCredentialsBodyModel(
+                        email: email,
+                        password: password
+                    )
+                )
+                
+                let userItem = try await userMapper.modelToItem(
+                    userRepository.getUserByEmail(email)
+                )
+                
+                onSubmit(userItem)
+            } catch {
+                print("Error accured")
+            }
+        }
     }
     
     var formTitle: String {

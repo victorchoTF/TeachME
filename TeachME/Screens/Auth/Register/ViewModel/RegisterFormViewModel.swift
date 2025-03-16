@@ -31,26 +31,33 @@ final class RegisterFormViewModel: ObservableObject {
         self.userMapper = userMapper
         self.onSubmit = onSubmit
     }
-    func registerUser() async throws -> TokenResponse {
-        guard let roleId = UUID(uuidString: roleType.rawValue) else {
-            throw RegisterFormError.invalidRoleID
+    
+    func registerUser() {
+        Task {
+            do {
+                guard let roleId = UUID(uuidString: roleType.rawValue) else {
+                    throw RegisterFormError.invalidRoleID
+                }
+                
+                let _ = try await repository.register(
+                    user: UserRegisterBodyModel(
+                        email: email,
+                        password: password,
+                        firstName: firstName,
+                        lastName: lastName,
+                        roleId: roleId
+                    )
+                )
+                
+                let userItem = try await userMapper.modelToItem(
+                    userRepository.getUserByEmail(email)
+                )
+                
+                onSubmit(userItem)
+            } catch {
+                print("Error occured")
+            }
         }
-        
-        let token = try await repository.register(
-            user: UserRegisterBodyModel(
-                email: email,
-                password: password,
-                firstName: firstName,
-                lastName: lastName,
-                roleId: roleId
-            )
-        )
-        
-        let userItem = try await userMapper.modelToItem(userRepository.getUserByEmail(email))
-        
-        onSubmit(userItem)
-        
-        return token
     }
     
     var roleSelection: Role {
