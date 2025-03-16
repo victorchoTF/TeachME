@@ -17,15 +17,19 @@ final class LoginFormViewModel: ObservableObject {
         self.repository = repository
     }
     
-    func loginUser() async throws -> TokenResponse {
-        let token = try await repository.login(
-            user: UserCredentialsBodyModel(
-                email: email,
-                password: password
-            )
-        )
-        
-        return token
+    func loginUser() {
+        Task {
+            do {
+                let _ = try await repository.login(
+                    user: UserCredentialsBodyModel(
+                        email: email,
+                        password: password
+                    )
+                )
+            } catch {
+                print("Error accured")
+            }
+        }
     }
     
     var formTitle: String {
