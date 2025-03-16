@@ -25,6 +25,12 @@ class AuthHTTPClient: HTTPClient {
             "Bearer \(tokenData.accessToken.token)",
             forHTTPHeaderField: "Authorization"
         )
+        
+        print("REQUEST: ")
+        print(signedRequest.url ?? "No url")
+        print(signedRequest.httpMethod ?? "No method")
+        print(String(data: signedRequest.httpBody ?? Data(), encoding: .utf8) ?? "No body")
+        print(signedRequest.allHTTPHeaderFields ?? "No header fields")
             
         let response = try await httpClient.request(signedRequest)
         

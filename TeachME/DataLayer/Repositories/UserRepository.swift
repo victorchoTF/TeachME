@@ -20,6 +20,10 @@ final class UserRepository: Repository {
         self.mapper = mapper
     }
     
+    func getUserByEmail(_ email: String) async throws -> UserModel {
+        try await mapper.dtoToModel(dataSource.fetchByEmail(email))
+    }
+    
     func getUsersByRoleId(_ id: UUID) async throws -> [UserModel] {
         try await dataSource.getUsersByRoleId(id).map { mapper.dtoToModel($0) }
     }

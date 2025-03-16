@@ -68,11 +68,11 @@ struct LessonMapper: Mapper {
         )
     }
     
-    func itemToModel(
+    func itemToCreateBodyModel(
         _ item: LessonItem,
         lessonTypeModel: LessonTypeModel,
         teacherItem: UserLessonBodyModel
-    ) throws -> LessonModel {
+    ) throws -> LessonCreateBodyModel {
         guard let startDate = dateFormatter.toDate(dateString: item.startDate) else {
             throw LessonMapperError.invalidDate("\(item.startDate) is not a valid Date!")
         }
@@ -81,14 +81,24 @@ struct LessonMapper: Mapper {
             throw LessonMapperError.invalidDate("\(item.endDate) is not a valid Date!")
         }
         
-        return LessonModel(
-            id: UUID(),
+        return LessonCreateBodyModel(
             lessonType: lessonTypeModel,
             subtitle: item.subtitle,
             startDate: startDate,
             endDate: endDate,
             teacher: teacherItem,
             student: nil
+        )
+    }
+    
+    func createBodyModelToCreateBodyDTO(_ model: LessonCreateBodyModel) -> LessonCreateBodyDTO {
+        LessonCreateBodyDTO(
+            lessonTypeId: model.lessonType.id,
+            subtitle: model.subtitle,
+            startDate: Int(model.startDate.timeIntervalSince1970),
+            endDate: Int(model.endDate.timeIntervalSince1970),
+            teacherId: model.teacher.id,
+            studentId: model.student?.id
         )
     }
 }

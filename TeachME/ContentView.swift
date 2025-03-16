@@ -10,6 +10,8 @@ import SwiftUI
 struct ContentView: View {
     let theme: Theme
     let authRepository: AuthRepository
+    let userRepository: UserRepository
+    let userMapper: UserMapper
     @State var isLoggedIn: Bool = false
     @StateObject var tabRouter: TabRouter
     
@@ -23,22 +25,41 @@ struct ContentView: View {
         let httpClient = URLSession(configuration: .ephemeral)
         let keychainStore = KeychainStore(identifier: "com.teachME.tokens") // TODO: Handle in a better way
         
-        self.authRepository = AuthRepository(
+        userMapper = UserMapper(
+            userDetailMapper: UserDetailMapper(),
+            roleMapper: roleMapper
+        )
+        
+        authRepository = AuthRepository(
             dataSource: AuthDataSource(
                 client: httpClient,
                 baseURL: Endpoints.baseURL.rawValue,
                 encoder: jsonEncoder,
                 decoder: jsonDecoder
             ),
-            mapper: UserMapper(
-                userDetailMapper: UserDetailMapper(),
-                roleMapper: roleMapper
-            ),
+            mapper: userMapper,
             tokenSetter: TokenSetter(
                 key: "token", // TODO: Handle in a better way
                 keychainStore: keychainStore,
                 encoder: jsonEncoder
             )
+        )
+        
+        userRepository = UserRepository(
+            dataSource: UserDataSource(
+                client: AuthHTTPClient(
+                    tokenProvider: TokenProvider(
+                        key: "token", // TODO: Handle in a better way
+                        keychainStore: keychainStore,
+                        decoder: jsonDecoder
+                    ),
+                    httpClient: httpClient
+                ),
+                baseURL: Endpoints.usersURL.rawValue,
+                encoder: jsonEncoder,
+                decoder: jsonDecoder
+            ),
+            mapper: userMapper
         )
     }
     
@@ -56,13 +77,17 @@ private extension ContentView {
         AuthScreen(
             viewModel: AuthScreenViewModel(
                 loginFormViewModel: LoginFormViewModel(
-                    repository: authRepository
+                    repository: authRepository,
+                    userRepository: userRepository,
+                    userMapper: userMapper
                 ) { userItem in
                     isLoggedIn = true
                     tabRouter.update(userItem: userItem, theme: theme)
                 },
                 registerFormsViewModel: RegisterFormViewModel(
-                    repository: authRepository
+                    repository: authRepository,
+                    userRepository: userRepository,
+                    userMapper: userMapper
                 ) { userItem in
                     isLoggedIn = true
                     tabRouter.update(userItem: userItem, theme: theme)

@@ -23,6 +23,40 @@ final class LessonDataSource: TeachMEAPIDataSource {
         self.decoder = decoder
     }
     
+    func create(_ body: LessonCreateBodyDTO) async throws -> LessonDTO {
+        let jsonData: Data
+        do {
+           jsonData = try encoder.encode(body)
+        } catch {
+           throw DataSourceError.encodingError("CreateBody of \(body) could not be encoded!")
+        }
+        
+        guard let request = try URLRequestBuilder(baseURL: baseURL)
+            .setMethod(.post)
+            .setHeaders(["Content-Type": "application/json"])
+            .setBody(jsonData)
+            .build()
+        else {
+            throw DataSourceError.invalidURL("\(baseURL) not found")
+        }
+
+        let returnedData: Data
+        do {
+            (returnedData, _) = try await client.request(request)
+        } catch {
+           throw DataSourceError.postingError("CreateBody of \(body) could not be created!")
+        }
+        
+        let createdData: DataType
+        do {
+            createdData = try decoder.decode(DataType.self, from: returnedData)
+        } catch {
+            throw DataSourceError.decodingError("Data of \(returnedData) could not be decoded!")
+        }
+        
+        return createdData
+    }
+    
     func getOpenLessons() async throws -> [LessonDTO] {
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "open")
             .setMethod(.get)

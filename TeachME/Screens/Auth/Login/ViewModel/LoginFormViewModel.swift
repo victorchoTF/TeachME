@@ -12,14 +12,20 @@ final class LoginFormViewModel: ObservableObject {
     @Published var password: String = ""
     
     private let repository: AuthRepository
+    private let userRepository: UserRepository
+    private let userMapper: UserMapper
     
     let onSubmit: (UserItem) -> ()
     
     init(
         repository: AuthRepository,
+        userRepository: UserRepository,
+        userMapper: UserMapper,
         onSubmit: @escaping (UserItem) -> ()
     ) {
         self.repository = repository
+        self.userRepository = userRepository
+        self.userMapper = userMapper
         self.onSubmit = onSubmit
     }
     
@@ -31,15 +37,9 @@ final class LoginFormViewModel: ObservableObject {
             )
         )
         
-        // TODO: Fix after implementing get by email on API
-        onSubmit(UserItem(
-            id: UUID(),
-            name: "...",
-            email: email,
-            phoneNumber: "",
-            bio: "...",
-            role: .Teacher // FIXME: Real bug before having getByEmail()
-        ))
+        let userItem = try await userMapper.modelToItem(userRepository.getUserByEmail(email))
+        
+        onSubmit(userItem)
         
         return token
     }

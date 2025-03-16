@@ -38,8 +38,21 @@ import SwiftUI // TODO: Remove after DataLoading is implemented
     }
 
     func loadData() async {
+        guard let user = router?.user else {
+            lessons = []
+            return
+        }
+        
         do {
-            lessons = try await repository.getAll().map { mapper.modelToItem($0) }
+            if user.role == .Teacher {
+                lessons = try await repository.getLessonsByTeacherId(user.id).map {
+                    mapper.modelToItem($0)
+                }
+            } else {
+                lessons = try await repository.getOpenLessons().map {
+                    mapper.modelToItem($0)
+                }
+            }
         } catch {
             lessons = []
         }
@@ -109,11 +122,13 @@ import SwiftUI // TODO: Remove after DataLoading is implemented
         
         let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
         
-        let lessonModel = try self.mapper.itemToModel(
+        let lessonModel = try self.mapper.itemToCreateBodyModel(
             lesson,
             lessonTypeModel: lessonTypeModel,
             teacherItem: userLessonBody
         )
+        
+        print(lessonModel)
         
         let lessonItem = try await self.mapper.modelToItem(
             self.repository.create(lessonModel)

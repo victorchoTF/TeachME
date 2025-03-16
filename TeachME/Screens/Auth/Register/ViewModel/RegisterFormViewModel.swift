@@ -14,21 +14,29 @@ final class RegisterFormViewModel: ObservableObject {
     @Published var lastName: String = ""
     @Published var roleType: Role = .Student
     
-    private let reposiotry: AuthRepository
+    private let repository: AuthRepository
+    private let userRepository: UserRepository
+    private let userMapper: UserMapper
     
     let onSubmit: (UserItem) -> ()
     
-    init(repository: AuthRepository,onSubmit: @escaping (UserItem) -> ()) {
-        self.reposiotry = repository
+    init(
+        repository: AuthRepository,
+        userRepository: UserRepository,
+        userMapper: UserMapper,
+        onSubmit: @escaping (UserItem) -> ()
+    ) {
+        self.repository = repository
+        self.userRepository = userRepository
+        self.userMapper = userMapper
         self.onSubmit = onSubmit
     }
-    
     func registerUser() async throws -> TokenResponse {
         guard let roleId = UUID(uuidString: roleType.rawValue) else {
             throw RegisterFormError.invalidRoleID
         }
         
-        let token = try await reposiotry.register(
+        let token = try await repository.register(
             user: UserRegisterBodyModel(
                 email: email,
                 password: password,
@@ -38,15 +46,9 @@ final class RegisterFormViewModel: ObservableObject {
             )
         )
         
-        // TODO: Fix after implementing get by email on API
-        onSubmit(UserItem(
-            id: UUID(),
-            name: "\(firstName) \(lastName)",
-            email: email,
-            phoneNumber: "",
-            bio: "...",
-            role: roleType
-        ))
+        let userItem = try await userMapper.modelToItem(userRepository.getUserByEmail(email))
+        
+        onSubmit(userItem)
         
         return token
     }

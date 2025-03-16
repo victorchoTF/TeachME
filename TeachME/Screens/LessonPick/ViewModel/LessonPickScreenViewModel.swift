@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI // TODO: Remove after DataLoading is implemented
 
-final class LessonPickScreenViewModel: ObservableObject {
+@MainActor final class LessonPickScreenViewModel: ObservableObject {
     @Published var pickedLesson: LessonItem
     @Published var teacher: UserItem?
     @Published var lessonFormViewModel: LessonFormViewModel?
