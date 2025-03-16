@@ -12,6 +12,6 @@ struct LessonTypeDTO: DataTransferObject {
     let name: String
 }
 
-struct LessonTypeBodyDTO {
+struct LessonTypeCreateBodyDTO: Encodable {
     let name: String
 }

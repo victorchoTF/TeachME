@@ -12,6 +12,6 @@ struct RoleModel: Model {
     let title: String
 }
 
-struct RoleBodyModel {
+struct RoleCreateBodyModel {
     let title: String
 }

@@ -12,6 +12,6 @@ struct LessonTypeModel: Model {
     let name: String
 }
 
-struct LessonTypeBodyModel {
+struct LessonTypeCreateBodyModel {
     let name: String
 }

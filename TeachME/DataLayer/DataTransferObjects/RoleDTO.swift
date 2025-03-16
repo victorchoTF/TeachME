@@ -12,6 +12,6 @@ struct RoleDTO: DataTransferObject {
     let title: String
 }
 
-struct RoleBodyDTO {
+struct RoleCreateBodyDTO: Encodable {
     let title: String
 }
