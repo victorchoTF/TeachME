@@ -128,8 +128,6 @@ import SwiftUI // TODO: Remove after DataLoading is implemented
             teacherItem: userLessonBody
         )
         
-        print(lessonModel)
-        
         let lessonItem = try await self.mapper.modelToItem(
             self.repository.create(lessonModel)
         )
