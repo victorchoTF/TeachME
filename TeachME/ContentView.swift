@@ -11,6 +11,7 @@ struct ContentView: View {
     let theme: Theme
     let authRepository: AuthRepository
     let userRepository: UserRepository
+    let roleRepository: RoleRepository
     let userMapper: UserMapper
     @State var isLoggedIn: Bool = false
     @StateObject var tabRouter: TabRouter
@@ -31,6 +32,11 @@ struct ContentView: View {
             decoder: jsonDecoder
         )
         
+        let authHTTPClient = AuthHTTPClient(
+            tokenProvider: tokenService,
+            httpClient: httpClient
+        )
+        
         userMapper = UserMapper(
             userDetailMapper: UserDetailMapper(),
             roleMapper: roleMapper
@@ -49,15 +55,22 @@ struct ContentView: View {
         
         userRepository = UserRepository(
             dataSource: UserDataSource(
-                client: AuthHTTPClient(
-                    tokenProvider: tokenService,
-                    httpClient: httpClient
-                ),
+                client: authHTTPClient,
                 baseURL: Endpoints.usersURL.rawValue,
                 encoder: jsonEncoder,
                 decoder: jsonDecoder
             ),
             mapper: userMapper
+        )
+        
+        roleRepository = RoleRepository(
+            dataSource: RoleDataSource(
+                client: authHTTPClient,
+                baseURL: Endpoints.rolesURL.rawValue,
+                encoder: jsonEncoder,
+                decoder: jsonDecoder
+            ),
+            mapper: roleMapper
         )
     }
     
@@ -85,6 +98,7 @@ private extension ContentView {
                 registerFormsViewModel: RegisterFormViewModel(
                     repository: authRepository,
                     userRepository: userRepository,
+                    roleRepository: roleRepository,
                     userMapper: userMapper
                 ) { userItem in
                     isLoggedIn = true

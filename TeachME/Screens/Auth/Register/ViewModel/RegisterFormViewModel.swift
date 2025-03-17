@@ -16,6 +16,7 @@ final class RegisterFormViewModel: ObservableObject {
     
     private let repository: AuthRepository
     private let userRepository: UserRepository
+    private let roleRepository: RoleRepository
     private let userMapper: UserMapper
     
     let onSubmit: (UserItem) -> ()
@@ -23,40 +24,40 @@ final class RegisterFormViewModel: ObservableObject {
     init(
         repository: AuthRepository,
         userRepository: UserRepository,
+        roleRepository: RoleRepository,
         userMapper: UserMapper,
         onSubmit: @escaping (UserItem) -> ()
     ) {
         self.repository = repository
         self.userRepository = userRepository
+        self.roleRepository = roleRepository
         self.userMapper = userMapper
         self.onSubmit = onSubmit
     }
     
     func registerUser() {
         Task {
-            do {
-                guard let roleId = UUID(uuidString: roleType.rawValue) else {
-                    throw RegisterFormError.invalidRoleID
-                }
-                
-                let _ = try await repository.register(
-                    user: UserRegisterBodyModel(
-                        email: email,
-                        password: password,
-                        firstName: firstName,
-                        lastName: lastName,
-                        roleId: roleId
-                    )
-                )
-                
-                let userItem = try await userMapper.modelToItem(
-                    userRepository.getUserByEmail(email)
-                )
-                
-                onSubmit(userItem)
-            } catch {
-                print("Error occured")
+            guard let role: RoleModel = try await roleRepository.getAll().first(where: {
+                $0.title == self.roleType.rawValue
+            }) else {
+                return
             }
+            
+            let _ = try await repository.register(
+                user: UserRegisterBodyModel(
+                    email: email,
+                    password: password,
+                    firstName: firstName,
+                    lastName: lastName,
+                    roleId: role.id
+                )
+            )
+            
+            let userItem = try await self.userMapper.modelToItem(
+                userRepository.getUserByEmail(email)
+            )
+            
+            onSubmit(userItem)
         }
     }
     

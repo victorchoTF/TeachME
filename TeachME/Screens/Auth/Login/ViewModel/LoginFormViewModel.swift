@@ -31,22 +31,18 @@ final class LoginFormViewModel: ObservableObject {
 
     func loginUser() {
         Task {
-            do {
-                let _ = try await repository.login(
-                    user: UserCredentialsBodyModel(
-                        email: email,
-                        password: password
-                    )
+            let _ = try await repository.login(
+                user: UserCredentialsBodyModel(
+                    email: email,
+                    password: password
                 )
+            )
                 
-                let userItem = try await userMapper.modelToItem(
-                    userRepository.getUserByEmail(email)
-                )
-                
-                onSubmit(userItem)
-            } catch {
-                print("Error accured")
-            }
+            let userItem = try await userMapper.modelToItem(
+                userRepository.getUserByEmail(email)
+            )
+            
+            onSubmit(userItem)
         }
     }
     
