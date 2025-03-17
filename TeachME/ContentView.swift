@@ -12,7 +12,7 @@ struct ContentView: View {
     let authRepository: AuthRepository
     let userRepository: UserRepository
     let userMapper: UserMapper
-    @State var isLoggedIn: Bool = false
+    @State var isLoggedIn: Bool = false // TODO: Don't hardcode it
     @StateObject var tabRouter: TabRouter
     
     init() {
@@ -97,7 +97,7 @@ private extension ContentView {
     
     var tabView: some View {
         TabView(selection: $tabRouter.selectedTab) {
-                homeScreen
+            homeScreen
                 .tag(Tab.home)
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
