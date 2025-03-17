@@ -24,23 +24,21 @@ final class RegisterFormViewModel: ObservableObject {
     
     func registerUser() {
         Task {
-            do {
-                let role = try await roleRepository.getAll().filter {
-                    $0.title == roleType.rawValue
-                }[0]
-                
-                let _ = try await reposiotry.register(
-                    user: UserRegisterBodyModel(
-                        email: email,
-                        password: password,
-                        firstName: firstName,
-                        lastName: lastName,
-                        roleId: role.id
-                    )
-                )
-            } catch {
-                print("Error occured")
+            guard let role: RoleModel = try await roleRepository.getAll().first(where: {
+                $0.title == roleType.rawValue
+            }) else {
+                return
             }
+            
+            let _ = try await reposiotry.register(
+                user: UserRegisterBodyModel(
+                    email: email,
+                    password: password,
+                    firstName: firstName,
+                    lastName: lastName,
+                    roleId: role.id
+                )
+            )
         }
     }
     

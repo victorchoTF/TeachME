@@ -19,16 +19,12 @@ final class LoginFormViewModel: ObservableObject {
     
     func loginUser() {
         Task {
-            do {
-                let _ = try await repository.login(
-                    user: UserCredentialsBodyModel(
-                        email: email,
-                        password: password
-                    )
+            let _ = try await repository.login(
+                user: UserCredentialsBodyModel(
+                    email: email,
+                    password: password
                 )
-            } catch {
-                print("Error accured")
-            }
+            )
         }
     }
     
