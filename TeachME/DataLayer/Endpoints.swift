@@ -14,5 +14,4 @@ enum Endpoints: String {
     case rolesURL = "http://127.0.0.1:8080/teach-me/roles/"
     case lessonsURL = "http://127.0.0.1:8080/teach-me/lessons/"
     case usersURL = "http://127.0.0.1:8080/teach-me/users/"
-    case userDetailsURL = "http://127.0.0.1:8080/teach-me/user-details/"
 }
