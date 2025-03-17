@@ -12,66 +12,43 @@ struct ContentView: View {
     let authRepository: AuthRepository
     let userRepository: UserRepository
     let roleRepository: RoleRepository
+    let lessonRepository: LessonRepository
+    let lessonTypeRepository: LessonTypeRepository
     let userMapper: UserMapper
-    @State var isLoggedIn: Bool = false
+    let lessonMapper: LessonMapper
+    
+    @State var isLoggedIn: Bool = false // TODO: Don't hardcode it
     @StateObject var tabRouter: TabRouter
     
-    init() {
+    init(
+        authRepository: AuthRepository,
+        userRepository: UserRepository,
+        roleRepository: RoleRepository,
+        lessonRepository: LessonRepository,
+        lessonTypeRepository: LessonTypeRepository,
+        userMapper: UserMapper,
+        lessonMapper: LessonMapper
+    ) {
         self.theme = PrimaryTheme()
-        self._tabRouter = StateObject(wrappedValue: TabRouter(theme: PrimaryTheme()))
-        
-        let roleMapper = RoleMapper()
-        let jsonDecoder = JSONDecoder()
-        let jsonEncoder = JSONEncoder()
-        let httpClient = URLSession(configuration: .ephemeral)
-        let keychainStore = KeychainStore(identifier: "com.teachME.tokens") // TODO: Handle in a better way
-        let tokenService = TokenService(
-            key: "token", // TODO: Handle in a better way
-            keychainStore: keychainStore,
-            encoder: jsonEncoder,
-            decoder: jsonDecoder
+        self._tabRouter = StateObject(
+            wrappedValue: TabRouter(
+                theme: PrimaryTheme(),
+                userRepository: userRepository,
+                roleRepository: roleRepository,
+                lessonRepository: lessonRepository,
+                lessonTypeRepository: lessonTypeRepository,
+                userMapper: userMapper,
+                lessonMapper: lessonMapper
+            )
         )
         
-        let authHTTPClient = AuthHTTPClient(
-            tokenProvider: tokenService,
-            httpClient: httpClient
-        )
-        
-        userMapper = UserMapper(
-            userDetailMapper: UserDetailMapper(),
-            roleMapper: roleMapper
-        )
-        
-        authRepository = AuthRepository(
-            dataSource: AuthDataSource(
-                client: httpClient,
-                baseURL: Endpoints.baseURL.rawValue,
-                encoder: jsonEncoder,
-                decoder: jsonDecoder
-            ),
-            mapper: userMapper,
-            tokenSetter: tokenService
-        )
-        
-        userRepository = UserRepository(
-            dataSource: UserDataSource(
-                client: authHTTPClient,
-                baseURL: Endpoints.usersURL.rawValue,
-                encoder: jsonEncoder,
-                decoder: jsonDecoder
-            ),
-            mapper: userMapper
-        )
-        
-        roleRepository = RoleRepository(
-            dataSource: RoleDataSource(
-                client: authHTTPClient,
-                baseURL: Endpoints.rolesURL.rawValue,
-                encoder: jsonEncoder,
-                decoder: jsonDecoder
-            ),
-            mapper: roleMapper
-        )
+        self.authRepository = authRepository
+        self.userRepository = userRepository
+        self.roleRepository = roleRepository
+        self.lessonRepository = lessonRepository
+        self.lessonTypeRepository = lessonTypeRepository
+        self.userMapper = userMapper
+        self.lessonMapper = lessonMapper
     }
     
     var body: some View {
@@ -88,7 +65,7 @@ private extension ContentView {
         AuthScreen(
             viewModel: AuthScreenViewModel(
                 loginFormViewModel: LoginFormViewModel(
-                    repository: authRepository,
+                    authRepository: authRepository,
                     userRepository: userRepository,
                     userMapper: userMapper
                 ) { userItem in
@@ -96,7 +73,7 @@ private extension ContentView {
                     tabRouter.update(userItem: userItem, theme: theme)
                 },
                 registerFormsViewModel: RegisterFormViewModel(
-                    repository: authRepository,
+                    authRepository: authRepository,
                     userRepository: userRepository,
                     roleRepository: roleRepository,
                     userMapper: userMapper

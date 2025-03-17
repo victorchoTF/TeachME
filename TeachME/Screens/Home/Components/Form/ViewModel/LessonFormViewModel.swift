@@ -7,7 +7,7 @@
 
 import Foundation
 
-@MainActor final class LessonFormViewModel: ObservableObject, Identifiable {
+final class LessonFormViewModel: ObservableObject, Identifiable {
     @Published var lessonType: String
     @Published var subtitle: String
     @Published var startDate: Date
@@ -67,6 +67,7 @@ import Foundation
         updateLesson(lesson)
     }
     
+    // TODO: Show alert on catch
     func loadData() async {
         do {
             lessonTypes = try await self.repository.getAll().map { $0.name }
@@ -74,7 +75,7 @@ import Foundation
             lessonTypes = ["Other"]
         }
         
-        lessonType = lessonTypes[0]
+        lessonType = lessonTypes.first ?? "Other"
     }
     
     var formTitle: String {
