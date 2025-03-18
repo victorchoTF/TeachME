@@ -7,7 +7,7 @@
 
 import Foundation
 
-@MainActor final class LessonListScreenViewModel: ObservableObject {
+final class LessonListScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
     
     private weak var router: HomeRouter?
@@ -35,7 +35,8 @@ import Foundation
         self.mapper = mapper
         self.userMapper = userMapper
     }
-
+    
+    // TODO: Show alert on catch
     func loadData() async {
         guard let user = router?.user else {
             lessons = []
@@ -96,18 +97,22 @@ import Foundation
                 self?.lessonFormViewModel = nil
             }
         ) { [weak self] lesson in
+            guard let self = self else {
+                return
+            }
+            
             Task {
-                guard let lessonItem = try await self?.addLesson(lesson: lesson) else {
-                    self?.lessonFormViewModel = nil
+                guard let lessonItem = try await self.addLesson(lesson: lesson) else {
+                    self.lessonFormViewModel = nil
                     return
                 }
                 
-                self?.lessons.removeAll(where: { $0 == lessonItem })
-                self?.lessons.insert(
+                self.lessons.removeAll(where: { $0 == lessonItem })
+                self.lessons.insert(
                     lessonItem,
                     at: 0
                 )
-                self?.lessonFormViewModel = nil
+                self.lessonFormViewModel = nil
             }
         }
     }
@@ -117,10 +122,13 @@ import Foundation
             return nil
         }
 
-        let lessonTypeModel = try await self.lessonTypeRepository.getAll().filter {
+        guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
             $0.name == lesson.lessonType
-        }[0]
+        }) else {
+            return nil
+        }
         
+        // TODO: userItem is in the router, so the fetch is not needed
         let userModel = try await self.userRepository.getById(router.user.id)
         
         let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)

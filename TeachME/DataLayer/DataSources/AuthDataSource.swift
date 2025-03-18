@@ -31,7 +31,6 @@ final class AuthDataSource {
         
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "user-login")
             .setMethod(.post)
-            .setHeaders(["Content-Type": "application/json"])
             .setBody(userCredentialsData)
             .build()
         else {
@@ -67,7 +66,6 @@ final class AuthDataSource {
         
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "user-register")
             .setMethod(.post)
-            .setHeaders(["Content-Type": "application/json"])
             .setBody(userRegisterBodyData)
             .build()
         else {
@@ -105,7 +103,6 @@ final class AuthDataSource {
         
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "refresh-token")
             .setMethod(.post)
-            .setHeaders(["Content-Type": "application/json"])
             .setBody(refreshTokenRequestData)
             .build()
         else {

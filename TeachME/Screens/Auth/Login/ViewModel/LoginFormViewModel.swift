@@ -11,19 +11,19 @@ final class LoginFormViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     
-    private let repository: AuthRepository
+    private let authRepository: AuthRepository
     private let userRepository: UserRepository
     private let userMapper: UserMapper
     
     let onSubmit: (UserItem) -> ()
     
     init(
-        repository: AuthRepository,
+        authRepository: AuthRepository,
         userRepository: UserRepository,
         userMapper: UserMapper,
         onSubmit: @escaping (UserItem) -> ()
     ) {
-        self.repository = repository
+        self.authRepository = authRepository
         self.userRepository = userRepository
         self.userMapper = userMapper
         self.onSubmit = onSubmit
@@ -31,22 +31,18 @@ final class LoginFormViewModel: ObservableObject {
 
     func loginUser() {
         Task {
-            do {
-                let _ = try await repository.login(
-                    user: UserCredentialsBodyModel(
-                        email: email,
-                        password: password
-                    )
+            let _ = try await authRepository.login(
+                user: UserCredentialsBodyModel(
+                    email: email,
+                    password: password
                 )
+            )
                 
-                let userItem = try await userMapper.modelToItem(
-                    userRepository.getUserByEmail(email)
-                )
-                
-                onSubmit(userItem)
-            } catch {
-                print("Error accured")
-            }
+            let userItem = try await userMapper.modelToItem(
+                userRepository.getUserByEmail(email)
+            )
+            
+            onSubmit(userItem)
         }
     }
     

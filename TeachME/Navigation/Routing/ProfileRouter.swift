@@ -20,7 +20,6 @@ class ProfileRouter {
 }
 
 extension ProfileRouter: Router {
-    @MainActor
     var initialDestination: some View {
         let viewModel = ProfileScreenViewModel()
 

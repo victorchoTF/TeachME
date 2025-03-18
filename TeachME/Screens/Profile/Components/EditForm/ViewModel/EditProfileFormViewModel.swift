@@ -71,6 +71,7 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
         bio.isEmpty
     }
     
+    // TODO: Fix hard code
     func onSubmit() {
         let user = UserItem(
             id: UUID(),
@@ -78,7 +79,7 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
             email: checkEmail(),
             phoneNumber: phoneNumber,
             bio: bio,
-            role: .Student // TODO: Fix hard code
+            role: .Student
         )
         
         updateUser(user)
