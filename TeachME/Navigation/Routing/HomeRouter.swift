@@ -12,7 +12,7 @@ class HomeRouter {
     @Published var path = [Destination]()
 
     let theme: Theme
-    let user: UserItem
+    var user: UserItem?
     
     let userRepository: UserRepository
     let lessonRepository: LessonRepository
@@ -22,7 +22,7 @@ class HomeRouter {
 
     init(
         theme: Theme,
-        user: UserItem,
+        user: UserItem? = nil,
         userRepository: UserRepository,
         lessonRepository: LessonRepository,
         lessonTypeRepository: LessonTypeRepository,

@@ -58,15 +58,6 @@ final class LessonPickScreenViewModel: ObservableObject {
         )
         
         otherLessons = [
-            LessonItem(
-                id: UUID(),
-                lessonType: "Other",
-                subtitle: "Statistics made simple",
-                startDate: "10:00AM 14.03.2025",
-                endDate: "11:40AM 14.03.2025",
-                teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                teacherName: "George Demo"
-            )
         ]
     }
     
@@ -79,18 +70,18 @@ final class LessonPickScreenViewModel: ObservableObject {
     }
     
     var pickLessonButtonText: String {
-        switch router?.user.role {
+        switch router?.user?.role {
         case .Teacher: "Edit"
         default: "Save"
         }
     }
     
     func pickLessonButtonAction() {
-        guard let router = router else {
+        guard let user = router?.user else {
             return
         }
         
-        switch router.user.role {
+        switch user.role {
         case .Teacher: teacherAction()
         case .Student: studentAction()
         }
@@ -101,6 +92,7 @@ private extension LessonPickScreenViewModel {
     func teacherAction() {
         self.lessonFormViewModel = LessonFormViewModel(
             lesson: self.pickedLesson,
+            teacher: self.pickedLesson.teacher,
             formType: FormType.edit,
             repository: lessonTypeRepository,
             dateFormatter: DateFormatter(),
