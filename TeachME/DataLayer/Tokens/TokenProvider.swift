@@ -7,10 +7,6 @@
 
 import Foundation
 
-protocol TokenProvider {
-    var key: String { get }
-    var keychainStore: KeychainStore { get }
-    var decoder: JSONDecoder { get }
-    
+protocol TokenProvider {    
     func token() throws -> TokenResponse
 }

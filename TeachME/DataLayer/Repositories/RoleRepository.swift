@@ -19,12 +19,4 @@ final class RoleRepository: Repository {
         self.dataSource = dataSource
         self.mapper = mapper
     }
-    
-    func create(_ body: RoleCreateBodyModel) async throws -> RoleModel {
-        try await mapper.dtoToModel(
-            dataSource.create(
-                mapper.createBodyModelToCreateBodyDTO(body)
-            )
-        )
-    }
 }

@@ -32,7 +32,6 @@ final class LessonTypeDataSource: TeachMEAPIDataSource {
         
         guard let request = try URLRequestBuilder(baseURL: baseURL)
             .setMethod(.post)
-            .setHeaders(["Content-Type": "application/json"])
             .setBody(jsonBody)
             .build()
         else {
