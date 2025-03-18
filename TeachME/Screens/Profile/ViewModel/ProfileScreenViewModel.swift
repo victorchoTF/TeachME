@@ -12,12 +12,12 @@ final class ProfileScreenViewModel: ObservableObject {
     @Published var userItem: UserItem
     @Published var editProfileFormViewModel: EditProfileFormViewModel?
     
-    private let repository: UserRepository
+    private let authRepository: UserRepository
     private let mapper: UserMapper
     
-    init(userItem: UserItem, repository: UserRepository, mapper: UserMapper) {
+    init(userItem: UserItem, authRepository: UserRepository, mapper: UserMapper) {
         self.userItem = userItem
-        self.repository = repository
+        self.authRepository = authRepository
         self.mapper = mapper
     }
     
@@ -46,7 +46,10 @@ final class ProfileScreenViewModel: ObservableObject {
 
 private extension ProfileScreenViewModel {
     func updateUser(user: UserItemBody) async throws -> UserItem {
-        let profilePicture = try await repository.getById(userItem.id).userDetail?.profilePicture
+        // TODO: userItem is in the router, so the fetch is not needed
+        let profilePicture = try await authRepository.getById(
+            userItem.id
+        ).userDetail?.profilePicture
         
         let userModelBody = mapper.itemBodyToBodyModel(
             user,
@@ -54,8 +57,8 @@ private extension ProfileScreenViewModel {
             profilePicture: profilePicture
         )
         
-        try await repository.update(userModelBody, id: userItem.id)
+        try await authRepository.update(userModelBody, id: userItem.id)
         
-        return try await mapper.modelToItem(repository.getById(userItem.id))
+        return try await mapper.modelToItem(authRepository.getById(userItem.id))
     }
 }

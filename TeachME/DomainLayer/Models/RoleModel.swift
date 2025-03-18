@@ -11,7 +11,3 @@ struct RoleModel: Model {
     let id: UUID
     let title: String
 }
-
-struct RoleCreateBodyModel {
-    let title: String
-}

@@ -71,6 +71,7 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
         bio.isEmpty
     }
     
+    // TODO: Fix hard code
     func onSubmit() {
         let user = UserItemBody(
             firstName: checkFirstName(),

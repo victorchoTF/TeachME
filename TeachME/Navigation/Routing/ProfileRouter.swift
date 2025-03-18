@@ -14,38 +14,14 @@ class ProfileRouter {
     let theme: Theme
     let user: UserItem
     
-    let repository: UserRepository
+    let authRepository: UserRepository
     let mapper: UserMapper
     
-    init(theme: Theme, user: UserItem) {
+    init(theme: Theme, user: UserItem, authRepository: UserRepository, mapper: UserMapper) {
         self.theme = theme
         self.user = user
-        
-        let jsonEncoder = JSONEncoder()
-        let jsonDecoder = JSONDecoder()
-        
-        mapper = UserMapper(
-            userDetailMapper: UserDetailMapper(),
-            roleMapper: RoleMapper()
-        )
-        
-        repository = UserRepository(
-            dataSource: UserDataSource(
-                client: AuthHTTPClient(
-                    tokenProvider: TokenService(
-                        key: "token", // TODO: Handle in a better way
-                        keychainStore: KeychainStore(identifier: "com.teachME.tokens"), // TODO: Handle in a better way,
-                        encoder: jsonEncoder,
-                        decoder: jsonDecoder
-                    ),
-                    httpClient: URLSession(configuration: .ephemeral)
-                ),
-                baseURL: Endpoints.usersURL.rawValue,
-                encoder: jsonEncoder,
-                decoder: jsonDecoder
-            ),
-            mapper: mapper
-        )
+        self.authRepository = authRepository
+        self.mapper = mapper
     }
     
 }
@@ -54,7 +30,7 @@ extension ProfileRouter: Router {
     var initialDestination: some View {
         let viewModel = ProfileScreenViewModel(
             userItem: user,
-            repository: repository,
+            authRepository: authRepository,
             mapper: mapper
         )
 
