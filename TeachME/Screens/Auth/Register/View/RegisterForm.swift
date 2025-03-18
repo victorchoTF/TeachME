@@ -25,7 +25,7 @@ struct RegisterForm: View {
                 roleDetails
                 
                 SubmitButton(text: viewModel.formType, theme: theme) {
-                    print("register")
+                    viewModel.registerUser()
                 }
                 
                 SwitchFormText(

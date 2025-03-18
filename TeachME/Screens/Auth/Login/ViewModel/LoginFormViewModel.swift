@@ -11,6 +11,23 @@ final class LoginFormViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     
+    private let repository: AuthRepository
+    
+    init(repository: AuthRepository) {
+        self.repository = repository
+    }
+    
+    func loginUser() {
+        Task {
+            let _ = try await repository.login(
+                user: UserCredentialsBodyModel(
+                    email: email,
+                    password: password
+                )
+            )
+        }
+    }
+    
     var formTitle: String {
         "Learning and teaching made simple"
     }
