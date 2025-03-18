@@ -11,7 +11,3 @@ struct RoleDTO: DataTransferObject {
     let id: UUID
     let title: String
 }
-
-struct RoleCreateBodyDTO: Encodable {
-    let title: String
-}
