@@ -8,9 +8,5 @@
 import Foundation
 
 protocol TokenSetter {
-    var key: String { get }
-    var keychainStore: KeychainStore { get }
-    var encoder: JSONEncoder { get }
-    
     func setToken(token: TokenResponse) throws
 }

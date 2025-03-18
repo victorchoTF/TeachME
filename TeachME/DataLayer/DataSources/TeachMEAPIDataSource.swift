@@ -45,7 +45,6 @@ extension TeachMEAPIDataSource {
         
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "\(data.id)")
             .setMethod(.put)
-            .setHeaders(["Content-Type": "application/json"])
             .setBody(jsonData)
             .build()
         else {
