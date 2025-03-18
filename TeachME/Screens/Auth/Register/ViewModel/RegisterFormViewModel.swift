@@ -37,9 +37,7 @@ final class RegisterFormViewModel: ObservableObject {
     
     func registerUser() {
         Task {
-            guard let role: RoleModel = try await roleRepository.getAll().first(where: {
-                $0.title == self.roleType.rawValue
-            }) else {
+            guard let roleId = UUID(uuidString: roleType.rawValue) else {
                 return
             }
             
@@ -49,7 +47,7 @@ final class RegisterFormViewModel: ObservableObject {
                     password: password,
                     firstName: firstName,
                     lastName: lastName,
-                    roleId: role.id
+                    roleId: roleId
                 )
             )
             
