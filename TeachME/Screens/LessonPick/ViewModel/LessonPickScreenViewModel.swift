@@ -65,12 +65,12 @@ final class LessonPickScreenViewModel: ObservableObject {
         do {
             teacher = try await userMapper.modelToItem(
                 userRepository.getById(
-                    pickedLesson.teacherId
+                    pickedLesson.teacher.id
                 )
             )
             
             otherLessons = try await repository.getLessonsByTeacherId(
-                pickedLesson.teacherId
+                pickedLesson.teacher.id
             )
             .filter {
                 $0.student == nil
@@ -95,18 +95,18 @@ final class LessonPickScreenViewModel: ObservableObject {
     }
     
     var pickLessonButtonText: String {
-        switch router?.user.role {
+        switch router?.user?.role {
         case .Teacher: "Edit"
         default: "Save"
         }
     }
     
     func pickLessonButtonAction() {
-        guard let router = router else {
+        guard let user = router?.user else {
             return
         }
         
-        switch router.user.role {
+        switch user.role {
         case .Teacher: teacherAction()
         case .Student: studentAction()
         }
@@ -117,6 +117,7 @@ private extension LessonPickScreenViewModel {
     func teacherAction() {
         self.lessonFormViewModel = LessonFormViewModel(
             lesson: self.pickedLesson,
+            teacher: self.pickedLesson.teacher,
             formType: FormType.edit,
             repository: lessonTypeRepository,
             dateFormatter: DateFormatter(),
@@ -165,7 +166,7 @@ private extension LessonPickScreenViewModel {
     }
     
     func lessonBodyModelByLessonItem(lesson: LessonItem) async throws -> LessonBodyModel? {
-        guard let router = self.router else {
+        guard let user = self.router?.user else {
             return nil
         }
         
@@ -173,7 +174,8 @@ private extension LessonPickScreenViewModel {
             $0.name == lesson.lessonType
         }[0]
         
-        let userModel = try await self.userRepository.getById(router.user.id)
+        // TODO: userItem is in the router, so the fetch is not needed
+        let userModel = try await self.userRepository.getById(user.id)
         
         let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
         
@@ -187,11 +189,12 @@ private extension LessonPickScreenViewModel {
     }
     
     func addStudentToLessonBody(_ body: LessonBodyModel) async throws -> LessonBodyModel? {
-        guard let router = router else {
+        guard let user = router?.user else {
             return nil
         }
         
-        let student = try await userRepository.getById(router.user.id)
+        // TODO: userItem is in the router, so the fetch is not needed
+        let student = try await userRepository.getById(user.id)
         
         return LessonBodyModel(
             lessonType: body.lessonType,

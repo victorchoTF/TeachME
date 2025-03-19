@@ -39,7 +39,6 @@ final class LessonListScreenViewModel: ObservableObject {
     // TODO: Show alert on catch
     func loadData() async {
         guard let user = router?.user else {
-            lessons = []
             return
         }
         
@@ -80,20 +79,25 @@ final class LessonListScreenViewModel: ObservableObject {
     }
     
     var shouldShowAddLessonButton: Bool {
-        router?.user.role == .Teacher
+        router?.user?.role == .Teacher
     }
     
     func onAddButtonTap() {
-        guard let router = router else {
+        guard let user = router?.user else {
             return
         }
         
         self.lessonFormViewModel = LessonFormViewModel(
-            lesson: emptyLessonItem(userItem: router.user),
+            teacher: UserLessonBodyItem(
+                id: user.id,
+                name: user.name,
+                profilePicture: user.profilePicture
+            ),
             formType: FormType.add,
             repository: lessonTypeRepository,
             dateFormatter: DateFormatter(),
-            onCancel: { [weak self] in
+            onCancel: {
+                [weak self] in
                 self?.lessonFormViewModel = nil
             }
         ) { [weak self] lesson in
@@ -102,23 +106,29 @@ final class LessonListScreenViewModel: ObservableObject {
             }
             
             Task {
-                guard let lessonItem = try await self.addLesson(lesson: lesson) else {
-                    self.lessonFormViewModel = nil
-                    return
-                }
-                
-                self.lessons.removeAll(where: { $0 == lessonItem })
-                self.lessons.insert(
-                    lessonItem,
-                    at: 0
-                )
-                self.lessonFormViewModel = nil
+                try await self.setLesson(lesson: lesson)
             }
         }
     }
+}
+
+private extension LessonListScreenViewModel {
+    func setLesson(lesson: LessonItem) async throws {
+        guard let lessonItem = try await self.addLesson(lesson: lesson) else {
+            self.lessonFormViewModel = nil
+            return
+        }
+        
+        self.lessons.removeAll(where: { $0 == lessonItem })
+        self.lessons.insert(
+            lessonItem,
+            at: 0
+        )
+        self.lessonFormViewModel = nil
+    }
     
     func addLesson(lesson: LessonItem) async throws -> LessonItem? {
-        guard let router = self.router else {
+        guard let user = self.router?.user else {
             return nil
         }
 
@@ -129,7 +139,7 @@ final class LessonListScreenViewModel: ObservableObject {
         }
         
         // TODO: userItem is in the router, so the fetch is not needed
-        let userModel = try await self.userRepository.getById(router.user.id)
+        let userModel = try await self.userRepository.getById(user.id)
         
         let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
         
@@ -144,20 +154,5 @@ final class LessonListScreenViewModel: ObservableObject {
         )
         
         return lessonItem
-    }
-}
-
-private extension LessonListScreenViewModel {
-    func emptyLessonItem(userItem: UserItem) -> LessonItem {
-        LessonItem(
-            id: UUID(),
-            lessonType: "Other",
-            subtitle: "",
-            startDate: "",
-            endDate: "",
-            teacherId: userItem.id,
-            teacherProfilePicture: userItem.profilePicture,
-            teacherName: userItem.name
-        )
     }
 }

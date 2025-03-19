@@ -33,6 +33,7 @@ final class LessonDataSource: TeachMEAPIDataSource {
         
         guard let request = try URLRequestBuilder(baseURL: baseURL)
             .setMethod(.post)
+            .useJsonContentType()
             .setBody(jsonBody)
             .build()
         else {
@@ -202,6 +203,7 @@ final class LessonDataSource: TeachMEAPIDataSource {
         
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "take-lesson/\(id)")
             .setMethod(.put)
+            .useJsonContentType()
             .setBody(lessonBody)
             .build()
         else {
