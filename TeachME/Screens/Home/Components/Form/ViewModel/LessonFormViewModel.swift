@@ -14,17 +14,19 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
     @Published var endDate: Date
     @Published var lessonTypes: [String] = []
     
-    let lesson: LessonItem
-    let formType: FormType
-    let repository: LessonTypeRepository
+    private let lesson: LessonItem?
+    private let teacher: UserLessonBodyItem
+    private let formType: FormType
+    private let repository: LessonTypeRepository
     
-    let dateFormatter: DateFormatter
+    private let dateFormatter: DateFormatter
     
-    private let updateLesson: (LessonItem) -> ()
+    private let setLesson: (LessonItem) -> ()
     let onCancel: () -> ()
     
     init(
-        lesson: LessonItem,
+        lesson: LessonItem? = nil,
+        teacher: UserLessonBodyItem,
         formType: FormType,
         repository: LessonTypeRepository,
         dateFormatter: DateFormatter,
@@ -33,39 +35,43 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
     ) {
         self.lesson = lesson
         self.onCancel = onCancel
-        self.updateLesson = updateLesson
+        self.setLesson = updateLesson
         self.formType = formType
         self.repository = repository
         self.dateFormatter = dateFormatter
         
-        self.lessonType = lesson.lessonType
-        self.subtitle = lesson.subtitle
+        self.lessonType = lesson?.lessonType ?? "Other"
+        self.subtitle = lesson?.subtitle ?? ""
         
-        let setDate: (String) -> (Date) = { date in
-            if date.isEmpty {
+        let setDate: (String?) -> (Date) = { date in
+            guard let date = date, !date.isEmpty else {
                 return Date()
             }
                 
             return dateFormatter.toDate(dateString: date) ?? Date()
         }
         
-        self.startDate = setDate(lesson.startDate)
-        self.endDate = setDate(lesson.endDate)
+        self.startDate = setDate(lesson?.startDate)
+        self.endDate = setDate(lesson?.endDate)
+        
+        self.teacher = teacher
     }
 
     func onSubmit() {
+        guard let teacher = lesson?.teacher else {
+            return
+        }
+        
         let lesson = LessonItem(
-            id: lesson.id,
+            id: teacher.id,
             lessonType: lessonType,
             subtitle: subtitle,
             startDate: dateFormatter.toString(startDate),
             endDate: dateFormatter.toString(endDate),
-            teacherId: lesson.teacherId,
-            teacherProfilePicture: lesson.teacherProfilePicture,
-            teacherName: lesson.teacherName
+            teacher: teacher
         )
         
-        updateLesson(lesson)
+        setLesson(lesson)
     }
     
     // TODO: Show alert on catch

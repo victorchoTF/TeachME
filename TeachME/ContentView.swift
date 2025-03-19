@@ -9,46 +9,18 @@ import SwiftUI
 
 struct ContentView: View {
     let theme: Theme
-    let authRepository: AuthRepository
-    let userRepository: UserRepository
-    let roleRepository: RoleRepository
-    let lessonRepository: LessonRepository
-    let lessonTypeRepository: LessonTypeRepository
-    let userMapper: UserMapper
-    let lessonMapper: LessonMapper
+    let authRouter: AuthRouter
+    
     
     @State var isLoggedIn: Bool = false // TODO: Don't hardcode it
     @StateObject var tabRouter: TabRouter
     
-    init(
-        authRepository: AuthRepository,
-        userRepository: UserRepository,
-        roleRepository: RoleRepository,
-        lessonRepository: LessonRepository,
-        lessonTypeRepository: LessonTypeRepository,
-        userMapper: UserMapper,
-        lessonMapper: LessonMapper
-    ) {
-        self.theme = PrimaryTheme()
+    init(theme: Theme, authRouter: AuthRouter, tabRouter: TabRouter) {
+        self.theme = theme
+        self.authRouter = authRouter
         self._tabRouter = StateObject(
-            wrappedValue: TabRouter(
-                theme: PrimaryTheme(),
-                userRepository: userRepository,
-                roleRepository: roleRepository,
-                lessonRepository: lessonRepository,
-                lessonTypeRepository: lessonTypeRepository,
-                userMapper: userMapper,
-                lessonMapper: lessonMapper
-            )
+            wrappedValue: tabRouter
         )
-        
-        self.authRepository = authRepository
-        self.userRepository = userRepository
-        self.roleRepository = roleRepository
-        self.lessonRepository = lessonRepository
-        self.lessonTypeRepository = lessonTypeRepository
-        self.userMapper = userMapper
-        self.lessonMapper = lessonMapper
     }
     
     var body: some View {
@@ -62,28 +34,7 @@ struct ContentView: View {
 
 private extension ContentView {
     var authScreen: some View {
-        AuthScreen(
-            viewModel: AuthScreenViewModel(
-                loginFormViewModel: LoginFormViewModel(
-                    authRepository: authRepository,
-                    userRepository: userRepository,
-                    userMapper: userMapper
-                ) { userItem in
-                    isLoggedIn = true
-                    tabRouter.update(userItem: userItem, theme: theme)
-                },
-                registerFormsViewModel: RegisterFormViewModel(
-                    authRepository: authRepository,
-                    userRepository: userRepository,
-                    roleRepository: roleRepository,
-                    userMapper: userMapper
-                ) { userItem in
-                    isLoggedIn = true
-                    tabRouter.update(userItem: userItem, theme: theme)
-                }
-            ),
-            theme: theme
-        )
+        authRouter.initialDestination
     }
     
     var tabView: some View {

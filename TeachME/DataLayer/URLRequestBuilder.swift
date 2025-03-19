@@ -47,14 +47,16 @@ class URLRequestBuilder {
         return self
     }
     
+    func useJsonContentType() -> Self {
+        self.headers["Content-Type"] = "application/json"
+        
+        return self
+    }
+    
     func build() -> URLRequest? {
         guard let url = urlComponents.url else { return nil }
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
-        
-        if method == .post || method == .put {
-            self.headers["Content-Type"] = "application/json"
-        }
         
         request.allHTTPHeaderFields = headers
         request.httpBody = body

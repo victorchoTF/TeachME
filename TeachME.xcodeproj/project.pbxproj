@@ -94,6 +94,8 @@
 		8EDBFF1C2D57A7BF008441D6 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDBFF1B2D57A7BF008441D6 /* ProfileScreen.swift */; };
 		8EDBFF1E2D57A807008441D6 /* ProfileScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDBFF1D2D57A807008441D6 /* ProfileScreenViewModel.swift */; };
 		8EDBFF202D57A9C4008441D6 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDBFF1F2D57A9C4008441D6 /* ProfileRouter.swift */; };
+		8EE83D0A2D89C035000531B6 /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE83D092D89C035000531B6 /* AuthRouter.swift */; };
+		8EE83D0C2D89CC22000531B6 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE83D0B2D89CC22000531B6 /* AppDependencies.swift */; };
 		8EFED0662D50A1F900046F1D /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFED0652D50A1F900046F1D /* Router.swift */; };
 		8EFED0682D50A2BB00046F1D /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFED0672D50A2BB00046F1D /* Destination.swift */; };
 		8EFED06D2D50A71500046F1D /* RouterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFED06C2D50A71500046F1D /* RouterView.swift */; };
@@ -188,6 +190,8 @@
 		8EDBFF1B2D57A7BF008441D6 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		8EDBFF1D2D57A807008441D6 /* ProfileScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewModel.swift; sourceTree = "<group>"; };
 		8EDBFF1F2D57A9C4008441D6 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
+		8EE83D092D89C035000531B6 /* AuthRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
+		8EE83D0B2D89CC22000531B6 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
 		8EFED0652D50A1F900046F1D /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		8EFED0672D50A2BB00046F1D /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		8EFED06C2D50A71500046F1D /* RouterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterView.swift; sourceTree = "<group>"; };
@@ -411,6 +415,7 @@
 				8E75D4362D3E231C0082F5FE /* Screens */,
 				8E65F7442D3D2BDF00D3A793 /* TeachMEApp.swift */,
 				8E65F7462D3D2BDF00D3A793 /* ContentView.swift */,
+				8EE83D0B2D89CC22000531B6 /* AppDependencies.swift */,
 				8E65F7482D3D2BE100D3A793 /* Assets.xcassets */,
 				8E65F74A2D3D2BE100D3A793 /* Preview Content */,
 			);
@@ -711,6 +716,7 @@
 			children = (
 				8EFED0642D50A1D800046F1D /* Modal Routers */,
 				8E180D2D2D5272FA00327E29 /* TabRouter.swift */,
+				8EE83D092D89C035000531B6 /* AuthRouter.swift */,
 				8EDBFF1F2D57A9C4008441D6 /* ProfileRouter.swift */,
 				8E5F20132D5DE76C00BE9C24 /* HomeRouter.swift */,
 			);
@@ -815,6 +821,7 @@
 				8E3427AD2D3E649900A38A2D /* Fonts.swift in Sources */,
 				8EFED0662D50A1F900046F1D /* Router.swift in Sources */,
 				8E2982902D4A38CF00588D8E /* LessonListScreenViewModel.swift in Sources */,
+				8EE83D0A2D89C035000531B6 /* AuthRouter.swift in Sources */,
 				8E8C9AEA2D82D1A900082B34 /* TokenSetter.swift in Sources */,
 				8E3CF2412D7D9590009D30D5 /* TokenResponse.swift in Sources */,
 				8E7EBE532D3E417100C7C017 /* Spacings.swift in Sources */,
@@ -880,6 +887,7 @@
 				8E1160582D7485D00097774B /* LessonTypeDataSource.swift in Sources */,
 				8E5F20172D5DEDA000BE9C24 /* LessonForm.swift in Sources */,
 				8E20F5772D4B8C9C007B3154 /* UserCard.swift in Sources */,
+				8EE83D0C2D89CC22000531B6 /* AppDependencies.swift in Sources */,
 				8E3CF2452D7D97A6009D30D5 /* RefreshTokenRequest.swift in Sources */,
 				8E1160542D7484240097774B /* LessonDTO.swift in Sources */,
 				8E75D4412D3E268B0082F5FE /* Role.swift in Sources */,
