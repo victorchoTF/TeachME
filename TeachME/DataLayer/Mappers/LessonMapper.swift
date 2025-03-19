@@ -60,11 +60,13 @@ struct LessonMapper: Mapper {
             subtitle: model.subtitle,
             startDate: dateFormatter.toString(model.startDate),
             endDate: dateFormatter.toString(model.endDate),
-            teacherProfilePicture: Image(
-                data: model.teacher.profilePicture,
-                fallbackImageName: "person.crop.circle"
-            ),
-            teacherName: "\(model.teacher.firstName) \(model.teacher.lastName)"
+            teacher: UserLessonBodyItem(
+                name: "\(model.teacher.firstName) \(model.teacher.lastName)",
+                profilePicture: Image(
+                    data: model.teacher.profilePicture,
+                    fallbackImageName: "person.crop.circle"
+                )
+            )
         )
     }
     

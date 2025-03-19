@@ -34,3 +34,8 @@ struct UserItem {
         self.role = role
     }
 }
+
+struct UserLessonBodyItem{
+    let name: String
+    let profilePicture: Image
+}

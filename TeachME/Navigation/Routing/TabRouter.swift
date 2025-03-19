@@ -7,19 +7,12 @@
 
 import Foundation
 
-@MainActor final class TabRouter: ObservableObject {
-    var homeRouter: HomeRouter
-    var lessonRouter: HomeRouter
-    var profileRouter: ProfileRouter
+final class TabRouter: ObservableObject {
+    @Published var homeRouter: HomeRouter
+    @Published var lessonRouter: HomeRouter
+    @Published var profileRouter: ProfileRouter
     
-    let userRepository: UserRepository
-    let roleRepository: RoleRepository
-    let lessonRepository: LessonRepository
-    let lessonTypeRepository: LessonTypeRepository
-    let userMapper: UserMapper
-    let lessonMapper: LessonMapper
-    
-    @Published var userItem: UserItem
+    let update: (TabRouter?, UserItem) -> ()
     
     @Published var selectedTab: Tab = .home {
         willSet {
@@ -30,75 +23,15 @@ import Foundation
     }
     
     init(
-        theme: Theme,
-        userRepository: UserRepository,
-        roleRepository: RoleRepository,
-        lessonRepository: LessonRepository,
-        lessonTypeRepository: LessonTypeRepository,
-        userMapper: UserMapper,
-        lessonMapper: LessonMapper
+        homeRouter: HomeRouter,
+        lessonRouter: HomeRouter, // TODO: change when LessonRouter is implemented
+        profileRouter: ProfileRouter,
+        update: @escaping (TabRouter?, UserItem) -> ()
     ) {
-        let userItem = UserItem(
-            id: UUID(),
-            name: "Loading",
-            email: "...",
-            phoneNumber: "...",
-            bio: "...",
-            role: .Teacher
-        )
-        
-        self.userItem = userItem
-        
-        homeRouter = HomeRouter(
-            theme: theme,
-            user: userItem,
-            userRepository: userRepository,
-            lessonRepository: lessonRepository,
-            lessonTypeRepository: lessonTypeRepository,
-            userMapper: userMapper,
-            lessonMapper: lessonMapper
-        )
-        lessonRouter = HomeRouter(
-            theme: theme,
-            user: userItem,
-            userRepository: userRepository,
-            lessonRepository: lessonRepository,
-            lessonTypeRepository: lessonTypeRepository,
-            userMapper: userMapper,
-            lessonMapper: lessonMapper
-        )
-        profileRouter = ProfileRouter(theme: theme)
-        
-        self.userRepository = userRepository
-        self.roleRepository = roleRepository
-        self.lessonRepository = lessonRepository
-        self.lessonTypeRepository = lessonTypeRepository
-        self.userMapper = userMapper
-        self.lessonMapper = lessonMapper
-    }
-    
-    func update(userItem: UserItem, theme: Theme) {
-        self.userItem = userItem
-        
-        homeRouter = HomeRouter(
-            theme: theme,
-            user: userItem,
-            userRepository: userRepository,
-            lessonRepository: lessonRepository,
-            lessonTypeRepository: lessonTypeRepository,
-            userMapper: userMapper,
-            lessonMapper: lessonMapper
-        )
-        lessonRouter = HomeRouter(
-            theme: theme,
-            user: userItem,
-            userRepository: userRepository,
-            lessonRepository: lessonRepository,
-            lessonTypeRepository: lessonTypeRepository,
-            userMapper: userMapper,
-            lessonMapper: lessonMapper
-        )
-        profileRouter = ProfileRouter(theme: theme)
+        self.homeRouter = homeRouter
+        self.lessonRouter = lessonRouter
+        self.profileRouter = profileRouter
+        self.update = update
     }
     
     private var currentTabRouter: any Router {
