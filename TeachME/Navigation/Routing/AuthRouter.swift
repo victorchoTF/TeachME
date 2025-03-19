@@ -8,8 +8,9 @@
 import Foundation
 import SwiftUI
 
-class AuthRouter {
+class AuthRouter: ObservableObject {
     @Published var path = [Destination]()
+    @Published var isLoggedIn: Bool = false // TODO: Don't hardcode it
     
     let theme: Theme
     let authRepository: AuthRepository
@@ -41,17 +42,21 @@ extension AuthRouter {
         let loginFormViewModel = LoginFormViewModel(
             authRepository: authRepository,
             userRepository: userRepository,
-            userMapper: userMapper,
-            onSubmit: onSubmit
-        )
+            userMapper: userMapper
+        ) { [weak self] userItem in
+            self?.isLoggedIn = true
+            self?.onSubmit(userItem)
+        }
         
         let registerFormViewModel = RegisterFormViewModel(
             authRepository: authRepository,
             userRepository: userRepository,
             roleRepository: roleRepository,
-            userMapper: userMapper,
-            onSubmit: onSubmit
-        )
+            userMapper: userMapper
+        ) { [weak self] userItem in
+            self?.isLoggedIn = true
+            self?.onSubmit(userItem)
+        }
         
         let viewModel = AuthScreenViewModel(
             loginFormViewModel: loginFormViewModel,

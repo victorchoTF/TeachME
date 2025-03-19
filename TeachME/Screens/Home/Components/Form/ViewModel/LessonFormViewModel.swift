@@ -58,10 +58,6 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
     }
 
     func onSubmit() {
-        guard let teacher = lesson?.teacher else {
-            return
-        }
-        
         let lesson = LessonItem(
             id: teacher.id,
             lessonType: lessonType,

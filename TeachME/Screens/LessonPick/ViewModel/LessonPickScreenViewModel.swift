@@ -155,6 +155,7 @@ private extension LessonPickScreenViewModel {
         }
     }
     
+    // TODO: Certain cases couse Internal Server Error
     func updateLesson(lesson: LessonItem) {
         Task {
             guard let lessonBody = try await lessonBodyModelByLessonItem(lesson: lesson) else {

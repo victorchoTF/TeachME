@@ -137,6 +137,7 @@ private extension AppDependencies {
         ) { [weak self] tabRouter, userItem in
             self?.tabRouter.homeRouter.user = userItem
             self?.tabRouter.lessonRouter.user = userItem
+            self?.tabRouter.profileRouter.user = userItem
         }
     }
 

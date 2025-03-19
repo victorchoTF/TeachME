@@ -9,22 +9,19 @@ import SwiftUI
 
 struct ContentView: View {
     let theme: Theme
-    let authRouter: AuthRouter
     
-    
-    @State var isLoggedIn: Bool = false // TODO: Don't hardcode it
     @StateObject var tabRouter: TabRouter
+    @StateObject var authRouter: AuthRouter
+
     
     init(theme: Theme, authRouter: AuthRouter, tabRouter: TabRouter) {
         self.theme = theme
-        self.authRouter = authRouter
-        self._tabRouter = StateObject(
-            wrappedValue: tabRouter
-        )
+        self._authRouter = StateObject(wrappedValue: authRouter)
+        self._tabRouter = StateObject(wrappedValue: tabRouter)
     }
     
     var body: some View {
-        if isLoggedIn {
+        if authRouter.isLoggedIn {
             tabView
         } else {
             authScreen
