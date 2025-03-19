@@ -42,3 +42,9 @@ struct UserItemBody {
     let phoneNumber: String
     let bio: String
 }
+
+struct UserLessonBodyItem: Identifiable {
+    let id: UUID
+    let name: String
+    let profilePicture: Image
+}

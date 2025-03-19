@@ -48,8 +48,10 @@ struct ProfileScreen: View {
 private extension ProfileScreen {
     @ViewBuilder
     var userCard: some View {
-        UserCard(user: viewModel.userItem, theme: theme)
+        if let userItem = viewModel.userItem {
+            UserCard(user: userItem, theme: theme)
                 .background(theme.colors.primary)
                 .frame(maxWidth: .infinity)
+        }
     }
 }

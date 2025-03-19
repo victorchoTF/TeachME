@@ -12,15 +12,20 @@ class ProfileRouter {
     @Published var path = [Destination]()
     
     let theme: Theme
-    let user: UserItem
+    var user: UserItem?
     
-    let authRepository: UserRepository
+    let userRepository: UserRepository
     let mapper: UserMapper
     
-    init(theme: Theme, user: UserItem, authRepository: UserRepository, mapper: UserMapper) {
+    init(
+        theme: Theme,
+        user: UserItem? = nil,
+        userRepository: UserRepository,
+        mapper: UserMapper
+    ) {
         self.theme = theme
         self.user = user
-        self.authRepository = authRepository
+        self.userRepository = userRepository
         self.mapper = mapper
     }
     
@@ -29,8 +34,8 @@ class ProfileRouter {
 extension ProfileRouter: Router {
     var initialDestination: some View {
         let viewModel = ProfileScreenViewModel(
-            userItem: user,
-            authRepository: authRepository,
+            router: self,
+            userRepository: userRepository,
             mapper: mapper
         )
 
