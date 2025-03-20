@@ -12,6 +12,13 @@ import SwiftUI
     @Published var path = [Destination]()
     @Published var isLoggedIn: Bool = false // TODO: Don't hardcode it
     
+    var tabRouterFacade: TabRouterFacade
+        
+    lazy var _tabRouterFacade: Binding<TabRouterFacade> = Binding(
+        get: { self.tabRouterFacade },
+        set: { self.tabRouterFacade = $0 }
+    )
+    
     private let theme: Theme
     private let authRepository: AuthRepository
     private let userRepository: UserRepository
@@ -23,13 +30,15 @@ import SwiftUI
         authRepository: AuthRepository,
         userRepository: UserRepository,
         roleRepository: RoleRepository,
-        userMapper: UserMapper
+        userMapper: UserMapper,
+        tabRouterFacade: TabRouterFacade
     ) {
         self.theme = theme
         self.authRepository = authRepository
         self.userRepository = userRepository
         self.roleRepository = roleRepository
         self.userMapper = userMapper
+        self.tabRouterFacade = tabRouterFacade
     }
 }
 
@@ -40,6 +49,7 @@ extension AuthRouter {
             userRepository: userRepository,
             userMapper: userMapper
         ) { userItem in
+            self.tabRouterFacade.initTabRouter(user: userItem)
             self.isLoggedIn = true
         }
         
@@ -49,6 +59,7 @@ extension AuthRouter {
             roleRepository: roleRepository,
             userMapper: userMapper
         ) { userItem in
+            self.tabRouterFacade.initTabRouter(user: userItem)
             self.isLoggedIn = true
         }
         
