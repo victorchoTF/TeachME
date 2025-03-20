@@ -96,14 +96,6 @@ struct TeachMEApp: App {
         
         theme = PrimaryTheme()
         
-        authRouter = AuthRouter(
-            theme: theme,
-            authRepository: authRepository,
-            userRepository: userRepository,
-            roleRepository: roleRepository,
-            userMapper: userMapper
-        )
-        
         tabRouterFacade = TabRouterFacade(
             theme: theme,
             userRepository: userRepository,
@@ -111,6 +103,15 @@ struct TeachMEApp: App {
             lessonTypeRepository: lessonTypeRepository,
             userMapper: userMapper,
             lessonMapper: lessonMapper
+        )
+        
+        authRouter = AuthRouter(
+            theme: theme,
+            authRepository: authRepository,
+            userRepository: userRepository,
+            roleRepository: roleRepository,
+            userMapper: userMapper,
+            tabRouterFacade: tabRouterFacade
         )
     }
     
