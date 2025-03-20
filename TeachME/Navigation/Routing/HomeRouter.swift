@@ -8,21 +8,21 @@
 import Foundation
 import SwiftUI
 
-class HomeRouter {
+@MainActor final class HomeRouter {
     @Published var path = [Destination]()
 
-    let theme: Theme
-    var user: UserItem?
+    private let theme: Theme
+    let user: UserItem
     
-    let userRepository: UserRepository
-    let lessonRepository: LessonRepository
-    let lessonTypeRepository: LessonTypeRepository
-    let userMapper: UserMapper
-    let lessonMapper: LessonMapper
+    private let userRepository: UserRepository
+    private let lessonRepository: LessonRepository
+    private let lessonTypeRepository: LessonTypeRepository
+    private let userMapper: UserMapper
+    private let lessonMapper: LessonMapper
 
     init(
         theme: Theme,
-        user: UserItem? = nil,
+        user: UserItem,
         userRepository: UserRepository,
         lessonRepository: LessonRepository,
         lessonTypeRepository: LessonTypeRepository,
@@ -41,7 +41,7 @@ class HomeRouter {
 }
 
 extension HomeRouter: Router {
-    var initialDestination: some View {
+    var initialDestination: some View{
         let viewModel = LessonListScreenViewModel(
             router: self,
             repository: lessonRepository,

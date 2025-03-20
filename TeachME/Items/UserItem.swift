@@ -43,7 +43,7 @@ struct UserItemBody {
     let bio: String
 }
 
-struct UserLessonBodyItem: Identifiable {
+struct UserLessonBodyItem: Identifiable, Equatable {
     let id: UUID
     let name: String
     let profilePicture: Image

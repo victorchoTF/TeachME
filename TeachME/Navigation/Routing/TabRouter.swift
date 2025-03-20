@@ -7,12 +7,10 @@
 
 import Foundation
 
-final class TabRouter: ObservableObject {
+@MainActor final class TabRouter: ObservableObject {
     @Published var homeRouter: HomeRouter
     @Published var lessonRouter: HomeRouter
     @Published var profileRouter: ProfileRouter
-    
-    let update: (TabRouter?, UserItem) -> ()
     
     @Published var selectedTab: Tab = .home {
         willSet {
@@ -26,13 +24,11 @@ final class TabRouter: ObservableObject {
     init(
         homeRouter: HomeRouter,
         lessonRouter: HomeRouter, // TODO: change when LessonRouter is implemented
-        profileRouter: ProfileRouter,
-        update: @escaping (TabRouter?, UserItem) -> ()
+        profileRouter: ProfileRouter
     ) {
         self.homeRouter = homeRouter
         self.lessonRouter = lessonRouter
         self.profileRouter = profileRouter
-        self.update = update
     }
     
     private var currentTabRouter: any Router {

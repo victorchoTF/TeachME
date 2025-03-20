@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class LessonListScreenViewModel: ObservableObject {
+@MainActor final class LessonListScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
     
     private weak var router: HomeRouter?
@@ -79,7 +79,7 @@ final class LessonListScreenViewModel: ObservableObject {
     }
     
     var shouldShowAddLessonButton: Bool {
-        router?.user?.role == .Teacher
+        router?.user.role == .Teacher
     }
     
     func onAddButtonTap() {
