@@ -9,15 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     let theme: Theme
-    
-    @StateObject var tabRouter: TabRouter
-    @StateObject var authRouter: AuthRouter
+    let authRouter: AuthRouter
 
+    @StateObject var tabRouterFacade: TabRouterFacade
     
-    init(theme: Theme, authRouter: AuthRouter, tabRouter: TabRouter) {
+    init(theme: Theme, authRouter: AuthRouter, tabRouterFacade: TabRouterFacade) {
         self.theme = theme
-        self._authRouter = StateObject(wrappedValue: authRouter)
-        self._tabRouter = StateObject(wrappedValue: tabRouter)
+        self.authRouter = authRouter
+        self._tabRouterFacade = StateObject(
+            wrappedValue: tabRouterFacade
+        )
     }
     
     var body: some View {
@@ -35,8 +36,8 @@ private extension ContentView {
     }
     
     var tabView: some View {
-        TabView(selection: $tabRouter.selectedTab) {
-            homeScreen
+        TabView(selection: $tabRouterFacade.selectedTab) {
+                homeScreen
                 .tag(Tab.home)
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
@@ -60,14 +61,14 @@ private extension ContentView {
     }
     
     var homeScreen: some View {
-        RouterView(title: "Home", router: tabRouter.homeRouter)
+        RouterView(title: "Home", router: tabRouterFacade.homeRouter as! HomeRouter)
     }
     
     var lessonScreen: some View {
-        RouterView(title: "Lessons", router: tabRouter.lessonRouter)
+        RouterView(title: "Lessons", router: tabRouterFacade.lessonRouter as! HomeRouter)
     }
     
     var profileScreen: some View {
-        RouterView(title: "Profile", router: tabRouter.profileRouter)
+        RouterView(title: "Profile", router: tabRouterFacade.profileRouter as! ProfileRouter)
     }
 }

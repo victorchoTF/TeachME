@@ -8,18 +8,18 @@
 import Foundation
 import SwiftUI
 
-class ProfileRouter {
+@MainActor class ProfileRouter {
     @Published var path = [Destination]()
+    @Published var user: UserItem
     
     let theme: Theme
-    var user: UserItem?
     
     let userRepository: UserRepository
     let mapper: UserMapper
     
     init(
         theme: Theme,
-        user: UserItem? = nil,
+        user: UserItem,
         userRepository: UserRepository,
         mapper: UserMapper
     ) {
