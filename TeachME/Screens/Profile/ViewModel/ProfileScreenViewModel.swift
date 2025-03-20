@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-final class ProfileScreenViewModel: ObservableObject {
+@MainActor final class ProfileScreenViewModel: ObservableObject {
     @Published var userItem: UserItem?
     @Published var editProfileFormViewModel: EditProfileFormViewModel?
     

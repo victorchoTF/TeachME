@@ -35,7 +35,8 @@ struct UserItem {
     }
 }
 
-struct UserLessonBodyItem{
+struct UserLessonBodyItem: Identifiable, Equatable {
+    let id: UUID
     let name: String
     let profilePicture: Image
 }

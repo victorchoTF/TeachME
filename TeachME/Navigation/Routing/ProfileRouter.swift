@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class ProfileRouter {
+@MainActor class ProfileRouter {
     @Published var path = [Destination]()
     
     let theme: Theme
