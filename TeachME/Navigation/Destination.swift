@@ -13,7 +13,7 @@ enum Destination {
 }
 
 extension Destination: Hashable {
-    @MainActor static func == (lhs: Destination, rhs: Destination) -> Bool {
+    static func == (lhs: Destination, rhs: Destination) -> Bool {
         switch (lhs, rhs) {
         case let (.lesson(lhsViewModel, _), .lesson(rhsViewModel, _)):
             return lhsViewModel == rhsViewModel

@@ -7,7 +7,7 @@
 
 import Foundation
 
-@MainActor final class TabRouter: ObservableObject {
+final class TabRouter: ObservableObject {
     @Published var homeRouter: HomeRouter
     @Published var lessonRouter: HomeRouter
     @Published var profileRouter: ProfileRouter
