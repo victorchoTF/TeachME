@@ -61,6 +61,7 @@ struct LessonMapper: Mapper {
             startDate: dateFormatter.toString(model.startDate),
             endDate: dateFormatter.toString(model.endDate),
             teacher: UserLessonBodyItem(
+                id: model.id,
                 name: "\(model.teacher.firstName) \(model.teacher.lastName)",
                 profilePicture: Image(
                     data: model.teacher.profilePicture,

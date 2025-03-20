@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class EditProfileFormViewModel: ObservableObject, Identifiable {
+@MainActor final class EditProfileFormViewModel: ObservableObject, Identifiable {
     @Published var email: String
     @Published var firstName: String
     @Published var lastName: String

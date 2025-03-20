@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI // TODO: Remove after DataLoading is implemented
 
-final class LessonListScreenViewModel: ObservableObject {
+@MainActor final class LessonListScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
     
     private weak var router: HomeRouter?
@@ -76,7 +76,7 @@ final class LessonListScreenViewModel: ObservableObject {
     }
     
     var shouldShowAddLessonButton: Bool {
-        router?.user?.role == .Teacher
+        router?.user.role == .Teacher
     }
     
     func onAddButtonTap() {
@@ -86,6 +86,7 @@ final class LessonListScreenViewModel: ObservableObject {
         
         self.lessonFormViewModel = LessonFormViewModel(
             teacher: UserLessonBodyItem(
+                id: user.id,
                 name: user.name,
                 profilePicture: user.profilePicture
             ),

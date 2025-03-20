@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI // TODO: Remove after DataLoading is implemented
 
-final class LessonPickScreenViewModel: ObservableObject {
+@MainActor final class LessonPickScreenViewModel: ObservableObject {
     @Published var pickedLesson: LessonItem
     @Published var teacher: UserItem?
     @Published var lessonFormViewModel: LessonFormViewModel?
@@ -70,7 +70,7 @@ final class LessonPickScreenViewModel: ObservableObject {
     }
     
     var pickLessonButtonText: String {
-        switch router?.user?.role {
+        switch router?.user.role {
         case .Teacher: "Edit"
         default: "Save"
         }
