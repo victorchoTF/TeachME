@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 final class ProfileScreenViewModel: ObservableObject {
-    @Published var userItem: UserItem?
     @Published var editProfileFormViewModel: EditProfileFormViewModel?
     
     private let userRepository: UserRepository
@@ -28,7 +27,7 @@ final class ProfileScreenViewModel: ObservableObject {
     }
     
     func openEditProfile() {
-        guard let user = router?.user else {
+        guard let user = userItem else {
             return
         }
         
@@ -52,11 +51,15 @@ final class ProfileScreenViewModel: ObservableObject {
             editProfileFormViewModel = nil
         }
     }
+    
+    var userItem: UserItem? {
+        router?.user
+    }
 }
 
 private extension ProfileScreenViewModel {
     func updateUser(user: UserItemBody) async throws -> UserItem? {
-        guard let userItem = router?.user else {
+        guard let userItem = userItem else {
             return nil
         }
         
