@@ -7,7 +7,7 @@
 
 import Foundation
 
-@MainActor final class LessonFormViewModel: ObservableObject, Identifiable {
+final class LessonFormViewModel: ObservableObject, Identifiable {
     @Published var lessonType: String
     @Published var subtitle: String
     @Published var startDate: Date
