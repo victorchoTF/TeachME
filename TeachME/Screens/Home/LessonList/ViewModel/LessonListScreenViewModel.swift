@@ -7,7 +7,7 @@
 
 import Foundation
 
-@MainActor final class LessonListScreenViewModel: ObservableObject {
+final class LessonListScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
     
     private weak var router: HomeRouter?

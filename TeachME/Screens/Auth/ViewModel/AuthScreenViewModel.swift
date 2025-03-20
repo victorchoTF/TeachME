@@ -12,7 +12,7 @@ enum FormMode {
     case register
 }
 
-@MainActor final class AuthScreenViewModel: ObservableObject {
+final class AuthScreenViewModel: ObservableObject {
     let loginFormViewModel: LoginFormViewModel
     let registerFormsViewModel: RegisterFormViewModel
     

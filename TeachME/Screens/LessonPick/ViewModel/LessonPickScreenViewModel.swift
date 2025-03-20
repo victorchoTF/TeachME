@@ -7,7 +7,7 @@
 
 import Foundation
 
-@MainActor final class LessonPickScreenViewModel: ObservableObject {
+final class LessonPickScreenViewModel: ObservableObject {
     @Published var pickedLesson: LessonItem
     @Published var teacher: UserItem?
     @Published var lessonFormViewModel: LessonFormViewModel?

@@ -1,42 +1,30 @@
 //
-//  ContentView.swift
+//  IdleScreen.swift
 //  TeachME
 //
-//  Created by TumbaDev on 19.01.25.
+//  Created by TumbaDev on 20.03.25.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct IdleScreen: View {
     let theme: Theme
-    let authRouter: AuthRouter
-
-    @StateObject var tabRouterFacade: TabRouterFacade
+    @StateObject var viewModel: IdleScreenViewModel
     
-    init(theme: Theme, authRouter: AuthRouter, tabRouterFacade: TabRouterFacade) {
+    init(theme: Theme, viewModel: IdleScreenViewModel) {
         self.theme = theme
-        self.authRouter = authRouter
-        self._tabRouterFacade = StateObject(
-            wrappedValue: tabRouterFacade
-        )
+        self._viewModel = StateObject(wrappedValue: viewModel)
     }
     
+    
     var body: some View {
-        if authRouter.isLoggedIn {
-            tabView
-        } else {
-            authScreen
-        }
+        tabView
     }
 }
 
-private extension ContentView {
-    var authScreen: some View {
-        authRouter.initialDestination
-    }
-    
+private extension IdleScreen {
     var tabView: some View {
-        TabView(selection: $tabRouterFacade.selectedTab) {
+        TabView(selection: $viewModel.tabRouter.selectedTab) {
                 homeScreen
                 .tag(Tab.home)
                 .tabItem {
@@ -61,14 +49,14 @@ private extension ContentView {
     }
     
     var homeScreen: some View {
-        RouterView(title: "Home", router: tabRouterFacade.homeRouter as! HomeRouter)
+        RouterView(title: "Home", router: viewModel.tabRouter.homeRouter)
     }
     
     var lessonScreen: some View {
-        RouterView(title: "Lessons", router: tabRouterFacade.lessonRouter as! HomeRouter)
+        RouterView(title: "Lessons", router: viewModel.tabRouter.lessonRouter)
     }
     
     var profileScreen: some View {
-        RouterView(title: "Profile", router: tabRouterFacade.profileRouter as! ProfileRouter)
+        RouterView(title: "Profile", router: viewModel.tabRouter.profileRouter)
     }
 }

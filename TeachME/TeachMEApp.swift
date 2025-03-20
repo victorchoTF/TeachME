@@ -11,17 +11,16 @@ import SwiftUI
 struct TeachMEApp: App {
     let theme: Theme
 
-    let authRouter: AuthRouter
-    let tabRouterFacade: TabRouterFacade
+    let appViewModel: AppViewModel
     
     init() {
         let roleMapper = RoleMapper()
         let jsonDecoder = JSONDecoder()
         let jsonEncoder = JSONEncoder()
         let httpClient = URLSession(configuration: .ephemeral)
-        let keychainStore = KeychainStore(identifier: "com.teachME.tokens")
+        let keychainStore = KeychainStore(identifier: "com.teachME.tokens") // FIXME: find a better way
         let tokenService = TokenService(
-            key: "token",
+            key: "token", // FIXME: find a better way
             keychainStore: keychainStore,
             encoder: jsonEncoder,
             decoder: jsonDecoder
@@ -96,31 +95,22 @@ struct TeachMEApp: App {
         
         theme = PrimaryTheme()
         
-        tabRouterFacade = TabRouterFacade(
-            theme: theme,
+        appViewModel = AppViewModel(
+            authRepository: authRepository,
             userRepository: userRepository,
+            roleRepository: roleRepository,
             lessonRepository: lessonRepository,
             lessonTypeRepository: lessonTypeRepository,
             userMapper: userMapper,
             lessonMapper: lessonMapper
         )
-        
-        authRouter = AuthRouter(
-            theme: theme,
-            authRepository: authRepository,
-            userRepository: userRepository,
-            roleRepository: roleRepository,
-            userMapper: userMapper,
-            tabRouterFacade: tabRouterFacade
-        )
     }
     
     var body: some Scene {
         WindowGroup {
-            ContentView(
+            AppView(
                 theme: theme,
-                authRouter: authRouter,
-                tabRouterFacade: tabRouterFacade
+                viewModel: appViewModel
             )
         }
     }
