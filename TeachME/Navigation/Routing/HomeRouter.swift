@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-@MainActor final class HomeRouter {
+final class HomeRouter {
     @Published var path = [Destination]()
 
     private let theme: Theme
