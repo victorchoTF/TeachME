@@ -9,32 +9,14 @@ import SwiftUI
 
 struct AppView: View {
     let theme: Theme
-    @StateObject var viewModel: AppViewModel
+    @StateObject var router: AppRouter
     
-    init(theme: Theme, viewModel: AppViewModel) {
+    init(theme: Theme, router: AppRouter) {
         self.theme = theme
-        self._viewModel = StateObject(wrappedValue: viewModel)
+        self._router = StateObject(wrappedValue: router)
     }
     
     var body: some View {
-        currentView
-    }
-}
-
-private extension AppView {
-    @ViewBuilder
-    var currentView: some View {
-        switch viewModel.state {
-        case .idle(let user):
-            IdleScreen(
-                theme: theme,
-                viewModel: viewModel.iddleScreenViewModel(user: user, theme: theme)
-            )
-        case .auth:
-            AuthScreen(viewModel: viewModel.authScreenViewModel, theme: theme)
-        case .loading:
-            // TODO: Implement in another PR
-            Text("Loading...")
-        }
+        router.initialDestination
     }
 }
