@@ -7,11 +7,11 @@
 
 import Foundation
 
-enum Endpoints: String {
-    case baseURL = "http://127.0.0.1:8080/"
-    case authURL = "http://127.0.0.1:8080/teach-me/"
-    case lessonTypesURL = "http://127.0.0.1:8080/teach-me/lesson-types/"
-    case rolesURL = "http://127.0.0.1:8080/teach-me/roles/"
-    case lessonsURL = "http://127.0.0.1:8080/teach-me/lessons/"
-    case usersURL = "http://127.0.0.1:8080/teach-me/users/"
+struct Endpoints {
+    static let baseURL: String = "http://127.0.0.1:8080/"
+    static let authURL: String = "\(baseURL)teach-me/"
+    static let lessonTypesURL: String = "\(authURL)lesson-types/"
+    static let rolesURL: String = "\(authURL)roles/"
+    static let lessonsURL: String = "\(authURL)lessons/"
+    static let usersURL: String = "\(authURL)users/"
 }

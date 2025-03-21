@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct IdleScreen: View {
+struct TeachMETabView: View {
     let theme: Theme
-    @StateObject var viewModel: IdleScreenViewModel
+    @StateObject var tabRouter: TabRouter
     
-    init(theme: Theme, viewModel: IdleScreenViewModel) {
+    init(theme: Theme, tabRouter: TabRouter) {
         self.theme = theme
-        self._viewModel = StateObject(wrappedValue: viewModel)
+        self._tabRouter = StateObject(wrappedValue: tabRouter)
     }
     
     
@@ -22,9 +22,9 @@ struct IdleScreen: View {
     }
 }
 
-private extension IdleScreen {
+private extension TeachMETabView {
     var tabView: some View {
-        TabView(selection: $viewModel.tabRouter.selectedTab) {
+        TabView(selection: $tabRouter.selectedTab) {
                 homeScreen
                 .tag(Tab.home)
                 .tabItem {
@@ -49,14 +49,14 @@ private extension IdleScreen {
     }
     
     var homeScreen: some View {
-        RouterView(title: "Home", router: viewModel.tabRouter.homeRouter)
+        RouterView(title: "Home", router: tabRouter.homeRouter)
     }
     
     var lessonScreen: some View {
-        RouterView(title: "Lessons", router: viewModel.tabRouter.lessonRouter)
+        RouterView(title: "Lessons", router: tabRouter.lessonRouter)
     }
     
     var profileScreen: some View {
-        RouterView(title: "Profile", router: viewModel.tabRouter.profileRouter)
+        RouterView(title: "Profile", router: tabRouter.profileRouter)
     }
 }

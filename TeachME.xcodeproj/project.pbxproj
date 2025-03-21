@@ -90,9 +90,8 @@
 		8EB0936B2D7C8FB40073C0F6 /* LessonTypeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0936A2D7C8FB40073C0F6 /* LessonTypeRepository.swift */; };
 		8EB0936F2D7C90480073C0F6 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0936E2D7C90480073C0F6 /* UserRepository.swift */; };
 		8EB093712D7C908F0073C0F6 /* LessonRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093702D7C908F0073C0F6 /* LessonRepository.swift */; };
-		8EBF411F2D8C73A6007932BF /* IdleScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF411E2D8C73A6007932BF /* IdleScreen.swift */; };
-		8EBF41222D8C74EC007932BF /* IdleScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF41212D8C74EC007932BF /* IdleScreenViewModel.swift */; };
-		8EBF41242D8C761C007932BF /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF41232D8C761C007932BF /* AppViewModel.swift */; };
+		8EBF411F2D8C73A6007932BF /* TeachMETabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF411E2D8C73A6007932BF /* TeachMETabView.swift */; };
+		8EBF41242D8C761C007932BF /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF41232D8C761C007932BF /* AppRouter.swift */; };
 		8EC1D32D2D475B5500987973 /* LessonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC1D32C2D475B5400987973 /* LessonCard.swift */; };
 		8EDBFF1C2D57A7BF008441D6 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDBFF1B2D57A7BF008441D6 /* ProfileScreen.swift */; };
 		8EDBFF1E2D57A807008441D6 /* ProfileScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDBFF1D2D57A807008441D6 /* ProfileScreenViewModel.swift */; };
@@ -187,9 +186,8 @@
 		8EB0936A2D7C8FB40073C0F6 /* LessonTypeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTypeRepository.swift; sourceTree = "<group>"; };
 		8EB0936E2D7C90480073C0F6 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		8EB093702D7C908F0073C0F6 /* LessonRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonRepository.swift; sourceTree = "<group>"; };
-		8EBF411E2D8C73A6007932BF /* IdleScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleScreen.swift; sourceTree = "<group>"; };
-		8EBF41212D8C74EC007932BF /* IdleScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleScreenViewModel.swift; sourceTree = "<group>"; };
-		8EBF41232D8C761C007932BF /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		8EBF411E2D8C73A6007932BF /* TeachMETabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachMETabView.swift; sourceTree = "<group>"; };
+		8EBF41232D8C761C007932BF /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		8EC1D32C2D475B5400987973 /* LessonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCard.swift; sourceTree = "<group>"; };
 		8EDBFF1B2D57A7BF008441D6 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		8EDBFF1D2D57A807008441D6 /* ProfileScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewModel.swift; sourceTree = "<group>"; };
@@ -417,7 +415,7 @@
 				8E75D4362D3E231C0082F5FE /* Screens */,
 				8E65F7442D3D2BDF00D3A793 /* TeachMEApp.swift */,
 				8E65F7462D3D2BDF00D3A793 /* AppView.swift */,
-				8EBF41232D8C761C007932BF /* AppViewModel.swift */,
+				8EBF41232D8C761C007932BF /* AppRouter.swift */,
 				8E65F7482D3D2BE100D3A793 /* Assets.xcassets */,
 				8E65F74A2D3D2BE100D3A793 /* Preview Content */,
 			);
@@ -445,7 +443,7 @@
 		8E75D4362D3E231C0082F5FE /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				8EBF411C2D8C738A007932BF /* Idle */,
+				8EBF411C2D8C738A007932BF /* TeachMETabView */,
 				8E5F20052D5DDF1500BE9C24 /* Home */,
 				8E7EBE4F2D3E406400C7C017 /* Modifiers */,
 				8EDBFF182D57A79F008441D6 /* Profile */,
@@ -657,29 +655,20 @@
 			path = DomainLayer;
 			sourceTree = "<group>";
 		};
-		8EBF411C2D8C738A007932BF /* Idle */ = {
+		8EBF411C2D8C738A007932BF /* TeachMETabView */ = {
 			isa = PBXGroup;
 			children = (
-				8EBF41202D8C74DF007932BF /* ViewModel */,
 				8EBF411D2D8C7395007932BF /* View */,
 			);
-			path = Idle;
+			path = TeachMETabView;
 			sourceTree = "<group>";
 		};
 		8EBF411D2D8C7395007932BF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8EBF411E2D8C73A6007932BF /* IdleScreen.swift */,
+				8EBF411E2D8C73A6007932BF /* TeachMETabView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		8EBF41202D8C74DF007932BF /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				8EBF41212D8C74EC007932BF /* IdleScreenViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		8EC1D32B2D475B3E00987973 /* Components */ = {
@@ -832,7 +821,6 @@
 				8EB0935D2D7C83CC0073C0F6 /* RoleMapper.swift in Sources */,
 				8EB093502D7C81590073C0F6 /* Model.swift in Sources */,
 				8E75D4462D3E2ED20082F5FE /* Colors.swift in Sources */,
-				8EBF41222D8C74EC007932BF /* IdleScreenViewModel.swift in Sources */,
 				8E866E7E2D58E9C8007FAE6B /* EditProfileForm.swift in Sources */,
 				8EB093632D7C849B0073C0F6 /* Mapper.swift in Sources */,
 				8EC1D32D2D475B5500987973 /* LessonCard.swift in Sources */,
@@ -880,8 +868,8 @@
 				8E75D4392D3E233F0082F5FE /* RegisterForm.swift in Sources */,
 				8E8C9AE42D82CDE400082B34 /* TokenProvider.swift in Sources */,
 				8E1160602D7488300097774B /* LessonDataSource.swift in Sources */,
-				8EBF411F2D8C73A6007932BF /* IdleScreen.swift in Sources */,
-				8EBF41242D8C761C007932BF /* AppViewModel.swift in Sources */,
+				8EBF411F2D8C73A6007932BF /* TeachMETabView.swift in Sources */,
+				8EBF41242D8C761C007932BF /* AppRouter.swift in Sources */,
 				8EFED0682D50A2BB00046F1D /* Destination.swift in Sources */,
 				8E6D1C8A2D67344400C400C4 /* FormType.swift in Sources */,
 				8E9669CB2D48AEEA00B5D6BA /* LessonItem.swift in Sources */,
