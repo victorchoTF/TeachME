@@ -171,9 +171,11 @@ private extension LessonPickScreenViewModel {
             return nil
         }
         
-        let lessonTypeModel = try await self.lessonTypeRepository.getAll().filter {
+        guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
             $0.name == lesson.lessonType
-        }[0]
+        }) else {
+            return nil
+        }
         
         // TODO: userItem is in the router, so the fetch is not needed
         let userModel = try await self.userRepository.getById(user.id)
