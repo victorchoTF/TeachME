@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI // TODO: Remove after DataLoading is implemented
 
 final class LessonListScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
@@ -68,7 +67,11 @@ final class LessonListScreenViewModel: ObservableObject {
                 LessonPickScreenViewModel(
                     pickedLesson: lesson,
                     router: router,
-                    lessonTypeRepository: lessonTypeRepository
+                    repository: repository,
+                    userRepostirory: userRepository,
+                    lessonTypeRepository: lessonTypeRepository,
+                    mapper: mapper,
+                    userMapper: userMapper
                 ),
                 theme
             )
@@ -140,7 +143,7 @@ private extension LessonListScreenViewModel {
         
         let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
         
-        let lessonModel = try self.mapper.itemToCreateBodyModel(
+        let lessonModel = try self.mapper.itemToBodyModel(
             lesson,
             lessonTypeModel: lessonTypeModel,
             teacherItem: userLessonBody

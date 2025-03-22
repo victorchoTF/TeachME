@@ -53,7 +53,7 @@ struct LessonPickScreen: View {
                 .foregroundStyle(theme.colors.accent)
             }
         }
-        .onAppear(perform: viewModel.loadData)
+        .task { await viewModel.loadData() }
         .sheet(item: $viewModel.lessonFormViewModel) { lessonFormViewModel in
             LessonForm(
                 viewModel: lessonFormViewModel,
@@ -99,6 +99,8 @@ private extension LessonPickScreen {
                     lesson: lesson,
                     theme: theme
                 )
+                .lineLimit(1)
+                .truncationMode(.tail)
                 .onTapGesture {
                     viewModel.onLessonTap(lesson: lesson, theme: theme)
                 }

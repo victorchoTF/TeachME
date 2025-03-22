@@ -20,6 +20,7 @@ final class TabRouter: ObservableObject {
         }
     }
     
+    //FIXME: Updating loading state issue
     init(
         homeRouter: HomeRouter,
         lessonRouter: HomeRouter, // TODO: change when LessonRouter is implemented

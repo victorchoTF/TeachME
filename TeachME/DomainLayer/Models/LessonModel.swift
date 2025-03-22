@@ -17,7 +17,7 @@ struct LessonModel: Model {
     let student: UserLessonBodyModel?
 }
 
-struct LessonCreateBodyModel {
+struct LessonBodyModel {
     let lessonType: LessonTypeModel
     let subtitle: String
     let startDate: Date

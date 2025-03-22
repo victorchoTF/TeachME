@@ -23,7 +23,7 @@ final class LessonDataSource: TeachMEAPIDataSource {
         self.decoder = decoder
     }
     
-    func create(_ body: LessonCreateBodyDTO) async throws -> LessonDTO {
+    func create(_ body: LessonBodyDTO) async throws -> LessonDTO {
         let jsonBody: Data
         do {
            jsonBody = try encoder.encode(body)
@@ -57,12 +57,36 @@ final class LessonDataSource: TeachMEAPIDataSource {
         return createdBody
     }
     
+    func update(_ body: LessonBodyDTO, id: UUID) async throws {
+        let jsonBody: Data
+        do {
+            jsonBody = try encoder.encode(body)
+        } catch {
+            throw DataSourceError.encodingError("Body of \(body) could not be encoded!")
+        }
+        
+        guard let request = try URLRequestBuilder(baseURL: baseURL, path: "\(id)")
+            .setMethod(.put)
+            .useJsonContentType()
+            .setBody(jsonBody)
+            .build()
+        else {
+            throw DataSourceError.invalidURL("\(baseURL)/\(id) not found")
+        }
+
+        do {
+            let _ = try await client.request(request)
+        } catch {
+            throw DataSourceError.updatingError("Data of \(body) could not be updated!")
+        }
+    }
+    
     func getOpenLessons() async throws -> [LessonDTO] {
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "open")
             .setMethod(.get)
             .build()
         else {
-            throw DataSourceError.invalidURL("\(baseURL)/open not found")
+            throw DataSourceError.invalidURL("\(baseURL)open not found")
         }
         
         let fetchedData: Data
@@ -87,7 +111,7 @@ final class LessonDataSource: TeachMEAPIDataSource {
             .setMethod(.get)
             .build()
         else {
-            throw DataSourceError.invalidURL("\(baseURL)/teacher/\(id) not found")
+            throw DataSourceError.invalidURL("\(baseURL)teacher/\(id) not found")
         }
         
         let fetchedData: Data
@@ -116,7 +140,7 @@ final class LessonDataSource: TeachMEAPIDataSource {
             .setMethod(.get)
             .build()
         else {
-            throw DataSourceError.invalidURL("\(baseURL)/student/\(id) not found")
+            throw DataSourceError.invalidURL("\(baseURL)student/\(id) not found")
         }
         
         let fetchedData: Data
@@ -145,7 +169,7 @@ final class LessonDataSource: TeachMEAPIDataSource {
             .setMethod(.get)
             .build()
         else {
-            throw DataSourceError.invalidURL("\(baseURL)/lesson-type/\(id) not found")
+            throw DataSourceError.invalidURL("\(baseURL)lesson-type/\(id) not found")
         }
         
         let fetchedData: Data
@@ -169,27 +193,27 @@ final class LessonDataSource: TeachMEAPIDataSource {
         return data
     }
     
-    func takeLesson(lesson: LessonDTO) async throws {
-        let lessonData: Data
+    func takeLesson(_ body: LessonBodyDTO, id: UUID) async throws {
+        let lessonBody: Data
         do {
-            lessonData = try encoder.encode(lesson)
+            lessonBody = try encoder.encode(body)
         } catch {
-            throw DataSourceError.encodingError("Lesson of \(lesson) could not be encoded!")
+            throw DataSourceError.encodingError("Lesson of \(body) could not be encoded!")
         }
         
-        guard let request = try URLRequestBuilder(baseURL: baseURL, path: "\(lesson.id)")
+        guard let request = try URLRequestBuilder(baseURL: baseURL, path: "take-lesson/\(id)")
             .setMethod(.put)
             .useJsonContentType()
-            .setBody(lessonData)
+            .setBody(lessonBody)
             .build()
         else {
-            throw DataSourceError.invalidURL("\(baseURL)/take-lesson/\(lesson.id) not found")
+            throw DataSourceError.invalidURL("\(baseURL)take-lesson/\(id) not found")
         }
 
         do {
             let _ = try await client.request(request)
         } catch {
-            throw DataSourceError.updatingError("Lesson of \(lesson) could not be updated!")
+            throw DataSourceError.updatingError("Lesson of \(body) could not be updated!")
         }
     }
 }

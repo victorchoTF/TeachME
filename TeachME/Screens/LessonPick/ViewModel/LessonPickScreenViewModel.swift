@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI // TODO: Remove after DataLoading is implemented
 
 final class LessonPickScreenViewModel: ObservableObject {
     @Published var pickedLesson: LessonItem
@@ -14,18 +13,31 @@ final class LessonPickScreenViewModel: ObservableObject {
     @Published var lessonFormViewModel: LessonFormViewModel?
     @Published var otherLessons: [LessonItem] = []
     
+    private let repository: LessonRepository
+    private let userRepository: UserRepository
     private let lessonTypeRepository: LessonTypeRepository
+    
+    private let mapper: LessonMapper
+    private let userMapper: UserMapper
     
     private weak var router: HomeRouter?
     
     init(
         pickedLesson: LessonItem,
         router: HomeRouter,
-        lessonTypeRepository: LessonTypeRepository
+        repository: LessonRepository,
+        userRepostirory: UserRepository,
+        lessonTypeRepository: LessonTypeRepository,
+        mapper: LessonMapper,
+        userMapper: UserMapper
     ) {
         self.pickedLesson = pickedLesson
         self.router = router
+        self.repository = repository
+        self.userRepository = userRepostirory
         self.lessonTypeRepository = lessonTypeRepository
+        self.mapper = mapper
+        self.userMapper = userMapper
     }
     
     func onLessonTap(lesson: LessonItem, theme: Theme) {
@@ -38,27 +50,40 @@ final class LessonPickScreenViewModel: ObservableObject {
                 LessonPickScreenViewModel(
                     pickedLesson: lesson,
                     router: router, 
-                    lessonTypeRepository: lessonTypeRepository
+                    repository: repository,
+                    userRepostirory: userRepository,
+                    lessonTypeRepository: lessonTypeRepository,
+                    mapper: mapper,
+                    userMapper: userMapper
                 ),
                 theme
             )
         )
     }
     
-    // TODO: Should load real data in future
-    func loadData() {
-        teacher = UserItem(
-            id: UUID(),
-            name: "George Demo",
-            profilePicture: Image(systemName: "person.crop.circle"),
-            email: "george_demo@gmail.com",
-            phoneNumber: "0874567243",
-            bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves",
-            role: .Student
-        )
-        
-        otherLessons = [
-        ]
+    func loadData() async{
+        do {
+            teacher = try await userMapper.modelToItem(
+                userRepository.getById(
+                    pickedLesson.teacher.id
+                )
+            )
+            
+            otherLessons = try await repository.getLessonsByTeacherId(
+                pickedLesson.teacher.id
+            )
+            .filter {
+                $0.student == nil
+            }
+            .map {
+                mapper.modelToItem($0)
+            }
+            .filter {
+                $0.id != pickedLesson.id
+            }
+        } catch {
+            print("An error occured")
+        }
     }
     
     var moreAboutTitle: String {
@@ -100,13 +125,92 @@ private extension LessonPickScreenViewModel {
                 self?.lessonFormViewModel = nil
             }
         ) { [weak self] lesson in
+            self?.updateLesson(lesson: lesson)
+            
             self?.pickedLesson = lesson
             self?.lessonFormViewModel = nil
         }
     }
     
+    // TODO: Notify user of what has happened
+    // FIXME: Not reloading data as expected on popToRoot()
     func studentAction() {
-        print("Saving: \(self.pickedLesson)")
+        takeLesson()
+        router?.popToRoot()
+    }
+    
+    func takeLesson() {
+        Task {
+            guard let lessonBody = try await lessonBodyModelByLessonItem(
+                lesson: pickedLesson
+            ) else {
+                return
+            }
+            
+            guard let lessonBodyWithStudent = try await addStudentToLessonBody(lessonBody) else {
+                return
+            }
+            
+            try await self.repository.takeLesson(lessonBodyWithStudent, id: pickedLesson.id)
+        }
+    }
+    
+    func updateLesson(lesson: LessonItem) {
+        Task {
+            guard let lessonBody = try await lessonBodyModelByLessonItem(lesson: lesson) else {
+                return
+            }
+            
+            try await self.repository.update(lessonBody, id: lesson.id)
+        }
+    }
+    
+    func lessonBodyModelByLessonItem(lesson: LessonItem) async throws -> LessonBodyModel? {
+        guard let user = self.router?.user else {
+            return nil
+        }
+        
+        guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
+            $0.name == lesson.lessonType
+        }) else {
+            return nil
+        }
+        
+        // TODO: userItem is in the router, so the fetch is not needed
+        let userModel = try await self.userRepository.getById(user.id)
+        
+        let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
+        
+        let lessonModel = try self.mapper.itemToBodyModel(
+            lesson,
+            lessonTypeModel: lessonTypeModel,
+            teacherItem: userLessonBody
+        )
+        
+        return lessonModel
+    }
+    
+    func addStudentToLessonBody(_ body: LessonBodyModel) async throws -> LessonBodyModel? {
+        guard let user = router?.user else {
+            return nil
+        }
+        
+        // TODO: userItem is in the router, so the fetch is not needed
+        let student = try await userRepository.getById(user.id)
+        
+        return LessonBodyModel(
+            lessonType: body.lessonType,
+            subtitle: body.subtitle,
+            startDate: body.startDate,
+            endDate: body.endDate,
+            teacher: body.teacher,
+            student: UserLessonBodyModel(
+                id: student.id,
+                firstName: student.firstName,
+                lastName: student.lastName,
+                profilePicture: student.userDetail?.profilePicture
+            )
+        )
     }
 }
 
