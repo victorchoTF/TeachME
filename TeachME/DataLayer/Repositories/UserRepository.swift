@@ -20,6 +20,10 @@ final class UserRepository: Repository {
         self.mapper = mapper
     }
     
+    func update(_ model: UserBodyModel, id: UUID) async throws {
+        try await dataSource.update(mapper.bodyModelToBodyDTO(model, userId: id), id: id)
+    }
+    
     func getUserByEmail(_ email: String) async throws -> UserModel {
         try await mapper.dtoToModel(dataSource.fetchByEmail(email))
     }

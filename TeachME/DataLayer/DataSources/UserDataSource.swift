@@ -22,6 +22,30 @@ final class UserDataSource: TeachMEAPIDataSource {
         self.decoder = decoder
     }
     
+    func update(_ body: UserBodyDTO, id: UUID) async throws {
+        let jsonBody: Data
+        do {
+            jsonBody = try encoder.encode(body)
+        } catch {
+            throw DataSourceError.encodingError("Body of \(body) could not be encoded!")
+        }
+        
+        guard let request = try URLRequestBuilder(baseURL: baseURL, path: "\(id)")
+            .setMethod(.put)
+            .useJsonContentType()
+            .setBody(jsonBody)
+            .build()
+        else {
+            throw DataSourceError.invalidURL("\(baseURL)/\(id) not found")
+        }
+
+        do {
+            let _ = try await client.request(request)
+        } catch {
+            throw DataSourceError.updatingError("Data of \(body) could not be updated!")
+        }
+    }
+    
     func fetchByEmail(_ email: String) async throws -> UserDTO {
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "email/\(email)")
             .setMethod(.get)

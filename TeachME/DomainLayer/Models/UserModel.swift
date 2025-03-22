@@ -16,6 +16,13 @@ struct UserModel: Model {
     let role: RoleModel
 }
 
+struct UserBodyModel {
+    let email: String
+    let firstName: String
+    let lastName: String
+    let userDetails: UserDetailBodyModel?
+}
+
 struct UserLessonBodyModel: Model {
     let id: UUID
     let firstName: String

@@ -9,20 +9,17 @@ import Foundation
 import SwiftUI
 
 final class ProfileScreenViewModel: ObservableObject {
-    @Published var userItem: UserItem?
     @Published var editProfileFormViewModel: EditProfileFormViewModel?
     
-    // TODO: Fetch real data
-    func loadData() {
-        userItem = UserItem(
-            id: UUID(),
-            name: "George Demo",
-            profilePicture: Image(systemName: "person.crop.circle"),
-            email: "george_demo@gmail.com",
-            phoneNumber: "0874567243",
-            bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves",
-            role: .Student
-        )
+    private let userRepository: UserRepository
+    private let mapper: UserMapper
+    
+    private weak var router: ProfileRouter?
+    
+    init(router: ProfileRouter?, userRepository: UserRepository, mapper: UserMapper) {
+        self.router = router
+        self.userRepository = userRepository
+        self.mapper = mapper
     }
     
     var editButtonText: String {
@@ -30,17 +27,55 @@ final class ProfileScreenViewModel: ObservableObject {
     }
     
     func openEditProfile() {
-        guard let user = userItem else { return }
-        editProfileFormViewModel = EditProfileFormViewModel(userItem: user, onCancel: { [weak self] in
+        guard let user = userItem else {
+            return
+        }
+        
+        editProfileFormViewModel = EditProfileFormViewModel(
+            userItem: user,
+            onCancel: { [weak self] in
             self?.editProfileFormViewModel = nil
         }) { [weak self] user in
             self?.updateProfile(userItem: user)
         }
     }
 
-    func updateProfile(userItem: UserItem) {
-        self.userItem = userItem
+    func updateProfile(userItem: UserItemBody) {
+        Task {
+            guard let user = try await updateUser(user: userItem) else {
+                return
+            }
+            
+            self.router?.user = user
+            
+            editProfileFormViewModel = nil
+        }
+    }
+    
+    var userItem: UserItem? {
+        router?.user
+    }
+}
+
+private extension ProfileScreenViewModel {
+    func updateUser(user: UserItemBody) async throws -> UserItem? {
+        guard let userItem = userItem else {
+            return nil
+        }
         
-        editProfileFormViewModel = nil
+        // TODO: userItem is in the router, so the fetch is not needed
+        let profilePicture = try await userRepository.getById(
+            userItem.id
+        ).userDetail?.profilePicture
+        
+        let userModelBody = mapper.itemBodyToBodyModel(
+            user,
+            userId: userItem.id,
+            profilePicture: profilePicture
+        )
+        
+        try await userRepository.update(userModelBody, id: userItem.id)
+        
+        return try await mapper.modelToItem(userRepository.getById(userItem.id))
     }
 }

@@ -42,20 +42,16 @@ struct ProfileScreen: View {
                 Spacer()
             }
             .background(theme.colors.primary)
-            .onAppear(perform: viewModel.loadData)
         }
     }
 
 private extension ProfileScreen {
     @ViewBuilder
     var userCard: some View {
-        if let user = viewModel.userItem {
-            UserCard(user: user, theme: theme)
+        if let userItem = viewModel.userItem {
+            UserCard(user: userItem, theme: theme)
                 .background(theme.colors.primary)
                 .frame(maxWidth: .infinity)
-        } else {
-            // TODO: Implement in another PR
-            Text("Loading...")
         }
     }
 }

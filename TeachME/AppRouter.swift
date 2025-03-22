@@ -87,8 +87,14 @@ private extension AppRouter {
                 lessonTypeRepository: lessonTypeRepository,
                 userMapper: userMapper,
                 lessonMapper: lessonMapper
-            ), // TODO: Switch to LessonRouter when implemented
-            profileRouter: ProfileRouter(theme: theme)
+            ),
+            // TODO: Switch to LessonRouter when implemented
+            profileRouter: ProfileRouter(
+                theme: theme,
+                user: user,
+                userRepository: userRepository,
+                mapper: userMapper
+            )
         )
     }
     

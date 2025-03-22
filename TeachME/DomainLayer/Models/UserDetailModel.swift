@@ -13,3 +13,10 @@ struct UserDetailModel: Model {
     let profilePicture: Data?
     let phoneNumber: String?
 }
+
+struct UserDetailBodyModel {
+    let userId: UUID
+    let bio: String?
+    let profilePicture: Data?
+    let phoneNumber: String?
+}

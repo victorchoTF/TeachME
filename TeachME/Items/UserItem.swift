@@ -35,6 +35,14 @@ struct UserItem {
     }
 }
 
+struct UserItemBody {
+    let firstName: String
+    let lastName: String
+    let email: String
+    let phoneNumber: String
+    let bio: String
+}
+
 struct UserLessonBodyItem: Identifiable, Equatable {
     let id: UUID
     let name: String
