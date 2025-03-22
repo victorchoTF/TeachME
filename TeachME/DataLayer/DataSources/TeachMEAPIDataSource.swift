@@ -10,41 +10,6 @@ import Foundation
 protocol TeachMEAPIDataSource: APIDataSource {}
 
 extension TeachMEAPIDataSource {
-    // FIXME: This is not working since API expects CreateBodies not strait contents
-    func create(_ data: DataType) async throws -> DataType {
-        let jsonData: Data
-        do {
-           jsonData = try encoder.encode(data)
-        } catch {
-           throw DataSourceError.encodingError("Data of \(data) could not be encoded!")
-        }
-        
-        guard let request = try URLRequestBuilder(baseURL: baseURL)
-            .setMethod(.post)
-            .useJsonContentType()
-            .setBody(jsonData)
-            .build()
-        else {
-            throw DataSourceError.invalidURL("\(baseURL) not found")
-        }
-
-        let returnedData: Data
-        do {
-            (returnedData, _) = try await client.request(request)
-        } catch {
-           throw DataSourceError.postingError("Data of \(data) could not be created!")
-        }
-        
-        let createdData: DataType
-        do {
-            createdData = try decoder.decode(DataType.self, from: returnedData)
-        } catch {
-            throw DataSourceError.decodingError("Data of \(returnedData) could not be decoded!")
-        }
-        
-        return createdData
-    }
-    
     func fetchById(_ id: UUID) async throws -> DataType{
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "\(id)")
             .setMethod(.get)

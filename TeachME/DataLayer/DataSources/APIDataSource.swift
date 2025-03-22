@@ -16,7 +16,6 @@ protocol APIDataSource {
     var encoder: JSONEncoder { get }
     var decoder: JSONDecoder { get }
     
-    func create(_ data: DataType) async throws -> DataType
     func fetchById(_ id: UUID) async throws -> DataType
     func update(_ data: DataType) async throws
     func delete(_ id: UUID) async throws

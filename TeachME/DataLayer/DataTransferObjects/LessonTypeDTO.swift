@@ -11,3 +11,7 @@ struct LessonTypeDTO: DataTransferObject {
     let id: UUID
     let name: String
 }
+
+struct LessonTypeCreateBodyDTO: Encodable {
+    let name: String
+}

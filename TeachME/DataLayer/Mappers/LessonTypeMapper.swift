@@ -15,4 +15,10 @@ struct LessonTypeMapper: Mapper {
     func modelToDTO(_ model: LessonTypeModel) -> LessonTypeDTO {
         LessonTypeDTO(id: model.id, name: model.name)
     }
+    
+    func createBodyModelToCreateBodyDTO(
+        _ model: LessonTypeCreateBodyModel
+    ) -> LessonTypeCreateBodyDTO {
+        LessonTypeCreateBodyDTO(name: model.name)
+    }
 }

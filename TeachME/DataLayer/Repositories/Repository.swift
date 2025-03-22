@@ -15,8 +15,7 @@ protocol Repository {
     
     var dataSource: DataSource { get }
     var mapper: MapperType { get }
-    
-    func create(_ model: ModelType) async throws -> ModelType
+
     func getById(_ id: UUID) async throws -> ModelType
     func update(_ model: ModelType) async throws
     func delete(_ id: UUID) async throws
@@ -24,11 +23,6 @@ protocol Repository {
 }
 
 extension Repository {
-    // FIXME: This is not working since API expects CreateBodies not strait contents
-    func create(_ model: ModelType) async throws -> ModelType {
-        try await mapper.dtoToModel(dataSource.create(mapper.modelToDTO(model)))
-    }
-    
     func getById(_ id: UUID) async throws -> ModelType {
         try await mapper.dtoToModel(dataSource.fetchById(id))
     }
