@@ -13,7 +13,6 @@
 		8E1160522D7483A30097774B /* UserDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1160512D7483A30097774B /* UserDTO.swift */; };
 		8E1160542D7484240097774B /* LessonDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1160532D7484240097774B /* LessonDTO.swift */; };
 		8E1160582D7485D00097774B /* LessonTypeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1160572D7485D00097774B /* LessonTypeDataSource.swift */; };
-		8E11605A2D7486190097774B /* UserDetailDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1160592D7486190097774B /* UserDetailDataSource.swift */; };
 		8E11605C2D74865B0097774B /* UserDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11605B2D74865B0097774B /* UserDataSource.swift */; };
 		8E11605E2D7486FD0097774B /* RoleDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11605D2D7486FD0097774B /* RoleDataSource.swift */; };
 		8E1160602D7488300097774B /* LessonDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11605F2D7488300097774B /* LessonDataSource.swift */; };
@@ -89,7 +88,6 @@
 		8EB093672D7C87030073C0F6 /* LessonMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093662D7C87030073C0F6 /* LessonMapper.swift */; };
 		8EB093692D7C8F450073C0F6 /* RoleRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093682D7C8F450073C0F6 /* RoleRepository.swift */; };
 		8EB0936B2D7C8FB40073C0F6 /* LessonTypeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0936A2D7C8FB40073C0F6 /* LessonTypeRepository.swift */; };
-		8EB0936D2D7C8FF30073C0F6 /* UserDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0936C2D7C8FF30073C0F6 /* UserDetailRepository.swift */; };
 		8EB0936F2D7C90480073C0F6 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0936E2D7C90480073C0F6 /* UserRepository.swift */; };
 		8EB093712D7C908F0073C0F6 /* LessonRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093702D7C908F0073C0F6 /* LessonRepository.swift */; };
 		8EBF411F2D8C73A6007932BF /* TeachMETabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF411E2D8C73A6007932BF /* TeachMETabView.swift */; };
@@ -110,7 +108,6 @@
 		8E1160512D7483A30097774B /* UserDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDTO.swift; sourceTree = "<group>"; };
 		8E1160532D7484240097774B /* LessonDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDTO.swift; sourceTree = "<group>"; };
 		8E1160572D7485D00097774B /* LessonTypeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTypeDataSource.swift; sourceTree = "<group>"; };
-		8E1160592D7486190097774B /* UserDetailDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailDataSource.swift; sourceTree = "<group>"; };
 		8E11605B2D74865B0097774B /* UserDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataSource.swift; sourceTree = "<group>"; };
 		8E11605D2D7486FD0097774B /* RoleDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleDataSource.swift; sourceTree = "<group>"; };
 		8E11605F2D7488300097774B /* LessonDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDataSource.swift; sourceTree = "<group>"; };
@@ -187,7 +184,6 @@
 		8EB093662D7C87030073C0F6 /* LessonMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonMapper.swift; sourceTree = "<group>"; };
 		8EB093682D7C8F450073C0F6 /* RoleRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleRepository.swift; sourceTree = "<group>"; };
 		8EB0936A2D7C8FB40073C0F6 /* LessonTypeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTypeRepository.swift; sourceTree = "<group>"; };
-		8EB0936C2D7C8FF30073C0F6 /* UserDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailRepository.swift; sourceTree = "<group>"; };
 		8EB0936E2D7C90480073C0F6 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		8EB093702D7C908F0073C0F6 /* LessonRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonRepository.swift; sourceTree = "<group>"; };
 		8EBF411E2D8C73A6007932BF /* TeachMETabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachMETabView.swift; sourceTree = "<group>"; };
@@ -596,7 +592,6 @@
 				8EB0934C2D7C810C0073C0F6 /* Repository.swift */,
 				8EB093682D7C8F450073C0F6 /* RoleRepository.swift */,
 				8EB0936A2D7C8FB40073C0F6 /* LessonTypeRepository.swift */,
-				8EB0936C2D7C8FF30073C0F6 /* UserDetailRepository.swift */,
 				8EB0936E2D7C90480073C0F6 /* UserRepository.swift */,
 				8EB093702D7C908F0073C0F6 /* LessonRepository.swift */,
 				8E3CF2462D7D9D13009D30D5 /* AuthRepository.swift */,
@@ -608,7 +603,6 @@
 			isa = PBXGroup;
 			children = (
 				8E1160572D7485D00097774B /* LessonTypeDataSource.swift */,
-				8E1160592D7486190097774B /* UserDetailDataSource.swift */,
 				8E11605B2D74865B0097774B /* UserDataSource.swift */,
 				8E11605D2D7486FD0097774B /* RoleDataSource.swift */,
 				8E11605F2D7488300097774B /* LessonDataSource.swift */,
@@ -842,7 +836,6 @@
 				8E11604C2D7482DD0097774B /* RoleDTO.swift in Sources */,
 				8E3427AD2D3E649900A38A2D /* Fonts.swift in Sources */,
 				8EFED0662D50A1F900046F1D /* Router.swift in Sources */,
-				8EB0936D2D7C8FF30073C0F6 /* UserDetailRepository.swift in Sources */,
 				8E2982902D4A38CF00588D8E /* LessonListScreenViewModel.swift in Sources */,
 				8E8C9AEA2D82D1A900082B34 /* TokenSetter.swift in Sources */,
 				8E3CF2412D7D9590009D30D5 /* TokenResponse.swift in Sources */,
@@ -874,7 +867,6 @@
 				8EB0934D2D7C810C0073C0F6 /* Repository.swift in Sources */,
 				8E75D4392D3E233F0082F5FE /* RegisterForm.swift in Sources */,
 				8E8C9AE42D82CDE400082B34 /* TokenProvider.swift in Sources */,
-				8E11605A2D7486190097774B /* UserDetailDataSource.swift in Sources */,
 				8E1160602D7488300097774B /* LessonDataSource.swift in Sources */,
 				8EBF411F2D8C73A6007932BF /* TeachMETabView.swift in Sources */,
 				8EBF41242D8C761C007932BF /* AppRouter.swift in Sources */,

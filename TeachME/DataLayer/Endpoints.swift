@@ -14,5 +14,4 @@ struct Endpoints {
     static let rolesURL: String = "\(authURL)roles/"
     static let lessonsURL: String = "\(authURL)lessons/"
     static let usersURL: String = "\(authURL)users/"
-    static let userDetailsURL: String = "\(authURL)user-details/"
 }
