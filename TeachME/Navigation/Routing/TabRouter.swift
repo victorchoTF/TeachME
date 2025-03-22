@@ -8,10 +8,9 @@
 import Foundation
 
 final class TabRouter: ObservableObject {
-    let homeRouter: HomeRouter
-    let lessonRouter: HomeRouter
-    let profileRouter: ProfileRouter
-    let userRole: Role
+    @Published var homeRouter: HomeRouter
+    @Published var lessonRouter: HomeRouter
+    @Published var profileRouter: ProfileRouter
     
     @Published var selectedTab: Tab = .home {
         willSet {
@@ -21,11 +20,14 @@ final class TabRouter: ObservableObject {
         }
     }
     
-    init(theme: Theme) {
-        userRole = .teacher
-        homeRouter = HomeRouter(theme: theme, userRole: userRole)
-        lessonRouter = HomeRouter(theme: theme, userRole: userRole)
-        profileRouter = ProfileRouter(theme: theme)
+    init(
+        homeRouter: HomeRouter,
+        lessonRouter: HomeRouter, // TODO: change when LessonRouter is implemented
+        profileRouter: ProfileRouter
+    ) {
+        self.homeRouter = homeRouter
+        self.lessonRouter = lessonRouter
+        self.profileRouter = profileRouter
     }
     
     private var currentTabRouter: any Router {

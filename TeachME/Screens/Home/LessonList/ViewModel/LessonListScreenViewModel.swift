@@ -9,27 +9,53 @@ import Foundation
 import SwiftUI // TODO: Remove after DataLoading is implemented
 
 final class LessonListScreenViewModel: ObservableObject {
-    @Published var lessons: [LessonItem]
+    @Published var lessons: [LessonItem] = []
     
     private weak var router: HomeRouter?
     @Published var lessonFormViewModel: LessonFormViewModel?
     
-    @Published var userItem: UserItem?
+    private let repository: LessonRepository
+    private let lessonTypeRepository: LessonTypeRepository
+    private let userRepository: UserRepository
     
-    init(lessons: [LessonItem], router: HomeRouter) {
-        self.lessons = lessons
+    private let mapper: LessonMapper
+    private let userMapper: UserMapper
+    
+    init(
+        router: HomeRouter,
+        repository: LessonRepository,
+        lessonTypeRepository: LessonTypeRepository,
+        userRepository: UserRepository,
+        mapper: LessonMapper,
+        userMapper: UserMapper
+    ) {
         self.router = router
+        self.repository = repository
+        self.lessonTypeRepository = lessonTypeRepository
+        self.userRepository = userRepository
+        self.mapper = mapper
+        self.userMapper = userMapper
     }
     
-    // TODO: Should load real data in future
-    func loadData() {
-        userItem = UserItem(
-            name: "George Demo",
-            profilePicture: Image(systemName: "person.crop.circle"),
-            email: "george_demo@gmail.com",
-            phoneNumber: "0874567243",
-            bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves"
-        )
+    // TODO: Show alert on catch
+    func loadData() async {
+        guard let user = router?.user else {
+            return
+        }
+        
+        do {
+            if user.role == .Teacher {
+                lessons = try await repository.getLessonsByTeacherId(user.id).map {
+                    mapper.modelToItem($0)
+                }
+            } else {
+                lessons = try await repository.getOpenLessons().map {
+                    mapper.modelToItem($0)
+                }
+            }
+        } catch {
+            lessons = []
+        }
     }
     
     func onLessonTap(lesson: LessonItem, theme: Theme) {
@@ -41,7 +67,8 @@ final class LessonListScreenViewModel: ObservableObject {
             .lesson(
                 LessonPickScreenViewModel(
                     pickedLesson: lesson,
-                    router: router
+                    router: router,
+                    lessonTypeRepository: lessonTypeRepository
                 ),
                 theme
             )
@@ -49,42 +76,80 @@ final class LessonListScreenViewModel: ObservableObject {
     }
     
     var shouldShowAddLessonButton: Bool {
-        router?.userRole == .teacher
+        router?.user.role == .Teacher
     }
     
     func onAddButtonTap() {
-        guard let userItem = userItem else {
+        guard let user = router?.user else {
             return
         }
         
         self.lessonFormViewModel = LessonFormViewModel(
-            lesson: emptyLessonItem(userItem: userItem),
+            teacher: UserLessonBodyItem(
+                id: user.id,
+                name: user.name,
+                profilePicture: user.profilePicture
+            ),
             formType: FormType.add,
+            repository: lessonTypeRepository,
             dateFormatter: DateFormatter(),
-            onCancel: { [weak self] in
+            onCancel: {
+                [weak self] in
                 self?.lessonFormViewModel = nil
             }
         ) { [weak self] lesson in
-            self?.lessons.removeAll(where: { $0 == lesson })
-            self?.lessons.insert(
-                lesson,
-                at: 0
-            )
-            self?.lessonFormViewModel = nil
+            guard let self = self else {
+                return
+            }
+            
+            Task {
+                try await self.setLesson(lesson: lesson)
+            }
         }
     }
 }
 
 private extension LessonListScreenViewModel {
-    func emptyLessonItem(userItem: UserItem) -> LessonItem {
-        LessonItem(
-            id: UUID(),
-            lessonType: "Maths",
-            subtitle: "",
-            startDate: "",
-            endDate: "",
-            teacherProfilePicture: userItem.profilePicture,
-            teacherName: userItem.name
+    func setLesson(lesson: LessonItem) async throws {
+        guard let lessonItem = try await self.addLesson(lesson: lesson) else {
+            self.lessonFormViewModel = nil
+            return
+        }
+        
+        self.lessons.removeAll(where: { $0 == lessonItem })
+        self.lessons.insert(
+            lessonItem,
+            at: 0
         )
+        self.lessonFormViewModel = nil
+    }
+    
+    func addLesson(lesson: LessonItem) async throws -> LessonItem? {
+        guard let user = self.router?.user else {
+            return nil
+        }
+
+        guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
+            $0.name == lesson.lessonType
+        }) else {
+            return nil
+        }
+        
+        // TODO: userItem is in the router, so the fetch is not needed
+        let userModel = try await self.userRepository.getById(user.id)
+        
+        let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
+        
+        let lessonModel = try self.mapper.itemToCreateBodyModel(
+            lesson,
+            lessonTypeModel: lessonTypeModel,
+            teacherItem: userLessonBody
+        )
+        
+        let lessonItem = try await self.mapper.modelToItem(
+            self.repository.create(lessonModel)
+        )
+        
+        return lessonItem
     }
 }

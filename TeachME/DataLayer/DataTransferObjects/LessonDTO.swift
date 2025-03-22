@@ -16,3 +16,12 @@ struct LessonDTO: DataTransferObject {
     let teacher: UserLessonBodyDTO
     let student: UserLessonBodyDTO?
 }
+
+struct LessonCreateBodyDTO: Codable {
+    let lessonTypeId: UUID
+    let subtitle: String
+    let startDate: Int
+    let endDate: Int
+    let teacherId: UUID
+    let studentId: UUID?
+}

@@ -14,11 +14,18 @@ final class LessonPickScreenViewModel: ObservableObject {
     @Published var lessonFormViewModel: LessonFormViewModel?
     @Published var otherLessons: [LessonItem] = []
     
+    private let lessonTypeRepository: LessonTypeRepository
+    
     private weak var router: HomeRouter?
     
-    init(pickedLesson: LessonItem, router: HomeRouter) {
+    init(
+        pickedLesson: LessonItem,
+        router: HomeRouter,
+        lessonTypeRepository: LessonTypeRepository
+    ) {
         self.pickedLesson = pickedLesson
         self.router = router
+        self.lessonTypeRepository = lessonTypeRepository
     }
     
     func onLessonTap(lesson: LessonItem, theme: Theme) {
@@ -30,7 +37,8 @@ final class LessonPickScreenViewModel: ObservableObject {
             .lesson(
                 LessonPickScreenViewModel(
                     pickedLesson: lesson,
-                    router: router
+                    router: router, 
+                    lessonTypeRepository: lessonTypeRepository
                 ),
                 theme
             )
@@ -40,50 +48,16 @@ final class LessonPickScreenViewModel: ObservableObject {
     // TODO: Should load real data in future
     func loadData() {
         teacher = UserItem(
+            id: UUID(),
             name: "George Demo",
             profilePicture: Image(systemName: "person.crop.circle"),
             email: "george_demo@gmail.com",
             phoneNumber: "0874567243",
-            bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves"
+            bio: "I am competent in every field regarding high school education. I love working with my students and making them a better version of themselves",
+            role: .Student
         )
         
         otherLessons = [
-            LessonItem(
-                id: UUID(),
-                lessonType: "Maths",
-                subtitle: "Statistics made simple",
-                startDate: "10:00AM 14.03.2025",
-                endDate: "11:40AM 14.03.2025",
-                teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                teacherName: "George Demo"
-            ),
-            LessonItem(
-                id: UUID(),
-                lessonType: "Biology",
-                subtitle: "Cranial system; Anatomy",
-                startDate: "10:00AM 14.03.2025",
-                endDate: "11:40AM 14.03.2025",
-                teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                teacherName: "George Demo"
-            ),
-            LessonItem(
-                id: UUID(),
-                lessonType: "English",
-                subtitle: "Learning the tenses",
-                startDate: "10:00AM 14.03.2025",
-                endDate: "11:40AM 14.03.2025",
-                teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                teacherName: "George Demo"
-            ),
-            LessonItem(
-                id: UUID(),
-                lessonType: "Physics",
-                subtitle: "Motion and mechanics",
-                startDate: "10:00AM 14.03.2025",
-                endDate: "11:40AM 14.03.2025",
-                teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                teacherName: "George Demo"
-            )
         ]
     }
     
@@ -96,20 +70,20 @@ final class LessonPickScreenViewModel: ObservableObject {
     }
     
     var pickLessonButtonText: String {
-        switch router?.userRole {
-        case .teacher: "Edit"
+        switch router?.user.role {
+        case .Teacher: "Edit"
         default: "Save"
         }
     }
     
     func pickLessonButtonAction() {
-        guard let router = router else {
+        guard let user = router?.user else {
             return
         }
         
-        switch router.userRole {
-        case .teacher: teacherAction()
-        case .student: studentAction()
+        switch user.role {
+        case .Teacher: teacherAction()
+        case .Student: studentAction()
         }
     }
 }
@@ -118,7 +92,9 @@ private extension LessonPickScreenViewModel {
     func teacherAction() {
         self.lessonFormViewModel = LessonFormViewModel(
             lesson: self.pickedLesson,
+            teacher: self.pickedLesson.teacher,
             formType: FormType.edit,
+            repository: lessonTypeRepository,
             dateFormatter: DateFormatter(),
             onCancel: { [weak self] in
                 self?.lessonFormViewModel = nil

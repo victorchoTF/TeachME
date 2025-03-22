@@ -11,20 +11,38 @@ final class LoginFormViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     
-    private let repository: AuthRepository
+    private let authRepository: AuthRepository
+    private let userRepository: UserRepository
+    private let userMapper: UserMapper
     
-    init(repository: AuthRepository) {
-        self.repository = repository
+    let onSubmit: (UserItem) -> ()
+    
+    init(
+        authRepository: AuthRepository,
+        userRepository: UserRepository,
+        userMapper: UserMapper,
+        onSubmit: @escaping (UserItem) -> ()
+    ) {
+        self.authRepository = authRepository
+        self.userRepository = userRepository
+        self.userMapper = userMapper
+        self.onSubmit = onSubmit
     }
-    
+
     func loginUser() {
         Task {
-            let _ = try await repository.login(
+            let _ = try await authRepository.login(
                 user: UserCredentialsBodyModel(
                     email: email,
                     password: password
                 )
             )
+                
+            let userItem = try await userMapper.modelToItem(
+                userRepository.getUserByEmail(email)
+            )
+            
+            onSubmit(userItem)
         }
     }
     

@@ -1,27 +1,28 @@
 //
-//  ContentView.swift
+//  IdleScreen.swift
 //  TeachME
 //
-//  Created by TumbaDev on 19.01.25.
+//  Created by TumbaDev on 20.03.25.
 //
 
 import SwiftUI
 
-struct ContentView: View {
+struct TeachMETabView: View {
     let theme: Theme
     @StateObject var tabRouter: TabRouter
     
-    init() {
-        self.theme = PrimaryTheme()
-        self._tabRouter = StateObject(wrappedValue: TabRouter(theme: PrimaryTheme()))
+    init(theme: Theme, tabRouter: TabRouter) {
+        self.theme = theme
+        self._tabRouter = StateObject(wrappedValue: tabRouter)
     }
+    
     
     var body: some View {
         tabView
     }
 }
 
-private extension ContentView {
+private extension TeachMETabView {
     var tabView: some View {
         TabView(selection: $tabRouter.selectedTab) {
                 homeScreen

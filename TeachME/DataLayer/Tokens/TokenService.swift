@@ -23,6 +23,10 @@ final class TokenService: TokenSetter, TokenProvider {
     func setToken(token: TokenResponse) throws {
         let tokenData = try encoder.encode(token)
         
+        if keychainStore.hasItem(key: key) {
+            try keychainStore.deleteItem(key: key)
+        }
+        
         try keychainStore.addItem(key: key, item: tokenData)
     }
     

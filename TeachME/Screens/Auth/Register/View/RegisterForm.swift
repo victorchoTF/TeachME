@@ -45,8 +45,9 @@ private extension RegisterForm {
     var accountDetails: some View {
         Section(viewModel.accountDetailsHeading) {
             TextField(viewModel.emailPlaceholder, text: $viewModel.email)
+                .keyboardType(.emailAddress)
                 .styledTextField(theme: theme)
-            TextField(viewModel.passwordPlacehoder, text: $viewModel.password)
+            SecureField(viewModel.passwordPlacehoder, text: $viewModel.password)
                 .styledTextField(theme: theme)
         }
         .listRowSeparator(.hidden)
@@ -69,8 +70,8 @@ private extension RegisterForm {
     private var roleDetails: some View {
         Section(viewModel.roleHeading) {
             Picker(viewModel.roleHeading, selection: $viewModel.roleType) {
-                Text(viewModel.studentRole).tag(Role.student)
-                Text(viewModel.teacherRole).tag(Role.teacher)
+                Text(viewModel.studentRole).tag(Role.Student)
+                Text(viewModel.teacherRole).tag(Role.Teacher)
             }
             .tint(theme.colors.accent)
             .pickerStyle(.segmented)

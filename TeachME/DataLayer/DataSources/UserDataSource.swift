@@ -22,6 +22,33 @@ final class UserDataSource: TeachMEAPIDataSource {
         self.decoder = decoder
     }
     
+    func fetchByEmail(_ email: String) async throws -> UserDTO {
+        guard let request = try URLRequestBuilder(baseURL: baseURL, path: "email/\(email)")
+            .setMethod(.get)
+            .build()
+        else {
+            throw DataSourceError.invalidURL("\(baseURL)/\(email) not found")
+        }
+        
+        let fetchedData: Data
+        do {
+            (fetchedData, _) = try await client.request(request)
+        } catch {
+            throw DataSourceError.fetchingError(
+                "Values for email: \(email) could not be fetched!"
+            )
+        }
+        
+        let data: DataType
+        do {
+            data = try decoder.decode(DataType.self, from: fetchedData)
+        } catch {
+            throw DataSourceError.decodingError("Data for email: \(email) could not be decoded!")
+        }
+        
+        return data
+    }
+    
     func getUsersByRoleId(_ id: UUID) async throws -> [UserDTO] {
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "list/\(id)")
             .setMethod(.get)

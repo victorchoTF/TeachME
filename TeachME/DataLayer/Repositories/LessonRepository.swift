@@ -20,6 +20,10 @@ final class LessonRepository: Repository {
         self.mapper = mapper
     }
     
+    func create(_ body: LessonCreateBodyModel) async throws -> LessonModel {
+        try await mapper.dtoToModel(dataSource.create(mapper.createBodyModelToCreateBodyDTO(body)))
+    }
+    
     func getOpenLessons() async throws -> [LessonModel] {
         try await dataSource.getOpenLessons().map {mapper.dtoToModel($0)}
     }

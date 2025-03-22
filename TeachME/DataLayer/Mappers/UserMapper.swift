@@ -68,6 +68,15 @@ struct UserMapper: Mapper {
         )
     }
     
+    func modelToLessonBodyModel(_ model: UserModel) -> UserLessonBodyModel {
+        UserLessonBodyModel(
+            id: model.id,
+            firstName: model.firstName,
+            lastName: model.lastName,
+            profilePicture: model.userDetail?.profilePicture
+        )
+    }
+    
     func credentialBodyDTOToModel(_ data: UserCredentialsBodyDTO) -> UserCredentialsBodyModel {
         UserCredentialsBodyModel(email: data.email, password: data.password)
     }
@@ -82,7 +91,7 @@ struct UserMapper: Mapper {
             password: data.password,
             firstName: data.firstName,
             lastName: data.lastName,
-            roleId: data.roleId //TODO: Appoint via the Role enum
+            roleId: data.roleId
         )
     }
     
@@ -92,12 +101,13 @@ struct UserMapper: Mapper {
             password: model.password,
             firstName: model.firstName,
             lastName: model.lastName,
-            roleId: model.roleId //TODO: Role enum -> roleID
+            roleId: model.roleId
         )
     }
     
     func modelToItem(_ model: UserModel) -> UserItem {
         return UserItem(
+            id: model.id,
             name: "\(model.firstName) \(model.lastName)",
             profilePicture: Image(
                 data: model.userDetail?.profilePicture,
@@ -105,7 +115,8 @@ struct UserMapper: Mapper {
             ),
             email: model.email,
             phoneNumber: model.userDetail?.phoneNumber ?? "",
-            bio: model.userDetail?.bio ?? ""
+            bio: model.userDetail?.bio ?? "",
+            role: Role.Student.caseName == model.role.title ? Role.Student : Role.Teacher
         )
     }
 }

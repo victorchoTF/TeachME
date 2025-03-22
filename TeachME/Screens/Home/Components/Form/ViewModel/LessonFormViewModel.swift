@@ -12,44 +12,49 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
     @Published var subtitle: String
     @Published var startDate: Date
     @Published var endDate: Date
+    @Published var lessonTypes: [String] = []
     
-    // TODO: Load from LessonTypes
-    let lessonTypes = ["Maths", "Science", "History", "Art", "Other"]
+    private let lesson: LessonItem?
+    private let teacher: UserLessonBodyItem
+    private let formType: FormType
+    private let repository: LessonTypeRepository
     
-    let lesson: LessonItem
-    let formType: FormType
+    private let dateFormatter: DateFormatter
     
-    let dateFormatter: DateFormatter
-    
-    private let updateLesson: (LessonItem) -> ()
+    private let setLesson: (LessonItem) -> ()
     let onCancel: () -> ()
     
     init(
-        lesson: LessonItem,
+        lesson: LessonItem? = nil,
+        teacher: UserLessonBodyItem,
         formType: FormType,
+        repository: LessonTypeRepository,
         dateFormatter: DateFormatter,
-        onCancel: @escaping() -> (),
+        onCancel: @escaping () -> (),
         updateLesson: @escaping (LessonItem) -> ()
     ) {
         self.lesson = lesson
         self.onCancel = onCancel
-        self.updateLesson = updateLesson
+        self.setLesson = updateLesson
         self.formType = formType
+        self.repository = repository
         self.dateFormatter = dateFormatter
         
-        self.lessonType = lesson.lessonType
-        self.subtitle = lesson.subtitle
+        self.lessonType = lesson?.lessonType ?? "Other"
+        self.subtitle = lesson?.subtitle ?? ""
         
-        let setDate: (String) -> (Date) = { date in
-            if date.isEmpty {
+        let setDate: (String?) -> (Date) = { date in
+            guard let date = date, !date.isEmpty else {
                 return Date()
             }
                 
             return dateFormatter.toDate(dateString: date) ?? Date()
         }
         
-        self.startDate = setDate(lesson.startDate)
-        self.endDate = setDate(lesson.endDate)
+        self.startDate = setDate(lesson?.startDate)
+        self.endDate = setDate(lesson?.endDate)
+        
+        self.teacher = teacher
     }
 
     func onSubmit() {
@@ -59,11 +64,21 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
             subtitle: subtitle,
             startDate: dateFormatter.toString(startDate),
             endDate: dateFormatter.toString(endDate),
-            teacherProfilePicture: lesson.teacherProfilePicture,
-            teacherName: lesson.teacherName
+            teacher: teacher
         )
         
-        updateLesson(lesson)
+        setLesson(lesson)
+    }
+    
+    // TODO: Show alert on catch
+    func loadData() async {
+        do {
+            lessonTypes = try await self.repository.getAll().map { $0.name }
+        } catch {
+            lessonTypes = ["Other"]
+        }
+        
+        lessonType = lessonTypes.first ?? "Other"
     }
     
     var formTitle: String {

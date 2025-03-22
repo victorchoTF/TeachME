@@ -42,8 +42,9 @@ private extension LoginForm {
     var accountDetails: some View {
         Section {
             TextField(viewModel.emailPlaceholder, text: $viewModel.email)
+                .keyboardType(.emailAddress)
                 .styledTextField(theme: theme)
-            TextField(viewModel.passwordPlaceholder, text: $viewModel.password)
+            SecureField(viewModel.passwordPlaceholder, text: $viewModel.password)
                 .styledTextField(theme: theme)
         }
         .listRowSeparator(.hidden)

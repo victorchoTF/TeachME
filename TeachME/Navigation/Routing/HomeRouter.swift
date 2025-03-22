@@ -8,71 +8,48 @@
 import Foundation
 import SwiftUI
 
-class HomeRouter {
+final class HomeRouter {
     @Published var path = [Destination]()
-    
-    let lessons: [LessonItem]
-    let theme: Theme
-    let userRole: Role
 
-    init(theme: Theme, userRole: Role) {
+    private let theme: Theme
+    let user: UserItem
+    
+    private let userRepository: UserRepository
+    private let lessonRepository: LessonRepository
+    private let lessonTypeRepository: LessonTypeRepository
+    private let userMapper: UserMapper
+    private let lessonMapper: LessonMapper
+
+    init(
+        theme: Theme,
+        user: UserItem,
+        userRepository: UserRepository,
+        lessonRepository: LessonRepository,
+        lessonTypeRepository: LessonTypeRepository,
+        userMapper: UserMapper,
+        lessonMapper: LessonMapper
+    ) {
         self.theme = theme
-        self.userRole = userRole
+        self.user = user
         
-        lessons = [
-            LessonItem(
-                id: UUID(),
-                lessonType: "Maths",
-                subtitle: "In this math lesson, explore key concepts such as algebra, geometry, calculus, and probability. Learn how to solve equations, understand geometric shapes, analyze data, and apply mathematical theories to real-world problems. With step-by-step explanations and interactive exercises, enhance your problem-solving skills.",
-                startDate: "10:00AM 14.03.2025",
-                endDate: "11:40AM 14.03.2025",
-                teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                teacherName: "George Demo"
-            ),
-            LessonItem(
-                id: UUID(),
-                lessonType: "Chemistry",
-                subtitle: "Explore the fascinating world of chemistry in this engaging and interactive lesson! Dive into the fundamental concepts of atomic structure, chemical bonding, and the periodic table. Understand how elements interact to form compounds and discover the role of chemical reactions in everyday life. Learn about acids, bases, and pH, and conduct experiments to observe reactions firsthand. Explore states of matter, thermodynamics, and the principles of stoichiometry.",
-                startDate: "10:00AM 14.03.2025",
-                endDate: "11:40AM 14.03.2025",
-                teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                teacherName: "George Demo"
-            ),
-            LessonItem(
-                id: UUID(),
-                lessonType: "Biology",
-                subtitle: "Cranial system; Anatomy",
-                startDate: "10:00AM 14.03.2025",
-                endDate: "11:40AM 14.03.2025",
-                teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                teacherName: "George Demo"
-            ),
-            LessonItem(
-                id: UUID(),
-                lessonType: "English",
-                subtitle: "Learning the tenses",
-                startDate: "10:00AM 14.03.2025",
-                endDate: "11:40AM 14.03.2025",
-                teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                teacherName: "George Demo"
-            ),
-            LessonItem(
-                id: UUID(),
-                lessonType: "Physics",
-                subtitle: "Motion and mechanics",
-                startDate: "10:00AM 14.03.2025",
-                endDate: "11:40AM 14.03.2025",
-                teacherProfilePicture: Image(systemName: "person.crop.circle"),
-                teacherName: "George Demo"
-            )
-        ]
+        self.userRepository = userRepository
+        self.lessonRepository = lessonRepository
+        self.lessonTypeRepository = lessonTypeRepository
+        self.userMapper = userMapper
+        self.lessonMapper = lessonMapper
     }
 }
 
 extension HomeRouter: Router {
-    @MainActor
-    var initialDestination: some View {
-        let viewModel = LessonListScreenViewModel(lessons: lessons, router: self)
+    var initialDestination: some View{
+        let viewModel = LessonListScreenViewModel(
+            router: self,
+            repository: lessonRepository,
+            lessonTypeRepository: lessonTypeRepository,
+            userRepository: userRepository,
+            mapper: lessonMapper,
+            userMapper: userMapper
+        )
             
         return LessonListScreen(viewModel: viewModel, theme: theme)
     }

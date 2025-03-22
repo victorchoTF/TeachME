@@ -60,11 +60,52 @@ struct LessonMapper: Mapper {
             subtitle: model.subtitle,
             startDate: dateFormatter.toString(model.startDate),
             endDate: dateFormatter.toString(model.endDate),
-            teacherProfilePicture: Image(
-                data: model.teacher.profilePicture,
-                fallbackImageName: "person.crop.circle"
-            ),
-            teacherName: "\(model.teacher.firstName) \(model.teacher.lastName)"
+            teacher: UserLessonBodyItem(
+                id: model.id,
+                name: "\(model.teacher.firstName) \(model.teacher.lastName)",
+                profilePicture: Image(
+                    data: model.teacher.profilePicture,
+                    fallbackImageName: "person.crop.circle"
+                )
+            )
         )
     }
+    
+    func itemToCreateBodyModel(
+        _ item: LessonItem,
+        lessonTypeModel: LessonTypeModel,
+        teacherItem: UserLessonBodyModel
+    ) throws -> LessonCreateBodyModel {
+        guard let startDate = dateFormatter.toDate(dateString: item.startDate) else {
+            throw LessonMapperError.invalidDate("\(item.startDate) is not a valid Date!")
+        }
+        
+        guard let endDate = dateFormatter.toDate(dateString: item.endDate) else {
+            throw LessonMapperError.invalidDate("\(item.endDate) is not a valid Date!")
+        }
+        
+        return LessonCreateBodyModel(
+            lessonType: lessonTypeModel,
+            subtitle: item.subtitle,
+            startDate: startDate,
+            endDate: endDate,
+            teacher: teacherItem,
+            student: nil
+        )
+    }
+    
+    func createBodyModelToCreateBodyDTO(_ model: LessonCreateBodyModel) -> LessonCreateBodyDTO {
+        LessonCreateBodyDTO(
+            lessonTypeId: model.lessonType.id,
+            subtitle: model.subtitle,
+            startDate: Int(model.startDate.timeIntervalSince1970),
+            endDate: Int(model.endDate.timeIntervalSince1970),
+            teacherId: model.teacher.id,
+            studentId: model.student?.id
+        )
+    }
+}
+
+enum LessonMapperError: Error {
+    case invalidDate(String)
 }

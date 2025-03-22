@@ -29,6 +29,9 @@ struct LessonForm: View {
             .navigationTitle(viewModel.formTitle)
             .navigationBarTitleDisplayMode(.inline)
         }
+        .task {
+            await viewModel.loadData()
+        }
     }
 }
 

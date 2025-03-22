@@ -13,6 +13,5 @@ struct LessonItem: Identifiable, Equatable {
     let subtitle: String
     let startDate: String
     let endDate: String
-    let teacherProfilePicture: Image
-    let teacherName: String
+    let teacher: UserLessonBodyItem
 }

@@ -10,6 +10,7 @@ import Foundation
 protocol TeachMEAPIDataSource: APIDataSource {}
 
 extension TeachMEAPIDataSource {
+    // FIXME: This is not working since API expects CreateBodies not strait contents
     func create(_ data: DataType) async throws -> DataType {
         let jsonData: Data
         do {
@@ -20,7 +21,7 @@ extension TeachMEAPIDataSource {
         
         guard let request = try URLRequestBuilder(baseURL: baseURL)
             .setMethod(.post)
-            .setHeaders(["application/json": "Content-Type"])
+            .useJsonContentType()
             .setBody(jsonData)
             .build()
         else {
@@ -38,7 +39,7 @@ extension TeachMEAPIDataSource {
         do {
             createdData = try decoder.decode(DataType.self, from: returnedData)
         } catch {
-            throw DataSourceError.decodingError("Data of \(data) could not be decoded!")
+            throw DataSourceError.decodingError("Data of \(returnedData) could not be decoded!")
         }
         
         return createdData
@@ -79,7 +80,7 @@ extension TeachMEAPIDataSource {
         
         guard let request = try URLRequestBuilder(baseURL: baseURL, path: "\(data.id)")
             .setMethod(.put)
-            .setHeaders(["application/json": "Content-Type"])
+            .useJsonContentType()
             .setBody(jsonData)
             .build()
         else {
