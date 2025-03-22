@@ -85,10 +85,11 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
     }
 }
 
+// TODO: Make the user aware of what is happening with this checks
 private extension EditProfileFormViewModel {
     func checkFirstName() -> String {
         if firstName.isEmpty {
-            return String(userItem.name.split(separator: " ")[0]) + " "
+            return String(userItem.name.split(separator: " ").first ?? "-") + " "
         }
         
         return firstName
@@ -96,7 +97,7 @@ private extension EditProfileFormViewModel {
     
     func checkLastName() -> String {
         if lastName.isEmpty {
-            return String(userItem.name.split(separator: " ")[0])
+            return String(userItem.name.split(separator: " ").last ?? "-")
         }
         return lastName
     }
