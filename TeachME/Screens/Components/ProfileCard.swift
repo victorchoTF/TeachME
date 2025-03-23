@@ -1,16 +1,19 @@
 //
-//  UserCard.swift
+//  ProfileCard.swift
 //  TeachME
 //
-//  Created by TumbaDev on 30.01.25.
+//  Created by TumbaDev on 23.03.25.
 //
 
 import SwiftUI
+import PhotosUI
 
-struct UserCard: View {
+struct ProfileCard: View {
     let user: UserItem
     
     let theme: Theme
+    
+    @Binding var imageSelection: PhotosPickerItem?
     
     let userProfilePictureSize: CGFloat = 70
     
@@ -26,16 +29,10 @@ struct UserCard: View {
     }
 }
 
-private extension UserCard {
+private extension ProfileCard {
     var userContacts: some View {
         HStack(spacing: theme.spacings.large) {
-            user.profilePicture
-                .resizable()
-                .frame(
-                    width: userProfilePictureSize,
-                    height: userProfilePictureSize
-                )
-                .clipShape(Circle())
+            profileImage
             
             VStack(alignment: .leading, spacing: theme.spacings.small) {
                 Text(user.name)
@@ -78,4 +75,25 @@ private extension UserCard {
                 .font(theme.fonts.footnote)
         }
     }
+    
+    var profileImage: some View {
+        user.profilePicture
+            .resizable()
+            .frame(
+                width: userProfilePictureSize,
+                height: userProfilePictureSize
+            )
+            .clipShape(Circle())
+            .overlay(alignment: .bottomTrailing) {
+                PhotosPicker(selection: $imageSelection,
+                             matching: .images,
+                             photoLibrary: .shared()) {
+                    Image(systemName: "pencil.circle.fill")
+                        .font(.system(size: 30))
+                        .foregroundColor(theme.colors.accent)
+                }
+                             .buttonStyle(.borderless)
+            }
+    }
 }
+

@@ -151,4 +151,22 @@ struct UserMapper: Mapper {
             )
         )
     }
+    
+    func itemWithProfilePictureToBodyModel(
+        _ user: UserItem,
+        profilePicture: Data?
+    ) -> UserBodyModel {
+        itemBodyToBodyModel(
+            UserItemBody(
+                firstName: String(user.name.split(separator: " ").first ?? "-"),
+                lastName: String(user.name.split(separator: " ").last ?? "-"),
+                email: user.email,
+                phoneNumber: user.phoneNumber,
+                bio: user.bio
+            ),
+            userId: user.id,
+            profilePicture: profilePicture
+        )
+        
+    }
 }

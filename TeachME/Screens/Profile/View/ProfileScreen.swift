@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct ProfileScreen: View {
     @StateObject var viewModel: ProfileScreenViewModel
@@ -18,7 +19,7 @@ struct ProfileScreen: View {
     
     var body: some View {
         VStack {
-            userCard
+            profileCard
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         ActionButton(
@@ -47,11 +48,13 @@ struct ProfileScreen: View {
 
 private extension ProfileScreen {
     @ViewBuilder
-    var userCard: some View {
+    var profileCard: some View {
         if let userItem = viewModel.userItem {
-            UserCard(user: userItem, theme: theme)
-                .background(theme.colors.primary)
-                .frame(maxWidth: .infinity)
+            ProfileCard(
+                user: userItem,
+                theme: theme,
+                imageSelection: $viewModel.imageSelection
+            )
         }
     }
 }

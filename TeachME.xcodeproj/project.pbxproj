@@ -73,6 +73,7 @@
 		8E99E7912D71BD3900CF9CC8 /* DataTransferObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E7902D71BD3900CF9CC8 /* DataTransferObject.swift */; };
 		8E9E51BC2D7975870035E4E3 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9E51BB2D7975870035E4E3 /* HTTPMethod.swift */; };
 		8E9E51BE2D7975D40035E4E3 /* URLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9E51BD2D7975D40035E4E3 /* URLRequestBuilder.swift */; };
+		8EA078902D9011F100944F51 /* ProfileCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0788F2D9011F100944F51 /* ProfileCard.swift */; };
 		8EB0934D2D7C810C0073C0F6 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0934C2D7C810C0073C0F6 /* Repository.swift */; };
 		8EB093502D7C81590073C0F6 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0934F2D7C81590073C0F6 /* Model.swift */; };
 		8EB093522D7C828F0073C0F6 /* RoleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093512D7C828F0073C0F6 /* RoleModel.swift */; };
@@ -169,6 +170,7 @@
 		8E99E7902D71BD3900CF9CC8 /* DataTransferObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferObject.swift; sourceTree = "<group>"; };
 		8E9E51BB2D7975870035E4E3 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		8E9E51BD2D7975D40035E4E3 /* URLRequestBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestBuilder.swift; sourceTree = "<group>"; };
+		8EA0788F2D9011F100944F51 /* ProfileCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCard.swift; sourceTree = "<group>"; };
 		8EB0934C2D7C810C0073C0F6 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		8EB0934F2D7C81590073C0F6 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8EB093512D7C828F0073C0F6 /* RoleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleModel.swift; sourceTree = "<group>"; };
@@ -680,6 +682,7 @@
 				8E4D0F8A2D50B9A3007F57B8 /* ActionButton.swift */,
 				8E84E2792D424AF400CB8C05 /* FormTitle.swift */,
 				8E84E27F2D42531D00CB8C05 /* SubmitButton.swift */,
+				8EA0788F2D9011F100944F51 /* ProfileCard.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -817,6 +820,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EA078902D9011F100944F51 /* ProfileCard.swift in Sources */,
 				8E808D702D86EB360011B422 /* TokenService.swift in Sources */,
 				8EB0935D2D7C83CC0073C0F6 /* RoleMapper.swift in Sources */,
 				8EB093502D7C81590073C0F6 /* Model.swift in Sources */,
