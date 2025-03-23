@@ -57,7 +57,7 @@ final class AppRouter: ObservableObject {
         case .auth:
             AuthScreen(viewModel: authScreenViewModel, theme: theme)
         case .loading:
-            // TODO: Implement in another PR
+            // TODO: Implement in another PR {LoadingScreen}
             Text("Loading...")
         }
     }

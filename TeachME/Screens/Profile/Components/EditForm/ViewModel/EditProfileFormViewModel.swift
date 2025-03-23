@@ -71,7 +71,6 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
         bio.isEmpty
     }
     
-    // TODO: Fix hard code
     func onSubmit() {
         let user = UserItemBody(
             firstName: checkFirstName(),
@@ -85,7 +84,7 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
     }
 }
 
-// TODO: Make the user aware of what is happening with this checks
+// TODO: Make the user aware of what is happening with this checks {alert}
 private extension EditProfileFormViewModel {
     func checkFirstName() -> String {
         if firstName.isEmpty {

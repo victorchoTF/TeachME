@@ -87,16 +87,7 @@ private extension ProfileScreenViewModel {
             return nil
         }
         
-        // TODO: userItem is in the router, so the fetch is not needed
-        let profilePicture = try await userRepository.getById(
-            userItem.id
-        ).userDetail?.profilePicture
-        
-        let userModelBody = mapper.itemBodyToBodyModel(
-            user,
-            userId: userItem.id,
-            profilePicture: profilePicture
-        )
+        let userModelBody = mapper.itemBodyToBodyModel(user, userId: userItem.id)
         
         return try await updateUserByBodyModel(user: userModelBody)
     }

@@ -98,18 +98,19 @@ private extension LessonScreenViewModel {
         try await repository.delete(lessonId)
     }
     
-    // TODO: Implement better error handling
+    // TODO: Implement better error handling {alert}
     func cancelLesson(lesson: LessonItem) async throws {
+        guard let user = router?.user else {
+            return
+        }
+        
         guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
             $0.name == lesson.lessonType
         }) else {
             return
         }
         
-        // TODO: userItem is in the router, so the fetch is not needed
-        let userModel = try await self.userRepository.getById(lesson.teacher.id)
-        
-        let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
+        let userLessonBody = self.userMapper.itemToBodyLessonModel(user)
         
         try await repository.cancelLesson(
             mapper.itemToBodyModel(

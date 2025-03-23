@@ -36,7 +36,7 @@ final class HomeScreenViewModel: ObservableObject {
         self.userMapper = userMapper
     }
     
-    // TODO: Show alert on catch
+    // TODO: Show alert on catch {alert}
     func loadData() async {
         guard let user = router?.user else {
             return
@@ -159,10 +159,7 @@ private extension HomeScreenViewModel {
             return nil
         }
         
-        // TODO: userItem is in the router, so the fetch is not needed
-        let userModel = try await self.userRepository.getById(user.id)
-        
-        let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
+        let userLessonBody = userMapper.itemToBodyLessonModel(user)
         
         let lessonModel = try self.mapper.itemToBodyModel(
             lesson,

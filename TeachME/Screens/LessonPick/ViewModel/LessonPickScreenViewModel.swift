@@ -132,7 +132,7 @@ private extension LessonPickScreenViewModel {
         }
     }
     
-    // TODO: Notify user of what has happened
+    // TODO: Notify user of what has happened {alert}
     func studentAction() {
         takeLesson()
         teacher = nil
@@ -177,10 +177,7 @@ private extension LessonPickScreenViewModel {
             return nil
         }
         
-        // TODO: userItem is in the router, so the fetch is not needed
-        let userModel = try await self.userRepository.getById(user.id)
-        
-        let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
+        let userLessonBody = self.userMapper.itemToBodyLessonModel(user)
         
         let lessonModel = try self.mapper.itemToBodyModel(
             lesson,
@@ -196,21 +193,13 @@ private extension LessonPickScreenViewModel {
             return nil
         }
         
-        // TODO: userItem is in the router, so the fetch is not needed
-        let student = try await userRepository.getById(user.id)
-        
         return LessonBodyModel(
             lessonType: body.lessonType,
             subtitle: body.subtitle,
             startDate: body.startDate,
             endDate: body.endDate,
             teacher: body.teacher,
-            student: UserLessonBodyModel(
-                id: student.id,
-                firstName: student.firstName,
-                lastName: student.lastName,
-                profilePicture: student.userDetail?.profilePicture
-            )
+            student: userMapper.itemToBodyLessonModel(user)
         )
     }
 }

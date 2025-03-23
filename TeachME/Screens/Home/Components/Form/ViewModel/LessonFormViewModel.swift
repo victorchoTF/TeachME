@@ -70,7 +70,7 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
         setLesson(lesson)
     }
     
-    // TODO: Show alert on catch
+    // TODO: Show alert on catch {alert}
     func loadData() async {
         do {
             lessonTypes = try await self.repository.getAll().map { $0.name }

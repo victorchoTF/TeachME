@@ -88,7 +88,7 @@ private extension LessonPickScreen {
                 .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))
                 .padding(theme.spacings.small)
         } else {
-            // TODO: Implement in another PR
+            // TODO: Implement in another PR {LoadingScreen}
             Text("Loading...")
         }
     }
