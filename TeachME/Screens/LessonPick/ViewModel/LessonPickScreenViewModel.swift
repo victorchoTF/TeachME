@@ -8,6 +8,7 @@
 import Foundation
 
 final class LessonPickScreenViewModel: ObservableObject {
+    @Published var showAlert: Bool = false
     @Published var pickedLesson: LessonItem
     @Published var teacher: UserItem?
     @Published var lessonFormViewModel: LessonFormViewModel?
@@ -101,6 +102,10 @@ final class LessonPickScreenViewModel: ObservableObject {
         }
     }
     
+    var alertMessage: String {
+        "Lesson with \(pickedLesson.teacher.name) saved successfully!"
+    }
+    
     func pickLessonButtonAction() {
         guard let user = router?.user else {
             return
@@ -110,6 +115,10 @@ final class LessonPickScreenViewModel: ObservableObject {
         case .Teacher: teacherAction()
         case .Student: studentAction()
         }
+    }
+    
+    func exit() {
+        router?.popToRoot()
     }
 }
 
@@ -132,11 +141,9 @@ private extension LessonPickScreenViewModel {
         }
     }
     
-    // TODO: Notify user of what has happened {alert}
     func studentAction() {
         takeLesson()
-        teacher = nil
-        router?.popToRoot()
+        showAlert = true
     }
     
     func takeLesson() {

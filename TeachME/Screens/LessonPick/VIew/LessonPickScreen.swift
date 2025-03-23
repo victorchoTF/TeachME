@@ -53,7 +53,6 @@ struct LessonPickScreen: View {
                 .foregroundStyle(theme.colors.accent)
             }
         }
-        .task { await viewModel.loadData() }
         .sheet(item: $viewModel.lessonFormViewModel) { lessonFormViewModel in
             LessonForm(
                 viewModel: lessonFormViewModel,
@@ -61,6 +60,12 @@ struct LessonPickScreen: View {
             )
             .background(theme.colors.primary)
         }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(title: Text(viewModel.alertMessage), dismissButton: .default(Text("OK")) {
+                viewModel.exit()
+            })
+        }
+        .task { await viewModel.loadData() }
     }
 }
 

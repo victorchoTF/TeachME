@@ -7,7 +7,15 @@
 
 import Foundation
 
+enum EditProfileAlertType {
+    case firstName
+    case lastName
+    case email
+}
+
 final class EditProfileFormViewModel: ObservableObject, Identifiable {
+    @Published var showAlert: Bool = false
+    @Published var alertType: EditProfileAlertType? = nil
     @Published var email: String
     @Published var firstName: String
     @Published var lastName: String
@@ -80,14 +88,31 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
             bio: bio
         )
         
-        updateUser(user)
+        if !showAlert {
+            updateUser(user)
+        }
+    }
+    
+    var alertMessage: String {
+        switch alertType {
+        case .firstName:
+            "You first name was not updated correctly!\nPlease try again!"
+        case .lastName:
+            "You last name was not updated correctly!\nPlease try again!"
+        case .email:
+            "Your email was not updated correctly!\nPlease try again!"
+        default:
+            "A field was not updated correctly!\nPlease try again!"
+        }
     }
 }
 
-// TODO: Make the user aware of what is happening with this checks {alert}
 private extension EditProfileFormViewModel {
     func checkFirstName() -> String {
         if firstName.isEmpty {
+            alertType = .firstName
+            showAlert = true
+            
             return String(userItem.name.split(separator: " ").first ?? "-") + " "
         }
         
@@ -96,13 +121,20 @@ private extension EditProfileFormViewModel {
     
     func checkLastName() -> String {
         if lastName.isEmpty {
+            alertType = .lastName
+            showAlert = true
+            
             return String(userItem.name.split(separator: " ").last ?? "-")
         }
+        
         return lastName
     }
     
     func checkEmail() -> String {
         if email.isEmpty {
+            alertType = .email
+            showAlert = true
+            
             return userItem.email
         }
         

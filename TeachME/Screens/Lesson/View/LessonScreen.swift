@@ -25,6 +25,12 @@ struct LessonScreen: View {
             }
         }
         .background(theme.colors.primary)
+        .alert(isPresented: $viewModel.showLoadingAlert) {
+            Alert(title: Text(viewModel.loadingAlertMessage))
+        }
+        .alert(isPresented: $viewModel.showDeletingAlert) {
+            Alert(title: Text(viewModel.deletingAlertMessage))
+        }
         .task {
             await viewModel.loadData()
         }

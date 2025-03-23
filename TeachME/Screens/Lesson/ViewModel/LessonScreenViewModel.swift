@@ -9,6 +9,8 @@ import SwiftUI
 
 final class LessonScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
+    @Published var showLoadingAlert: Bool = false
+    @Published var showDeletingAlert: Bool = false
     
     private weak var router: LessonRouter?
     
@@ -53,7 +55,7 @@ final class LessonScreenViewModel: ObservableObject {
                 }
             }
         } catch {
-            lessons = []
+            showLoadingAlert = true
         }
     }
     
@@ -72,8 +74,9 @@ final class LessonScreenViewModel: ObservableObject {
                 }
             }
         }
-        
-        lessons.remove(atOffsets: offsets)
+        if !showDeletingAlert {
+            lessons.remove(atOffsets: offsets)
+        }
     }
     
     var lessonCardType: LessonCardType {
@@ -91,22 +94,35 @@ final class LessonScreenViewModel: ObservableObject {
             return "You have not taken a lesson yet!\nSave one now!"
         }
     }
+    
+    var loadingAlertMessage: String {
+        "Couldn't load lessons!\nPlease try again."
+    }
+    
+    var deletingAlertMessage: String {
+        "Couldn't \(isTeacher ? "delete" : "remove") this lesson from your list"
+    }
 }
 
 private extension LessonScreenViewModel {
     func deleteLesson(lessonId: UUID) async throws {
-        try await repository.delete(lessonId)
+        do {
+            try await repository.delete(lessonId)
+        } catch {
+            showDeletingAlert = true
+        }
     }
     
-    // TODO: Implement better error handling {alert}
     func cancelLesson(lesson: LessonItem) async throws {
         guard let user = router?.user else {
+            showDeletingAlert = true
             return
         }
         
         guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
             $0.name == lesson.lessonType
         }) else {
+            showDeletingAlert = true
             return
         }
         

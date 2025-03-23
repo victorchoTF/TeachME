@@ -9,6 +9,7 @@ import Foundation
 
 final class HomeScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
+    @Published var showAlert: Bool = false
     
     private weak var router: HomeRouter?
     @Published var lessonFormViewModel: LessonFormViewModel?
@@ -36,7 +37,6 @@ final class HomeScreenViewModel: ObservableObject {
         self.userMapper = userMapper
     }
     
-    // TODO: Show alert on catch {alert}
     func loadData() async {
         guard let user = router?.user else {
             return
@@ -56,7 +56,7 @@ final class HomeScreenViewModel: ObservableObject {
                 }
             }
         } catch {
-            lessons = []
+            showAlert = true
         }
     }
     
@@ -101,6 +101,10 @@ final class HomeScreenViewModel: ObservableObject {
         } else {
             return "No available lesson for you!\nTry again later."
         }
+    }
+    
+    var alertMessage: String {
+        "Couldn't load lessons!\nPlease try again."
     }
     
     func onAddButtonTap() {

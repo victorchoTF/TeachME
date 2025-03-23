@@ -31,6 +31,9 @@ struct EditProfileForm: View {
             .navigationTitle(viewModel.formTitle)
             .navigationBarTitleDisplayMode(.inline)
         }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(title: Text(viewModel.alertMessage))
+        }
     }
 }
 
