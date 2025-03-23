@@ -32,7 +32,8 @@ private extension LessonScreen {
             ForEach(viewModel.lessons) { lesson in
                 LessonCard(
                     lesson: lesson,
-                    theme: theme
+                    theme: theme,
+                    lessonCardType: viewModel.lessonCardType
                 )
                 .lineLimit(1)
                 .truncationMode(.tail)

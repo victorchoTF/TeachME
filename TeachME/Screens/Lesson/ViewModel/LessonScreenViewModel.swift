@@ -48,4 +48,8 @@ final class LessonScreenViewModel: ObservableObject {
     func onLessonTap() {
         print("LessonTapped")
     }
+    
+    var lessonCardType: LessonCardType {
+        router?.user.role == .Teacher ? .student : .teacher
+    }
 }
