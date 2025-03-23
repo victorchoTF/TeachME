@@ -30,13 +30,20 @@ final class ProfileScreenViewModel: ObservableObject {
     
     private let userRepository: UserRepository
     private let mapper: UserMapper
+    private let imageFormatter: ImageFormatter
     
     private weak var router: ProfileRouter?
     
-    init(router: ProfileRouter?, userRepository: UserRepository, mapper: UserMapper) {
+    init(
+        router: ProfileRouter?,
+        userRepository: UserRepository,
+        mapper: UserMapper,
+        imageFormatter: ImageFormatter
+    ) {
         self.router = router
         self.userRepository = userRepository
         self.mapper = mapper
+        self.imageFormatter = imageFormatter
     }
     
     var editButtonText: String {
@@ -110,45 +117,11 @@ private extension ProfileScreenViewModel {
         let data = try await item.loadTransferable(type: Data.self)
 
         guard let imageData = data, let image = UIImage(data: imageData) else { return nil }
+
+        let resizedImage = imageFormatter.resizeImage(image, maxWidth: 256, maxHeight: 256)
         
-        let resizedImage = resizeImage(image, maxWidth: 256, maxHeight: 256)
+        let finalImage = imageFormatter.cropImageToSquare(resizedImage)
             
-        return compressImage(resizedImage)
+        return imageFormatter.compressImage(finalImage)
     }
-    
-    func compressImage(
-        _ image: UIImage,
-        maxFileSize: Int = 1_000_000,
-        minQuality: CGFloat = 0.1
-    ) -> Data? {
-        var compression: CGFloat = 0.8
-        var imageData = image.jpegData(compressionQuality: compression)
-
-        while let data = imageData, data.count > maxFileSize, compression > minQuality {
-            compression -= 0.1
-            imageData = image.jpegData(compressionQuality: compression)
-        }
-        
-        return imageData
-    }
-    
-    func resizeImage(_ image: UIImage, maxWidth: CGFloat, maxHeight: CGFloat) -> UIImage {
-        let aspectRatio = image.size.width / image.size.height
-        
-        let newSize: CGSize
-        if aspectRatio > 1 {
-            newSize = CGSize(width: maxWidth, height: maxWidth / aspectRatio)
-        } else {
-            newSize = CGSize(width: maxHeight * aspectRatio, height: maxHeight)
-        }
-
-        let format = UIGraphicsImageRendererFormat()
-        format.scale = 1
-        let renderer = UIGraphicsImageRenderer(size: newSize, format: format)
-        
-        return renderer.image { _ in
-            image.draw(in: CGRect(origin: .zero, size: newSize))
-        }
-    }
-
 }

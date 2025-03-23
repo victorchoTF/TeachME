@@ -36,7 +36,8 @@ extension ProfileRouter: Router {
         let viewModel = ProfileScreenViewModel(
             router: self,
             userRepository: userRepository,
-            mapper: mapper
+            mapper: mapper,
+            imageFormatter: ImageFormatter()
         )
 
         return ProfileScreen(viewModel: viewModel, theme: theme)
