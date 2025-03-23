@@ -55,6 +55,8 @@ private extension ProfileScreen {
                 theme: theme,
                 imageSelection: $viewModel.imageSelection
             )
+            .background(theme.colors.primary)
+            .frame(maxWidth: .infinity)
         }
     }
 }

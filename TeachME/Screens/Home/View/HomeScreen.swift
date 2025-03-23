@@ -79,6 +79,7 @@ private extension HomeScreen {
     var noLessonsLabel: some View {
         VStack {
             Text(viewModel.noLessonsText)
+                .multilineTextAlignment(.center)
                 .background(theme.colors.primary)
                 .foregroundStyle(theme.colors.text)
                 .font(theme.fonts.headline)

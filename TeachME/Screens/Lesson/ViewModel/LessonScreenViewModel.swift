@@ -13,12 +13,25 @@ final class LessonScreenViewModel: ObservableObject {
     private weak var router: LessonRouter?
     
     private let repository: LessonRepository
+    private let userRepository: UserRepository
+    private let lessonTypeRepository: LessonTypeRepository
     private let mapper: LessonMapper
+    private let userMapper: UserMapper
     
-    init(router: LessonRouter? = nil, repository: LessonRepository, mapper: LessonMapper) {
+    init(
+        router: LessonRouter? = nil,
+        repository: LessonRepository,
+        userRepository: UserRepository,
+        lessonTypeRepository: LessonTypeRepository,
+        mapper: LessonMapper,
+        userMapper: UserMapper
+    ) {
         self.router = router
         self.repository = repository
+        self.userRepository = userRepository
+        self.lessonTypeRepository = lessonTypeRepository
         self.mapper = mapper
+        self.userMapper = userMapper
     }
     
     func loadData() async {
@@ -49,7 +62,62 @@ final class LessonScreenViewModel: ObservableObject {
         print("LessonTapped")
     }
     
+    func onDelete(at offsets: IndexSet) {
+        offsets.map { lessons[$0] }.forEach { lesson in
+            Task {
+                if isTeacher {
+                    try await deleteLesson(lessonId: lesson.id)
+                } else {
+                    try await cancelLesson(lesson: lesson)
+                }
+            }
+        }
+        
+        lessons.remove(atOffsets: offsets)
+    }
+    
     var lessonCardType: LessonCardType {
-        router?.user.role == .Teacher ? .student : .teacher
+        isTeacher ? .student : .teacher
+    }
+    
+    var isTeacher: Bool {
+        router?.user.role == .Teacher
+    }
+    
+    var noLessonsText: String {
+        if isTeacher {
+            return "You have no taken lessons!\nTry again later!"
+        } else {
+            return "You have not taken a lesson yet!\nSave one now!"
+        }
+    }
+}
+
+private extension LessonScreenViewModel {
+    func deleteLesson(lessonId: UUID) async throws {
+        try await repository.delete(lessonId)
+    }
+    
+    // TODO: Implement better error handling
+    func cancelLesson(lesson: LessonItem) async throws {
+        guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
+            $0.name == lesson.lessonType
+        }) else {
+            return
+        }
+        
+        // TODO: userItem is in the router, so the fetch is not needed
+        let userModel = try await self.userRepository.getById(lesson.teacher.id)
+        
+        let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
+        
+        try await repository.cancelLesson(
+            mapper.itemToBodyModel(
+                lesson,
+                lessonTypeModel: lessonTypeModel,
+                teacherItem: userLessonBody
+            ),
+            id: lesson.id
+        )
     }
 }

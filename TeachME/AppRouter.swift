@@ -82,7 +82,10 @@ private extension AppRouter {
             lessonRouter: LessonRouter(
                 theme: theme,
                 user: user,
+                userRepository: userRepository,
                 lessonRepository: lessonRepository,
+                lessonTypeRepository: lessonTypeRepository,
+                userMapper: userMapper,
                 lessonMapper: lessonMapper
             ),
             profileRouter: ProfileRouter(

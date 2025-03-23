@@ -96,10 +96,10 @@ final class HomeScreenViewModel: ObservableObject {
     }
     
     var noLessonsText: String {
-        if router?.user.role == .Teacher {
-            return "You have no lessons! Create some?"
+        if isTeacher {
+            return "You have no lessons!\nCreate some?"
         } else {
-            return "No available lesson for you! Try again later."
+            return "No available lesson for you!\nTry again later."
         }
     }
     

@@ -51,4 +51,8 @@ final class LessonRepository: Repository {
     func takeLesson(_ body: LessonBodyModel, id: UUID) async throws {
         try await dataSource.takeLesson(mapper.bodyModelToBodyDTO(body), id: id)
     }
+    
+    func cancelLesson(_ body: LessonBodyModel, id: UUID) async throws {
+        try await dataSource.takeLesson(mapper.bodyModelToBodyDTO(body), id: id)
+    }
 }
