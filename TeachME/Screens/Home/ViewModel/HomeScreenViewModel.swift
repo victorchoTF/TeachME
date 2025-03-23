@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class LessonListScreenViewModel: ObservableObject {
+final class HomeScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
     
     private weak var router: HomeRouter?
@@ -44,7 +44,10 @@ final class LessonListScreenViewModel: ObservableObject {
         
         do {
             if user.role == .Teacher {
-                lessons = try await repository.getLessonsByTeacherId(user.id).map {
+                lessons = try await repository.getLessonsByTeacherId(user.id).filter {
+                    $0.student == nil
+                }
+                .map {
                     mapper.modelToItem($0)
                 }
             } else {
@@ -112,7 +115,7 @@ final class LessonListScreenViewModel: ObservableObject {
     }
 }
 
-private extension LessonListScreenViewModel {
+private extension HomeScreenViewModel {
     func setLesson(lesson: LessonItem) async throws {
         guard let lessonItem = try await self.addLesson(lesson: lesson) else {
             self.lessonFormViewModel = nil

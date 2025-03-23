@@ -9,7 +9,7 @@ import Foundation
 
 final class TabRouter: ObservableObject {
     @Published var homeRouter: HomeRouter
-    @Published var lessonRouter: HomeRouter
+    @Published var lessonRouter: LessonRouter
     @Published var profileRouter: ProfileRouter
     
     @Published var selectedTab: Tab = .home {
@@ -19,11 +19,10 @@ final class TabRouter: ObservableObject {
             }
         }
     }
-    
-    //FIXME: Updating loading state issue
+
     init(
         homeRouter: HomeRouter,
-        lessonRouter: HomeRouter, // TODO: change when LessonRouter is implemented
+        lessonRouter: LessonRouter,
         profileRouter: ProfileRouter
     ) {
         self.homeRouter = homeRouter

@@ -79,16 +79,12 @@ private extension AppRouter {
                 userMapper: userMapper,
                 lessonMapper: lessonMapper
             ),
-            lessonRouter: HomeRouter(
+            lessonRouter: LessonRouter(
                 theme: theme,
                 user: user,
-                userRepository: userRepository,
                 lessonRepository: lessonRepository,
-                lessonTypeRepository: lessonTypeRepository,
-                userMapper: userMapper,
                 lessonMapper: lessonMapper
             ),
-            // TODO: Switch to LessonRouter when implemented
             profileRouter: ProfileRouter(
                 theme: theme,
                 user: user,

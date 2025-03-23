@@ -1,5 +1,5 @@
 //
-//  StudentHomeScreen.swift
+//  HomeScreen.swift
 //  TeachME
 //
 //  Created by TumbaDev on 29.01.25.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct LessonListScreen: View {
-    @StateObject var viewModel: LessonListScreenViewModel
+struct HomeScreen: View {
+    @StateObject var viewModel: HomeScreenViewModel
     let theme: Theme
     
-    init(viewModel: LessonListScreenViewModel, theme: Theme) {
+    init(viewModel: HomeScreenViewModel, theme: Theme) {
         self._viewModel = StateObject(wrappedValue: viewModel)
         self.theme = theme
     }
@@ -48,7 +48,7 @@ struct LessonListScreen: View {
     }
 }
 
-private extension LessonListScreen {
+private extension HomeScreen {
     var lessonList: some View {
         List {
             ForEach(viewModel.lessons) { lesson in
