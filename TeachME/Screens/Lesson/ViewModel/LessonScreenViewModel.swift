@@ -86,7 +86,7 @@ final class LessonScreenViewModel: ObservableObject {
     
     var noLessonsText: String {
         if isTeacher {
-            return "You have no taken lessons!\nTry again later!"
+            return "You have no taken lessons!\nTry again later."
         } else {
             return "You have not taken a lesson yet!\nSave one now!"
         }
