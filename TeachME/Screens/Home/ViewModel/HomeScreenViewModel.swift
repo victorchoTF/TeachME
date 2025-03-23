@@ -81,8 +81,26 @@ final class HomeScreenViewModel: ObservableObject {
         )
     }
     
-    var shouldShowAddLessonButton: Bool {
+    func onDelete(at offsets: IndexSet) {
+        offsets.map { lessons[$0] }.forEach { lesson in
+            Task {
+                try await deleteLesson(lessonId: lesson.id)
+            }
+        }
+        
+        lessons.remove(atOffsets: offsets)
+    }
+    
+    var isTeacher: Bool {
         router?.user.role == .Teacher
+    }
+    
+    var noLessonsText: String {
+        if router?.user.role == .Teacher {
+            return "You have no lessons! Create some?"
+        } else {
+            return "No available lesson for you! Try again later."
+        }
     }
     
     func onAddButtonTap() {
@@ -157,5 +175,9 @@ private extension HomeScreenViewModel {
         )
         
         return lessonItem
+    }
+    
+    func deleteLesson(lessonId: UUID) async throws {
+        try await repository.delete(lessonId)
     }
 }

@@ -18,11 +18,15 @@ struct HomeScreen: View {
     
     var body: some View {
         VStack(spacing: theme.spacings.medium) {
-            lessonList
+            if viewModel.lessons.isEmpty {
+                noLessonsLabel
+            } else {
+                lessonList
+            }
         }
         .background(theme.colors.primary)
         .toolbar {
-            if viewModel.shouldShowAddLessonButton {
+            if viewModel.isTeacher {
                 ToolbarItem(placement: .topBarTrailing) {
                     ActionButton(
                         buttonContent: .icon(
@@ -65,8 +69,20 @@ private extension HomeScreen {
                     viewModel.onLessonTap(lesson: lesson, theme: theme)
                 }
             }
+            .onDelete(perform: viewModel.isTeacher ? viewModel.onDelete : nil)
         }
         .listStyle(.inset)
         .scrollContentBackground(.hidden)
+        .background(theme.colors.primary)
+    }
+    
+    var noLessonsLabel: some View {
+        VStack {
+            Text(viewModel.noLessonsText)
+                .background(theme.colors.primary)
+                .foregroundStyle(theme.colors.text)
+                .font(theme.fonts.headline)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

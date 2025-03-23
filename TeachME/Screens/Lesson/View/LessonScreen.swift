@@ -46,5 +46,6 @@ private extension LessonScreen {
         }
         .listStyle(.inset)
         .scrollContentBackground(.hidden)
+        .background(theme.colors.primary)
     }
 }
