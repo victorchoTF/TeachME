@@ -137,10 +137,8 @@ private extension ProfileScreenViewModel {
         
         let newSize: CGSize
         if aspectRatio > 1 {
-            // Landscape
             newSize = CGSize(width: maxWidth, height: maxWidth / aspectRatio)
         } else {
-            // Portrait
             newSize = CGSize(width: maxHeight * aspectRatio, height: maxHeight)
         }
 
