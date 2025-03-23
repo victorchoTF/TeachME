@@ -71,6 +71,9 @@ private extension HomeScreen {
             }
             .onDelete(perform: viewModel.isTeacher ? viewModel.onDelete : nil)
         }
+        .refreshable {
+            await viewModel.loadData()
+        }
         .listStyle(.inset)
         .scrollContentBackground(.hidden)
         .background(theme.colors.primary)

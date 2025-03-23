@@ -50,6 +50,9 @@ private extension LessonScreen {
             }
             .onDelete(perform: viewModel.onDelete)
         }
+        .refreshable {
+            await viewModel.loadData()
+        }
         .listStyle(.inset)
         .scrollContentBackground(.hidden)
         .background(theme.colors.primary)

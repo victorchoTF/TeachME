@@ -133,9 +133,9 @@ private extension LessonPickScreenViewModel {
     }
     
     // TODO: Notify user of what has happened
-    // FIXME: Not reloading data as expected on popToRoot()
     func studentAction() {
         takeLesson()
+        teacher = nil
         router?.popToRoot()
     }
     
