@@ -122,7 +122,8 @@ struct UserMapper: Mapper {
     
     func itemBodyToBodyModel(
         _ item: UserItemBody,
-        userId: UUID
+        userId: UUID,
+        profilePicture: Data? = nil
     ) -> UserBodyModel {
         return UserBodyModel(
             email: item.email,
@@ -131,7 +132,7 @@ struct UserMapper: Mapper {
             userDetails: UserDetailBodyModel(
                 userId: userId,
                 bio: item.bio != "" ? item.bio : nil,
-                profilePicture: nil,
+                profilePicture: profilePicture,
                 phoneNumber: item.phoneNumber != "" ? item.phoneNumber : nil
             )
         )

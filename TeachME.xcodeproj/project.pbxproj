@@ -79,6 +79,7 @@
 		8EA078992D903C9000944F51 /* LessonScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA078982D903C9000944F51 /* LessonScreenViewModel.swift */; };
 		8EA0789B2D903E1C00944F51 /* LessonRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0789A2D903E1C00944F51 /* LessonRouter.swift */; };
 		8EA0789D2D90666E00944F51 /* KeychainStoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0789C2D90666E00944F51 /* KeychainStoreConstants.swift */; };
+		8EA0789F2D9072FB00944F51 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0789E2D9072FB00944F51 /* LoadingView.swift */; };
 		8EB0934D2D7C810C0073C0F6 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0934C2D7C810C0073C0F6 /* Repository.swift */; };
 		8EB093502D7C81590073C0F6 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0934F2D7C81590073C0F6 /* Model.swift */; };
 		8EB093522D7C828F0073C0F6 /* RoleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093512D7C828F0073C0F6 /* RoleModel.swift */; };
@@ -181,6 +182,7 @@
 		8EA078982D903C9000944F51 /* LessonScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonScreenViewModel.swift; sourceTree = "<group>"; };
 		8EA0789A2D903E1C00944F51 /* LessonRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonRouter.swift; sourceTree = "<group>"; };
 		8EA0789C2D90666E00944F51 /* KeychainStoreConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStoreConstants.swift; sourceTree = "<group>"; };
+		8EA0789E2D9072FB00944F51 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		8EB0934C2D7C810C0073C0F6 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		8EB0934F2D7C81590073C0F6 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8EB093512D7C828F0073C0F6 /* RoleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleModel.swift; sourceTree = "<group>"; };
@@ -713,6 +715,7 @@
 				8E84E2792D424AF400CB8C05 /* FormTitle.swift */,
 				8E84E27F2D42531D00CB8C05 /* SubmitButton.swift */,
 				8EA0788F2D9011F100944F51 /* ProfileCard.swift */,
+				8EA0789E2D9072FB00944F51 /* LoadingView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -858,6 +861,7 @@
 				8E75D4462D3E2ED20082F5FE /* Colors.swift in Sources */,
 				8E866E7E2D58E9C8007FAE6B /* EditProfileForm.swift in Sources */,
 				8EB093632D7C849B0073C0F6 /* Mapper.swift in Sources */,
+				8EA0789F2D9072FB00944F51 /* LoadingView.swift in Sources */,
 				8EC1D32D2D475B5500987973 /* LessonCard.swift in Sources */,
 				8E99E78A2D71AD5C00CF9CC8 /* APIDataSource.swift in Sources */,
 				8E7EBE4E2D3E3AE500C7C017 /* RegisterFormViewModel.swift in Sources */,
