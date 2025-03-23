@@ -59,7 +59,7 @@ final class LessonScreenViewModel: ObservableObject {
         }
     }
     
-    // TODO: Implement DeepLink logic
+    // MARK: Implement DeepLink logic
     func onLessonTap() {
         print("LessonTapped")
     }
