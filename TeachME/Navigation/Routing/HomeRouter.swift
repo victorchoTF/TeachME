@@ -44,6 +44,7 @@ extension HomeRouter: Router {
     var initialDestination: some View{
         let viewModel = LessonListScreenViewModel(
             router: self,
+            user: user,
             repository: lessonRepository,
             lessonTypeRepository: lessonTypeRepository,
             userRepository: userRepository,

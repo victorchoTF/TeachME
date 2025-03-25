@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import PhotosUI
 
 struct ProfileScreen: View {
     @StateObject var viewModel: ProfileScreenViewModel
@@ -49,12 +48,10 @@ struct ProfileScreen: View {
 private extension ProfileScreen {
     @ViewBuilder
     var profileCard: some View {
-        if let userItem = viewModel.userItem {
-            ProfileCard(
-                user: userItem,
-                theme: theme,
-                imageSelection: $viewModel.imageSelection
-            )
-        }
+        ProfileCard(
+            user: viewModel.user,
+            theme: theme,
+            imageSelection: $viewModel.imageSelection
+        )
     }
 }

@@ -10,6 +10,20 @@ import SwiftUI
 import PhotosUI
 
 struct ImageFormatter {
+    func loadImage(from item: PhotosPickerItem?) async throws -> Data? {
+        guard let item else { return nil }
+        
+        let data = try await item.loadTransferable(type: Data.self)
+
+        guard let imageData = data, let image = UIImage(data: imageData) else { return nil }
+
+        let resizedImage = resizeImage(image, maxWidth: 256, maxHeight: 256)
+        
+        let finalImage = cropImageToSquare(resizedImage)
+            
+        return compressImage(finalImage)
+    }
+    
     func compressImage(
         _ image: UIImage,
         maxFileSize: Int = 1_000_000,
