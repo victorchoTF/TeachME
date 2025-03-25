@@ -32,11 +32,11 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
         repository: LessonTypeRepository,
         dateFormatter: DateFormatter,
         onCancel: @escaping () -> (),
-        updateLesson: @escaping (LessonItem) -> ()
+        setLesson: @escaping (LessonItem) -> ()
     ) {
         self.lesson = lesson
         self.onCancel = onCancel
-        self.setLesson = updateLesson
+        self.setLesson = setLesson
         self.formType = formType
         self.repository = repository
         self.dateFormatter = dateFormatter
@@ -59,8 +59,12 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
     }
 
     func onSubmit() {
-        let lesson = LessonItem(
-            id: teacher.id,
+        guard let lesson = lesson else {
+            return
+        }
+        
+        let lessonItem = LessonItem(
+            id: lesson.id,
             lessonType: lessonType,
             subtitle: subtitle,
             startDate: dateFormatter.toString(startDate),
@@ -68,7 +72,7 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
             teacher: teacher
         )
         
-        setLesson(lesson)
+        setLesson(lessonItem)
     }
     
     func loadData() async {

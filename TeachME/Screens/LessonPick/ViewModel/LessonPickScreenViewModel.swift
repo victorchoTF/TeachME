@@ -7,8 +7,14 @@
 
 import Foundation
 
+enum LessonPickAlertType {
+    case loadingError
+    case savedLesson
+}
+
 final class LessonPickScreenViewModel: ObservableObject {
     @Published var showAlert: Bool = false
+    @Published var alertType: LessonPickAlertType? = nil
     @Published var pickedLesson: LessonItem
     @Published var teacher: UserItem?
     @Published var lessonFormViewModel: LessonFormViewModel?
@@ -93,7 +99,8 @@ final class LessonPickScreenViewModel: ObservableObject {
                 $0.id != pickedLesson.id
             }
         } catch {
-            print("An error occured")
+            alertType = .loadingError
+            showAlert = true
         }
     }
     
@@ -113,7 +120,11 @@ final class LessonPickScreenViewModel: ObservableObject {
     }
     
     var alertMessage: String {
-        "Lesson with \(pickedLesson.teacher.name) saved successfully!"
+        switch alertType {
+        case .savedLesson: "Lesson with \(pickedLesson.teacher.name) saved successfully!"
+        case .loadingError: "Couldn't load lesson!\nPlease try again."
+        default: "Something went wrong!"
+        }
     }
     
     func pickLessonButtonAction() {
@@ -149,6 +160,7 @@ private extension LessonPickScreenViewModel {
     
     func studentAction() {
         takeLesson()
+        alertType = .savedLesson
         showAlert = true
     }
     
@@ -167,7 +179,6 @@ private extension LessonPickScreenViewModel {
         }
     }
     
-    // FIXME: Certain cases couse Internal Server Error
     func updateLesson(lesson: LessonItem) {
         Task {
             guard let lessonBody = try await lessonBodyModelByLessonItem(lesson: lesson) else {
