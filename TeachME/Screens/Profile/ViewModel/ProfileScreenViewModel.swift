@@ -13,17 +13,22 @@ final class ProfileScreenViewModel: ObservableObject {
     @Published var editProfileFormViewModel: EditProfileFormViewModel?
     @Published var user: UserItem
     
+    @Published var updateImageAlert: Bool = false
+    
     @Published var imageSelection: PhotosPickerItem? = nil {
         didSet {
-            Task {
-                try await updateProfilePicture()
-            }
+            setProfilePicture()
         }
     }
     
     private let userRepository: UserRepository
     private let mapper: UserMapper
     private let imageFormatter: ImageFormatter
+    private var profilePicture: Data? = nil {
+        didSet {
+            updateImageAlert = true
+        }
+    }
     
     
     private weak var router: ProfileRouter?
@@ -63,6 +68,28 @@ final class ProfileScreenViewModel: ObservableObject {
             editProfileFormViewModel = nil
         }
     }
+    
+    func updateProfilePicture() {
+        Task {
+            user = try await updateUserByBodyModel(user: userBodyModelWithImage())
+        }
+    }
+    
+    func cancelProfilePictureUpdate() {
+        updateImageAlert = false
+    }
+    
+    var imageAlertMessage: String {
+        "Are you sure this is your picture?"
+    }
+    
+    var imageAlertAccept: String {
+        "Yes"
+    }
+    
+    var imageAlertCancel: String {
+        "Cancel"
+    }
 }
 
 private extension ProfileScreenViewModel {
@@ -78,24 +105,20 @@ private extension ProfileScreenViewModel {
         return try await mapper.modelToItem(userRepository.getById(self.user.id))
     }
     
-    func updateProfilePicture() async throws {
-        guard let userBodyModel = try await userBodyModelWithImage() else {
-            return
-        }
-        
-        user = try await updateUserByBodyModel(
-            user: userBodyModel
+    func userBodyModelWithImage() async throws -> UserBodyModel {
+        mapper.itemWithProfilePictureToBodyModel(
+            user,
+            profilePicture: profilePicture
         )
     }
     
-    func userBodyModelWithImage() async throws -> UserBodyModel? {
+    func setProfilePicture() {
         guard let imageSelection = imageSelection else {
-            return nil
+            return
         }
         
-        return mapper.itemWithProfilePictureToBodyModel(
-            user,
-            profilePicture: try await imageFormatter.loadImage(from: imageSelection)
-        )
+        Task {
+            profilePicture = try await imageFormatter.loadImage(from: imageSelection)
+        }
     }
 }
