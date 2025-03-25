@@ -11,19 +11,12 @@ import PhotosUI
 
 final class ProfileScreenViewModel: ObservableObject {
     @Published var editProfileFormViewModel: EditProfileFormViewModel?
+    @Published var user: UserItem
+    
     @Published var imageSelection: PhotosPickerItem? = nil {
         didSet {
-            guard let imageSelection = imageSelection, let user = userItem else {
-                return
-            }
-            
             Task {
-                router?.user = try await updateUserByBodyModel(
-                    user: mapper.itemWithProfilePictureToBodyModel(
-                        user,
-                        profilePicture: try await loadImage(from: imageSelection)
-                    )
-                ) ?? user
+                try await updateProfilePicture()
             }
         }
     }
@@ -32,10 +25,12 @@ final class ProfileScreenViewModel: ObservableObject {
     private let mapper: UserMapper
     private let imageFormatter: ImageFormatter
     
+    
     private weak var router: ProfileRouter?
     
     init(
         router: ProfileRouter?,
+        user: UserItem,
         userRepository: UserRepository,
         mapper: UserMapper,
         imageFormatter: ImageFormatter
@@ -44,6 +39,7 @@ final class ProfileScreenViewModel: ObservableObject {
         self.userRepository = userRepository
         self.mapper = mapper
         self.imageFormatter = imageFormatter
+        self.user = user
     }
     
     var editButtonText: String {
@@ -51,10 +47,6 @@ final class ProfileScreenViewModel: ObservableObject {
     }
     
     func openEditProfile() {
-        guard let user = userItem else {
-            return
-        }
-        
         editProfileFormViewModel = EditProfileFormViewModel(
             userItem: user,
             onCancel: { [weak self] in
@@ -66,53 +58,44 @@ final class ProfileScreenViewModel: ObservableObject {
 
     func updateProfile(userItem: UserItemBody) {
         Task {
-            guard let user = try await updateUser(user: userItem) else {
-                return
-            }
-            
-            self.router?.user = user
+            self.user = try await updateUser(user: userItem)
             
             editProfileFormViewModel = nil
         }
     }
-    
-    var userItem: UserItem? {
-        router?.user
-    }
 }
 
 private extension ProfileScreenViewModel {
-    func updateUser(user: UserItemBody) async throws -> UserItem? {
-        guard let userItem = userItem else {
-            return nil
-        }
-        
-        let userModelBody = mapper.itemBodyToBodyModel(user, userId: userItem.id)
+    func updateUser(user: UserItemBody) async throws -> UserItem {
+        let userModelBody = mapper.itemBodyToBodyModel(user, userId: self.user.id)
         
         return try await updateUserByBodyModel(user: userModelBody)
     }
     
-    func updateUserByBodyModel(user: UserBodyModel) async throws -> UserItem? {
-        guard let userItem = userItem else {
+    func updateUserByBodyModel(user: UserBodyModel) async throws -> UserItem {
+        try await userRepository.update(user, id: self.user.id)
+        
+        return try await mapper.modelToItem(userRepository.getById(self.user.id))
+    }
+    
+    func updateProfilePicture() async throws {
+        guard let userBodyModel = try await userBodyModelWithImage() else {
+            return
+        }
+        
+        user = try await updateUserByBodyModel(
+            user: userBodyModel
+        )
+    }
+    
+    func userBodyModelWithImage() async throws -> UserBodyModel? {
+        guard let imageSelection = imageSelection else {
             return nil
         }
         
-        try await userRepository.update(user, id: userItem.id)
-        
-        return try await mapper.modelToItem(userRepository.getById(userItem.id))
-    }
-    
-    func loadImage(from item: PhotosPickerItem?) async throws -> Data? {
-        guard let item else { return nil }
-        
-        let data = try await item.loadTransferable(type: Data.self)
-
-        guard let imageData = data, let image = UIImage(data: imageData) else { return nil }
-
-        let resizedImage = imageFormatter.resizeImage(image, maxWidth: 256, maxHeight: 256)
-        
-        let finalImage = imageFormatter.cropImageToSquare(resizedImage)
-            
-        return imageFormatter.compressImage(finalImage)
+        return mapper.itemWithProfilePictureToBodyModel(
+            user,
+            profilePicture: try await imageFormatter.loadImage(from: imageSelection)
+        )
     }
 }

@@ -97,6 +97,7 @@
 		8EB0936B2D7C8FB40073C0F6 /* LessonTypeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0936A2D7C8FB40073C0F6 /* LessonTypeRepository.swift */; };
 		8EB0936F2D7C90480073C0F6 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0936E2D7C90480073C0F6 /* UserRepository.swift */; };
 		8EB093712D7C908F0073C0F6 /* LessonRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093702D7C908F0073C0F6 /* LessonRepository.swift */; };
+		8EB2C9462D928AE9001010EA /* LessonListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB2C9452D928AE9001010EA /* LessonListState.swift */; };
 		8EBF411F2D8C73A6007932BF /* TeachMETabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF411E2D8C73A6007932BF /* TeachMETabView.swift */; };
 		8EBF41242D8C761C007932BF /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBF41232D8C761C007932BF /* AppRouter.swift */; };
 		8EC1D32D2D475B5500987973 /* LessonCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC1D32C2D475B5400987973 /* LessonCard.swift */; };
@@ -200,6 +201,7 @@
 		8EB0936A2D7C8FB40073C0F6 /* LessonTypeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTypeRepository.swift; sourceTree = "<group>"; };
 		8EB0936E2D7C90480073C0F6 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		8EB093702D7C908F0073C0F6 /* LessonRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonRepository.swift; sourceTree = "<group>"; };
+		8EB2C9452D928AE9001010EA /* LessonListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonListState.swift; sourceTree = "<group>"; };
 		8EBF411E2D8C73A6007932BF /* TeachMETabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachMETabView.swift; sourceTree = "<group>"; };
 		8EBF41232D8C761C007932BF /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		8EC1D32C2D475B5400987973 /* LessonCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCard.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				8E75D4402D3E268B0082F5FE /* Role.swift */,
 				8EA078912D9025FA00944F51 /* ImageFormatter.swift */,
 				8EA0789C2D90666E00944F51 /* KeychainStoreConstants.swift */,
+				8EB2C9452D928AE9001010EA /* LessonListState.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -921,6 +924,7 @@
 				8EB093712D7C908F0073C0F6 /* LessonRepository.swift in Sources */,
 				8E8C9AE82D82CE3A00082B34 /* KeychainStore.swift in Sources */,
 				8EDBFF202D57A9C4008441D6 /* ProfileRouter.swift in Sources */,
+				8EB2C9462D928AE9001010EA /* LessonListState.swift in Sources */,
 				8E8C9AEC2D82E12300082B34 /* Endpoints.swift in Sources */,
 				8E20F5792D4B8CAA007B3154 /* UserItem.swift in Sources */,
 				8EFED06D2D50A71500046F1D /* RouterView.swift in Sources */,

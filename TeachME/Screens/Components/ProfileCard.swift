@@ -92,7 +92,7 @@ private extension ProfileCard {
                         .font(.system(size: 30))
                         .foregroundColor(theme.colors.accent)
                 }
-                             .buttonStyle(.borderless)
+                .buttonStyle(.borderless)
             }
     }
 }

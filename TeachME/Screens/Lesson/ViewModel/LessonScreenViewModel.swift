@@ -11,6 +11,7 @@ final class LessonScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
     @Published var showLoadingAlert: Bool = false
     @Published var showDeletingAlert: Bool = false
+    @Published var user: UserItem
     
     private weak var router: LessonRouter?
     
@@ -22,6 +23,7 @@ final class LessonScreenViewModel: ObservableObject {
     
     init(
         router: LessonRouter? = nil,
+        user: UserItem,
         repository: LessonRepository,
         userRepository: UserRepository,
         lessonTypeRepository: LessonTypeRepository,
@@ -29,6 +31,7 @@ final class LessonScreenViewModel: ObservableObject {
         userMapper: UserMapper
     ) {
         self.router = router
+        self.user = user
         self.repository = repository
         self.userRepository = userRepository
         self.lessonTypeRepository = lessonTypeRepository
@@ -37,10 +40,6 @@ final class LessonScreenViewModel: ObservableObject {
     }
     
     func loadData() async {
-        guard let user = router?.user else {
-            return
-        }
-        
         do {
             if user.role == .Teacher {
                 lessons = try await repository.getLessonsByTeacherId(user.id).filter {
@@ -59,19 +58,21 @@ final class LessonScreenViewModel: ObservableObject {
         }
     }
     
-    // MARK: Implement DeepLink logic
+    var lessonListState: LessonListState {
+        lessons.isEmpty ? .empty : .hasItems
+    }
+    
+    // TODO: Implement DeepLink logic
     func onLessonTap() {
         print("LessonTapped")
     }
     
     func onDelete(at offsets: IndexSet) {
         offsets.map { lessons[$0] }.forEach { lesson in
-            Task {
-                if isTeacher {
-                    try await deleteLesson(lessonId: lesson.id)
-                } else {
-                    try await cancelLesson(lesson: lesson)
-                }
+            if isTeacher {
+                deleteLesson(lessonId: lesson.id)
+            } else {
+                cancelLesson(lesson: lesson)
             }
         }
         if !showDeletingAlert {
@@ -84,7 +85,7 @@ final class LessonScreenViewModel: ObservableObject {
     }
     
     var isTeacher: Bool {
-        router?.user.role == .Teacher
+        user.role == .Teacher
     }
     
     var noLessonsText: String {
@@ -105,36 +106,40 @@ final class LessonScreenViewModel: ObservableObject {
 }
 
 private extension LessonScreenViewModel {
-    func deleteLesson(lessonId: UUID) async throws {
-        do {
-            try await repository.delete(lessonId)
-        } catch {
-            showDeletingAlert = true
+    func deleteLesson(lessonId: UUID) {
+        Task {
+            do {
+                try await repository.delete(lessonId)
+            } catch {
+                showDeletingAlert = true
+            }
         }
     }
     
-    func cancelLesson(lesson: LessonItem) async throws {
-        guard let user = router?.user else {
-            showDeletingAlert = true
-            return
+    func cancelLesson(lesson: LessonItem) {
+        Task {
+            guard let user = router?.user else {
+                showDeletingAlert = true
+                return
+            }
+            
+            guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
+                $0.name == lesson.lessonType
+            }) else {
+                showDeletingAlert = true
+                return
+            }
+            
+            let userLessonBody = self.userMapper.itemToBodyLessonModel(user)
+            
+            try await repository.cancelLesson(
+                mapper.itemToBodyModel(
+                    lesson,
+                    lessonTypeModel: lessonTypeModel,
+                    teacherItem: userLessonBody
+                ),
+                id: lesson.id
+            )
         }
-        
-        guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
-            $0.name == lesson.lessonType
-        }) else {
-            showDeletingAlert = true
-            return
-        }
-        
-        let userLessonBody = self.userMapper.itemToBodyLessonModel(user)
-        
-        try await repository.cancelLesson(
-            mapper.itemToBodyModel(
-                lesson,
-                lessonTypeModel: lessonTypeModel,
-                teacherItem: userLessonBody
-            ),
-            id: lesson.id
-        )
     }
 }
