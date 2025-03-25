@@ -15,17 +15,21 @@ final class LoginFormViewModel: ObservableObject {
     private let userRepository: UserRepository
     private let userMapper: UserMapper
     
+    private let roleProvider: RoleProvider
+    
     let onSubmit: (UserItem) -> ()
     
     init(
         authRepository: AuthRepository,
         userRepository: UserRepository,
         userMapper: UserMapper,
+        roleProvider: RoleProvider,
         onSubmit: @escaping (UserItem) -> ()
     ) {
         self.authRepository = authRepository
         self.userRepository = userRepository
         self.userMapper = userMapper
+        self.roleProvider = roleProvider
         self.onSubmit = onSubmit
     }
 
@@ -37,9 +41,10 @@ final class LoginFormViewModel: ObservableObject {
                     password: password
                 )
             )
-                
+            
             let userItem = try await userMapper.modelToItem(
-                userRepository.getUserByEmail(email)
+                userRepository.getUserByEmail(email),
+                roles: roleProvider.getRoles()
             )
             
             onSubmit(userItem)

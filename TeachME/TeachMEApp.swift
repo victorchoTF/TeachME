@@ -10,7 +10,6 @@ import SwiftUI
 @main
 struct TeachMEApp: App {
     let theme: Theme
-
     let appRouter: AppRouter
     
     init() {
@@ -24,11 +23,6 @@ struct TeachMEApp: App {
             keychainStore: keychainStore,
             encoder: jsonEncoder,
             decoder: jsonDecoder
-        )
-        
-        let authHTTPClient = AuthHTTPClient(
-            tokenProvider: tokenService,
-            httpClient: httpClient
         )
         
         let userMapper = UserMapper(
@@ -47,6 +41,24 @@ struct TeachMEApp: App {
             tokenSetter: tokenService
         )
         
+        let authHTTPClient = AuthHTTPClient(
+            tokenProvider: tokenService,
+            httpClient: httpClient
+        )
+        
+        let roleRepository = RoleRepository(
+            dataSource: RoleDataSource(
+                client: authHTTPClient,
+                baseURL: Endpoints.rolesURL,
+                encoder: jsonEncoder,
+                decoder: jsonDecoder,
+                fetchAllURL: Endpoints.fetchAllRolesURL
+            ),
+            mapper: roleMapper
+        )
+        
+        let roleProvider = RoleProvider(repository: roleRepository)
+        
         let userRepository = UserRepository(
             dataSource: UserDataSource(
                 client: authHTTPClient,
@@ -55,16 +67,6 @@ struct TeachMEApp: App {
                 decoder: jsonDecoder
             ),
             mapper: userMapper
-        )
-        
-        let roleRepository = RoleRepository(
-            dataSource: RoleDataSource(
-                client: authHTTPClient,
-                baseURL: Endpoints.rolesURL,
-                encoder: jsonEncoder,
-                decoder: jsonDecoder
-            ),
-            mapper: roleMapper
         )
         
         let lessonMapper = LessonMapper(
@@ -103,6 +105,7 @@ struct TeachMEApp: App {
             lessonTypeRepository: lessonTypeRepository,
             userMapper: userMapper,
             lessonMapper: lessonMapper,
+            roleProvider: roleProvider,
             theme: theme
         )
     }

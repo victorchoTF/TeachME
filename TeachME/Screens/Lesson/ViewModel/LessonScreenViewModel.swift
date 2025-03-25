@@ -41,7 +41,7 @@ final class LessonScreenViewModel: ObservableObject {
     
     func loadData() async {
         do {
-            if user.role == .Teacher {
+            if user.role == .teacher {
                 lessons = try await repository.getLessonsByTeacherId(user.id).filter {
                     $0.student != nil
                 }
@@ -85,7 +85,7 @@ final class LessonScreenViewModel: ObservableObject {
     }
     
     var isTeacher: Bool {
-        user.role == .Teacher
+        user.role == .teacher
     }
     
     var noLessonsText: String {

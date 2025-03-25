@@ -7,12 +7,84 @@
 
 import Foundation
 
-// MARK: Make into a struct and fetch the data from the API
 enum Role: String, CaseIterable {
-    case Student = "aeaa842a-d829-4aa6-91f8-75efee072c7e"
-    case Teacher = "748accfc-58d9-4d2f-aaa7-703901ee4433"
+    case student
+    case teacher
     
-    var caseName: String {
-        return String(describing: self)
+    func toRoleModel(roles: Roles) -> RoleModel {
+        switch self {
+        case .student: roles.student
+        case .teacher: roles.teacher
+        }
+    }
+}
+
+struct Roles {
+    let student: RoleModel
+    let teacher: RoleModel
+    
+    func toRole(roleModel: RoleModel) -> Role {
+        if roleModel.id == teacher.id {
+            return .teacher
+        }
+        
+        return .student
+    }
+}
+
+class RoleProvider {
+    enum RoleLoaderError: Error {
+        case studentNotFound
+        case teacherNotFound
+        case rolesNotInitialized
+    }
+    
+    private let repository: RoleRepository
+    private var roles: Roles? = nil
+    
+    init(repository: RoleRepository) {
+        self.repository = repository
+        
+        Task {
+            roles = try await loadRoles()
+        }
+    }
+    
+    func getRoles() throws -> Roles {
+        guard let roles = roles else {
+            throw RoleLoaderError.rolesNotInitialized
+        }
+        
+        return roles
+    }
+}
+
+private extension RoleProvider {
+    func loadRoles() async throws -> Roles {
+        let roles = try await repository.getAll()
+        
+        var student: RoleModel?
+        var teacher: RoleModel?
+        
+        for role in roles {
+            if role.title == "Student" {
+                student = role
+                continue
+            }
+            
+            if role.title == "Teacher"{
+                teacher = role
+            }
+        }
+        
+        guard let student = student else {
+            throw RoleLoaderError.studentNotFound
+        }
+        
+        guard let teacher = teacher else {
+            throw RoleLoaderError.teacherNotFound
+        }
+        
+        return Roles(student: student, teacher: teacher)
     }
 }

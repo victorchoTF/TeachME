@@ -12,12 +12,14 @@ final class RegisterFormViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var firstName: String = ""
     @Published var lastName: String = ""
-    @Published var roleType: Role = .Student
+    @Published var roleType: Role = .student
     
     private let authRepository: AuthRepository
     private let userRepository: UserRepository
     private let roleRepository: RoleRepository
     private let userMapper: UserMapper
+    
+    private let roleProvider: RoleProvider
     
     let onSubmit: (UserItem) -> ()
     
@@ -26,33 +28,32 @@ final class RegisterFormViewModel: ObservableObject {
         userRepository: UserRepository,
         roleRepository: RoleRepository,
         userMapper: UserMapper,
+        roleProvider: RoleProvider,
         onSubmit: @escaping (UserItem) -> ()
     ) {
         self.authRepository = authRepository
         self.userRepository = userRepository
         self.roleRepository = roleRepository
         self.userMapper = userMapper
+        self.roleProvider = roleProvider
         self.onSubmit = onSubmit
     }
     
     func registerUser() {
         Task {
-            guard let roleId = UUID(uuidString: roleType.rawValue) else {
-                return
-            }
-            
             let _ = try await authRepository.register(
                 user: UserRegisterBodyModel(
                     email: email,
                     password: password,
                     firstName: firstName,
                     lastName: lastName,
-                    roleId: roleId
+                    roleId: roleType.toRoleModel(roles: roleProvider.getRoles()).id
                 )
             )
-            
+        
             let userItem = try await self.userMapper.modelToItem(
-                userRepository.getUserByEmail(email)
+                userRepository.getUserByEmail(email),
+                roles: roleProvider.getRoles()
             )
             
             onSubmit(userItem)
@@ -100,11 +101,11 @@ final class RegisterFormViewModel: ObservableObject {
     }
     
     var studentRole: String {
-        Role.Student.caseName
+        Role.student.rawValue.capitalized
     }
     
     var teacherRole: String {
-        Role.Teacher.caseName
+        Role.teacher.rawValue.capitalized
     }
     
     var hasAccount: String {

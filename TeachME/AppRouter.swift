@@ -25,6 +25,8 @@ final class AppRouter: ObservableObject {
     private let lessonMapper: LessonMapper
     private let theme: Theme
     
+    private let roleProvider: RoleProvider
+    
     init(
         authRepository: AuthRepository,
         userRepository: UserRepository,
@@ -33,6 +35,7 @@ final class AppRouter: ObservableObject {
         lessonTypeRepository: LessonTypeRepository,
         userMapper: UserMapper,
         lessonMapper: LessonMapper,
+        roleProvider: RoleProvider,
         theme: Theme
     ) {
         self.authRepository = authRepository
@@ -42,6 +45,7 @@ final class AppRouter: ObservableObject {
         self.lessonTypeRepository = lessonTypeRepository
         self.userMapper = userMapper
         self.lessonMapper = lessonMapper
+        self.roleProvider = roleProvider
         self.theme = theme
     }
     
@@ -76,7 +80,8 @@ private extension AppRouter {
                 lessonRepository: lessonRepository,
                 lessonTypeRepository: lessonTypeRepository,
                 userMapper: userMapper,
-                lessonMapper: lessonMapper
+                lessonMapper: lessonMapper,
+                roleProvider: roleProvider
             ),
             lessonRouter: LessonRouter(
                 theme: theme,
@@ -91,7 +96,8 @@ private extension AppRouter {
                 theme: theme,
                 user: user,
                 userRepository: userRepository,
-                mapper: userMapper
+                mapper: userMapper,
+                rolePorvider: roleProvider
             )
         )
     }
@@ -101,7 +107,8 @@ private extension AppRouter {
             loginFormViewModel: LoginFormViewModel(
                 authRepository: authRepository,
                 userRepository: userRepository,
-                userMapper: userMapper
+                userMapper: userMapper,
+                roleProvider: roleProvider
             ) { [weak self] userItem in
                 self?.didLogIn(user: userItem)
             },
@@ -109,7 +116,8 @@ private extension AppRouter {
                 authRepository: authRepository,
                 userRepository: userRepository,
                 roleRepository: roleRepository,
-                userMapper: userMapper
+                userMapper: userMapper,
+                roleProvider: roleProvider
             ) { [weak self] userItem in
                 self?.didLogIn(user: userItem)
             }

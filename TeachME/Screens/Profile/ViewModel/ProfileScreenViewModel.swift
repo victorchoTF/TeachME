@@ -30,6 +30,8 @@ final class ProfileScreenViewModel: ObservableObject {
         }
     }
     
+    private let roleProvider: RoleProvider
+    
     
     private weak var router: ProfileRouter?
     
@@ -38,13 +40,15 @@ final class ProfileScreenViewModel: ObservableObject {
         user: UserItem,
         userRepository: UserRepository,
         mapper: UserMapper,
-        imageFormatter: ImageFormatter
+        imageFormatter: ImageFormatter,
+        roleProvider: RoleProvider
     ) {
         self.router = router
         self.userRepository = userRepository
         self.mapper = mapper
         self.imageFormatter = imageFormatter
         self.user = user
+        self.roleProvider = roleProvider
     }
     
     var editButtonText: String {
@@ -102,7 +106,10 @@ private extension ProfileScreenViewModel {
     func updateUserByBodyModel(user: UserBodyModel) async throws -> UserItem {
         try await userRepository.update(user, id: self.user.id)
         
-        return try await mapper.modelToItem(userRepository.getById(self.user.id))
+        return try await mapper.modelToItem(
+            userRepository.getById(self.user.id),
+            roles: roleProvider.getRoles()
+        )
     }
     
     func userBodyModelWithImage() async throws -> UserBodyModel {

@@ -22,6 +22,8 @@ final class HomeScreenViewModel: ObservableObject {
     private let mapper: LessonMapper
     private let userMapper: UserMapper
     
+    private let roleProvider: RoleProvider
+    
     init(
         router: HomeRouter,
         user: UserItem,
@@ -29,7 +31,8 @@ final class HomeScreenViewModel: ObservableObject {
         lessonTypeRepository: LessonTypeRepository,
         userRepository: UserRepository,
         mapper: LessonMapper,
-        userMapper: UserMapper
+        userMapper: UserMapper,
+        roleProvider: RoleProvider
     ) {
         self.router = router
         self.user = user
@@ -38,11 +41,12 @@ final class HomeScreenViewModel: ObservableObject {
         self.userRepository = userRepository
         self.mapper = mapper
         self.userMapper = userMapper
+        self.roleProvider = roleProvider
     }
     
     func loadData() async {
         do {
-            if user.role == .Teacher {
+            if user.role == .teacher {
                 lessons = try await repository.getLessonsByTeacherId(user.id).filter {
                     $0.student == nil
                 }
@@ -78,7 +82,8 @@ final class HomeScreenViewModel: ObservableObject {
                     userRepostirory: userRepository,
                     lessonTypeRepository: lessonTypeRepository,
                     mapper: mapper,
-                    userMapper: userMapper
+                    userMapper: userMapper,
+                    roleProvider: roleProvider
                 ),
                 theme
             )
@@ -102,7 +107,7 @@ final class HomeScreenViewModel: ObservableObject {
     }
     
     var isTeacher: Bool {
-        user.role == .Teacher
+        user.role == .teacher
     }
     
     var noLessonsText: String {

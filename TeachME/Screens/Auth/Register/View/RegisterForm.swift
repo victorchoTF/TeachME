@@ -70,8 +70,8 @@ private extension RegisterForm {
     private var roleDetails: some View {
         Section(viewModel.roleHeading) {
             Picker(viewModel.roleHeading, selection: $viewModel.roleType) {
-                Text(viewModel.studentRole).tag(Role.Student)
-                Text(viewModel.teacherRole).tag(Role.Teacher)
+                Text(viewModel.studentRole).tag(Role.student)
+                Text(viewModel.teacherRole).tag(Role.teacher)
             }
             .tint(theme.colors.accent)
             .pickerStyle(.segmented)

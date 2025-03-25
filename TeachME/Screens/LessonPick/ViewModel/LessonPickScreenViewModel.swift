@@ -22,6 +22,8 @@ final class LessonPickScreenViewModel: ObservableObject {
     private let mapper: LessonMapper
     private let userMapper: UserMapper
     
+    private let roleProvider: RoleProvider
+    
     private weak var router: HomeRouter?
     
     init(
@@ -32,7 +34,8 @@ final class LessonPickScreenViewModel: ObservableObject {
         userRepostirory: UserRepository,
         lessonTypeRepository: LessonTypeRepository,
         mapper: LessonMapper,
-        userMapper: UserMapper
+        userMapper: UserMapper,
+        roleProvider: RoleProvider
     ) {
         self.pickedLesson = pickedLesson
         self.user = user
@@ -42,6 +45,7 @@ final class LessonPickScreenViewModel: ObservableObject {
         self.lessonTypeRepository = lessonTypeRepository
         self.mapper = mapper
         self.userMapper = userMapper
+        self.roleProvider = roleProvider
     }
     
     func onLessonTap(lesson: LessonItem, theme: Theme) {
@@ -59,19 +63,21 @@ final class LessonPickScreenViewModel: ObservableObject {
                     userRepostirory: userRepository,
                     lessonTypeRepository: lessonTypeRepository,
                     mapper: mapper,
-                    userMapper: userMapper
+                    userMapper: userMapper,
+                    roleProvider: roleProvider
                 ),
                 theme
             )
         )
     }
     
-    func loadData() async{
+    func loadData() async {
         do {
             teacher = try await userMapper.modelToItem(
                 userRepository.getById(
                     pickedLesson.teacher.id
-                )
+                ),
+                roles: roleProvider.getRoles()
             )
             
             otherLessons = try await repository.getLessonsByTeacherId(
@@ -101,7 +107,7 @@ final class LessonPickScreenViewModel: ObservableObject {
     
     var pickLessonButtonText: String {
         switch user.role {
-        case .Teacher: "Edit"
+        case .teacher: "Edit"
         default: "Save"
         }
     }
@@ -112,8 +118,8 @@ final class LessonPickScreenViewModel: ObservableObject {
     
     func pickLessonButtonAction() {
         switch user.role {
-        case .Teacher: teacherAction()
-        case .Student: studentAction()
+        case .teacher: teacherAction()
+        case .student: studentAction()
         }
     }
     

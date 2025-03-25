@@ -105,7 +105,7 @@ struct UserMapper: Mapper {
         )
     }
     
-    func modelToItem(_ model: UserModel) -> UserItem {
+    func modelToItem(_ model: UserModel, roles: Roles) -> UserItem {
         return UserItem(
             id: model.id,
             name: "\(model.firstName) \(model.lastName)",
@@ -116,7 +116,7 @@ struct UserMapper: Mapper {
             email: model.email,
             phoneNumber: model.userDetail?.phoneNumber ?? "",
             bio: model.userDetail?.bio ?? "",
-            role: Role.Student.caseName == model.role.title ? Role.Student : Role.Teacher
+            role: roles.toRole(roleModel: model.role)
         )
     }
     
