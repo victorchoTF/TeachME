@@ -35,6 +35,7 @@ extension LessonRouter: Router {
     var initialDestination: some View {
         let viewModel = LessonScreenViewModel(
             router: self,
+            user: user,
             repository: lessonRepository,
             mapper: lessonMapper
         )

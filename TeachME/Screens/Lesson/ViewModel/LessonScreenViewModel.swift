@@ -9,23 +9,26 @@ import SwiftUI
 
 final class LessonScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
+    @Published var user: UserItem
     
     private weak var router: LessonRouter?
     
     private let repository: LessonRepository
     private let mapper: LessonMapper
     
-    init(router: LessonRouter? = nil, repository: LessonRepository, mapper: LessonMapper) {
+    init(
+        router: LessonRouter? = nil,
+        user: UserItem,
+        repository: LessonRepository,
+        mapper: LessonMapper
+    ) {
         self.router = router
+        self.user = user
         self.repository = repository
         self.mapper = mapper
     }
     
     func loadData() async {
-        guard let user = router?.user else {
-            return
-        }
-        
         do {
             if user.role == .Teacher {
                 lessons = try await repository.getLessonsByTeacherId(user.id).filter {
@@ -50,6 +53,6 @@ final class LessonScreenViewModel: ObservableObject {
     }
     
     var lessonCardType: LessonCardType {
-        router?.user.role == .Teacher ? .student : .teacher
+        user.role == .Teacher ? .student : .teacher
     }
 }
