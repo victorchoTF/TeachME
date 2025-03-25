@@ -57,6 +57,10 @@ final class LessonScreenViewModel: ObservableObject {
         }
     }
     
+    var lessonListState: LessonListState {
+        lessons.isEmpty ? .empty : .hasItems
+    }
+    
     // TODO: Implement DeepLink logic
     func onLessonTap() {
         print("LessonTapped")
@@ -64,12 +68,10 @@ final class LessonScreenViewModel: ObservableObject {
     
     func onDelete(at offsets: IndexSet) {
         offsets.map { lessons[$0] }.forEach { lesson in
-            Task {
-                if isTeacher {
-                    try await deleteLesson(lessonId: lesson.id)
-                } else {
-                    try await cancelLesson(lesson: lesson)
-                }
+            if isTeacher {
+                deleteLesson(lessonId: lesson.id)
+            } else {
+                cancelLesson(lesson: lesson)
             }
         }
         
@@ -94,30 +96,34 @@ final class LessonScreenViewModel: ObservableObject {
 }
 
 private extension LessonScreenViewModel {
-    func deleteLesson(lessonId: UUID) async throws {
-        try await repository.delete(lessonId)
+    func deleteLesson(lessonId: UUID) {
+        Task {
+            try await repository.delete(lessonId)
+        }
     }
     
     // TODO: Implement better error handling
-    func cancelLesson(lesson: LessonItem) async throws {
-        guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
-            $0.name == lesson.lessonType
-        }) else {
-            return
+    func cancelLesson(lesson: LessonItem) {
+        Task {
+            guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
+                $0.name == lesson.lessonType
+            }) else {
+                return
+            }
+            
+            // TODO: userItem is in the router, so the fetch is not needed
+            let userModel = try await self.userRepository.getById(lesson.teacher.id)
+            
+            let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
+            
+            try await repository.cancelLesson(
+                mapper.itemToBodyModel(
+                    lesson,
+                    lessonTypeModel: lessonTypeModel,
+                    teacherItem: userLessonBody
+                ),
+                id: lesson.id
+            )
         }
-        
-        // TODO: userItem is in the router, so the fetch is not needed
-        let userModel = try await self.userRepository.getById(lesson.teacher.id)
-        
-        let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
-        
-        try await repository.cancelLesson(
-            mapper.itemToBodyModel(
-                lesson,
-                lessonTypeModel: lessonTypeModel,
-                teacherItem: userLessonBody
-            ),
-            id: lesson.id
-        )
     }
 }

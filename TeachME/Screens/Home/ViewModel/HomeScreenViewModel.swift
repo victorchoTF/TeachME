@@ -60,6 +60,10 @@ final class HomeScreenViewModel: ObservableObject {
         }
     }
     
+    var lessonListState: LessonListState {
+        lessons.isEmpty ? .empty : .hasItems
+    }
+    
     func onLessonTap(lesson: LessonItem, theme: Theme) {
         guard let router = router else {
             return
@@ -82,10 +86,16 @@ final class HomeScreenViewModel: ObservableObject {
     }
     
     func onDelete(at offsets: IndexSet) {
+        guard isTeacher else {
+            return
+        }
+        
+        teacherOnDelete(at: offsets)
+    }
+    
+    func teacherOnDelete(at offsets: IndexSet) {
         offsets.map { lessons[$0] }.forEach { lesson in
-            Task {
-                try await deleteLesson(lessonId: lesson.id)
-            }
+            deleteLesson(lessonId: lesson.id)
         }
         
         lessons.remove(atOffsets: offsets)
@@ -177,7 +187,9 @@ private extension HomeScreenViewModel {
         return lessonItem
     }
     
-    func deleteLesson(lessonId: UUID) async throws {
-        try await repository.delete(lessonId)
+    func deleteLesson(lessonId: UUID) {
+        Task {
+            try await repository.delete(lessonId)
+        }
     }
 }

@@ -18,10 +18,9 @@ struct HomeScreen: View {
     
     var body: some View {
         VStack(spacing: theme.spacings.medium) {
-            if viewModel.lessons.isEmpty {
-                noLessonsLabel
-            } else {
-                lessonList
+            switch viewModel.lessonListState {
+            case .empty: noLessonsLabel
+            case .hasItems: lessonList
             }
         }
         .background(theme.colors.primary)
@@ -69,7 +68,7 @@ private extension HomeScreen {
                     viewModel.onLessonTap(lesson: lesson, theme: theme)
                 }
             }
-            .onDelete(perform: viewModel.isTeacher ? viewModel.onDelete : nil)
+            .onDelete(perform: viewModel.onDelete)
         }
         .listStyle(.inset)
         .scrollContentBackground(.hidden)

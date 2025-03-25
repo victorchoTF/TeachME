@@ -18,10 +18,9 @@ struct LessonScreen: View {
     
     var body: some View {
         VStack(spacing: theme.spacings.medium) {
-            if viewModel.lessons.isEmpty {
-                noLessonsLabel
-            } else {
-                lessonList
+            switch viewModel.lessonListState {
+            case .empty: noLessonsLabel
+            case .hasItems: lessonList
             }
         }
         .background(theme.colors.primary)
