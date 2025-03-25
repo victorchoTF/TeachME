@@ -11,6 +11,7 @@ final class HomeScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
     
     private weak var router: HomeRouter?
+    @Published var user: UserItem
     @Published var lessonFormViewModel: LessonFormViewModel?
     
     private let repository: LessonRepository
@@ -22,6 +23,7 @@ final class HomeScreenViewModel: ObservableObject {
     
     init(
         router: HomeRouter,
+        user: UserItem,
         repository: LessonRepository,
         lessonTypeRepository: LessonTypeRepository,
         userRepository: UserRepository,
@@ -29,6 +31,7 @@ final class HomeScreenViewModel: ObservableObject {
         userMapper: UserMapper
     ) {
         self.router = router
+        self.user = user
         self.repository = repository
         self.lessonTypeRepository = lessonTypeRepository
         self.userRepository = userRepository
@@ -38,10 +41,6 @@ final class HomeScreenViewModel: ObservableObject {
     
     // TODO: Show alert on catch
     func loadData() async {
-        guard let user = router?.user else {
-            return
-        }
-        
         do {
             if user.role == .Teacher {
                 lessons = try await repository.getLessonsByTeacherId(user.id).filter {
@@ -73,6 +72,7 @@ final class HomeScreenViewModel: ObservableObject {
             .lesson(
                 LessonPickScreenViewModel(
                     pickedLesson: lesson,
+                    user: user,
                     router: router,
                     repository: repository,
                     userRepostirory: userRepository,
@@ -102,7 +102,7 @@ final class HomeScreenViewModel: ObservableObject {
     }
     
     var isTeacher: Bool {
-        router?.user.role == .Teacher
+        user.role == .Teacher
     }
     
     var noLessonsText: String {
@@ -114,10 +114,6 @@ final class HomeScreenViewModel: ObservableObject {
     }
     
     func onAddButtonTap() {
-        guard let user = router?.user else {
-            return
-        }
-        
         self.lessonFormViewModel = LessonFormViewModel(
             teacher: UserLessonBodyItem(
                 id: user.id,
@@ -159,10 +155,6 @@ private extension HomeScreenViewModel {
     }
     
     func addLesson(lesson: LessonItem) async throws -> LessonItem? {
-        guard let user = self.router?.user else {
-            return nil
-        }
-
         guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
             $0.name == lesson.lessonType
         }) else {

@@ -13,6 +13,7 @@ final class LessonPickScreenViewModel: ObservableObject {
     @Published var lessonFormViewModel: LessonFormViewModel?
     @Published var otherLessons: [LessonItem] = []
     
+    @Published var user: UserItem
     private let repository: LessonRepository
     private let userRepository: UserRepository
     private let lessonTypeRepository: LessonTypeRepository
@@ -24,6 +25,7 @@ final class LessonPickScreenViewModel: ObservableObject {
     
     init(
         pickedLesson: LessonItem,
+        user: UserItem,
         router: HomeRouter,
         repository: LessonRepository,
         userRepostirory: UserRepository,
@@ -32,6 +34,7 @@ final class LessonPickScreenViewModel: ObservableObject {
         userMapper: UserMapper
     ) {
         self.pickedLesson = pickedLesson
+        self.user = user
         self.router = router
         self.repository = repository
         self.userRepository = userRepostirory
@@ -49,7 +52,8 @@ final class LessonPickScreenViewModel: ObservableObject {
             .lesson(
                 LessonPickScreenViewModel(
                     pickedLesson: lesson,
-                    router: router, 
+                    user: user,
+                    router: router,
                     repository: repository,
                     userRepostirory: userRepository,
                     lessonTypeRepository: lessonTypeRepository,
@@ -95,17 +99,13 @@ final class LessonPickScreenViewModel: ObservableObject {
     }
     
     var pickLessonButtonText: String {
-        switch router?.user.role {
+        switch user.role {
         case .Teacher: "Edit"
         default: "Save"
         }
     }
     
     func pickLessonButtonAction() {
-        guard let user = router?.user else {
-            return
-        }
-        
         switch user.role {
         case .Teacher: teacherAction()
         case .Student: studentAction()
@@ -146,12 +146,11 @@ private extension LessonPickScreenViewModel {
             ) else {
                 return
             }
-            
-            guard let lessonBodyWithStudent = try await addStudentToLessonBody(lessonBody) else {
-                return
-            }
-            
-            try await self.repository.takeLesson(lessonBodyWithStudent, id: pickedLesson.id)
+
+            try await self.repository.takeLesson(
+                try await addStudentToLessonBody(lessonBody),
+                id: pickedLesson.id
+            )
         }
     }
     
@@ -167,10 +166,6 @@ private extension LessonPickScreenViewModel {
     }
     
     func lessonBodyModelByLessonItem(lesson: LessonItem) async throws -> LessonBodyModel? {
-        guard let user = self.router?.user else {
-            return nil
-        }
-        
         guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
             $0.name == lesson.lessonType
         }) else {
@@ -191,11 +186,7 @@ private extension LessonPickScreenViewModel {
         return lessonModel
     }
     
-    func addStudentToLessonBody(_ body: LessonBodyModel) async throws -> LessonBodyModel? {
-        guard let user = router?.user else {
-            return nil
-        }
-        
+    func addStudentToLessonBody(_ body: LessonBodyModel) async throws -> LessonBodyModel {
         // TODO: userItem is in the router, so the fetch is not needed
         let student = try await userRepository.getById(user.id)
         

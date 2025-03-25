@@ -9,6 +9,7 @@ import SwiftUI
 
 final class LessonScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
+    @Published var user: UserItem
     
     private weak var router: LessonRouter?
     
@@ -20,6 +21,7 @@ final class LessonScreenViewModel: ObservableObject {
     
     init(
         router: LessonRouter? = nil,
+        user: UserItem,
         repository: LessonRepository,
         userRepository: UserRepository,
         lessonTypeRepository: LessonTypeRepository,
@@ -27,6 +29,7 @@ final class LessonScreenViewModel: ObservableObject {
         userMapper: UserMapper
     ) {
         self.router = router
+        self.user = user
         self.repository = repository
         self.userRepository = userRepository
         self.lessonTypeRepository = lessonTypeRepository
@@ -35,10 +38,6 @@ final class LessonScreenViewModel: ObservableObject {
     }
     
     func loadData() async {
-        guard let user = router?.user else {
-            return
-        }
-        
         do {
             if user.role == .Teacher {
                 lessons = try await repository.getLessonsByTeacherId(user.id).filter {
@@ -83,7 +82,7 @@ final class LessonScreenViewModel: ObservableObject {
     }
     
     var isTeacher: Bool {
-        router?.user.role == .Teacher
+        user.role == .Teacher
     }
     
     var noLessonsText: String {
