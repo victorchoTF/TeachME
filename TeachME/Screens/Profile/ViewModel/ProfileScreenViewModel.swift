@@ -7,19 +7,39 @@
 
 import Foundation
 import SwiftUI
+import PhotosUI
 
 final class ProfileScreenViewModel: ObservableObject {
     @Published var editProfileFormViewModel: EditProfileFormViewModel?
+    @Published var user: UserItem
+    
+    @Published var imageSelection: PhotosPickerItem? = nil {
+        didSet {
+            Task {
+                try await updateProfilePicture()
+            }
+        }
+    }
     
     private let userRepository: UserRepository
     private let mapper: UserMapper
+    private let imageFormatter: ImageFormatter
+    
     
     private weak var router: ProfileRouter?
     
-    init(router: ProfileRouter?, userRepository: UserRepository, mapper: UserMapper) {
+    init(
+        router: ProfileRouter?,
+        user: UserItem,
+        userRepository: UserRepository,
+        mapper: UserMapper,
+        imageFormatter: ImageFormatter
+    ) {
         self.router = router
         self.userRepository = userRepository
         self.mapper = mapper
+        self.imageFormatter = imageFormatter
+        self.user = user
     }
     
     var editButtonText: String {
@@ -27,10 +47,6 @@ final class ProfileScreenViewModel: ObservableObject {
     }
     
     func openEditProfile() {
-        guard let user = userItem else {
-            return
-        }
-        
         editProfileFormViewModel = EditProfileFormViewModel(
             userItem: user,
             onCancel: { [weak self] in
@@ -42,40 +58,53 @@ final class ProfileScreenViewModel: ObservableObject {
 
     func updateProfile(userItem: UserItemBody) {
         Task {
-            guard let user = try await updateUser(user: userItem) else {
-                return
-            }
-            
-            self.router?.user = user
+            self.user = try await updateUser(user: userItem)
             
             editProfileFormViewModel = nil
         }
     }
-    
-    var userItem: UserItem? {
-        router?.user
-    }
 }
 
 private extension ProfileScreenViewModel {
-    func updateUser(user: UserItemBody) async throws -> UserItem? {
-        guard let userItem = userItem else {
-            return nil
-        }
-        
+    func updateUser(user: UserItemBody) async throws -> UserItem {
         // TODO: userItem is in the router, so the fetch is not needed
         let profilePicture = try await userRepository.getById(
-            userItem.id
+            self.user.id
         ).userDetail?.profilePicture
         
         let userModelBody = mapper.itemBodyToBodyModel(
             user,
-            userId: userItem.id,
+            userId: self.user.id,
             profilePicture: profilePicture
         )
         
-        try await userRepository.update(userModelBody, id: userItem.id)
+        return try await updateUserByBodyModel(user: userModelBody)
+    }
+    
+    func updateUserByBodyModel(user: UserBodyModel) async throws -> UserItem {
+        try await userRepository.update(user, id: self.user.id)
         
-        return try await mapper.modelToItem(userRepository.getById(userItem.id))
+        return try await mapper.modelToItem(userRepository.getById(self.user.id))
+    }
+    
+    func updateProfilePicture() async throws {
+        guard let userBodyModel = try await userBodyModelWithImage() else {
+            return
+        }
+        
+        user = try await updateUserByBodyModel(
+            user: userBodyModel
+        )
+    }
+    
+    func userBodyModelWithImage() async throws -> UserBodyModel? {
+        guard let imageSelection = imageSelection else {
+            return nil
+        }
+        
+        return mapper.itemWithProfilePictureToBodyModel(
+            user,
+            profilePicture: try await imageFormatter.loadImage(from: imageSelection)
+        )
     }
 }

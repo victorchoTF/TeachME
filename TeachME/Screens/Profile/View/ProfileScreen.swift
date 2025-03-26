@@ -18,7 +18,7 @@ struct ProfileScreen: View {
     
     var body: some View {
         VStack {
-            userCard
+            profileCard
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
                         ActionButton(
@@ -47,11 +47,11 @@ struct ProfileScreen: View {
 
 private extension ProfileScreen {
     @ViewBuilder
-    var userCard: some View {
-        if let userItem = viewModel.userItem {
-            UserCard(user: userItem, theme: theme)
-                .background(theme.colors.primary)
-                .frame(maxWidth: .infinity)
-        }
+    var profileCard: some View {
+        ProfileCard(
+            user: viewModel.user,
+            theme: theme,
+            imageSelection: $viewModel.imageSelection
+        )
     }
 }

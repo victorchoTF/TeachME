@@ -60,6 +60,8 @@ private extension LessonCard {
                     width: userProfilePictureSize,
                     height: userProfilePictureSize
                 )
+                .clipShape(Circle())
+            
             Text(lesson.teacher.name)
                 .font(theme.fonts.footnote)
         }
