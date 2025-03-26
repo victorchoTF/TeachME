@@ -16,6 +16,7 @@ final class LoginFormViewModel: ObservableObject {
     private let userMapper: UserMapper
     
     private let roleProvider: RoleProvider
+    private let emailValidator: EmailValidator
     
     let onSubmit: (UserItem) -> ()
     
@@ -24,16 +25,23 @@ final class LoginFormViewModel: ObservableObject {
         userRepository: UserRepository,
         userMapper: UserMapper,
         roleProvider: RoleProvider,
+        emailValidator: EmailValidator,
         onSubmit: @escaping (UserItem) -> ()
     ) {
         self.authRepository = authRepository
         self.userRepository = userRepository
         self.userMapper = userMapper
         self.roleProvider = roleProvider
+        self.emailValidator = emailValidator
         self.onSubmit = onSubmit
     }
 
     func loginUser() {
+        guard emailValidator.isValid(email: email) else {
+            // TODO: Add alert
+            return
+        }
+        
         Task {
             let _ = try await authRepository.login(
                 user: UserCredentialsBodyModel(

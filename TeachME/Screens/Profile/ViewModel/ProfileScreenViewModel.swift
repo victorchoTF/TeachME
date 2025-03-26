@@ -31,6 +31,7 @@ final class ProfileScreenViewModel: ObservableObject {
     }
     
     private let roleProvider: RoleProvider
+    private let emailValidator: EmailValidator
     
     
     private weak var router: ProfileRouter?
@@ -41,7 +42,8 @@ final class ProfileScreenViewModel: ObservableObject {
         userRepository: UserRepository,
         mapper: UserMapper,
         imageFormatter: ImageFormatter,
-        roleProvider: RoleProvider
+        roleProvider: RoleProvider,
+        emailValidator: EmailValidator
     ) {
         self.router = router
         self.userRepository = userRepository
@@ -49,6 +51,7 @@ final class ProfileScreenViewModel: ObservableObject {
         self.imageFormatter = imageFormatter
         self.user = user
         self.roleProvider = roleProvider
+        self.emailValidator = emailValidator
     }
     
     var editButtonText: String {
@@ -58,6 +61,7 @@ final class ProfileScreenViewModel: ObservableObject {
     func openEditProfile() {
         editProfileFormViewModel = EditProfileFormViewModel(
             userItem: user,
+            emailValidator: emailValidator,
             onCancel: { [weak self] in
             self?.editProfileFormViewModel = nil
         }) { [weak self] user in

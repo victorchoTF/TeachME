@@ -20,6 +20,7 @@ final class RegisterFormViewModel: ObservableObject {
     private let userMapper: UserMapper
     
     private let roleProvider: RoleProvider
+    private let emailValidator: EmailValidator
     
     let onSubmit: (UserItem) -> ()
     
@@ -29,6 +30,7 @@ final class RegisterFormViewModel: ObservableObject {
         roleRepository: RoleRepository,
         userMapper: UserMapper,
         roleProvider: RoleProvider,
+        emailValidator: EmailValidator,
         onSubmit: @escaping (UserItem) -> ()
     ) {
         self.authRepository = authRepository
@@ -36,10 +38,16 @@ final class RegisterFormViewModel: ObservableObject {
         self.roleRepository = roleRepository
         self.userMapper = userMapper
         self.roleProvider = roleProvider
+        self.emailValidator = emailValidator
         self.onSubmit = onSubmit
     }
     
     func registerUser() {
+        guard emailValidator.isValid(email: email) else {
+            // TODO: Add alert
+            return
+        }
+        
         Task {
             let _ = try await authRepository.register(
                 user: UserRegisterBodyModel(
