@@ -97,7 +97,8 @@ private extension LessonPickScreen {
             ForEach(viewModel.otherLessons) { lesson in
                 LessonCard(
                     lesson: lesson,
-                    theme: theme
+                    theme: theme,
+                    lessonCardType: .teacher
                 )
                 .lineLimit(1)
                 .truncationMode(.tail)

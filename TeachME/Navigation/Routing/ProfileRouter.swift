@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class ProfileRouter {
+class ProfileRouter: ObservableObject {
     @Published var path = [Destination]()
     @Published var user: UserItem
     

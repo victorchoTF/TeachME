@@ -1,58 +1,46 @@
 //
-//  HomeRouter.swift
+//  LessonRouter.swift
 //  TeachME
 //
-//  Created by TumbaDev on 13.02.25.
+//  Created by TumbaDev on 23.03.25.
 //
 
 import Foundation
 import SwiftUI
 
-final class HomeRouter: ObservableObject {
+final class LessonRouter: ObservableObject {
     @Published var path = [Destination]()
 
     private let theme: Theme
     let user: UserItem
     
-    private let userRepository: UserRepository
     private let lessonRepository: LessonRepository
-    private let lessonTypeRepository: LessonTypeRepository
-    private let userMapper: UserMapper
     private let lessonMapper: LessonMapper
 
     init(
         theme: Theme,
         user: UserItem,
-        userRepository: UserRepository,
         lessonRepository: LessonRepository,
-        lessonTypeRepository: LessonTypeRepository,
-        userMapper: UserMapper,
         lessonMapper: LessonMapper
     ) {
         self.theme = theme
         self.user = user
         
-        self.userRepository = userRepository
         self.lessonRepository = lessonRepository
-        self.lessonTypeRepository = lessonTypeRepository
-        self.userMapper = userMapper
         self.lessonMapper = lessonMapper
     }
 }
 
-extension HomeRouter: Router {
+extension LessonRouter: Router {
     var initialDestination: some View {
-        let viewModel = HomeScreenViewModel(
+        let viewModel = LessonScreenViewModel(
             router: self,
             user: user,
             repository: lessonRepository,
-            lessonTypeRepository: lessonTypeRepository,
-            userRepository: userRepository,
-            mapper: lessonMapper,
-            userMapper: userMapper
+            mapper: lessonMapper
         )
             
-        return HomeScreen(viewModel: viewModel, theme: theme)
+        return LessonScreen(viewModel: viewModel, theme: theme)
     }
     
     func push(_ destination: Destination) {

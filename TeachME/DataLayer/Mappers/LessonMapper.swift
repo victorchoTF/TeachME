@@ -54,6 +54,20 @@ struct LessonMapper: Mapper {
     }
     
     func modelToItem(_ model: LessonModel) -> LessonItem {
+        let studentItem: UserLessonBodyItem?
+        if let student = model.student {
+            studentItem = UserLessonBodyItem(
+                id: student.id,
+                name: "\(student.firstName) \(student.lastName)",
+                profilePicture: Image(
+                    data: student.profilePicture,
+                    fallbackImageName: "person.crop.circle"
+                )
+            )
+        } else {
+            studentItem = nil
+        }
+        
         return LessonItem(
             id: model.id,
             lessonType: model.lessonType.name,
@@ -67,7 +81,8 @@ struct LessonMapper: Mapper {
                     data: model.teacher.profilePicture,
                     fallbackImageName: "person.crop.circle"
                 )
-            )
+            ),
+            student: studentItem
         )
     }
     
