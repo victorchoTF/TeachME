@@ -22,6 +22,8 @@ final class RegisterFormViewModel: ObservableObject {
     private let roleProvider: RoleProvider
     private let emailValidator: EmailValidator
     
+    @Published var hasTriedInvalidEmail: Bool = false
+    
     let onSubmit: (UserItem) -> ()
     
     init(
@@ -43,8 +45,9 @@ final class RegisterFormViewModel: ObservableObject {
     }
     
     func registerUser() {
-        guard emailValidator.isValid(email: email) else {
-            // TODO: Add alert
+        guard isEmailValid else {
+            hasTriedInvalidEmail = true
+            email = ""
             return
         }
         
@@ -72,6 +75,10 @@ final class RegisterFormViewModel: ObservableObject {
         roleType
     }
     
+    var isEmailValid: Bool {
+        emailValidator.isValid(email: email)
+    }
+    
     var formTitle: String {
         "Start your knowledge journey today!"
     }
@@ -85,7 +92,11 @@ final class RegisterFormViewModel: ObservableObject {
     }
     
     var emailPlaceholder: String {
-        "Email"
+        if hasTriedInvalidEmail {
+            return "Please enter a valid email"
+        }
+        
+        return "Email"
     }
     
     var passwordPlacehoder: String {
@@ -126,6 +137,10 @@ final class RegisterFormViewModel: ObservableObject {
     
     var sendTo: FormMode {
         .login
+    }
+    
+    func resetEmailError() {
+        hasTriedInvalidEmail = false
     }
 }
 

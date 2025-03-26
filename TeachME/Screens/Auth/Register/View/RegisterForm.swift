@@ -47,6 +47,11 @@ private extension RegisterForm {
             TextField(viewModel.emailPlaceholder, text: $viewModel.email)
                 .keyboardType(.emailAddress)
                 .styledTextField(theme: theme)
+                .overlay(invalidEmailOverlay)
+                .tint(viewModel.hasTriedInvalidEmail ? theme.colors.error : nil)
+                .onTapGesture {
+                    viewModel.resetEmailError()
+                }
             SecureField(viewModel.passwordPlacehoder, text: $viewModel.password)
                 .styledTextField(theme: theme)
         }
@@ -78,5 +83,12 @@ private extension RegisterForm {
         }
         .listRowBackground(Color.clear)
         .font(theme.fonts.body)
+    }
+    
+    var invalidEmailOverlay: some View {
+        viewModel.hasTriedInvalidEmail ?
+            RoundedRectangle(cornerRadius: theme.radiuses.medium)
+                .stroke(theme.colors.error, lineWidth: 1)
+        : nil
     }
 }

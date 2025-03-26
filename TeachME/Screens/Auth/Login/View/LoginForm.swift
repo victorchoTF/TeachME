@@ -44,11 +44,23 @@ private extension LoginForm {
             TextField(viewModel.emailPlaceholder, text: $viewModel.email)
                 .keyboardType(.emailAddress)
                 .styledTextField(theme: theme)
+                .overlay(invalidEmailOverlay)
+                .tint(viewModel.hasTriedInvalidEmail ? theme.colors.error : nil)
+                .onTapGesture {
+                    viewModel.resetEmailError()
+                }
             SecureField(viewModel.passwordPlaceholder, text: $viewModel.password)
                 .styledTextField(theme: theme)
         }
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
         .font(theme.fonts.body)
+    }
+    
+    var invalidEmailOverlay: some View {
+        viewModel.hasTriedInvalidEmail ?
+            RoundedRectangle(cornerRadius: theme.radiuses.medium)
+                .stroke(theme.colors.error, lineWidth: 1)
+        : nil
     }
 }

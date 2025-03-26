@@ -9,6 +9,7 @@ import Foundation
 
 final class LoginFormViewModel: ObservableObject {
     @Published var email: String = ""
+    
     @Published var password: String = ""
     
     private let authRepository: AuthRepository
@@ -17,6 +18,8 @@ final class LoginFormViewModel: ObservableObject {
     
     private let roleProvider: RoleProvider
     private let emailValidator: EmailValidator
+    
+    @Published var hasTriedInvalidEmail: Bool = false
     
     let onSubmit: (UserItem) -> ()
     
@@ -37,8 +40,9 @@ final class LoginFormViewModel: ObservableObject {
     }
 
     func loginUser() {
-        guard emailValidator.isValid(email: email) else {
-            // TODO: Add alert
+        guard isEmailValid else {
+            hasTriedInvalidEmail = true
+            email = ""
             return
         }
         
@@ -68,7 +72,11 @@ final class LoginFormViewModel: ObservableObject {
     }
     
     var emailPlaceholder: String {
-        "Email"
+        if hasTriedInvalidEmail {
+            return "Please enter a valid email"
+        }
+        
+        return "Email"
     }
     
     var passwordPlaceholder: String {
@@ -85,5 +93,13 @@ final class LoginFormViewModel: ObservableObject {
     
     var sendTo: FormMode {
         .register
+    }
+    
+    var isEmailValid: Bool {
+        emailValidator.isValid(email: email)
+    }
+    
+    func resetEmailError() {
+        hasTriedInvalidEmail = false
     }
 }

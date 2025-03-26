@@ -12,7 +12,7 @@ struct EmailValidator {
     
     func isValid(email: String) -> Bool {
         do {
-            return try email.wholeMatch(of: patternProvider.getPattern()) != nil
+            return email.wholeMatch(of: try patternProvider.getPattern()) != nil
         } catch {
             return false
         }
@@ -24,20 +24,17 @@ class PatternProvider {
         case notInitialized
     }
     
-    private let pattern: Regex<String>?
+    private let pattern: Regex<Substring>?
     
     init() {
-        do {
-            pattern = try Regex(#"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"#)
-        } catch {
-            pattern = nil
-        }
+        pattern = try? Regex(#"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"#)
     }
     
-    func getPattern() throws -> Regex<String>{
+    func getPattern() throws -> Regex<Substring>{
         guard let pattern = pattern else {
             throw PatternProviderError.notInitialized
         }
+        
         return pattern
     }
 }
