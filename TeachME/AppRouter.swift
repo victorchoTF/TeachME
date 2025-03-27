@@ -14,7 +14,7 @@ enum AppState {
 }
 
 final class AppRouter: ObservableObject {
-    @Published private var state: AppState = .auth
+    @Published private var state: AppState = .loading
 
     private let authRepository: AuthRepository
     private let userRepository: UserRepository
@@ -28,6 +28,9 @@ final class AppRouter: ObservableObject {
     private let roleProvider: RoleProvider
     private let emailValidator: EmailValidator
     
+    private let tokenProvider: TokenProvider
+    private let tokenDecoder: TokenDecoder
+    
     init(
         authRepository: AuthRepository,
         userRepository: UserRepository,
@@ -38,6 +41,8 @@ final class AppRouter: ObservableObject {
         lessonMapper: LessonMapper,
         roleProvider: RoleProvider,
         emailValidator: EmailValidator,
+        tokenProvider: TokenProvider,
+        tokenDecoder: TokenDecoder,
         theme: Theme
     ) {
         self.authRepository = authRepository
@@ -49,7 +54,10 @@ final class AppRouter: ObservableObject {
         self.lessonMapper = lessonMapper
         self.roleProvider = roleProvider
         self.emailValidator = emailValidator
+        self.tokenProvider = tokenProvider
+        self.tokenDecoder = tokenDecoder
         self.theme = theme
+        self.startAppState()
     }
     
     
@@ -70,6 +78,24 @@ final class AppRouter: ObservableObject {
 }
 
 private extension AppRouter {
+    func startAppState() {
+        Task {
+            do {
+                let token = try tokenProvider.token().accessToken.token
+                let payload: AccessTokenPayload = try tokenDecoder.decodePayload(token)
+                let userModel = try await userRepository.getById(payload.userId)
+                let userItem = try userMapper.modelToItem(
+                    userModel,
+                    roles: roleProvider.getRoles()
+                )
+                
+                state = .idle(userItem)
+            } catch {
+                state = .auth
+            }
+        }
+    }
+    
     func didLogIn(user: UserItem) {
         state = .idle(user)
     }

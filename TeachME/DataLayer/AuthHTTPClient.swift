@@ -7,27 +7,73 @@
 
 import Foundation
 
-class AuthHTTPClient: HTTPClient {
+final class AuthHTTPClient: HTTPClient {
     private let tokenProvider: TokenProvider
+    private let tokenDecoder: TokenDecoder
     private let httpClient: HTTPClient
     
-    init(tokenProvider: TokenProvider, httpClient: HTTPClient) {
+    private let authRepository: AuthRepository
+    
+    init(
+        tokenProvider: TokenProvider,
+        tokenDecoder: TokenDecoder,
+        authRepository: AuthRepository,
+        httpClient: HTTPClient
+    ) {
         self.tokenProvider = tokenProvider
+        self.tokenDecoder = tokenDecoder
         self.httpClient = httpClient
+        self.authRepository = authRepository
     }
     
     func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
         var signedRequest = request
         
-        let tokenData = try tokenProvider.token()
+        var tokenData = try tokenProvider.token()
+        
+        let accessPayload = try getAccessPayload(tokenData.accessToken.token)
+        if !isAccessTokenValid(accessPayload) {
+            tokenData = try await getNewTokens(
+                payload: accessPayload,
+                refreshToken: tokenData.refreshToken.token
+            )
+        }
         
         signedRequest.setValue(
             "Bearer \(tokenData.accessToken.token)",
             forHTTPHeaderField: "Authorization"
         )
-            
+        
+        
         let response = try await httpClient.request(signedRequest)
         
         return response
+    }
+}
+
+private extension AuthHTTPClient {
+    func getAccessPayload(_ token: String) throws -> AccessTokenPayload {
+        let payload: AccessTokenPayload = try tokenDecoder.decodePayload(token)
+        
+        return payload
+    }
+    
+    func isAccessTokenValid(_ payload: AccessTokenPayload) -> Bool {
+        return payload.expiration > Date().timeIntervalSince1970
+    }
+    
+    func getNewTokens(
+        payload: AccessTokenPayload,
+        refreshToken: String
+    ) async throws -> TokenResponse {
+        let tokenResponse = try await authRepository.refreshToken(
+            tokenRequest: RefreshTokenRequest(
+                userId: payload.userId,
+                roleId: payload.roleId,
+                refreshToken: refreshToken
+            )
+        )
+        
+        return tokenResponse
     }
 }

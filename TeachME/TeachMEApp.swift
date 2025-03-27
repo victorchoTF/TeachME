@@ -41,8 +41,12 @@ struct TeachMEApp: App {
             tokenSetter: tokenService
         )
         
+        let tokenDecoder = TokenDecoder(jsonDecoder: jsonDecoder)
+        
         let authHTTPClient = AuthHTTPClient(
             tokenProvider: tokenService,
+            tokenDecoder: tokenDecoder,
+            authRepository: authRepository,
             httpClient: httpClient
         )
         
@@ -109,6 +113,8 @@ struct TeachMEApp: App {
             lessonMapper: lessonMapper,
             roleProvider: roleProvider,
             emailValidator: emailValidator,
+            tokenProvider: tokenService,
+            tokenDecoder: tokenDecoder,
             theme: theme
         )
     }
