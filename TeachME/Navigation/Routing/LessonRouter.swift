@@ -49,7 +49,9 @@ extension LessonRouter: Router {
             userRepository: userRepository,
             lessonTypeRepository: lessonTypeRepository,
             mapper: lessonMapper,
-            userMapper: userMapper
+            userMapper: userMapper,
+            isTeacher: user.role == .Teacher,
+            lessonCardType: user.role == .Teacher ? .student : .teacher
         )
             
         return LessonScreen(viewModel: viewModel, theme: theme)

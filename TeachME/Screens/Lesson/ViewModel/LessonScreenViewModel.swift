@@ -21,6 +21,9 @@ final class LessonScreenViewModel: ObservableObject {
     private let mapper: LessonMapper
     private let userMapper: UserMapper
     
+    private let isTeacher: Bool
+    let lessonCardType: LessonCardType
+    
     init(
         router: LessonRouter? = nil,
         user: UserItem,
@@ -28,7 +31,9 @@ final class LessonScreenViewModel: ObservableObject {
         userRepository: UserRepository,
         lessonTypeRepository: LessonTypeRepository,
         mapper: LessonMapper,
-        userMapper: UserMapper
+        userMapper: UserMapper,
+        isTeacher: Bool,
+        lessonCardType: LessonCardType
     ) {
         self.router = router
         self.user = user
@@ -37,6 +42,9 @@ final class LessonScreenViewModel: ObservableObject {
         self.lessonTypeRepository = lessonTypeRepository
         self.mapper = mapper
         self.userMapper = userMapper
+        
+        self.isTeacher = isTeacher
+        self.lessonCardType = lessonCardType
     }
     
     func loadData() async {
@@ -78,14 +86,6 @@ final class LessonScreenViewModel: ObservableObject {
         if deletingAlertItem != nil {
             lessons.remove(atOffsets: offsets)
         }
-    }
-    
-    var lessonCardType: LessonCardType {
-        isTeacher ? .student : .teacher
-    }
-    
-    var isTeacher: Bool {
-        user.role == .Teacher
     }
     
     var noLessonsText: String {
