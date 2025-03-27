@@ -100,6 +100,11 @@ private extension AppRouter {
         state = .idle(user)
     }
     
+    // TODO: Remove token from Keychain
+    func didLogOut() {
+        state = .auth
+    }
+    
     func tabRouter(user: UserItem, theme: Theme) -> TabRouter {
         TabRouter(
             homeRouter: HomeRouter(
@@ -128,7 +133,9 @@ private extension AppRouter {
                 mapper: userMapper,
                 rolePorvider: roleProvider,
                 emailValidator: emailValidator
-            )
+            ) {
+                self.didLogOut()
+            }
         )
     }
     

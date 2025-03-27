@@ -21,12 +21,30 @@ struct ProfileScreen: View {
             profileCard
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
-                        ActionButton(
-                            buttonContent: .text(
-                                Text(viewModel.editButtonText)
-                            )
-                        ) {
-                            viewModel.openEditProfile()
+                        Menu {
+                            ActionButton(
+                                buttonContent: .label(
+                                    Label (
+                                        viewModel.editButtonText,
+                                        systemImage: viewModel.editButtonIcon
+                                    )
+                                )
+                            ) {
+                                viewModel.openEditProfile()
+                            }
+                            
+                            ActionButton(
+                                buttonContent: .label(
+                                    Label(
+                                        viewModel.logOutButtonText,
+                                        systemImage: viewModel.logOutButtonIcon
+                                    )
+                                )
+                            ) {
+                                viewModel.logOut()
+                            }
+                        } label: {
+                            Image(systemName: viewModel.settingsIcon)
                         }
                         .foregroundStyle(theme.colors.accent)
                     }
