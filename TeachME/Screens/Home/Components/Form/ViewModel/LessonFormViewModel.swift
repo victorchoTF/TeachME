@@ -8,7 +8,7 @@
 import Foundation
 
 final class LessonFormViewModel: ObservableObject, Identifiable {
-    @Published var showAlert: Bool = false
+    @Published var loadAlertItem: AlertItem? = nil
     @Published var lessonType: String
     @Published var subtitle: String
     @Published var startDate: Date
@@ -75,7 +75,7 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
         do {
             lessonTypes = try await self.repository.getAll().map { $0.name }
         } catch {
-            showAlert = true
+            loadAlertItem = AlertItem(message: alertMessage)
         }
         
         lessonType = lessonTypes.first ?? "Other"
@@ -120,7 +120,9 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
     var doneButtonText: String {
         "Done"
     }
-    
+}
+
+private extension LessonFormViewModel {
     var alertMessage: String {
         "Couldn't load lesson!\nPlease try again."
     }

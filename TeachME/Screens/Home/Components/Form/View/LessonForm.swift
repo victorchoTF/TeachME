@@ -29,8 +29,8 @@ struct LessonForm: View {
             .navigationTitle(viewModel.formTitle)
             .navigationBarTitleDisplayMode(.inline)
         }
-        .alert(isPresented: $viewModel.showAlert) {
-            Alert(title: Text(viewModel.alertMessage))
+        .alert(item: $viewModel.loadAlertItem) { alertItem in
+            Alert(title: Text(alertItem.message))
         }
         .task {
             await viewModel.loadData()

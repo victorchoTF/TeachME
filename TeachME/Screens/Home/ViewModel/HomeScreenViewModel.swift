@@ -9,7 +9,7 @@ import Foundation
 
 final class HomeScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
-    @Published var showAlert: Bool = false
+    @Published var loadAlertItem: AlertItem? = nil
     
     private weak var router: HomeRouter?
     @Published var user: UserItem
@@ -55,7 +55,7 @@ final class HomeScreenViewModel: ObservableObject {
                 }
             }
         } catch {
-            showAlert = true
+            loadAlertItem = AlertItem(message: alertMessage)
         }
     }
     
@@ -111,10 +111,6 @@ final class HomeScreenViewModel: ObservableObject {
         } else {
             return "No available lesson for you!\nTry again later."
         }
-    }
-    
-    var alertMessage: String {
-        "Couldn't load lessons!\nPlease try again."
     }
     
     func onAddButtonTap() {
@@ -184,5 +180,9 @@ private extension HomeScreenViewModel {
         Task {
             try await repository.delete(lessonId)
         }
+    }
+    
+    var alertMessage: String {
+        "Couldn't load lessons!\nPlease try again."
     }
 }

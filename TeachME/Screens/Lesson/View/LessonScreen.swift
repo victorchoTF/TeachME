@@ -24,11 +24,11 @@ struct LessonScreen: View {
             }
         }
         .background(theme.colors.primary)
-        .alert(isPresented: $viewModel.showLoadingAlert) {
-            Alert(title: Text(viewModel.loadingAlertMessage))
+        .alert(item: $viewModel.loadingAlertItem) { alertItem in
+            Alert(title: Text(alertItem.message))
         }
-        .alert(isPresented: $viewModel.showDeletingAlert) {
-            Alert(title: Text(viewModel.deletingAlertMessage))
+        .alert(item: $viewModel.deletingAlertItem) { alertItem in
+            Alert(title: Text(alertItem.message))
         }
         .task {
             await viewModel.loadData()

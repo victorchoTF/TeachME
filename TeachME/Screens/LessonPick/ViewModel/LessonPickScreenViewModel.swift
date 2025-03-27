@@ -8,7 +8,7 @@
 import Foundation
 
 final class LessonPickScreenViewModel: ObservableObject {
-    @Published var showAlert: Bool = false
+    @Published var savedAlertItem: AlertItem? = nil
     @Published var pickedLesson: LessonItem
     @Published var teacher: UserItem?
     @Published var lessonFormViewModel: LessonFormViewModel?
@@ -106,10 +106,6 @@ final class LessonPickScreenViewModel: ObservableObject {
         }
     }
     
-    var alertMessage: String {
-        "Lesson with \(pickedLesson.teacher.name) saved successfully!"
-    }
-    
     func pickLessonButtonAction() {
         switch user.role {
         case .Teacher: teacherAction()
@@ -143,7 +139,7 @@ private extension LessonPickScreenViewModel {
     
     func studentAction() {
         takeLesson()
-        showAlert = true
+        savedAlertItem = AlertItem(message: alertMessage)
     }
     
     func takeLesson() {
@@ -199,6 +195,10 @@ private extension LessonPickScreenViewModel {
             teacher: body.teacher,
             student: userMapper.itemToBodyLessonModel(user)
         )
+    }
+    
+    var alertMessage: String {
+        "Lesson with \(pickedLesson.teacher.name) saved successfully!"
     }
 }
 

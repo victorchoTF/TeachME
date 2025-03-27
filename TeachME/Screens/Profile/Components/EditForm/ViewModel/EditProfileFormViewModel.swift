@@ -14,7 +14,7 @@ enum EditProfileAlertType {
 }
 
 final class EditProfileFormViewModel: ObservableObject, Identifiable {
-    @Published var showAlert: Bool = false
+    @Published var alertItem: AlertItem? = nil
     @Published var alertType: EditProfileAlertType? = nil
     @Published var email: String
     @Published var firstName: String
@@ -88,9 +88,44 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
             bio: bio
         )
         
-        if !showAlert {
+        if alertItem != nil {
             updateUser(user)
         }
+    }
+}
+
+private extension EditProfileFormViewModel {
+    func checkFirstName() -> String {
+        if firstName.isEmpty {
+            alertType = .firstName
+            alertItem = AlertItem(message: alertMessage)
+            
+            return String(userItem.name.split(separator: " ").first ?? "-") + " "
+        }
+        
+        return firstName
+    }
+    
+    func checkLastName() -> String {
+        if lastName.isEmpty {
+            alertType = .lastName
+            alertItem = AlertItem(message: alertMessage)
+            
+            return String(userItem.name.split(separator: " ").last ?? "-")
+        }
+        
+        return lastName
+    }
+    
+    func checkEmail() -> String {
+        if email.isEmpty {
+            alertType = .email
+            alertItem = AlertItem(message: alertMessage)
+            
+            return userItem.email
+        }
+        
+        return email
     }
     
     var alertMessage: String {
@@ -104,40 +139,5 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
         default:
             "A field was not updated correctly!\nPlease try again!"
         }
-    }
-}
-
-private extension EditProfileFormViewModel {
-    func checkFirstName() -> String {
-        if firstName.isEmpty {
-            alertType = .firstName
-            showAlert = true
-            
-            return String(userItem.name.split(separator: " ").first ?? "-") + " "
-        }
-        
-        return firstName
-    }
-    
-    func checkLastName() -> String {
-        if lastName.isEmpty {
-            alertType = .lastName
-            showAlert = true
-            
-            return String(userItem.name.split(separator: " ").last ?? "-")
-        }
-        
-        return lastName
-    }
-    
-    func checkEmail() -> String {
-        if email.isEmpty {
-            alertType = .email
-            showAlert = true
-            
-            return userItem.email
-        }
-        
-        return email
     }
 }
