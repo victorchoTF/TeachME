@@ -60,8 +60,8 @@ struct LessonPickScreen: View {
             )
             .background(theme.colors.primary)
         }
-        .alert(isPresented: $viewModel.showAlert) {
-            Alert(title: Text(viewModel.alertMessage), dismissButton: .default(Text("OK")) {
+        .alert(item: $viewModel.alertItem) { alertItem in
+            Alert(title: Text(alertItem.message), dismissButton: .default(Text("OK")) {
                 viewModel.exit()
             })
         }

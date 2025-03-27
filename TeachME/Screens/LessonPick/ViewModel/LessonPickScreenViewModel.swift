@@ -13,7 +13,7 @@ enum LessonPickAlertType {
 }
 
 final class LessonPickScreenViewModel: ObservableObject {
-    @Published var showAlert: Bool = false
+    @Published var alertItem: AlertItem? = nil
     @Published var alertType: LessonPickAlertType? = nil
     @Published var pickedLesson: LessonItem
     @Published var teacher: UserItem?
@@ -100,7 +100,7 @@ final class LessonPickScreenViewModel: ObservableObject {
             }
         } catch {
             alertType = .loadingError
-            showAlert = true
+            alertItem = AlertItem(message: alertMessage)
         }
     }
     
@@ -118,15 +118,7 @@ final class LessonPickScreenViewModel: ObservableObject {
         default: "Save"
         }
     }
-    
-    var alertMessage: String {
-        switch alertType {
-        case .savedLesson: "Lesson with \(pickedLesson.teacher.name) saved successfully!"
-        case .loadingError: "Couldn't load lesson!\nPlease try again."
-        default: "Something went wrong!"
-        }
-    }
-    
+
     func pickLessonButtonAction() {
         switch user.role {
         case .teacher: teacherAction()
@@ -161,7 +153,7 @@ private extension LessonPickScreenViewModel {
     func studentAction() {
         takeLesson()
         alertType = .savedLesson
-        showAlert = true
+        alertItem = AlertItem(message: alertMessage)
     }
     
     func takeLesson() {
@@ -216,6 +208,14 @@ private extension LessonPickScreenViewModel {
             teacher: body.teacher,
             student: userMapper.itemToBodyLessonModel(user)
         )
+    }
+    
+    var alertMessage: String {
+        switch alertType {
+        case .savedLesson: "Lesson with \(pickedLesson.teacher.name) saved successfully!"
+        case .loadingError: "Couldn't load lesson!\nPlease try again."
+        default: "Something went wrong!"
+        }
     }
 }
 
