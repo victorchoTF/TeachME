@@ -49,7 +49,8 @@ extension HomeRouter: Router {
             lessonTypeRepository: lessonTypeRepository,
             userRepository: userRepository,
             mapper: lessonMapper,
-            userMapper: userMapper
+            userMapper: userMapper,
+            isTeacher: user.role == .Teacher
         )
             
         return HomeScreen(viewModel: viewModel, theme: theme)

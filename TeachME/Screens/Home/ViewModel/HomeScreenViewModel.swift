@@ -21,6 +21,8 @@ final class HomeScreenViewModel: ObservableObject {
     private let mapper: LessonMapper
     private let userMapper: UserMapper
     
+    let isTeacher: Bool
+    
     init(
         router: HomeRouter,
         user: UserItem,
@@ -28,7 +30,8 @@ final class HomeScreenViewModel: ObservableObject {
         lessonTypeRepository: LessonTypeRepository,
         userRepository: UserRepository,
         mapper: LessonMapper,
-        userMapper: UserMapper
+        userMapper: UserMapper,
+        isTeacher: Bool
     ) {
         self.router = router
         self.user = user
@@ -37,6 +40,8 @@ final class HomeScreenViewModel: ObservableObject {
         self.userRepository = userRepository
         self.mapper = mapper
         self.userMapper = userMapper
+        
+        self.isTeacher = isTeacher
     }
     
     // TODO: Show alert on catch
@@ -99,10 +104,6 @@ final class HomeScreenViewModel: ObservableObject {
         }
         
         lessons.remove(atOffsets: offsets)
-    }
-    
-    var isTeacher: Bool {
-        user.role == .Teacher
     }
     
     var noLessonsText: String {
