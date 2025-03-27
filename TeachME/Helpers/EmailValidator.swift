@@ -19,7 +19,7 @@ struct EmailValidator {
     }
 }
 
-class PatternProvider {
+final class PatternProvider {
     enum PatternProviderError: Error {
         case notInitialized
     }

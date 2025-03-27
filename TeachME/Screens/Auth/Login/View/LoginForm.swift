@@ -41,26 +41,20 @@ struct LoginForm: View {
 private extension LoginForm {
     var accountDetails: some View {
         Section {
-            TextField(viewModel.emailPlaceholder, text: $viewModel.email)
-                .keyboardType(.emailAddress)
-                .styledTextField(theme: theme)
-                .overlay(invalidEmailOverlay)
-                .tint(viewModel.hasTriedInvalidEmail ? theme.colors.error : nil)
-                .onTapGesture {
-                    viewModel.resetEmailError()
-                }
+            EmailValidatedField(
+                email: $viewModel.email,
+                hasTriedInvalidEmail: $viewModel.hasTriedInvalidEmail,
+                placeholder: viewModel.emailPlaceholder,
+                theme: theme
+            ) {
+                viewModel.resetEmailError()
+            }
+            
             SecureField(viewModel.passwordPlaceholder, text: $viewModel.password)
                 .styledTextField(theme: theme)
         }
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
         .font(theme.fonts.body)
-    }
-    
-    var invalidEmailOverlay: some View {
-        viewModel.hasTriedInvalidEmail ?
-            RoundedRectangle(cornerRadius: theme.radiuses.medium)
-                .stroke(theme.colors.error, lineWidth: 1)
-        : nil
     }
 }

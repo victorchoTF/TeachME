@@ -66,6 +66,7 @@
 		8E8C9AE82D82CE3A00082B34 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C9AE72D82CE3A00082B34 /* KeychainStore.swift */; };
 		8E8C9AEA2D82D1A900082B34 /* TokenSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C9AE92D82D1A900082B34 /* TokenSetter.swift */; };
 		8E8C9AEC2D82E12300082B34 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C9AEB2D82E12300082B34 /* Endpoints.swift */; };
+		8E95A6822D954C830038AAED /* EmailValidatedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E95A6812D954C830038AAED /* EmailValidatedField.swift */; };
 		8E9669CB2D48AEEA00B5D6BA /* LessonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */; };
 		8E99E78A2D71AD5C00CF9CC8 /* APIDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E7892D71AD5C00CF9CC8 /* APIDataSource.swift */; };
 		8E99E78C2D71AEE500CF9CC8 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E78B2D71AEE500CF9CC8 /* HTTPClient.swift */; };
@@ -171,6 +172,7 @@
 		8E8C9AE72D82CE3A00082B34 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
 		8E8C9AE92D82D1A900082B34 /* TokenSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenSetter.swift; sourceTree = "<group>"; };
 		8E8C9AEB2D82E12300082B34 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		8E95A6812D954C830038AAED /* EmailValidatedField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidatedField.swift; sourceTree = "<group>"; };
 		8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonItem.swift; sourceTree = "<group>"; };
 		8E99E7892D71AD5C00CF9CC8 /* APIDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDataSource.swift; sourceTree = "<group>"; };
 		8E99E78B2D71AEE500CF9CC8 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
@@ -722,6 +724,7 @@
 				8E84E27F2D42531D00CB8C05 /* SubmitButton.swift */,
 				8EA0788F2D9011F100944F51 /* ProfileCard.swift */,
 				8EA0789E2D9072FB00944F51 /* LoadingView.swift */,
+				8E95A6812D954C830038AAED /* EmailValidatedField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -894,6 +897,7 @@
 				8E1297E42D777A17009102FD /* TeachMEAPIDataSource.swift in Sources */,
 				8EA078922D9025FA00944F51 /* ImageFormatter.swift in Sources */,
 				8EB093582D7C83050073C0F6 /* UserModel.swift in Sources */,
+				8E95A6822D954C830038AAED /* EmailValidatedField.swift in Sources */,
 				8EB0936F2D7C90480073C0F6 /* UserRepository.swift in Sources */,
 				8EB093652D7C85770073C0F6 /* UserMapper.swift in Sources */,
 				8E3CF23F2D7D946D009D30D5 /* AuthDataSource.swift in Sources */,
