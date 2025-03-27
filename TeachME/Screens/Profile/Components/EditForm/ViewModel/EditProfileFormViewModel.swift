@@ -93,7 +93,7 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
             bio: bio
         )
         
-        if alertItem != nil {
+        if alertItem == nil {
             updateUser(user)
         }
     }

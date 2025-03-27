@@ -113,7 +113,7 @@ struct TeachMEApp: App {
             lessonMapper: lessonMapper,
             roleProvider: roleProvider,
             emailValidator: emailValidator,
-            tokenProvider: tokenService,
+            tokenService: tokenService,
             tokenDecoder: tokenDecoder,
             theme: theme
         )

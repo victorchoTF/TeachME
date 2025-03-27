@@ -83,7 +83,7 @@ final class LessonScreenViewModel: ObservableObject {
                 cancelLesson(lesson: lesson)
             }
         }
-        if deletingAlertItem != nil {
+        if deletingAlertItem == nil {
             lessons.remove(atOffsets: offsets)
         }
     }
