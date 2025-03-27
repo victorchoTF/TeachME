@@ -14,7 +14,7 @@ enum EditProfileAlertType {
 }
 
 final class EditProfileFormViewModel: ObservableObject, Identifiable {
-    @Published var showAlert: Bool = false
+    @Published var alertItem: AlertItem? = nil
     @Published var alertType: EditProfileAlertType? = nil
     @Published var email: String
     @Published var firstName: String
@@ -93,21 +93,8 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
             bio: bio
         )
         
-        if !showAlert {
+        if alertItem != nil {
             updateUser(user)
-        }
-    }
-    
-    var alertMessage: String {
-        switch alertType {
-        case .firstName:
-            "You first name was not updated correctly!\nPlease try again!"
-        case .lastName:
-            "You last name was not updated correctly!\nPlease try again!"
-        case .email:
-            "Your email was not updated correctly!\nPlease try again!"
-        default:
-            "A field was not updated correctly!\nPlease try again!"
         }
     }
 }
@@ -116,7 +103,7 @@ private extension EditProfileFormViewModel {
     func checkFirstName() -> String {
         if firstName.isEmpty {
             alertType = .firstName
-            showAlert = true
+            alertItem = AlertItem(message: alertMessage)
             
             return String(userItem.name.split(separator: " ").first ?? "-") + " "
         }
@@ -127,7 +114,7 @@ private extension EditProfileFormViewModel {
     func checkLastName() -> String {
         if lastName.isEmpty {
             alertType = .lastName
-            showAlert = true
+            alertItem = AlertItem(message: alertMessage)
             
             return String(userItem.name.split(separator: " ").last ?? "-")
         }
@@ -153,6 +140,19 @@ private extension EditProfileFormViewModel {
     
     func setEmailInvalid() {
         alertType = .email
-        showAlert = true
+        alertItem = AlertItem(message: alertMessage)
+    }
+    
+    var alertMessage: String {
+        switch alertType {
+        case .firstName:
+            "You first name was not updated correctly!\nPlease try again!"
+        case .lastName:
+            "You last name was not updated correctly!\nPlease try again!"
+        case .email:
+            "Your email was not updated correctly!\nPlease try again!"
+        default:
+            "A field was not updated correctly!\nPlease try again!"
+        }
     }
 }

@@ -9,8 +9,8 @@ import SwiftUI
 
 final class LessonScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
-    @Published var showLoadingAlert: Bool = false
-    @Published var showDeletingAlert: Bool = false
+    @Published var loadingAlertItem: AlertItem? = nil
+    @Published var deletingAlertItem: AlertItem? = nil
     @Published var user: UserItem
     
     private weak var router: LessonRouter?
@@ -21,6 +21,9 @@ final class LessonScreenViewModel: ObservableObject {
     private let mapper: LessonMapper
     private let userMapper: UserMapper
     
+    private let isTeacher: Bool
+    let lessonCardType: LessonCardType
+    
     init(
         router: LessonRouter? = nil,
         user: UserItem,
@@ -28,7 +31,9 @@ final class LessonScreenViewModel: ObservableObject {
         userRepository: UserRepository,
         lessonTypeRepository: LessonTypeRepository,
         mapper: LessonMapper,
-        userMapper: UserMapper
+        userMapper: UserMapper,
+        isTeacher: Bool,
+        lessonCardType: LessonCardType
     ) {
         self.router = router
         self.user = user
@@ -37,6 +42,9 @@ final class LessonScreenViewModel: ObservableObject {
         self.lessonTypeRepository = lessonTypeRepository
         self.mapper = mapper
         self.userMapper = userMapper
+        
+        self.isTeacher = isTeacher
+        self.lessonCardType = lessonCardType
     }
     
     func loadData() async {
@@ -54,7 +62,7 @@ final class LessonScreenViewModel: ObservableObject {
                 }
             }
         } catch {
-            showLoadingAlert = true
+            loadingAlertItem = AlertItem(message: loadingAlertMessage)
         }
     }
     
@@ -75,17 +83,9 @@ final class LessonScreenViewModel: ObservableObject {
                 cancelLesson(lesson: lesson)
             }
         }
-        if !showDeletingAlert {
+        if deletingAlertItem != nil {
             lessons.remove(atOffsets: offsets)
         }
-    }
-    
-    var lessonCardType: LessonCardType {
-        isTeacher ? .student : .teacher
-    }
-    
-    var isTeacher: Bool {
-        user.role == .teacher
     }
     
     var noLessonsText: String {
@@ -95,14 +95,6 @@ final class LessonScreenViewModel: ObservableObject {
             return "You have not taken a lesson yet!\nSave one now!"
         }
     }
-    
-    var loadingAlertMessage: String {
-        "Couldn't load lessons!\nPlease try again."
-    }
-    
-    var deletingAlertMessage: String {
-        "Couldn't \(isTeacher ? "delete" : "remove") this lesson from your list"
-    }
 }
 
 private extension LessonScreenViewModel {
@@ -111,22 +103,17 @@ private extension LessonScreenViewModel {
             do {
                 try await repository.delete(lessonId)
             } catch {
-                showDeletingAlert = true
+                deletingAlertItem = AlertItem(message: deletingAlertMessage)
             }
         }
     }
     
     func cancelLesson(lesson: LessonItem) {
         Task {
-            guard let user = router?.user else {
-                showDeletingAlert = true
-                return
-            }
-            
             guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
                 $0.name == lesson.lessonType
             }) else {
-                showDeletingAlert = true
+                deletingAlertItem = AlertItem(message: deletingAlertMessage)
                 return
             }
             
@@ -141,5 +128,13 @@ private extension LessonScreenViewModel {
                 id: lesson.id
             )
         }
+    }
+    
+    var loadingAlertMessage: String {
+        "Couldn't load lessons!\nPlease try again."
+    }
+    
+    var deletingAlertMessage: String {
+        "Couldn't \(isTeacher ? "delete" : "remove") this lesson from your list"
     }
 }
