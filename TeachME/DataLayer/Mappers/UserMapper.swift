@@ -11,6 +11,7 @@ import SwiftUI
 struct UserMapper: Mapper {
     let userDetailMapper: UserDetailMapper
     let roleMapper: RoleMapper
+    let roleProvider: RoleProvider
     
     func dtoToModel(_ data: UserDTO) -> UserModel {
         let userDetailModel: UserDetailModel?
@@ -21,13 +22,23 @@ struct UserMapper: Mapper {
             userDetailModel = nil
         }
         
+        let roleModel = roleMapper.dtoToModel(data.role)
+        
+        let roleType: Role
+        if let role = try? roleProvider.getRoles().toRole(roleModel: roleModel) {
+            roleType = role
+        } else {
+            roleType = roleModel.title == "Teacher" ? .teacher : .student
+        }
+        
         return UserModel(
             id: data.id,
             email: data.email,
             firstName: data.firstName,
             lastName: data.lastName,
             userDetail: userDetailModel,
-            role: roleMapper.dtoToModel(data.role)
+            roleModel: roleModel ,
+            role: roleType
         )
     }
     
@@ -46,7 +57,7 @@ struct UserMapper: Mapper {
             firstName: model.firstName,
             lastName: model.lastName,
             userDetail: userDetailData,
-            role: roleMapper.modelToDTO(model.role)
+            role: roleMapper.modelToDTO(model.roleModel)
         )
     }
     
@@ -105,7 +116,7 @@ struct UserMapper: Mapper {
         )
     }
     
-    func modelToItem(_ model: UserModel, roles: Roles) -> UserItem {
+    func modelToItem(_ model: UserModel) -> UserItem {
         return UserItem(
             id: model.id,
             name: "\(model.firstName) \(model.lastName)",
@@ -116,7 +127,7 @@ struct UserMapper: Mapper {
             email: model.email,
             phoneNumber: model.userDetail?.phoneNumber ?? "",
             bio: model.userDetail?.bio ?? "",
-            role: roles.toRole(roleModel: model.role)
+            role: model.role
         )
     }
     

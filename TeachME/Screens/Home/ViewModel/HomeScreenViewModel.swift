@@ -9,7 +9,7 @@ import Foundation
 
 final class HomeScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
-    @Published var loadAlertItem: AlertItem? = nil
+    @Published var alertItem: AlertItem? = nil
     
     private weak var router: HomeRouter?
     @Published var user: UserItem
@@ -63,7 +63,7 @@ final class HomeScreenViewModel: ObservableObject {
                 }
             }
         } catch {
-            loadAlertItem = AlertItem(message: alertMessage)
+            alertItem = AlertItem(alertType: .lessonsLoading)
         }
     }
     
@@ -185,9 +185,5 @@ private extension HomeScreenViewModel {
         Task {
             try await repository.delete(lessonId)
         }
-    }
-    
-    var alertMessage: String {
-        "Couldn't load lessons!\nPlease try again."
     }
 }

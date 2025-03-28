@@ -24,10 +24,7 @@ struct LessonScreen: View {
             }
         }
         .background(theme.colors.primary)
-        .alert(item: $viewModel.loadingAlertItem) { alertItem in
-            Alert(title: Text(alertItem.message))
-        }
-        .alert(item: $viewModel.deletingAlertItem) { alertItem in
+        .alert(item: $viewModel.alertItem) { alertItem in
             Alert(title: Text(alertItem.message))
         }
         .task {

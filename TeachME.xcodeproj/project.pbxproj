@@ -17,6 +17,7 @@
 		8E11605E2D7486FD0097774B /* RoleDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11605D2D7486FD0097774B /* RoleDataSource.swift */; };
 		8E1160602D7488300097774B /* LessonDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11605F2D7488300097774B /* LessonDataSource.swift */; };
 		8E1297E42D777A17009102FD /* TeachMEAPIDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1297E32D777A17009102FD /* TeachMEAPIDataSource.swift */; };
+		8E13E41B2D96AB6A009F7947 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E13E41A2D96AB6A009F7947 /* AlertType.swift */; };
 		8E180D2C2D5271E100327E29 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E180D2B2D5271E100327E29 /* Tab.swift */; };
 		8E180D2E2D5272FA00327E29 /* TabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E180D2D2D5272FA00327E29 /* TabRouter.swift */; };
 		8E20F5712D4B83A1007B3154 /* LessonPickScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5702D4B83A1007B3154 /* LessonPickScreen.swift */; };
@@ -123,6 +124,7 @@
 		8E11605D2D7486FD0097774B /* RoleDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleDataSource.swift; sourceTree = "<group>"; };
 		8E11605F2D7488300097774B /* LessonDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDataSource.swift; sourceTree = "<group>"; };
 		8E1297E32D777A17009102FD /* TeachMEAPIDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachMEAPIDataSource.swift; sourceTree = "<group>"; };
+		8E13E41A2D96AB6A009F7947 /* AlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		8E180D2B2D5271E100327E29 /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		8E180D2D2D5272FA00327E29 /* TabRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabRouter.swift; sourceTree = "<group>"; };
 		8E20F5702D4B83A1007B3154 /* LessonPickScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonPickScreen.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				8EA0789C2D90666E00944F51 /* KeychainStoreConstants.swift */,
 				8EB2C9452D928AE9001010EA /* LessonListState.swift */,
 				8EF2C2402D93F3DA006E3E47 /* EmailValidator.swift */,
+				8E13E41A2D96AB6A009F7947 /* AlertType.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -924,6 +927,7 @@
 				8EB0934D2D7C810C0073C0F6 /* Repository.swift in Sources */,
 				8E75D4392D3E233F0082F5FE /* RegisterForm.swift in Sources */,
 				8E8C9AE42D82CDE400082B34 /* TokenProvider.swift in Sources */,
+				8E13E41B2D96AB6A009F7947 /* AlertType.swift in Sources */,
 				8E1160602D7488300097774B /* LessonDataSource.swift in Sources */,
 				8EBF411F2D8C73A6007932BF /* TeachMETabView.swift in Sources */,
 				8EBF41242D8C761C007932BF /* AppRouter.swift in Sources */,
