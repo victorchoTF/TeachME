@@ -9,8 +9,7 @@ import SwiftUI
 
 final class LessonScreenViewModel: ObservableObject {
     @Published var lessons: [LessonItem] = []
-    @Published var loadingAlertItem: AlertItem? = nil
-    @Published var deletingAlertItem: AlertItem? = nil
+    @Published var alertItem: AlertItem? = nil
     @Published var user: UserItem
     
     private weak var router: LessonRouter?
@@ -62,7 +61,7 @@ final class LessonScreenViewModel: ObservableObject {
                 }
             }
         } catch {
-            loadingAlertItem = AlertItem(message: loadingAlertMessage)
+            alertItem = AlertItem(alertType: .lessonsLoading)
         }
     }
     
@@ -83,7 +82,8 @@ final class LessonScreenViewModel: ObservableObject {
                 cancelLesson(lesson: lesson)
             }
         }
-        if deletingAlertItem == nil {
+        
+        if alertItem == nil {
             lessons.remove(atOffsets: offsets)
         }
     }
@@ -103,7 +103,7 @@ private extension LessonScreenViewModel {
             do {
                 try await repository.delete(lessonId)
             } catch {
-                deletingAlertItem = AlertItem(message: deletingAlertMessage)
+                alertItem = AlertItem(alertType: .action(isTeacher ? "delete" : "remove"))
             }
         }
     }
@@ -113,7 +113,7 @@ private extension LessonScreenViewModel {
             guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
                 $0.name == lesson.lessonType
             }) else {
-                deletingAlertItem = AlertItem(message: deletingAlertMessage)
+                alertItem = AlertItem(alertType: .action(isTeacher ? "delete" : "remove"))
                 return
             }
             
@@ -128,13 +128,5 @@ private extension LessonScreenViewModel {
                 id: lesson.id
             )
         }
-    }
-    
-    var loadingAlertMessage: String {
-        "Couldn't load lessons!\nPlease try again."
-    }
-    
-    var deletingAlertMessage: String {
-        "Couldn't \(isTeacher ? "delete" : "remove") this lesson from your list"
     }
 }

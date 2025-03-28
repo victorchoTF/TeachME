@@ -25,10 +25,7 @@ struct TeachMEApp: App {
             decoder: jsonDecoder
         )
         
-        let userMapper = UserMapper(
-            userDetailMapper: UserDetailMapper(),
-            roleMapper: roleMapper
-        )
+        let tokenDecoder = TokenDecoder(jsonDecoder: jsonDecoder)
         
         let authRepository = AuthRepository(
             dataSource: AuthDataSource(
@@ -37,11 +34,9 @@ struct TeachMEApp: App {
                 encoder: jsonEncoder,
                 decoder: jsonDecoder
             ),
-            mapper: userMapper,
+            mapper: AuthMapper(),
             tokenSetter: tokenService
         )
-        
-        let tokenDecoder = TokenDecoder(jsonDecoder: jsonDecoder)
         
         let authHTTPClient = AuthHTTPClient(
             tokenProvider: tokenService,
@@ -62,6 +57,12 @@ struct TeachMEApp: App {
         )
         
         let roleProvider = RoleProvider(repository: roleRepository)
+        
+        let userMapper = UserMapper(
+            userDetailMapper: UserDetailMapper(),
+            roleMapper: roleMapper,
+            roleProvider: roleProvider
+        )
         
         let userRepository = UserRepository(
             dataSource: UserDataSource(

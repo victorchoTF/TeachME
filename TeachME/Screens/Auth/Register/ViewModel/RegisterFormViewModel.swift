@@ -63,8 +63,7 @@ final class RegisterFormViewModel: ObservableObject {
             )
         
             let userItem = try await self.userMapper.modelToItem(
-                userRepository.getUserByEmail(email),
-                roles: roleProvider.getRoles()
+                userRepository.getUserByEmail(email)
             )
             
             onSubmit(userItem)

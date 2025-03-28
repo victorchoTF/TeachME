@@ -130,10 +130,7 @@ private extension ProfileScreenViewModel {
     func updateUserByBodyModel(user: UserBodyModel) async throws -> UserItem {
         try await userRepository.update(user, id: self.user.id)
         
-        return try await mapper.modelToItem(
-            userRepository.getById(self.user.id),
-            roles: roleProvider.getRoles()
-        )
+        return try await mapper.modelToItem(userRepository.getById(self.user.id))
     }
     
     func userBodyModelWithImage() async throws -> UserBodyModel {

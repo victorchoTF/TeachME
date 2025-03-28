@@ -84,10 +84,7 @@ private extension AppRouter {
                 let token = try tokenService.token().accessToken.token
                 let payload: AccessTokenPayload = try tokenDecoder.decodePayload(token)
                 let userModel = try await userRepository.getById(payload.userId)
-                let userItem = try userMapper.modelToItem(
-                    userModel,
-                    roles: roleProvider.getRoles()
-                )
+                let userItem = userMapper.modelToItem(userModel)
                 
                 state = .idle(userItem)
             } catch {
