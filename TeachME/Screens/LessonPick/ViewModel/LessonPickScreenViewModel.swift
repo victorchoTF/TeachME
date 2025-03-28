@@ -7,14 +7,8 @@
 
 import Foundation
 
-enum LessonPickAlertType {
-    case loadingError
-    case savedLesson
-}
-
 final class LessonPickScreenViewModel: ObservableObject {
     @Published var alertItem: AlertItem? = nil
-    @Published var alertType: LessonPickAlertType? = nil
     @Published var pickedLesson: LessonItem
     @Published var teacher: UserItem?
     @Published var lessonFormViewModel: LessonFormViewModel?
@@ -98,8 +92,7 @@ final class LessonPickScreenViewModel: ObservableObject {
                 $0.id != pickedLesson.id
             }
         } catch {
-            alertType = .loadingError
-            alertItem = AlertItem(message: alertMessage)
+            alertItem = AlertItem(alertType: .lessonLoading)
         }
     }
     
@@ -151,8 +144,7 @@ private extension LessonPickScreenViewModel {
     
     func studentAction() {
         takeLesson()
-        alertType = .savedLesson
-        alertItem = AlertItem(message: alertMessage)
+        alertItem = AlertItem(alertType: .saved(pickedLesson.teacher.name))
     }
     
     func takeLesson() {
@@ -207,14 +199,6 @@ private extension LessonPickScreenViewModel {
             teacher: body.teacher,
             student: userMapper.itemToBodyLessonModel(user)
         )
-    }
-    
-    var alertMessage: String {
-        switch alertType {
-        case .savedLesson: "Lesson with \(pickedLesson.teacher.name) saved successfully!"
-        case .loadingError: "Couldn't load lesson!\nPlease try again."
-        default: "Something went wrong!"
-        }
     }
 }
 
