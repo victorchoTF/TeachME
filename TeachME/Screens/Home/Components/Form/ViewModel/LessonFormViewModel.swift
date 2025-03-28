@@ -8,7 +8,7 @@
 import Foundation
 
 final class LessonFormViewModel: ObservableObject, Identifiable {
-    @Published var loadAlertItem: AlertItem? = nil
+    @Published var alertItem: AlertItem? = nil
     @Published var lessonType: String
     @Published var subtitle: String
     @Published var startDate: Date
@@ -48,7 +48,7 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
             guard let date = date, !date.isEmpty else {
                 return Date()
             }
-                
+            
             return dateFormatter.toDate(dateString: date) ?? Date()
         }
         
@@ -57,7 +57,7 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
         
         self.teacher = teacher
     }
-
+    
     func onSubmit() {
         let lesson = LessonItem(
             id: teacher.id,
@@ -75,7 +75,7 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
         do {
             lessonTypes = try await self.repository.getAll().map { $0.name }
         } catch {
-            loadAlertItem = AlertItem(message: alertMessage)
+            alertItem = AlertItem(alertType: .lessonLoading)
         }
         
         lessonType = lessonTypes.first ?? "Other"
@@ -119,11 +119,5 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
     
     var doneButtonText: String {
         "Done"
-    }
-}
-
-private extension LessonFormViewModel {
-    var alertMessage: String {
-        "Couldn't load lesson!\nPlease try again."
     }
 }

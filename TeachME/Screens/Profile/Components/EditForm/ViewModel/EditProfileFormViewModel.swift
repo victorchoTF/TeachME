@@ -7,15 +7,8 @@
 
 import Foundation
 
-enum EditProfileAlertType {
-    case firstName
-    case lastName
-    case email
-}
-
 final class EditProfileFormViewModel: ObservableObject, Identifiable {
     @Published var alertItem: AlertItem? = nil
-    @Published var alertType: EditProfileAlertType? = nil
     @Published var email: String
     @Published var firstName: String
     @Published var lastName: String
@@ -97,8 +90,7 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
 private extension EditProfileFormViewModel {
     func checkFirstName() -> String {
         if firstName.isEmpty {
-            alertType = .firstName
-            alertItem = AlertItem(message: alertMessage)
+            alertItem = AlertItem(alertType: .firstName)
             
             return String(userItem.name.split(separator: " ").first ?? "-") + " "
         }
@@ -108,8 +100,7 @@ private extension EditProfileFormViewModel {
     
     func checkLastName() -> String {
         if lastName.isEmpty {
-            alertType = .lastName
-            alertItem = AlertItem(message: alertMessage)
+            alertItem = AlertItem(alertType: .lastName)
             
             return String(userItem.name.split(separator: " ").last ?? "-")
         }
@@ -119,25 +110,11 @@ private extension EditProfileFormViewModel {
     
     func checkEmail() -> String {
         if email.isEmpty {
-            alertType = .email
-            alertItem = AlertItem(message: alertMessage)
+            alertItem = AlertItem(alertType: .email)
             
             return userItem.email
         }
         
         return email
-    }
-    
-    var alertMessage: String {
-        switch alertType {
-        case .firstName:
-            "You first name was not updated correctly!\nPlease try again!"
-        case .lastName:
-            "You last name was not updated correctly!\nPlease try again!"
-        case .email:
-            "Your email was not updated correctly!\nPlease try again!"
-        default:
-            "A field was not updated correctly!\nPlease try again!"
-        }
     }
 }
