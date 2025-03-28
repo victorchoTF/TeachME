@@ -82,8 +82,7 @@ final class LessonPickScreenViewModel: ObservableObject {
             teacher = try await userMapper.modelToItem(
                 userRepository.getById(
                     pickedLesson.teacher.id
-                ),
-                roles: roleProvider.getRoles()
+                )
             )
             
             otherLessons = try await repository.getLessonsByTeacherId(
