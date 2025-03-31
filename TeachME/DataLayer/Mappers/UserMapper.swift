@@ -24,21 +24,13 @@ struct UserMapper: Mapper {
         
         let roleModel = roleMapper.dtoToModel(data.role)
         
-        let roleType: Role
-        if let role = try? roleProvider.getRoles().toRole(roleModel: roleModel) {
-            roleType = role
-        } else {
-            roleType = roleModel.title == "Teacher" ? .teacher : .student
-        }
-        
         return UserModel(
             id: data.id,
             email: data.email,
             firstName: data.firstName,
             lastName: data.lastName,
             userDetail: userDetailModel,
-            roleModel: roleModel ,
-            role: roleType
+            role: roleProvider.getRoles().toRole(roleModel: roleModel)
         )
     }
     
@@ -50,14 +42,14 @@ struct UserMapper: Mapper {
         } else {
             userDetailData = nil
         }
-        
+              
         return UserDTO(
             id: model.id,
             email: model.email,
             firstName: model.firstName,
             lastName: model.lastName,
             userDetail: userDetailData,
-            role: roleMapper.modelToDTO(model.roleModel)
+            role: roleMapper.modelToDTO(model.role.toRoleModel(roles: roleProvider.getRoles()))
         )
     }
     

@@ -8,8 +8,8 @@
 import Foundation
 
 final class HomeScreenViewModel: ObservableObject {
-    @Published var lessons: [LessonItem] = []
     @Published var alertItem: AlertItem? = nil
+    @Published var lessonListState: LessonListState = .empty
     
     private weak var router: HomeRouter?
     @Published var user: UserItem
@@ -22,7 +22,6 @@ final class HomeScreenViewModel: ObservableObject {
     private let mapper: LessonMapper
     private let userMapper: UserMapper
     
-    private let roleProvider: RoleProvider
     let isTeacher: Bool
     
     init(
@@ -33,7 +32,6 @@ final class HomeScreenViewModel: ObservableObject {
         userRepository: UserRepository,
         mapper: LessonMapper,
         userMapper: UserMapper,
-        roleProvider: RoleProvider,
         isTeacher: Bool
     ) {
         self.router = router
@@ -43,12 +41,12 @@ final class HomeScreenViewModel: ObservableObject {
         self.userRepository = userRepository
         self.mapper = mapper
         self.userMapper = userMapper
-        self.roleProvider = roleProvider
         
         self.isTeacher = isTeacher
     }
     
     func loadData() async {
+        let lessons: [LessonItem]
         do {
             if user.role == .teacher {
                 lessons = try await repository.getLessonsByTeacherId(user.id).filter {
@@ -64,11 +62,18 @@ final class HomeScreenViewModel: ObservableObject {
             }
         } catch {
             alertItem = AlertItem(alertType: .lessonsLoading)
+            lessonListState = .empty
+            return
         }
+        
+        lessonListState = .hasItems(lessons)
     }
     
-    var lessonListState: LessonListState {
-        lessons.isEmpty ? .empty : .hasItems
+    var lessons: [LessonItem] {
+        switch lessonListState {
+        case .empty: []
+        case .hasItems(let lessons): lessons
+        }
     }
     
     func onLessonTap(lesson: LessonItem, theme: Theme) {
@@ -86,8 +91,7 @@ final class HomeScreenViewModel: ObservableObject {
                     userRepostirory: userRepository,
                     lessonTypeRepository: lessonTypeRepository,
                     mapper: mapper,
-                    userMapper: userMapper,
-                    roleProvider: roleProvider
+                    userMapper: userMapper
                 ),
                 theme
             )
@@ -103,11 +107,15 @@ final class HomeScreenViewModel: ObservableObject {
     }
     
     func teacherOnDelete(at offsets: IndexSet) {
+        var lessons = lessons
+        
         offsets.map { lessons[$0] }.forEach { lesson in
             deleteLesson(lessonId: lesson.id)
         }
         
         lessons.remove(atOffsets: offsets)
+        
+        lessonListState = .hasItems(lessons)
     }
     
     var noLessonsText: String {
@@ -146,17 +154,22 @@ final class HomeScreenViewModel: ObservableObject {
 
 private extension HomeScreenViewModel {
     func setLesson(lesson: LessonItem) async throws {
-        guard let lessonItem = try await self.addLesson(lesson: lesson) else {
-            self.lessonFormViewModel = nil
+        guard let lessonItem = try await addLesson(lesson: lesson) else {
+            lessonFormViewModel = nil
             return
         }
         
-        self.lessons.removeAll(where: { $0 == lessonItem })
-        self.lessons.insert(
+        var lessons = lessons
+        
+        lessons.removeAll(where: { $0 == lessonItem })
+        lessons.insert(
             lessonItem,
             at: 0
         )
-        self.lessonFormViewModel = nil
+        
+        lessonListState = .hasItems(lessons)
+        
+        lessonFormViewModel = nil
     }
     
     func addLesson(lesson: LessonItem) async throws -> LessonItem? {

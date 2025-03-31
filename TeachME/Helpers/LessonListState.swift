@@ -9,5 +9,5 @@ import Foundation
 
 enum LessonListState {
     case empty
-    case hasItems
+    case hasItems([LessonItem])
 }

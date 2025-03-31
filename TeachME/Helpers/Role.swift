@@ -36,31 +36,44 @@ class RoleProvider {
     enum RoleLoaderError: Error {
         case studentNotFound
         case teacherNotFound
-        case rolesNotInitialized
     }
     
-    private let repository: RoleRepository
-    private var roles: Roles? = nil
+    private var roles: Roles
     
-    init(repository: RoleRepository) {
-        self.repository = repository
+    init (roles: Roles) {
+        self.roles = roles
+    }
+    
+    static func create(repository: RoleRepository) -> RoleProvider {
+        let placeholderRoles = Roles(
+            student: RoleModel(
+                id: UUID(),
+                title: Role.student.rawValue.capitalized
+            ),
+            teacher: RoleModel(
+                id: UUID(),
+                title: Role.teacher.rawValue.capitalized
+            )
+        )
         
+        let provider = RoleProvider(roles: placeholderRoles)
+
         Task {
-            roles = try await loadRoles()
+            let loadedRoles = try await loadRoles(from: repository)
+            
+            provider.updateRoles(loadedRoles)
         }
+
+        return provider
     }
     
-    func getRoles() throws -> Roles {
-        guard let roles = roles else {
-            throw RoleLoaderError.rolesNotInitialized
-        }
-        
+    func getRoles() -> Roles {
         return roles
     }
 }
 
 private extension RoleProvider {
-    func loadRoles() async throws -> Roles {
+    static func loadRoles(from repository: RoleRepository) async throws -> Roles {
         let roles = try await repository.getAll()
         
         var student: RoleModel?
@@ -86,5 +99,9 @@ private extension RoleProvider {
         }
         
         return Roles(student: student, teacher: teacher)
+    }
+    
+    func updateRoles(_ newRoles: Roles) {
+        self.roles = newRoles
     }
 }

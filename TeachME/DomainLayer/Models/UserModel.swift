@@ -13,7 +13,6 @@ struct UserModel: Model {
     let firstName: String
     let lastName: String
     let userDetail: UserDetailModel?
-    let roleModel: RoleModel
     let role: Role
 }
 

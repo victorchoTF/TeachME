@@ -22,8 +22,6 @@ final class LessonPickScreenViewModel: ObservableObject {
     private let mapper: LessonMapper
     private let userMapper: UserMapper
     
-    private let roleProvider: RoleProvider
-    
     private weak var router: HomeRouter?
     
     init(
@@ -34,8 +32,7 @@ final class LessonPickScreenViewModel: ObservableObject {
         userRepostirory: UserRepository,
         lessonTypeRepository: LessonTypeRepository,
         mapper: LessonMapper,
-        userMapper: UserMapper,
-        roleProvider: RoleProvider
+        userMapper: UserMapper
     ) {
         self.pickedLesson = pickedLesson
         self.user = user
@@ -45,7 +42,6 @@ final class LessonPickScreenViewModel: ObservableObject {
         self.lessonTypeRepository = lessonTypeRepository
         self.mapper = mapper
         self.userMapper = userMapper
-        self.roleProvider = roleProvider
     }
     
     func onLessonTap(lesson: LessonItem, theme: Theme) {
@@ -63,8 +59,7 @@ final class LessonPickScreenViewModel: ObservableObject {
                     userRepostirory: userRepository,
                     lessonTypeRepository: lessonTypeRepository,
                     mapper: mapper,
-                    userMapper: userMapper,
-                    roleProvider: roleProvider
+                    userMapper: userMapper
                 ),
                 theme
             )
