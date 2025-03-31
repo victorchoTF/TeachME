@@ -8,6 +8,7 @@
 import Foundation
 
 final class HomeScreenViewModel: ObservableObject {
+    @Published var alertItem: AlertItem? = nil
     @Published var lessonListState: LessonListState = .empty
     
     private weak var router: HomeRouter?
@@ -44,7 +45,6 @@ final class HomeScreenViewModel: ObservableObject {
         self.isTeacher = isTeacher
     }
     
-    // TODO: Show alert on catch
     func loadData() async {
         let lessons: [LessonItem]
         do {
@@ -61,6 +61,7 @@ final class HomeScreenViewModel: ObservableObject {
                 }
             }
         } catch {
+            alertItem = AlertItem(alertType: .lessonsLoading)
             lessonListState = .empty
             return
         }
@@ -175,10 +176,7 @@ private extension HomeScreenViewModel {
             return nil
         }
         
-        // TODO: userItem is in the router, so the fetch is not needed
-        let userModel = try await self.userRepository.getById(user.id)
-        
-        let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
+        let userLessonBody = userMapper.itemToBodyLessonModel(user)
         
         let lessonModel = try self.mapper.itemToBodyModel(
             lesson,

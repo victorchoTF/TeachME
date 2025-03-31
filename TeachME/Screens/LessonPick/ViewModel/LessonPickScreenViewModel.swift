@@ -8,6 +8,7 @@
 import Foundation
 
 final class LessonPickScreenViewModel: ObservableObject {
+    @Published var alertItem: AlertItem? = nil
     @Published var pickedLesson: LessonItem
     @Published var teacher: UserItem?
     @Published var lessonFormViewModel: LessonFormViewModel?
@@ -111,6 +112,10 @@ final class LessonPickScreenViewModel: ObservableObject {
         case .Student: studentAction()
         }
     }
+    
+    func exit() {
+        router?.popToRoot()
+    }
 }
 
 private extension LessonPickScreenViewModel {
@@ -132,11 +137,9 @@ private extension LessonPickScreenViewModel {
         }
     }
     
-    // TODO: Notify user of what has happened
-    // FIXME: Not reloading data as expected on popToRoot()
     func studentAction() {
         takeLesson()
-        router?.popToRoot()
+        alertItem = AlertItem(alertType: .saved(pickedLesson.teacher.name))
     }
     
     func takeLesson() {
@@ -154,7 +157,7 @@ private extension LessonPickScreenViewModel {
         }
     }
     
-    // TODO: Certain cases couse Internal Server Error
+    // FIXME: Certain cases couse Internal Server Error
     func updateLesson(lesson: LessonItem) {
         Task {
             guard let lessonBody = try await lessonBodyModelByLessonItem(lesson: lesson) else {
@@ -172,10 +175,7 @@ private extension LessonPickScreenViewModel {
             return nil
         }
         
-        // TODO: userItem is in the router, so the fetch is not needed
-        let userModel = try await self.userRepository.getById(user.id)
-        
-        let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
+        let userLessonBody = self.userMapper.itemToBodyLessonModel(user)
         
         let lessonModel = try self.mapper.itemToBodyModel(
             lesson,
@@ -187,21 +187,13 @@ private extension LessonPickScreenViewModel {
     }
     
     func addStudentToLessonBody(_ body: LessonBodyModel) async throws -> LessonBodyModel {
-        // TODO: userItem is in the router, so the fetch is not needed
-        let student = try await userRepository.getById(user.id)
-        
-        return LessonBodyModel(
+        LessonBodyModel(
             lessonType: body.lessonType,
             subtitle: body.subtitle,
             startDate: body.startDate,
             endDate: body.endDate,
             teacher: body.teacher,
-            student: UserLessonBodyModel(
-                id: student.id,
-                firstName: student.firstName,
-                lastName: student.lastName,
-                profilePicture: student.userDetail?.profilePicture
-            )
+            student: userMapper.itemToBodyLessonModel(user)
         )
     }
 }

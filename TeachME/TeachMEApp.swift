@@ -18,9 +18,9 @@ struct TeachMEApp: App {
         let jsonDecoder = JSONDecoder()
         let jsonEncoder = JSONEncoder()
         let httpClient = URLSession(configuration: .ephemeral)
-        let keychainStore = KeychainStore(identifier: "com.teachME.tokens") // FIXME: find a better way
+        let keychainStore = KeychainStore(identifier: KeychainStoreConstants.identifier)
         let tokenService = TokenService(
-            key: "token", // FIXME: find a better way
+            key: KeychainStoreConstants.tokensKey,
             keychainStore: keychainStore,
             encoder: jsonEncoder,
             decoder: jsonDecoder

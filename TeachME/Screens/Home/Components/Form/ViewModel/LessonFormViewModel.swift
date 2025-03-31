@@ -8,6 +8,7 @@
 import Foundation
 
 final class LessonFormViewModel: ObservableObject, Identifiable {
+    @Published var alertItem: AlertItem? = nil
     @Published var lessonType: String
     @Published var subtitle: String
     @Published var startDate: Date
@@ -47,7 +48,7 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
             guard let date = date, !date.isEmpty else {
                 return Date()
             }
-                
+            
             return dateFormatter.toDate(dateString: date) ?? Date()
         }
         
@@ -56,7 +57,7 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
         
         self.teacher = teacher
     }
-
+    
     func onSubmit() {
         let lesson = LessonItem(
             id: teacher.id,
@@ -70,12 +71,11 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
         setLesson(lesson)
     }
     
-    // TODO: Show alert on catch
     func loadData() async {
         do {
             lessonTypes = try await self.repository.getAll().map { $0.name }
         } catch {
-            lessonTypes = ["Other"]
+            alertItem = AlertItem(alertType: .lessonLoading)
         }
         
         lessonType = lessonTypes.first ?? "Other"

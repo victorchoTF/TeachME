@@ -24,6 +24,9 @@ struct LessonScreen: View {
             }
         }
         .background(theme.colors.primary)
+        .alert(item: $viewModel.alertItem) { alertItem in
+            Alert(title: Text(alertItem.message))
+        }
         .task {
             await viewModel.loadData()
         }
@@ -48,6 +51,9 @@ private extension LessonScreen {
                 }
             }
             .onDelete(perform: viewModel.onDelete)
+        }
+        .refreshable {
+            await viewModel.loadData()
         }
         .listStyle(.inset)
         .scrollContentBackground(.hidden)

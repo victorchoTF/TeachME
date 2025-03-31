@@ -53,7 +53,6 @@ struct LessonPickScreen: View {
                 .foregroundStyle(theme.colors.accent)
             }
         }
-        .task { await viewModel.loadData() }
         .sheet(item: $viewModel.lessonFormViewModel) { lessonFormViewModel in
             LessonForm(
                 viewModel: lessonFormViewModel,
@@ -61,6 +60,12 @@ struct LessonPickScreen: View {
             )
             .background(theme.colors.primary)
         }
+        .alert(item: $viewModel.alertItem) { alertItem in
+            Alert(title: Text(alertItem.message), dismissButton: .default(Text("OK")) {
+                viewModel.exit()
+            })
+        }
+        .task { await viewModel.loadData() }
     }
 }
 
@@ -88,8 +93,7 @@ private extension LessonPickScreen {
                 .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))
                 .padding(theme.spacings.small)
         } else {
-            // TODO: Implement in another PR
-            Text("Loading...")
+            LoadingView(theme: theme)
         }
     }
     

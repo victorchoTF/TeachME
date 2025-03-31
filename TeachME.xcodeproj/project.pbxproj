@@ -17,6 +17,7 @@
 		8E11605E2D7486FD0097774B /* RoleDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11605D2D7486FD0097774B /* RoleDataSource.swift */; };
 		8E1160602D7488300097774B /* LessonDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11605F2D7488300097774B /* LessonDataSource.swift */; };
 		8E1297E42D777A17009102FD /* TeachMEAPIDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1297E32D777A17009102FD /* TeachMEAPIDataSource.swift */; };
+		8E13E41B2D96AB6A009F7947 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E13E41A2D96AB6A009F7947 /* AlertType.swift */; };
 		8E180D2C2D5271E100327E29 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E180D2B2D5271E100327E29 /* Tab.swift */; };
 		8E180D2E2D5272FA00327E29 /* TabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E180D2D2D5272FA00327E29 /* TabRouter.swift */; };
 		8E20F5712D4B83A1007B3154 /* LessonPickScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5702D4B83A1007B3154 /* LessonPickScreen.swift */; };
@@ -66,6 +67,7 @@
 		8E8C9AE82D82CE3A00082B34 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C9AE72D82CE3A00082B34 /* KeychainStore.swift */; };
 		8E8C9AEA2D82D1A900082B34 /* TokenSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C9AE92D82D1A900082B34 /* TokenSetter.swift */; };
 		8E8C9AEC2D82E12300082B34 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C9AEB2D82E12300082B34 /* Endpoints.swift */; };
+		8E95A6802D95424B0038AAED /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E95A67F2D95424B0038AAED /* AlertItem.swift */; };
 		8E9669CB2D48AEEA00B5D6BA /* LessonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */; };
 		8E99E78A2D71AD5C00CF9CC8 /* APIDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E7892D71AD5C00CF9CC8 /* APIDataSource.swift */; };
 		8E99E78C2D71AEE500CF9CC8 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E78B2D71AEE500CF9CC8 /* HTTPClient.swift */; };
@@ -78,6 +80,8 @@
 		8EA078972D903C6800944F51 /* LessonScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA078962D903C6800944F51 /* LessonScreen.swift */; };
 		8EA078992D903C9000944F51 /* LessonScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA078982D903C9000944F51 /* LessonScreenViewModel.swift */; };
 		8EA0789B2D903E1C00944F51 /* LessonRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0789A2D903E1C00944F51 /* LessonRouter.swift */; };
+		8EA0789D2D90666E00944F51 /* KeychainStoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0789C2D90666E00944F51 /* KeychainStoreConstants.swift */; };
+		8EA0789F2D9072FB00944F51 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0789E2D9072FB00944F51 /* LoadingView.swift */; };
 		8EB0934D2D7C810C0073C0F6 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0934C2D7C810C0073C0F6 /* Repository.swift */; };
 		8EB093502D7C81590073C0F6 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0934F2D7C81590073C0F6 /* Model.swift */; };
 		8EB093522D7C828F0073C0F6 /* RoleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093512D7C828F0073C0F6 /* RoleModel.swift */; };
@@ -118,6 +122,7 @@
 		8E11605D2D7486FD0097774B /* RoleDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleDataSource.swift; sourceTree = "<group>"; };
 		8E11605F2D7488300097774B /* LessonDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDataSource.swift; sourceTree = "<group>"; };
 		8E1297E32D777A17009102FD /* TeachMEAPIDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachMEAPIDataSource.swift; sourceTree = "<group>"; };
+		8E13E41A2D96AB6A009F7947 /* AlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		8E180D2B2D5271E100327E29 /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		8E180D2D2D5272FA00327E29 /* TabRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabRouter.swift; sourceTree = "<group>"; };
 		8E20F5702D4B83A1007B3154 /* LessonPickScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonPickScreen.swift; sourceTree = "<group>"; };
@@ -168,6 +173,7 @@
 		8E8C9AE72D82CE3A00082B34 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
 		8E8C9AE92D82D1A900082B34 /* TokenSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenSetter.swift; sourceTree = "<group>"; };
 		8E8C9AEB2D82E12300082B34 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		8E95A67F2D95424B0038AAED /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
 		8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonItem.swift; sourceTree = "<group>"; };
 		8E99E7892D71AD5C00CF9CC8 /* APIDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDataSource.swift; sourceTree = "<group>"; };
 		8E99E78B2D71AEE500CF9CC8 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
@@ -180,6 +186,8 @@
 		8EA078962D903C6800944F51 /* LessonScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonScreen.swift; sourceTree = "<group>"; };
 		8EA078982D903C9000944F51 /* LessonScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonScreenViewModel.swift; sourceTree = "<group>"; };
 		8EA0789A2D903E1C00944F51 /* LessonRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonRouter.swift; sourceTree = "<group>"; };
+		8EA0789C2D90666E00944F51 /* KeychainStoreConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStoreConstants.swift; sourceTree = "<group>"; };
+		8EA0789E2D9072FB00944F51 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		8EB0934C2D7C810C0073C0F6 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		8EB0934F2D7C81590073C0F6 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8EB093512D7C828F0073C0F6 /* RoleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleModel.swift; sourceTree = "<group>"; };
@@ -240,7 +248,9 @@
 				8E6D1C892D67344400C400C4 /* FormType.swift */,
 				8E75D4402D3E268B0082F5FE /* Role.swift */,
 				8EA078912D9025FA00944F51 /* ImageFormatter.swift */,
+				8EA0789C2D90666E00944F51 /* KeychainStoreConstants.swift */,
 				8EB2C9452D928AE9001010EA /* LessonListState.swift */,
+				8E13E41A2D96AB6A009F7947 /* AlertType.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -571,6 +581,7 @@
 			children = (
 				8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */,
 				8E20F5782D4B8CAA007B3154 /* UserItem.swift */,
+				8E95A67F2D95424B0038AAED /* AlertItem.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -713,6 +724,7 @@
 				8E84E2792D424AF400CB8C05 /* FormTitle.swift */,
 				8E84E27F2D42531D00CB8C05 /* SubmitButton.swift */,
 				8EA0788F2D9011F100944F51 /* ProfileCard.swift */,
+				8EA0789E2D9072FB00944F51 /* LoadingView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -858,6 +870,7 @@
 				8E75D4462D3E2ED20082F5FE /* Colors.swift in Sources */,
 				8E866E7E2D58E9C8007FAE6B /* EditProfileForm.swift in Sources */,
 				8EB093632D7C849B0073C0F6 /* Mapper.swift in Sources */,
+				8EA0789F2D9072FB00944F51 /* LoadingView.swift in Sources */,
 				8EC1D32D2D475B5500987973 /* LessonCard.swift in Sources */,
 				8E99E78A2D71AD5C00CF9CC8 /* APIDataSource.swift in Sources */,
 				8E7EBE4E2D3E3AE500C7C017 /* RegisterFormViewModel.swift in Sources */,
@@ -896,6 +909,7 @@
 				8E866E832D58EB2C007FAE6B /* EditProfileFormViewModel.swift in Sources */,
 				8E3CF2472D7D9D13009D30D5 /* AuthRepository.swift in Sources */,
 				8E84E27C2D424B8000CB8C05 /* Theme.swift in Sources */,
+				8EA0789D2D90666E00944F51 /* KeychainStoreConstants.swift in Sources */,
 				8E11605E2D7486FD0097774B /* RoleDataSource.swift in Sources */,
 				8E4D0F8B2D50B9A3007F57B8 /* ActionButton.swift in Sources */,
 				8E11605C2D74865B0097774B /* UserDataSource.swift in Sources */,
@@ -905,6 +919,7 @@
 				8EB0934D2D7C810C0073C0F6 /* Repository.swift in Sources */,
 				8E75D4392D3E233F0082F5FE /* RegisterForm.swift in Sources */,
 				8E8C9AE42D82CDE400082B34 /* TokenProvider.swift in Sources */,
+				8E13E41B2D96AB6A009F7947 /* AlertType.swift in Sources */,
 				8E1160602D7488300097774B /* LessonDataSource.swift in Sources */,
 				8EBF411F2D8C73A6007932BF /* TeachMETabView.swift in Sources */,
 				8EBF41242D8C761C007932BF /* AppRouter.swift in Sources */,
@@ -937,6 +952,7 @@
 				8EB093562D7C82D30073C0F6 /* UserDetailModel.swift in Sources */,
 				8E29828B2D4A347500588D8E /* HomeScreen.swift in Sources */,
 				8E5F201C2D5DEE2900BE9C24 /* LessonFormViewModel.swift in Sources */,
+				8E95A6802D95424B0038AAED /* AlertItem.swift in Sources */,
 				8EA078992D903C9000944F51 /* LessonScreenViewModel.swift in Sources */,
 				8E1160502D7483280097774B /* UserDetailDTO.swift in Sources */,
 				8E863BA02D3F7617001773F4 /* LoginForm.swift in Sources */,

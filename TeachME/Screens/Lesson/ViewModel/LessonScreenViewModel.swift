@@ -8,6 +8,7 @@
 import SwiftUI
 
 final class LessonScreenViewModel: ObservableObject {
+    @Published var alertItem: AlertItem? = nil
     @Published var lessonListState: LessonListState = .empty
     @Published var user: UserItem
     
@@ -61,6 +62,7 @@ final class LessonScreenViewModel: ObservableObject {
                 }
             }
         } catch {
+            alertItem = AlertItem(alertType: .lessonsLoading)
             lessonListState = .empty
             return
         }
@@ -86,9 +88,9 @@ final class LessonScreenViewModel: ObservableObject {
             }
         }
         
-        lessons.remove(atOffsets: offsets)
-        
-        lessonListState = .hasItems(lessons)
+        if alertItem == nil {
+            lessons.remove(atOffsets: offsets)
+        }
     }
     
     var noLessonsText: String {
@@ -103,23 +105,24 @@ final class LessonScreenViewModel: ObservableObject {
 private extension LessonScreenViewModel {
     func deleteLesson(lessonId: UUID) {
         Task {
-            try await repository.delete(lessonId)
+            do {
+                try await repository.delete(lessonId)
+            } catch {
+                alertItem = AlertItem(alertType: .action(isTeacher ? "delete" : "remove"))
+            }
         }
     }
     
-    // TODO: Implement better error handling
     func cancelLesson(lesson: LessonItem) {
         Task {
             guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
                 $0.name == lesson.lessonType
             }) else {
+                alertItem = AlertItem(alertType: .action(isTeacher ? "delete" : "remove"))
                 return
             }
             
-            // TODO: userItem is in the router, so the fetch is not needed
-            let userModel = try await self.userRepository.getById(lesson.teacher.id)
-            
-            let userLessonBody = self.userMapper.modelToLessonBodyModel(userModel)
+            let userLessonBody = self.userMapper.itemToBodyLessonModel(user)
             
             try await repository.cancelLesson(
                 mapper.itemToBodyModel(

@@ -8,6 +8,7 @@
 import Foundation
 
 final class EditProfileFormViewModel: ObservableObject, Identifiable {
+    @Published var alertItem: AlertItem? = nil
     @Published var email: String
     @Published var firstName: String
     @Published var lastName: String
@@ -71,7 +72,6 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
         bio.isEmpty
     }
     
-    // TODO: Fix hard code
     func onSubmit() {
         let user = UserItemBody(
             firstName: checkFirstName(),
@@ -81,14 +81,17 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
             bio: bio
         )
         
-        updateUser(user)
+        if alertItem != nil {
+            updateUser(user)
+        }
     }
 }
 
-// TODO: Make the user aware of what is happening with this checks
 private extension EditProfileFormViewModel {
     func checkFirstName() -> String {
         if firstName.isEmpty {
+            alertItem = AlertItem(alertType: .firstName)
+            
             return String(userItem.name.split(separator: " ").first ?? "-") + " "
         }
         
@@ -97,13 +100,18 @@ private extension EditProfileFormViewModel {
     
     func checkLastName() -> String {
         if lastName.isEmpty {
+            alertItem = AlertItem(alertType: .lastName)
+            
             return String(userItem.name.split(separator: " ").last ?? "-")
         }
+        
         return lastName
     }
     
     func checkEmail() -> String {
         if email.isEmpty {
+            alertItem = AlertItem(alertType: .email)
+            
             return userItem.email
         }
         
