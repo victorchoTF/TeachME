@@ -83,8 +83,9 @@ private extension LessonPickScreen {
     var teacherCard: some View {
         if let teacher = viewModel.teacher {
             UserCard(user: teacher, theme: theme)
-                .background(theme.colors.secondary)
                 .frame(maxWidth: .infinity)
+                .background(theme.colors.secondary)
+                .clipShape(RoundedRectangle(cornerRadius: theme.radiuses.medium))
                 .padding(theme.spacings.small)
         } else {
             // TODO: Implement in another PR

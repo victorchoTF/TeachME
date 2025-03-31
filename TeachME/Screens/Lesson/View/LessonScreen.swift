@@ -18,8 +18,12 @@ struct LessonScreen: View {
     
     var body: some View {
         VStack(spacing: theme.spacings.medium) {
-            lessonList
+            switch viewModel.lessonListState {
+            case .empty: noLessonsLabel
+            case .hasItems: lessonList
+            }
         }
+        .background(theme.colors.primary)
         .task {
             await viewModel.loadData()
         }
@@ -43,8 +47,21 @@ private extension LessonScreen {
                     viewModel.onLessonTap()
                 }
             }
+            .onDelete(perform: viewModel.onDelete)
         }
         .listStyle(.inset)
         .scrollContentBackground(.hidden)
+        .background(theme.colors.primary)
+    }
+    
+    var noLessonsLabel: some View {
+        VStack {
+            Text(viewModel.noLessonsText)
+                .multilineTextAlignment(.center)
+                .background(theme.colors.primary)
+                .foregroundStyle(theme.colors.text)
+                .font(theme.fonts.headline)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }

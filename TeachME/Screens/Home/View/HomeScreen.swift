@@ -18,11 +18,14 @@ struct HomeScreen: View {
     
     var body: some View {
         VStack(spacing: theme.spacings.medium) {
-            lessonList
+            switch viewModel.lessonListState {
+            case .empty: noLessonsLabel
+            case .hasItems(let lessons): lessonList(lessons: lessons)
+            }
         }
         .background(theme.colors.primary)
         .toolbar {
-            if viewModel.shouldShowAddLessonButton {
+            if viewModel.isTeacher {
                 ToolbarItem(placement: .topBarTrailing) {
                     ActionButton(
                         buttonContent: .icon(
@@ -49,9 +52,9 @@ struct HomeScreen: View {
 }
 
 private extension HomeScreen {
-    var lessonList: some View {
+    func lessonList(lessons: [LessonItem]) -> some View {
         List {
-            ForEach(viewModel.lessons) { lesson in
+            ForEach(lessons) { lesson in
                 LessonCard(
                     lesson: lesson,
                     theme: theme,
@@ -65,8 +68,21 @@ private extension HomeScreen {
                     viewModel.onLessonTap(lesson: lesson, theme: theme)
                 }
             }
+            .onDelete(perform: viewModel.onDelete)
         }
         .listStyle(.inset)
         .scrollContentBackground(.hidden)
+        .background(theme.colors.primary)
+    }
+    
+    var noLessonsLabel: some View {
+        VStack {
+            Text(viewModel.noLessonsText)
+                .multilineTextAlignment(.center)
+                .background(theme.colors.primary)
+                .foregroundStyle(theme.colors.text)
+                .font(theme.fonts.headline)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
