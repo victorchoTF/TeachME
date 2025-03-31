@@ -69,13 +69,6 @@ final class HomeScreenViewModel: ObservableObject {
         lessonListState = .hasItems(lessons)
     }
     
-    var lessons: [LessonItem] {
-        switch lessonListState {
-        case .empty: []
-        case .hasItems(let lessons): lessons
-        }
-    }
-    
     func onLessonTap(lesson: LessonItem, theme: Theme) {
         guard let router = router else {
             return
@@ -107,7 +100,9 @@ final class HomeScreenViewModel: ObservableObject {
     }
     
     func teacherOnDelete(at offsets: IndexSet) {
-        var lessons = lessons
+        guard case .hasItems(var lessons) = lessonListState else{
+            return
+        }
         
         offsets.map { lessons[$0] }.forEach { lesson in
             deleteLesson(lessonId: lesson.id)
@@ -159,7 +154,9 @@ private extension HomeScreenViewModel {
             return
         }
         
-        var lessons = lessons
+        guard case .hasItems(var lessons) = lessonListState else{
+            return
+        }
         
         lessons.removeAll(where: { $0 == lessonItem })
         lessons.insert(
