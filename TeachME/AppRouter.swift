@@ -23,10 +23,9 @@ final class AppRouter: ObservableObject {
     private let lessonTypeRepository: LessonTypeRepository
     private let userMapper: UserMapper
     private let lessonMapper: LessonMapper
+    private let roleMapper: RoleMapper
     private let theme: Theme
-    
-    private let roleProvider: RoleProvider
-    
+        
     init(
         authRepository: AuthRepository,
         userRepository: UserRepository,
@@ -34,8 +33,8 @@ final class AppRouter: ObservableObject {
         lessonRepository: LessonRepository,
         lessonTypeRepository: LessonTypeRepository,
         userMapper: UserMapper,
+        roleMapper: RoleMapper,
         lessonMapper: LessonMapper,
-        roleProvider: RoleProvider,
         theme: Theme
     ) {
         self.authRepository = authRepository
@@ -44,8 +43,8 @@ final class AppRouter: ObservableObject {
         self.lessonRepository = lessonRepository
         self.lessonTypeRepository = lessonTypeRepository
         self.userMapper = userMapper
+        self.roleMapper = roleMapper
         self.lessonMapper = lessonMapper
-        self.roleProvider = roleProvider
         self.theme = theme
     }
     
@@ -114,7 +113,7 @@ private extension AppRouter {
                 userRepository: userRepository,
                 roleRepository: roleRepository,
                 userMapper: userMapper,
-                roleProvider: roleProvider
+                roleMapper: roleMapper
             ) { [weak self] userItem in
                 self?.didLogIn(user: userItem)
             }

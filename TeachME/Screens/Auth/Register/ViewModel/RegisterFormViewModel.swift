@@ -13,13 +13,23 @@ final class RegisterFormViewModel: ObservableObject {
     @Published var firstName: String = ""
     @Published var lastName: String = ""
     @Published var roleType: Role = .student
+    @Published var roles: [Role] = []
+    
+    private var roleModels: [RoleModel] = [] {
+        didSet {
+            do {
+                roles =  try roleModels.map { try roleMapper.modelToItem($0) }
+            } catch {
+                print("Throw, alert")
+            }
+        }
+    }
     
     private let authRepository: AuthRepository
     private let userRepository: UserRepository
     private let roleRepository: RoleRepository
     private let userMapper: UserMapper
-    
-    private let roleProvider: RoleProvider
+    private let roleMapper: RoleMapper
     
     let onSubmit: (UserItem) -> ()
     
@@ -28,18 +38,29 @@ final class RegisterFormViewModel: ObservableObject {
         userRepository: UserRepository,
         roleRepository: RoleRepository,
         userMapper: UserMapper,
-        roleProvider: RoleProvider,
+        roleMapper: RoleMapper,
         onSubmit: @escaping (UserItem) -> ()
     ) {
         self.authRepository = authRepository
         self.userRepository = userRepository
         self.roleRepository = roleRepository
         self.userMapper = userMapper
-        self.roleProvider = roleProvider
+        self.roleMapper = roleMapper
         self.onSubmit = onSubmit
     }
     
+    func loadRoles() async {
+        do {
+            roleModels = try await roleRepository.getAll()
+        } catch {
+            print("Alert!")
+        }
+    }
+    
     func registerUser() {
+        guard let roleId = roleModels.first(where: { $0.title == roleType.rawValue })?.id else { return
+        }
+        
         Task {
             let _ = try await authRepository.register(
                 user: UserRegisterBodyModel(
@@ -47,7 +68,7 @@ final class RegisterFormViewModel: ObservableObject {
                     password: password,
                     firstName: firstName,
                     lastName: lastName,
-                    roleId: roleType.toRoleModel(roles: roleProvider.getRoles()).id
+                    roleId: roleId
                 )
             )
         
@@ -97,14 +118,6 @@ final class RegisterFormViewModel: ObservableObject {
     
     var roleHeading: String {
         "Role"
-    }
-    
-    var studentRole: String {
-        Role.student.rawValue.capitalized
-    }
-    
-    var teacherRole: String {
-        Role.teacher.rawValue.capitalized
     }
     
     var hasAccount: String {

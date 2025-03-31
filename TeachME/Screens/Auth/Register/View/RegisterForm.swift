@@ -38,6 +38,9 @@ struct RegisterForm: View {
             .scrollContentBackground(.hidden)
             .foregroundStyle(theme.colors.text)
         }
+        .task {
+            await viewModel.loadRoles()
+        }
     }
 }
 
@@ -70,8 +73,9 @@ private extension RegisterForm {
     private var roleDetails: some View {
         Section(viewModel.roleHeading) {
             Picker(viewModel.roleHeading, selection: $viewModel.roleType) {
-                Text(viewModel.studentRole).tag(Role.student)
-                Text(viewModel.teacherRole).tag(Role.teacher)
+                ForEach(viewModel.roles) {
+                    Text($0.rawValue).tag($0)
+                }
             }
             .tint(theme.colors.accent)
             .pickerStyle(.segmented)
