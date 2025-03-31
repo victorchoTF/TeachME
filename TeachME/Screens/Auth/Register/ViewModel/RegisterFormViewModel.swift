@@ -8,6 +8,7 @@
 import Foundation
 
 final class RegisterFormViewModel: ObservableObject {
+    @Published var alertItem: AlertItem? = nil
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var firstName: String = ""
@@ -20,7 +21,7 @@ final class RegisterFormViewModel: ObservableObject {
             do {
                 roles =  try roleModels.map { try roleMapper.modelToItem($0) }
             } catch {
-                print("Throw, alert")
+                alertItem = AlertItem(alertType: .error)
             }
         }
     }
@@ -53,7 +54,7 @@ final class RegisterFormViewModel: ObservableObject {
         do {
             roleModels = try await roleRepository.getAll()
         } catch {
-            print("Alert!")
+            alertItem = AlertItem(alertType: .error)
         }
     }
     
