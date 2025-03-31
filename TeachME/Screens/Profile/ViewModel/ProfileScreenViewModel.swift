@@ -30,8 +30,6 @@ final class ProfileScreenViewModel: ObservableObject {
         }
     }
     
-    private let roleProvider: RoleProvider
-    
     
     private weak var router: ProfileRouter?
     
@@ -40,15 +38,13 @@ final class ProfileScreenViewModel: ObservableObject {
         user: UserItem,
         userRepository: UserRepository,
         mapper: UserMapper,
-        imageFormatter: ImageFormatter,
-        roleProvider: RoleProvider
+        imageFormatter: ImageFormatter
     ) {
         self.router = router
         self.userRepository = userRepository
         self.mapper = mapper
         self.imageFormatter = imageFormatter
         self.user = user
-        self.roleProvider = roleProvider
     }
     
     var editButtonText: String {

@@ -59,12 +59,8 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
     }
     
     func onSubmit() {
-        guard let lesson = lesson else {
-            return
-        }
-        
         let lessonItem = LessonItem(
-            id: lesson.id,
+            id: lesson?.id ?? UUID(),
             lessonType: lessonType,
             subtitle: subtitle,
             startDate: dateFormatter.toString(startDate),

@@ -17,20 +17,16 @@ class ProfileRouter: ObservableObject {
     let userRepository: UserRepository
     let mapper: UserMapper
     
-    private let roleProvider: RoleProvider
-    
     init(
         theme: Theme,
         user: UserItem,
         userRepository: UserRepository,
-        mapper: UserMapper,
-        rolePorvider: RoleProvider
+        mapper: UserMapper
     ) {
         self.theme = theme
         self.user = user
         self.userRepository = userRepository
         self.mapper = mapper
-        self.roleProvider = rolePorvider
     }
     
 }
@@ -42,8 +38,7 @@ extension ProfileRouter: Router {
             user: user,
             userRepository: userRepository,
             mapper: mapper,
-            imageFormatter: ImageFormatter(),
-            roleProvider: roleProvider
+            imageFormatter: ImageFormatter()
         )
 
         return ProfileScreen(viewModel: viewModel, theme: theme)

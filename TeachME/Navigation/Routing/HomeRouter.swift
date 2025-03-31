@@ -19,8 +19,6 @@ final class HomeRouter: ObservableObject {
     private let lessonTypeRepository: LessonTypeRepository
     private let userMapper: UserMapper
     private let lessonMapper: LessonMapper
-    
-    private let roleProvider: RoleProvider
 
     init(
         theme: Theme,
@@ -29,8 +27,7 @@ final class HomeRouter: ObservableObject {
         lessonRepository: LessonRepository,
         lessonTypeRepository: LessonTypeRepository,
         userMapper: UserMapper,
-        lessonMapper: LessonMapper,
-        roleProvider: RoleProvider
+        lessonMapper: LessonMapper
     ) {
         self.theme = theme
         self.user = user
@@ -40,7 +37,6 @@ final class HomeRouter: ObservableObject {
         self.lessonTypeRepository = lessonTypeRepository
         self.userMapper = userMapper
         self.lessonMapper = lessonMapper
-        self.roleProvider = roleProvider
     }
 }
 
@@ -54,7 +50,6 @@ extension HomeRouter: Router {
             userRepository: userRepository,
             mapper: lessonMapper,
             userMapper: userMapper,
-            roleProvider: roleProvider,
             isTeacher: user.role == .teacher
         )
             

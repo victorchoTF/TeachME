@@ -80,8 +80,7 @@ private extension AppRouter {
                 lessonRepository: lessonRepository,
                 lessonTypeRepository: lessonTypeRepository,
                 userMapper: userMapper,
-                lessonMapper: lessonMapper,
-                roleProvider: roleProvider
+                lessonMapper: lessonMapper
             ),
             lessonRouter: LessonRouter(
                 theme: theme,
@@ -96,8 +95,7 @@ private extension AppRouter {
                 theme: theme,
                 user: user,
                 userRepository: userRepository,
-                mapper: userMapper,
-                rolePorvider: roleProvider
+                mapper: userMapper
             )
         )
     }
@@ -107,8 +105,7 @@ private extension AppRouter {
             loginFormViewModel: LoginFormViewModel(
                 authRepository: authRepository,
                 userRepository: userRepository,
-                userMapper: userMapper,
-                roleProvider: roleProvider
+                userMapper: userMapper
             ) { [weak self] userItem in
                 self?.didLogIn(user: userItem)
             },

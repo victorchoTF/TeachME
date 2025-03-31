@@ -22,7 +22,6 @@ final class HomeScreenViewModel: ObservableObject {
     private let mapper: LessonMapper
     private let userMapper: UserMapper
     
-    private let roleProvider: RoleProvider
     let isTeacher: Bool
     
     init(
@@ -33,7 +32,6 @@ final class HomeScreenViewModel: ObservableObject {
         userRepository: UserRepository,
         mapper: LessonMapper,
         userMapper: UserMapper,
-        roleProvider: RoleProvider,
         isTeacher: Bool
     ) {
         self.router = router
@@ -43,7 +41,6 @@ final class HomeScreenViewModel: ObservableObject {
         self.userRepository = userRepository
         self.mapper = mapper
         self.userMapper = userMapper
-        self.roleProvider = roleProvider
         
         self.isTeacher = isTeacher
     }
@@ -86,8 +83,7 @@ final class HomeScreenViewModel: ObservableObject {
                     userRepostirory: userRepository,
                     lessonTypeRepository: lessonTypeRepository,
                     mapper: mapper,
-                    userMapper: userMapper,
-                    roleProvider: roleProvider
+                    userMapper: userMapper
                 ),
                 theme
             )
