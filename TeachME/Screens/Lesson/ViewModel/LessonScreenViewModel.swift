@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class LessonScreenViewModel: ObservableObject {
+@MainActor final class LessonScreenViewModel: ObservableObject {
     @Published var alertItem: AlertItem? = nil
     @Published var lessonListState: LessonListState = .empty
     @Published var user: UserItem
@@ -67,7 +67,11 @@ final class LessonScreenViewModel: ObservableObject {
             return
         }
         
-        lessonListState = .hasItems(lessons)
+        if lessons.isEmpty {
+            lessonListState = .empty
+        } else {
+            lessonListState = .hasItems(lessons)
+        }
     }
     
     var lessons: [LessonItem] {

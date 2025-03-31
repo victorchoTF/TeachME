@@ -16,7 +16,7 @@ extension Destination: Hashable {
     static func == (lhs: Destination, rhs: Destination) -> Bool {
         switch (lhs, rhs) {
         case let (.lesson(lhsViewModel, _), .lesson(rhsViewModel, _)):
-            return lhsViewModel == rhsViewModel
+            return lhsViewModel.id == rhsViewModel.id
         }
     }
     

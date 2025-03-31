@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class HomeScreenViewModel: ObservableObject {
+@MainActor final class HomeScreenViewModel: ObservableObject {
     @Published var alertItem: AlertItem? = nil
     @Published var lessonListState: LessonListState = .empty
     
@@ -66,7 +66,11 @@ final class HomeScreenViewModel: ObservableObject {
             return
         }
         
-        lessonListState = .hasItems(lessons)
+        if lessons.isEmpty {
+            lessonListState = .empty
+        } else {
+            lessonListState = .hasItems(lessons)
+        }
     }
     
     var lessons: [LessonItem] {

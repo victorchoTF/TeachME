@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-final class HomeRouter: ObservableObject {
+@MainActor final class HomeRouter: ObservableObject {
     @Published var path = [Destination]()
 
     private let theme: Theme

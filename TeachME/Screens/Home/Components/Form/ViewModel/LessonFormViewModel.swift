@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class LessonFormViewModel: ObservableObject, Identifiable {
+@MainActor final class LessonFormViewModel: ObservableObject, Identifiable {
     @Published var alertItem: AlertItem? = nil
     @Published var lessonType: String
     @Published var subtitle: String

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-final class LessonRouter: ObservableObject {
+@MainActor final class LessonRouter: ObservableObject {
     @Published var path = [Destination]()
 
     private let theme: Theme
@@ -41,6 +41,7 @@ final class LessonRouter: ObservableObject {
 }
 
 extension LessonRouter: Router {
+    @MainActor
     var initialDestination: some View {
         let viewModel = LessonScreenViewModel(
             router: self,
