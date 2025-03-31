@@ -11,7 +11,6 @@ import SwiftUI
 struct UserMapper: Mapper {
     let userDetailMapper: UserDetailMapper
     let roleMapper: RoleMapper
-    let roleProvider: RoleProvider
     
     func dtoToModel(_ data: UserDTO) -> UserModel {
         let userDetailModel: UserDetailModel?
@@ -30,7 +29,7 @@ struct UserMapper: Mapper {
             firstName: data.firstName,
             lastName: data.lastName,
             userDetail: userDetailModel,
-            role: roleProvider.getRoles().toRole(roleModel: roleModel)
+            role: roleModel
         )
     }
     
@@ -49,7 +48,7 @@ struct UserMapper: Mapper {
             firstName: model.firstName,
             lastName: model.lastName,
             userDetail: userDetailData,
-            role: roleMapper.modelToDTO(model.role.toRoleModel(roles: roleProvider.getRoles()))
+            role: roleMapper.modelToDTO(model.role)
         )
     }
     
@@ -94,7 +93,17 @@ struct UserMapper: Mapper {
         )
     }
     
-    func modelToItem(_ model: UserModel) -> UserItem {
+    func registerBodyModelToDTO(_ model: UserRegisterBodyModel) -> UserRegisterBodyDTO {
+        UserRegisterBodyDTO(
+            email: model.email,
+            password: model.password,
+            firstName: model.firstName,
+            lastName: model.lastName,
+            roleId: model.roleId
+        )
+    }
+    
+    func modelToItem(_ model: UserModel) throws -> UserItem {
         return UserItem(
             id: model.id,
             name: "\(model.firstName) \(model.lastName)",
@@ -105,7 +114,7 @@ struct UserMapper: Mapper {
             email: model.email,
             phoneNumber: model.userDetail?.phoneNumber ?? "",
             bio: model.userDetail?.bio ?? "",
-            role: model.role
+            role: try roleMapper.modelToItem(model.role)
         )
     }
     

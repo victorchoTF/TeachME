@@ -34,3 +34,11 @@ struct LessonItem: Identifiable, Equatable {
         self.student = student
     }
 }
+
+struct LessonItemBody {
+    let lessonType: String
+    let subtitle: String
+    let startDate: String
+    let endDate: String
+    let teacher: UserLessonBodyItem
+}

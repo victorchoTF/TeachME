@@ -17,7 +17,7 @@ struct ImageFormatter {
 
         guard let imageData = data, let image = UIImage(data: imageData) else { return nil }
 
-        let resizedImage = resizeImage(image, maxWidth: 256, maxHeight: 256)
+        let resizedImage = resizeImage(image, maxWidth: 200, maxHeight: 200)
         
         let finalImage = cropImageToSquare(resizedImage)
             

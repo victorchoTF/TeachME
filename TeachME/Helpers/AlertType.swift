@@ -15,4 +15,5 @@ enum AlertType {
     case lessonLoading
     case action(String)
     case saved(String)
+    case error
 }

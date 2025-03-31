@@ -67,13 +67,10 @@ final class LessonScreenViewModel: ObservableObject {
             return
         }
         
-        lessonListState = .hasItems(lessons)
-    }
-    
-    var lessons: [LessonItem] {
-        switch lessonListState {
-        case .empty: []
-        case .hasItems(let lessons): lessons
+        if lessons.isEmpty {
+            lessonListState = .empty
+        } else {
+            lessonListState = .hasItems(lessons)
         }
     }
     
@@ -83,7 +80,9 @@ final class LessonScreenViewModel: ObservableObject {
     }
     
     func onDelete(at offsets: IndexSet) {
-        var lessons = lessons
+        guard case .hasItems(var lessons) = lessonListState else{
+            return
+        }
         
         offsets.map { lessons[$0] }.forEach { lesson in
             if isTeacher {
@@ -131,7 +130,7 @@ private extension LessonScreenViewModel {
             
             try await repository.cancelLesson(
                 mapper.itemToBodyModel(
-                    lesson,
+                    mapper.itemToItemBody(lesson),
                     lessonTypeModel: lessonTypeModel,
                     teacherItem: userLessonBody
                 ),

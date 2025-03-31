@@ -23,9 +23,8 @@ final class AppRouter: ObservableObject {
     private let lessonTypeRepository: LessonTypeRepository
     private let userMapper: UserMapper
     private let lessonMapper: LessonMapper
+    private let roleMapper: RoleMapper
     private let theme: Theme
-    
-    private let roleProvider: RoleProvider
     private let emailValidator: EmailValidator
     
     private let tokenService: TokenService
@@ -38,8 +37,8 @@ final class AppRouter: ObservableObject {
         lessonRepository: LessonRepository,
         lessonTypeRepository: LessonTypeRepository,
         userMapper: UserMapper,
+        roleMapper: RoleMapper,
         lessonMapper: LessonMapper,
-        roleProvider: RoleProvider,
         emailValidator: EmailValidator,
         tokenService: TokenService,
         tokenDecoder: TokenDecoder,
@@ -51,8 +50,8 @@ final class AppRouter: ObservableObject {
         self.lessonRepository = lessonRepository
         self.lessonTypeRepository = lessonTypeRepository
         self.userMapper = userMapper
+        self.roleMapper = roleMapper
         self.lessonMapper = lessonMapper
-        self.roleProvider = roleProvider
         self.emailValidator = emailValidator
         self.tokenService = tokenService
         self.tokenDecoder = tokenDecoder
@@ -80,7 +79,7 @@ final class AppRouter: ObservableObject {
             let token = try tokenService.token().accessToken.token
             let payload: AccessTokenPayload = try tokenDecoder.decodePayload(token)
             let userModel = try await userRepository.getById(payload.userId)
-            let userItem = userMapper.modelToItem(userModel)
+            let userItem = try userMapper.modelToItem(userModel)
             
             state = .idle(userItem)
         } catch {
@@ -125,7 +124,6 @@ private extension AppRouter {
                 user: user,
                 userRepository: userRepository,
                 mapper: userMapper,
-                rolePorvider: roleProvider,
                 emailValidator: emailValidator
             ) { [weak self] in
                 self?.didLogOut()
@@ -148,8 +146,8 @@ private extension AppRouter {
                 userRepository: userRepository,
                 roleRepository: roleRepository,
                 userMapper: userMapper,
-                roleProvider: roleProvider,
-                emailValidator: emailValidator
+                emailValidator: emailValidator,
+                roleMapper: roleMapper
             ) { [weak self] userItem in
                 self?.didLogIn(user: userItem)
             }
