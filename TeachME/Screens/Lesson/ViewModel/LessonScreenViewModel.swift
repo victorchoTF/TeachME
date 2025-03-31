@@ -8,8 +8,8 @@
 import SwiftUI
 
 final class LessonScreenViewModel: ObservableObject {
-    @Published var lessons: [LessonItem] = []
     @Published var alertItem: AlertItem? = nil
+    @Published var lessonListState: LessonListState = .empty
     @Published var user: UserItem
     
     private weak var router: LessonRouter?
@@ -47,6 +47,7 @@ final class LessonScreenViewModel: ObservableObject {
     }
     
     func loadData() async {
+        let lessons: [LessonItem]
         do {
             if user.role == .Teacher {
                 lessons = try await repository.getLessonsByTeacherId(user.id).filter {
@@ -62,11 +63,18 @@ final class LessonScreenViewModel: ObservableObject {
             }
         } catch {
             alertItem = AlertItem(alertType: .lessonsLoading)
+            lessonListState = .empty
+            return
         }
+        
+        lessonListState = .hasItems(lessons)
     }
     
-    var lessonListState: LessonListState {
-        lessons.isEmpty ? .empty : .hasItems
+    var lessons: [LessonItem] {
+        switch lessonListState {
+        case .empty: []
+        case .hasItems(let lessons): lessons
+        }
     }
     
     // TODO: Implement DeepLink logic
@@ -75,6 +83,8 @@ final class LessonScreenViewModel: ObservableObject {
     }
     
     func onDelete(at offsets: IndexSet) {
+        var lessons = lessons
+        
         offsets.map { lessons[$0] }.forEach { lesson in
             if isTeacher {
                 deleteLesson(lessonId: lesson.id)
