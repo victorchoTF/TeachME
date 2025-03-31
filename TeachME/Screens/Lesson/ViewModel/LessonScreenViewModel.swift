@@ -126,7 +126,7 @@ private extension LessonScreenViewModel {
             
             try await repository.cancelLesson(
                 mapper.itemToBodyModel(
-                    lesson,
+                    mapper.itemToItemBody(lesson),
                     lessonTypeModel: lessonTypeModel,
                     teacherItem: userLessonBody
                 ),

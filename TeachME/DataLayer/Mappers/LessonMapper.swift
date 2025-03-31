@@ -87,7 +87,7 @@ struct LessonMapper: Mapper {
     }
     
     func itemToBodyModel(
-        _ item: LessonItem,
+        _ item: LessonItemBody,
         lessonTypeModel: LessonTypeModel,
         teacherItem: UserLessonBodyModel
     ) throws -> LessonBodyModel {
@@ -106,6 +106,16 @@ struct LessonMapper: Mapper {
             endDate: endDate,
             teacher: teacherItem,
             student: nil
+        )
+    }
+    
+    func itemToItemBody(_ item: LessonItem) -> LessonItemBody {
+        LessonItemBody(
+            lessonType: item.lessonType,
+            subtitle: item.subtitle,
+            startDate: item.startDate,
+            endDate: item.endDate,
+            teacher: item.teacher
         )
     }
     

@@ -131,24 +131,24 @@ final class HomeScreenViewModel: ObservableObject {
             formType: FormType.add,
             repository: lessonTypeRepository,
             dateFormatter: DateFormatter(),
-            onCancel: {
-                [weak self] in
-                self?.lessonFormViewModel = nil
+            lessonFormType: .add { [weak self] lesson in
+                guard let self = self else {
+                    return
+                }
+                
+                Task {
+                    try await self.setLesson(lesson: lesson)
+                }
             }
-        ) { [weak self] lesson in
-            guard let self = self else {
-                return
-            }
-            
-            Task {
-                try await self.setLesson(lesson: lesson)
-            }
+        ) {
+            [weak self] in
+            self?.lessonFormViewModel = nil
         }
     }
 }
 
 private extension HomeScreenViewModel {
-    func setLesson(lesson: LessonItem) async throws {
+    func setLesson(lesson: LessonItemBody) async throws {
         guard let lessonItem = try await addLesson(lesson: lesson) else {
             lessonFormViewModel = nil
             return
@@ -169,7 +169,7 @@ private extension HomeScreenViewModel {
         lessonFormViewModel = nil
     }
     
-    func addLesson(lesson: LessonItem) async throws -> LessonItem? {
+    func addLesson(lesson: LessonItemBody) async throws -> LessonItem? {
         guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
             $0.name == lesson.lessonType
         }) else {
