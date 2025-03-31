@@ -41,7 +41,7 @@ struct TeachMEApp: App {
             mapper: roleMapper
         )
         
-        let roleProvider = RoleProvider(repository: roleRepository)
+        let roleProvider = RoleProvider.create(repository: roleRepository)
         
         let userMapper = UserMapper(
             userDetailMapper: UserDetailMapper(),

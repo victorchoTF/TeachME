@@ -15,8 +15,7 @@ final class LoginFormViewModel: ObservableObject {
     private let authRepository: AuthRepository
     private let userRepository: UserRepository
     private let userMapper: UserMapper
-    
-    private let roleProvider: RoleProvider
+
     private let emailValidator: EmailValidator
     
     @Published var hasTriedInvalidEmail: Bool = false
@@ -27,14 +26,12 @@ final class LoginFormViewModel: ObservableObject {
         authRepository: AuthRepository,
         userRepository: UserRepository,
         userMapper: UserMapper,
-        roleProvider: RoleProvider,
         emailValidator: EmailValidator,
         onSubmit: @escaping (UserItem) -> ()
     ) {
         self.authRepository = authRepository
         self.userRepository = userRepository
         self.userMapper = userMapper
-        self.roleProvider = roleProvider
         self.emailValidator = emailValidator
         self.onSubmit = onSubmit
     }

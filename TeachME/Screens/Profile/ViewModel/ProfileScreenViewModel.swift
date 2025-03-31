@@ -30,9 +30,7 @@ final class ProfileScreenViewModel: ObservableObject {
         }
     }
     
-    private let roleProvider: RoleProvider
     private let emailValidator: EmailValidator
-    
     
     private weak var router: ProfileRouter?
     
@@ -42,7 +40,6 @@ final class ProfileScreenViewModel: ObservableObject {
         userRepository: UserRepository,
         mapper: UserMapper,
         imageFormatter: ImageFormatter,
-        roleProvider: RoleProvider,
         emailValidator: EmailValidator
     ) {
         self.router = router
@@ -50,7 +47,6 @@ final class ProfileScreenViewModel: ObservableObject {
         self.mapper = mapper
         self.imageFormatter = imageFormatter
         self.user = user
-        self.roleProvider = roleProvider
         self.emailValidator = emailValidator
     }
     

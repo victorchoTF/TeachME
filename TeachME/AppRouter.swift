@@ -83,8 +83,7 @@ private extension AppRouter {
                 lessonRepository: lessonRepository,
                 lessonTypeRepository: lessonTypeRepository,
                 userMapper: userMapper,
-                lessonMapper: lessonMapper,
-                roleProvider: roleProvider
+                lessonMapper: lessonMapper
             ),
             lessonRouter: LessonRouter(
                 theme: theme,
@@ -112,7 +111,6 @@ private extension AppRouter {
                 authRepository: authRepository,
                 userRepository: userRepository,
                 userMapper: userMapper,
-                roleProvider: roleProvider,
                 emailValidator: emailValidator
             ) { [weak self] userItem in
                 self?.didLogIn(user: userItem)
