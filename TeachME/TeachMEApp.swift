@@ -40,13 +40,10 @@ struct TeachMEApp: App {
             ),
             mapper: roleMapper
         )
-        
-        let roleProvider = RoleProvider.create(repository: roleRepository)
-        
+                
         let userMapper = UserMapper(
             userDetailMapper: UserDetailMapper(),
-            roleMapper: roleMapper,
-            roleProvider: roleProvider
+            roleMapper: roleMapper
         )
         
         let authRepository = AuthRepository(
@@ -107,8 +104,8 @@ struct TeachMEApp: App {
             lessonRepository: lessonRepository,
             lessonTypeRepository: lessonTypeRepository,
             userMapper: userMapper,
+            roleMapper: roleMapper,
             lessonMapper: lessonMapper,
-            roleProvider: roleProvider,
             emailValidator: emailValidator,
             theme: theme
         )

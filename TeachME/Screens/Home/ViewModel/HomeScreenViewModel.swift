@@ -69,13 +69,6 @@ final class HomeScreenViewModel: ObservableObject {
         lessonListState = .hasItems(lessons)
     }
     
-    var lessons: [LessonItem] {
-        switch lessonListState {
-        case .empty: []
-        case .hasItems(let lessons): lessons
-        }
-    }
-    
     func onLessonTap(lesson: LessonItem, theme: Theme) {
         guard let router = router else {
             return
@@ -107,7 +100,9 @@ final class HomeScreenViewModel: ObservableObject {
     }
     
     func teacherOnDelete(at offsets: IndexSet) {
-        var lessons = lessons
+        guard case .hasItems(var lessons) = lessonListState else{
+            return
+        }
         
         offsets.map { lessons[$0] }.forEach { lesson in
             deleteLesson(lessonId: lesson.id)
@@ -136,30 +131,32 @@ final class HomeScreenViewModel: ObservableObject {
             formType: FormType.add,
             repository: lessonTypeRepository,
             dateFormatter: DateFormatter(),
-            onCancel: {
-                [weak self] in
-                self?.lessonFormViewModel = nil
+            lessonFormType: .add { [weak self] lesson in
+                guard let self = self else {
+                    return
+                }
+                
+                Task {
+                    try await self.setLesson(lesson: lesson)
+                }
             }
-        ) { [weak self] lesson in
-            guard let self = self else {
-                return
-            }
-            
-            Task {
-                try await self.setLesson(lesson: lesson)
-            }
+        ) {
+            [weak self] in
+            self?.lessonFormViewModel = nil
         }
     }
 }
 
 private extension HomeScreenViewModel {
-    func setLesson(lesson: LessonItem) async throws {
+    func setLesson(lesson: LessonItemBody) async throws {
         guard let lessonItem = try await addLesson(lesson: lesson) else {
             lessonFormViewModel = nil
             return
         }
         
-        var lessons = lessons
+        guard case .hasItems(var lessons) = lessonListState else{
+            return
+        }
         
         lessons.removeAll(where: { $0 == lessonItem })
         lessons.insert(
@@ -172,7 +169,7 @@ private extension HomeScreenViewModel {
         lessonFormViewModel = nil
     }
     
-    func addLesson(lesson: LessonItem) async throws -> LessonItem? {
+    func addLesson(lesson: LessonItemBody) async throws -> LessonItem? {
         guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
             $0.name == lesson.lessonType
         }) else {

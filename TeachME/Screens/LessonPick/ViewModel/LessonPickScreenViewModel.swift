@@ -121,18 +121,17 @@ final class LessonPickScreenViewModel: ObservableObject {
 private extension LessonPickScreenViewModel {
     func teacherAction() {
         self.lessonFormViewModel = LessonFormViewModel(
-            lesson: self.pickedLesson,
             teacher: self.pickedLesson.teacher,
             formType: FormType.edit,
             repository: lessonTypeRepository,
             dateFormatter: DateFormatter(),
-            onCancel: { [weak self] in
+            lessonFormType: .edit(pickedLesson) { [weak self] lesson in
+                self?.updateLesson(lesson: lesson)
+                
+                self?.pickedLesson = lesson
                 self?.lessonFormViewModel = nil
             }
-        ) { [weak self] lesson in
-            self?.updateLesson(lesson: lesson)
-            
-            self?.pickedLesson = lesson
+        ) { [weak self] in
             self?.lessonFormViewModel = nil
         }
     }
@@ -177,7 +176,7 @@ private extension LessonPickScreenViewModel {
         let userLessonBody = self.userMapper.itemToBodyLessonModel(user)
         
         let lessonModel = try self.mapper.itemToBodyModel(
-            lesson,
+            mapper.itemToItemBody(lesson),
             lessonTypeModel: lessonTypeModel,
             teacherItem: userLessonBody
         )
