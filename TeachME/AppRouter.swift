@@ -57,7 +57,6 @@ final class AppRouter: ObservableObject {
         self.tokenService = tokenService
         self.tokenDecoder = tokenDecoder
         self.theme = theme
-        self.startAppState()
     }
     
     
@@ -75,24 +74,22 @@ final class AppRouter: ObservableObject {
             LoadingView(theme: theme)
         }
     }
+    
+    func startAppState() async {
+        do {
+            let token = try tokenService.token().accessToken.token
+            let payload: AccessTokenPayload = try tokenDecoder.decodePayload(token)
+            let userModel = try await userRepository.getById(payload.userId)
+            let userItem = userMapper.modelToItem(userModel)
+            
+            state = .idle(userItem)
+        } catch {
+            state = .auth
+        }
+    }
 }
 
 private extension AppRouter {
-    func startAppState() {
-        Task {
-            do {
-                let token = try tokenService.token().accessToken.token
-                let payload: AccessTokenPayload = try tokenDecoder.decodePayload(token)
-                let userModel = try await userRepository.getById(payload.userId)
-                let userItem = userMapper.modelToItem(userModel)
-                
-                state = .idle(userItem)
-            } catch {
-                state = .auth
-            }
-        }
-    }
-    
     func didLogIn(user: UserItem) {
         state = .idle(user)
     }

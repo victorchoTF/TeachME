@@ -18,5 +18,6 @@ struct AppView: View {
     
     var body: some View {
         router.initialDestination
+            .task { await router.startAppState() }
     }
 }

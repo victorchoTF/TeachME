@@ -32,7 +32,8 @@ final class AuthHTTPClient: HTTPClient {
         var tokenData = try tokenProvider.token()
         
         let accessPayload = try getAccessPayload(tokenData.accessToken.token)
-        if !isAccessTokenValid(accessPayload) {
+        
+        if !isAccessTokenValid(tokenData.accessToken) {
             tokenData = try await getNewTokens(
                 payload: accessPayload,
                 refreshToken: tokenData.refreshToken.token
@@ -58,8 +59,8 @@ private extension AuthHTTPClient {
         return payload
     }
     
-    func isAccessTokenValid(_ payload: AccessTokenPayload) -> Bool {
-        return payload.expiration > Date().timeIntervalSince1970
+    func isAccessTokenValid(_ token: TokenData) -> Bool {
+        return token.expiresAt > Date().timeIntervalSince1970
     }
     
     func getNewTokens(
