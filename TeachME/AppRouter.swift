@@ -26,9 +26,9 @@ final class AppRouter: ObservableObject {
     private let roleMapper: RoleMapper
     private let theme: Theme
     private let emailValidator: EmailValidator
+    private let emailDefaults: EmailDefaults
     
     private let tokenService: TokenService
-    private let tokenDecoder: TokenDecoder
     
     init(
         authRepository: AuthRepository,
@@ -40,8 +40,8 @@ final class AppRouter: ObservableObject {
         roleMapper: RoleMapper,
         lessonMapper: LessonMapper,
         emailValidator: EmailValidator,
+        emailDefaults: EmailDefaults,
         tokenService: TokenService,
-        tokenDecoder: TokenDecoder,
         theme: Theme
     ) {
         self.authRepository = authRepository
@@ -54,7 +54,7 @@ final class AppRouter: ObservableObject {
         self.lessonMapper = lessonMapper
         self.emailValidator = emailValidator
         self.tokenService = tokenService
-        self.tokenDecoder = tokenDecoder
+        self.emailDefaults = emailDefaults
         self.theme = theme
     }
     
@@ -76,11 +76,9 @@ final class AppRouter: ObservableObject {
     
     func startAppState() async {
         do {
-            let token = try tokenService.token().accessToken.token
-            let payload: AccessTokenPayload = try tokenDecoder.decodePayload(token)
-            let userModel = try await userRepository.getById(payload.userId)
+            let email = try emailDefaults.getEmail()
+            let userModel = try await userRepository.getUserByEmail(email)
             let userItem = try userMapper.modelToItem(userModel)
-            
             state = .idle(userItem)
         } catch {
             state = .auth
@@ -90,12 +88,13 @@ final class AppRouter: ObservableObject {
 
 private extension AppRouter {
     func didLogIn(user: UserItem) {
+        emailDefaults.setEmail(user.email)
         state = .idle(user)
     }
     
     func didLogOut() {
         try? tokenService.removeToken()
-        
+        emailDefaults.removeEmail()
         state = .auth
     }
     
