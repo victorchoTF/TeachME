@@ -10,7 +10,6 @@ import SwiftUI
 @main
 struct TeachMEApp: App {
     let theme: Theme
-
     let appRouter: AppRouter
     
     init() {
@@ -31,6 +30,17 @@ struct TeachMEApp: App {
             httpClient: httpClient
         )
         
+        let roleRepository = RoleRepository(
+            dataSource: RoleDataSource(
+                client: authHTTPClient,
+                baseURL: Endpoints.rolesURL,
+                encoder: jsonEncoder,
+                decoder: jsonDecoder,
+                fetchAllURL: Endpoints.fetchAllRolesURL
+            ),
+            mapper: roleMapper
+        )
+                
         let userMapper = UserMapper(
             userDetailMapper: UserDetailMapper(),
             roleMapper: roleMapper
@@ -55,16 +65,6 @@ struct TeachMEApp: App {
                 decoder: jsonDecoder
             ),
             mapper: userMapper
-        )
-        
-        let roleRepository = RoleRepository(
-            dataSource: RoleDataSource(
-                client: authHTTPClient,
-                baseURL: Endpoints.rolesURL,
-                encoder: jsonEncoder,
-                decoder: jsonDecoder
-            ),
-            mapper: roleMapper
         )
         
         let lessonMapper = LessonMapper(
@@ -102,6 +102,7 @@ struct TeachMEApp: App {
             lessonRepository: lessonRepository,
             lessonTypeRepository: lessonTypeRepository,
             userMapper: userMapper,
+            roleMapper: roleMapper,
             lessonMapper: lessonMapper,
             theme: theme
         )

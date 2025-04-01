@@ -7,7 +7,16 @@
 
 import Foundation
 
+enum LessonFormType {
+    case add((LessonItemBody) -> ())
+    case edit(LessonItem, (LessonItem) -> ())
+}
+
 final class LessonFormViewModel: ObservableObject, Identifiable {
+    enum LessonFormError: Error {
+        case expectedLessonButNilFound
+    }
+    
     @Published var alertItem: AlertItem? = nil
     @Published var lessonType: String
     @Published var subtitle: String
@@ -15,60 +24,62 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
     @Published var endDate: Date
     @Published var lessonTypes: [String] = []
     
-    private let lesson: LessonItem?
     private let teacher: UserLessonBodyItem
     private let formType: FormType
     private let repository: LessonTypeRepository
     
     private let dateFormatter: DateFormatter
     
-    private let setLesson: (LessonItem) -> ()
+    private let lessonFormType: LessonFormType
     let onCancel: () -> ()
     
     init(
-        lesson: LessonItem? = nil,
         teacher: UserLessonBodyItem,
         formType: FormType,
         repository: LessonTypeRepository,
         dateFormatter: DateFormatter,
-        onCancel: @escaping () -> (),
-        updateLesson: @escaping (LessonItem) -> ()
+        lessonFormType: LessonFormType,
+        onCancel: @escaping () -> ()
     ) {
-        self.lesson = lesson
         self.onCancel = onCancel
-        self.setLesson = updateLesson
+        self.lessonFormType = lessonFormType
         self.formType = formType
         self.repository = repository
         self.dateFormatter = dateFormatter
         
-        self.lessonType = lesson?.lessonType ?? "Other"
-        self.subtitle = lesson?.subtitle ?? ""
-        
-        let setDate: (String?) -> (Date) = { date in
-            guard let date = date, !date.isEmpty else {
+        let setDate: (String) -> (Date) = { date in
+            guard !date.isEmpty else {
                 return Date()
             }
             
             return dateFormatter.toDate(dateString: date) ?? Date()
         }
         
-        self.startDate = setDate(lesson?.startDate)
-        self.endDate = setDate(lesson?.endDate)
+        if case LessonFormType.edit(let lesson, _) = lessonFormType {
+            self.lessonType = lesson.lessonType
+            self.subtitle = lesson.subtitle
+            
+            self.startDate = setDate(lesson.startDate)
+            self.endDate = setDate(lesson.endDate)
+        } else {
+            self.lessonType = "Other"
+            self.subtitle = ""
+            self.startDate = Date()
+            self.endDate = Date()
+        }
+        
+        
         
         self.teacher = teacher
     }
     
     func onSubmit() {
-        let lesson = LessonItem(
-            id: teacher.id,
-            lessonType: lessonType,
-            subtitle: subtitle,
-            startDate: dateFormatter.toString(startDate),
-            endDate: dateFormatter.toString(endDate),
-            teacher: teacher
-        )
-        
-        setLesson(lesson)
+        switch lessonFormType {
+        case .add(let addLesson):
+            addLesson(getLessonItemBody())
+        case .edit(let lesson, let editLesson):
+            editLesson(getLessonItem(lessonId: lesson.id))
+        }
     }
     
     func loadData() async {
@@ -119,5 +130,28 @@ final class LessonFormViewModel: ObservableObject, Identifiable {
     
     var doneButtonText: String {
         "Done"
+    }
+}
+
+private extension LessonFormViewModel {
+    func getLessonItem(lessonId: UUID) -> LessonItem {
+        return LessonItem(
+            id: lessonId,
+            lessonType: lessonType,
+            subtitle: subtitle,
+            startDate: dateFormatter.toString(startDate),
+            endDate: dateFormatter.toString(endDate),
+            teacher: teacher
+        )
+    }
+    
+    func getLessonItemBody() -> LessonItemBody {
+        return LessonItemBody(
+            lessonType: lessonType,
+            subtitle: subtitle,
+            startDate: dateFormatter.toString(startDate),
+            endDate: dateFormatter.toString(endDate),
+            teacher: teacher
+        )
     }
 }

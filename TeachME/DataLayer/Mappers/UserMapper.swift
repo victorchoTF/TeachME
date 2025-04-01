@@ -21,13 +21,15 @@ struct UserMapper: Mapper {
             userDetailModel = nil
         }
         
+        let roleModel = roleMapper.dtoToModel(data.role)
+        
         return UserModel(
             id: data.id,
             email: data.email,
             firstName: data.firstName,
             lastName: data.lastName,
             userDetail: userDetailModel,
-            role: roleMapper.dtoToModel(data.role)
+            role: roleModel
         )
     }
     
@@ -39,7 +41,7 @@ struct UserMapper: Mapper {
         } else {
             userDetailData = nil
         }
-        
+              
         return UserDTO(
             id: model.id,
             email: model.email,
@@ -105,7 +107,7 @@ struct UserMapper: Mapper {
         )
     }
     
-    func modelToItem(_ model: UserModel) -> UserItem {
+    func modelToItem(_ model: UserModel) throws -> UserItem {
         return UserItem(
             id: model.id,
             name: "\(model.firstName) \(model.lastName)",
@@ -116,7 +118,7 @@ struct UserMapper: Mapper {
             email: model.email,
             phoneNumber: model.userDetail?.phoneNumber ?? "",
             bio: model.userDetail?.bio ?? "",
-            role: Role.Student.caseName == model.role.title ? Role.Student : Role.Teacher
+            role: try roleMapper.modelToItem(model.role)
         )
     }
     

@@ -8,16 +8,29 @@
 import Foundation
 
 final class RegisterFormViewModel: ObservableObject {
+    @Published var alertItem: AlertItem? = nil
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var firstName: String = ""
     @Published var lastName: String = ""
-    @Published var roleType: Role = .Student
+    @Published var roleType: Role = .student
+    @Published var roles: [Role] = []
+    
+    private var roleModels: [RoleModel] = [] {
+        didSet {
+            do {
+                roles =  try roleModels.map { try roleMapper.modelToItem($0) }
+            } catch {
+                alertItem = AlertItem(alertType: .error)
+            }
+        }
+    }
     
     private let authRepository: AuthRepository
     private let userRepository: UserRepository
     private let roleRepository: RoleRepository
     private let userMapper: UserMapper
+    private let roleMapper: RoleMapper
     
     let onSubmit: (UserItem) -> ()
     
@@ -26,21 +39,30 @@ final class RegisterFormViewModel: ObservableObject {
         userRepository: UserRepository,
         roleRepository: RoleRepository,
         userMapper: UserMapper,
+        roleMapper: RoleMapper,
         onSubmit: @escaping (UserItem) -> ()
     ) {
         self.authRepository = authRepository
         self.userRepository = userRepository
         self.roleRepository = roleRepository
         self.userMapper = userMapper
+        self.roleMapper = roleMapper
         self.onSubmit = onSubmit
     }
     
+    func loadRoles() async {
+        do {
+            roleModels = try await roleRepository.getAll()
+        } catch {
+            alertItem = AlertItem(alertType: .error)
+        }
+    }
+    
     func registerUser() {
+        guard let roleId = roleModels.first(where: { $0.title == roleType.rawValue })?.id else { return
+        }
+        
         Task {
-            guard let roleId = UUID(uuidString: roleType.rawValue) else {
-                return
-            }
-            
             let _ = try await authRepository.register(
                 user: UserRegisterBodyModel(
                     email: email,
@@ -50,7 +72,7 @@ final class RegisterFormViewModel: ObservableObject {
                     roleId: roleId
                 )
             )
-            
+        
             let userItem = try await self.userMapper.modelToItem(
                 userRepository.getUserByEmail(email)
             )
@@ -97,14 +119,6 @@ final class RegisterFormViewModel: ObservableObject {
     
     var roleHeading: String {
         "Role"
-    }
-    
-    var studentRole: String {
-        Role.Student.caseName
-    }
-    
-    var teacherRole: String {
-        Role.Teacher.caseName
     }
     
     var hasAccount: String {

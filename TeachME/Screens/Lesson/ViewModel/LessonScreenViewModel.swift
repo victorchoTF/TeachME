@@ -49,7 +49,7 @@ final class LessonScreenViewModel: ObservableObject {
     func loadData() async {
         let lessons: [LessonItem]
         do {
-            if user.role == .Teacher {
+            if user.role == .teacher {
                 lessons = try await repository.getLessonsByTeacherId(user.id).filter {
                     $0.student != nil
                 }
@@ -126,7 +126,7 @@ private extension LessonScreenViewModel {
             
             try await repository.cancelLesson(
                 mapper.itemToBodyModel(
-                    lesson,
+                    mapper.itemToItemBody(lesson),
                     lessonTypeModel: lessonTypeModel,
                     teacherItem: userLessonBody
                 ),

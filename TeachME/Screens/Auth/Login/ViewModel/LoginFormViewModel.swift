@@ -37,10 +37,8 @@ final class LoginFormViewModel: ObservableObject {
                     password: password
                 )
             )
-                
-            let userItem = try await userMapper.modelToItem(
-                userRepository.getUserByEmail(email)
-            )
+            
+            let userItem = try await userMapper.modelToItem(userRepository.getUserByEmail(email))
             
             onSubmit(userItem)
         }

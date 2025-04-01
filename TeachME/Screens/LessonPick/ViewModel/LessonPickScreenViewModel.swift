@@ -66,7 +66,7 @@ final class LessonPickScreenViewModel: ObservableObject {
         )
     }
     
-    func loadData() async{
+    func loadData() async {
         do {
             teacher = try await userMapper.modelToItem(
                 userRepository.getById(
@@ -87,7 +87,7 @@ final class LessonPickScreenViewModel: ObservableObject {
                 $0.id != pickedLesson.id
             }
         } catch {
-            print("An error occured")
+            alertItem = AlertItem(alertType: .lessonLoading)
         }
     }
     
@@ -101,15 +101,15 @@ final class LessonPickScreenViewModel: ObservableObject {
     
     var pickLessonButtonText: String {
         switch user.role {
-        case .Teacher: "Edit"
+        case .teacher: "Edit"
         default: "Save"
         }
     }
-    
+
     func pickLessonButtonAction() {
         switch user.role {
-        case .Teacher: teacherAction()
-        case .Student: studentAction()
+        case .teacher: teacherAction()
+        case .student: studentAction()
         }
     }
     
@@ -121,18 +121,17 @@ final class LessonPickScreenViewModel: ObservableObject {
 private extension LessonPickScreenViewModel {
     func teacherAction() {
         self.lessonFormViewModel = LessonFormViewModel(
-            lesson: self.pickedLesson,
             teacher: self.pickedLesson.teacher,
             formType: FormType.edit,
             repository: lessonTypeRepository,
             dateFormatter: DateFormatter(),
-            onCancel: { [weak self] in
+            lessonFormType: .edit(pickedLesson) { [weak self] lesson in
+                self?.updateLesson(lesson: lesson)
+                
+                self?.pickedLesson = lesson
                 self?.lessonFormViewModel = nil
             }
-        ) { [weak self] lesson in
-            self?.updateLesson(lesson: lesson)
-            
-            self?.pickedLesson = lesson
+        ) { [weak self] in
             self?.lessonFormViewModel = nil
         }
     }
@@ -157,7 +156,6 @@ private extension LessonPickScreenViewModel {
         }
     }
     
-    // FIXME: Certain cases couse Internal Server Error
     func updateLesson(lesson: LessonItem) {
         Task {
             guard let lessonBody = try await lessonBodyModelByLessonItem(lesson: lesson) else {
@@ -178,7 +176,7 @@ private extension LessonPickScreenViewModel {
         let userLessonBody = self.userMapper.itemToBodyLessonModel(user)
         
         let lessonModel = try self.mapper.itemToBodyModel(
-            lesson,
+            mapper.itemToItemBody(lesson),
             lessonTypeModel: lessonTypeModel,
             teacherItem: userLessonBody
         )

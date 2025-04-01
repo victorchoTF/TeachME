@@ -50,7 +50,7 @@ extension HomeRouter: Router {
             userRepository: userRepository,
             mapper: lessonMapper,
             userMapper: userMapper,
-            isTeacher: user.role == .Teacher
+            isTeacher: user.role == .teacher
         )
             
         return HomeScreen(viewModel: viewModel, theme: theme)
