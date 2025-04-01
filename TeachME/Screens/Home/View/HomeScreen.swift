@@ -71,7 +71,7 @@ private extension HomeScreen {
                     viewModel.onLessonTap(lesson: lesson, theme: theme)
                 }
             }
-            .onDelete(perform: viewModel.onDelete)
+            .onDelete(perform: viewModel.onDelete())
         }
         .refreshable {
             await viewModel.loadData()

@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class HomeScreenViewModel: ObservableObject {
+@MainActor final class HomeScreenViewModel: ObservableObject {
     @Published var alertItem: AlertItem? = nil
     @Published var lessonListState: LessonListState = .empty
     
@@ -95,12 +95,12 @@ final class HomeScreenViewModel: ObservableObject {
         )
     }
     
-    func onDelete(at offsets: IndexSet) {
+    func onDelete() -> ((IndexSet) -> ())? {
         guard isTeacher else {
-            return
+            return nil
         }
         
-        teacherOnDelete(at: offsets)
+        return teacherOnDelete
     }
     
     func teacherOnDelete(at offsets: IndexSet) {

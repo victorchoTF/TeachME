@@ -48,7 +48,8 @@ struct TeachMEApp: App {
                 baseURL: Endpoints.rolesURL,
                 encoder: jsonEncoder,
                 decoder: jsonDecoder,
-                fetchAllURL: Endpoints.fetchAllRolesURL
+                fetchAllURL: Endpoints.fetchAllRolesURL,
+                nonAuthClient: httpClient
             ),
             mapper: roleMapper
         )

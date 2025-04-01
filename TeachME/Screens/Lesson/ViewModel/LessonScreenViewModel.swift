@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class LessonScreenViewModel: ObservableObject {
+@MainActor final class LessonScreenViewModel: ObservableObject {
     @Published var alertItem: AlertItem? = nil
     @Published var lessonListState: LessonListState = .empty
     @Published var user: UserItem

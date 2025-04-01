@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class RegisterFormViewModel: ObservableObject {
+@MainActor final class RegisterFormViewModel: ObservableObject {
     @Published var alertItem: AlertItem? = nil
     @Published var email: String = ""
     @Published var password: String = ""
@@ -59,6 +59,8 @@ final class RegisterFormViewModel: ObservableObject {
         do {
             roleModels = try await roleRepository.getAll()
         } catch {
+            print(error)
+            print(error.localizedDescription)
             alertItem = AlertItem(alertType: .error)
         }
     }

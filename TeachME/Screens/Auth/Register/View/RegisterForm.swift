@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RegisterForm: View {
     @ObservedObject var viewModel: RegisterFormViewModel
-    let toLogin: () -> ()
+    let toLogin: @MainActor () -> ()
     
     let theme: Theme
     

@@ -13,7 +13,7 @@ enum AppState {
     case loading
 }
 
-final class AppRouter: ObservableObject {
+@MainActor final class AppRouter: ObservableObject {
     @Published private var state: AppState = .loading
 
     private let authRepository: AuthRepository

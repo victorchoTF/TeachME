@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class ProfileRouter: ObservableObject {
+@MainActor final class ProfileRouter: ObservableObject {
     @Published var path = [Destination]()
     @Published var user: UserItem
     
@@ -39,6 +39,7 @@ class ProfileRouter: ObservableObject {
 }
 
 extension ProfileRouter: Router {
+    @MainActor
     var initialDestination: some View {
         let viewModel = ProfileScreenViewModel(
             router: self,

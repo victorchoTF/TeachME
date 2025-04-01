@@ -12,11 +12,11 @@ enum LessonFormType {
     case edit(LessonItem, (LessonItem) -> ())
 }
 
-final class LessonFormViewModel: ObservableObject, Identifiable {
+@MainActor final class LessonFormViewModel: ObservableObject, Identifiable {
     enum LessonFormError: Error {
         case expectedLessonButNilFound
     }
-    
+
     @Published var alertItem: AlertItem? = nil
     @Published var lessonType: String
     @Published var subtitle: String

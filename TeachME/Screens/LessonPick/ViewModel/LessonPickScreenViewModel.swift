@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class LessonPickScreenViewModel: ObservableObject {
+@MainActor final class LessonPickScreenViewModel: ObservableObject {
     @Published var alertItem: AlertItem? = nil
     @Published var pickedLesson: LessonItem
     @Published var teacher: UserItem?
@@ -105,7 +105,7 @@ final class LessonPickScreenViewModel: ObservableObject {
         default: "Save"
         }
     }
-
+    
     func pickLessonButtonAction() {
         switch user.role {
         case .teacher: teacherAction()
@@ -196,8 +196,4 @@ private extension LessonPickScreenViewModel {
     }
 }
 
-extension LessonPickScreenViewModel: Equatable {
-    static func == (lhs: LessonPickScreenViewModel, rhs: LessonPickScreenViewModel) -> Bool {
-        lhs.pickedLesson.id == rhs.pickedLesson.id
-    }
-}
+extension LessonPickScreenViewModel: Identifiable {}
