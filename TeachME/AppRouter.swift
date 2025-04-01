@@ -14,7 +14,7 @@ enum AppState {
 }
 
 final class AppRouter: ObservableObject {
-    @Published private var state: AppState = .auth
+    @Published private var state: AppState = .loading
 
     private let authRepository: AuthRepository
     private let userRepository: UserRepository
@@ -26,7 +26,10 @@ final class AppRouter: ObservableObject {
     private let roleMapper: RoleMapper
     private let theme: Theme
     private let emailValidator: EmailValidator
-
+    private let emailDefaults: EmailDefaults
+    
+    private let tokenService: TokenService
+    
     init(
         authRepository: AuthRepository,
         userRepository: UserRepository,
@@ -37,6 +40,8 @@ final class AppRouter: ObservableObject {
         roleMapper: RoleMapper,
         lessonMapper: LessonMapper,
         emailValidator: EmailValidator,
+        emailDefaults: EmailDefaults,
+        tokenService: TokenService,
         theme: Theme
     ) {
         self.authRepository = authRepository
@@ -48,6 +53,8 @@ final class AppRouter: ObservableObject {
         self.roleMapper = roleMapper
         self.lessonMapper = lessonMapper
         self.emailValidator = emailValidator
+        self.tokenService = tokenService
+        self.emailDefaults = emailDefaults
         self.theme = theme
     }
     
@@ -66,11 +73,29 @@ final class AppRouter: ObservableObject {
             LoadingView(theme: theme)
         }
     }
+    
+    func startAppState() async {
+        do {
+            let email = try emailDefaults.getEmail()
+            let userModel = try await userRepository.getUserByEmail(email)
+            let userItem = try userMapper.modelToItem(userModel)
+            state = .idle(userItem)
+        } catch {
+            state = .auth
+        }
+    }
 }
 
 private extension AppRouter {
     func didLogIn(user: UserItem) {
+        emailDefaults.setEmail(user.email)
         state = .idle(user)
+    }
+    
+    func didLogOut() {
+        try? tokenService.removeToken()
+        emailDefaults.removeEmail()
+        state = .auth
     }
     
     func tabRouter(user: UserItem, theme: Theme) -> TabRouter {
@@ -99,7 +124,9 @@ private extension AppRouter {
                 userRepository: userRepository,
                 mapper: userMapper,
                 emailValidator: emailValidator
-            )
+            ) { [weak self] in
+                self?.didLogOut()
+            }
         )
     }
     

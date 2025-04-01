@@ -83,10 +83,6 @@ struct UserMapper: Mapper {
         UserCredentialsBodyModel(email: data.email, password: data.password)
     }
     
-    func credentialBodyModelToDTO(_ model: UserCredentialsBodyModel) -> UserCredentialsBodyDTO {
-        UserCredentialsBodyDTO(email: model.email, password: model.password)
-    }
-    
     func registerBodyDTOToModel(_ data: UserRegisterBodyDTO) -> UserRegisterBodyModel {
         UserRegisterBodyModel(
             email: data.email,

@@ -8,7 +8,5 @@
 import Foundation
 
 struct RefreshTokenRequest: Codable {
-    let userId: UUID
-    let roleId: UUID
     let refreshToken: String
 }

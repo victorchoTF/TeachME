@@ -18,19 +18,22 @@ class ProfileRouter: ObservableObject {
     let mapper: UserMapper
     
     private let emailValidator: EmailValidator
+    private let logOut: () -> ()
 
     init(
         theme: Theme,
         user: UserItem,
         userRepository: UserRepository,
         mapper: UserMapper,
-        emailValidator: EmailValidator
+        emailValidator: EmailValidator,
+        logOut: @escaping () -> ()
     ) {
         self.theme = theme
         self.user = user
         self.userRepository = userRepository
         self.mapper = mapper
         self.emailValidator = emailValidator
+        self.logOut = logOut
     }
     
 }
@@ -43,7 +46,8 @@ extension ProfileRouter: Router {
             userRepository: userRepository,
             mapper: mapper,
             imageFormatter: ImageFormatter(),
-            emailValidator: emailValidator
+            emailValidator: emailValidator,
+            logOut: logOut
         )
 
         return ProfileScreen(viewModel: viewModel, theme: theme)

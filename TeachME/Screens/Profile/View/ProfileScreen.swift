@@ -21,14 +21,7 @@ struct ProfileScreen: View {
             profileCard
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
-                        ActionButton(
-                            buttonContent: .text(
-                                Text(viewModel.editButtonText)
-                            )
-                        ) {
-                            viewModel.openEditProfile()
-                        }
-                        .foregroundStyle(theme.colors.accent)
+                        settings
                     }
                 }
                 .sheet(item: $viewModel.editProfileFormViewModel) { editProfileFormViewModel in
@@ -68,5 +61,37 @@ private extension ProfileScreen {
         )
         .background(theme.colors.primary)
         .frame(maxWidth: .infinity)
+    }
+    
+    var editButtonLabel: Label<Text, Image> {
+        Label(
+            viewModel.editButtonText,
+            systemImage: viewModel.editButtonIcon
+        )
+    }
+    
+    var logOutButtonLabel: Label<Text, Image> {
+        Label(
+            viewModel.logOutButtonText,
+            systemImage: viewModel.logOutButtonIcon
+        )
+    }
+    
+    var settings: some View {
+        Menu {
+            ActionButton(
+                buttonContent: .label(editButtonLabel)
+            ){
+                viewModel.openEditProfile()
+            }
+
+            ActionButton(
+                buttonContent: .label(logOutButtonLabel)
+            ){
+                viewModel.logOut()
+            }
+        } label: {
+            Image(systemName: viewModel.settingsIcon)
+        }
     }
 }

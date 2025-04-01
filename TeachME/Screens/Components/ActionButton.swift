@@ -26,6 +26,8 @@ struct ActionButton: View {
                 text
             case .icon(let icon):
                 icon
+            case .label(let label):
+                label
             }
         }
     }
@@ -34,4 +36,5 @@ struct ActionButton: View {
 enum ActionButtonContent {
     case text(Text)
     case icon(Image)
+    case label(Label<Text, Image>)
 }

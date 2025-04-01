@@ -34,13 +34,16 @@ final class ProfileScreenViewModel: ObservableObject {
     
     private weak var router: ProfileRouter?
     
+    let logOut: () -> ()
+    
     init(
         router: ProfileRouter?,
         user: UserItem,
         userRepository: UserRepository,
         mapper: UserMapper,
         imageFormatter: ImageFormatter,
-        emailValidator: EmailValidator
+        emailValidator: EmailValidator,
+        logOut: @escaping () -> ()
     ) {
         self.router = router
         self.userRepository = userRepository
@@ -48,10 +51,27 @@ final class ProfileScreenViewModel: ObservableObject {
         self.imageFormatter = imageFormatter
         self.user = user
         self.emailValidator = emailValidator
+        self.logOut = logOut
     }
     
     var editButtonText: String {
         "Edit"
+    }
+    
+    var editButtonIcon: String {
+        "square.and.pencil"
+    }
+    
+    var logOutButtonText: String {
+        "Log Out"
+    }
+    
+    var logOutButtonIcon: String {
+        "rectangle.portrait.and.arrow.right"
+    }
+    
+    var settingsIcon: String {
+        "gearshape"
     }
     
     func openEditProfile() {

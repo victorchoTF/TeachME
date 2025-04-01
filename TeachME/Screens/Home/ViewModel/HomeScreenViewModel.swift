@@ -66,7 +66,11 @@ final class HomeScreenViewModel: ObservableObject {
             return
         }
         
-        lessonListState = .hasItems(lessons)
+        if lessons.isEmpty {
+            lessonListState = .empty
+        } else {
+            lessonListState = .hasItems(lessons)
+        }
     }
     
     func onLessonTap(lesson: LessonItem, theme: Theme) {
@@ -155,6 +159,7 @@ private extension HomeScreenViewModel {
         }
         
         guard case .hasItems(var lessons) = lessonListState else{
+            lessonFormViewModel = nil
             return
         }
         

@@ -67,7 +67,11 @@ final class LessonScreenViewModel: ObservableObject {
             return
         }
         
-        lessonListState = .hasItems(lessons)
+        if lessons.isEmpty {
+            lessonListState = .empty
+        } else {
+            lessonListState = .hasItems(lessons)
+        }
     }
     
     // TODO: Implement DeepLink logic

@@ -25,8 +25,20 @@ struct TeachMEApp: App {
             decoder: jsonDecoder
         )
         
+        let authRepository = AuthRepository(
+            dataSource: AuthDataSource(
+                client: httpClient,
+                baseURL: Endpoints.baseURL,
+                encoder: jsonEncoder,
+                decoder: jsonDecoder
+            ),
+            mapper: AuthMapper(),
+            tokenSetter: tokenService
+        )
+        
         let authHTTPClient = AuthHTTPClient(
             tokenProvider: tokenService,
+            authRepository: authRepository,
             httpClient: httpClient
         )
         
@@ -44,17 +56,6 @@ struct TeachMEApp: App {
         let userMapper = UserMapper(
             userDetailMapper: UserDetailMapper(),
             roleMapper: roleMapper
-        )
-        
-        let authRepository = AuthRepository(
-            dataSource: AuthDataSource(
-                client: httpClient,
-                baseURL: Endpoints.baseURL,
-                encoder: jsonEncoder,
-                decoder: jsonDecoder
-            ),
-            mapper: userMapper,
-            tokenSetter: tokenService
         )
         
         let userRepository = UserRepository(
@@ -94,6 +95,10 @@ struct TeachMEApp: App {
         )
         
         let emailValidator = EmailValidator(patternProvider: PatternProvider())
+        let emailDefaults = EmailDefaults(
+            userDefaults: UserDefaults.standard,
+            key: DefaultsKeys.emailDefaults
+        )
         
         theme = PrimaryTheme()
         
@@ -107,6 +112,8 @@ struct TeachMEApp: App {
             roleMapper: roleMapper,
             lessonMapper: lessonMapper,
             emailValidator: emailValidator,
+            emailDefaults: emailDefaults,
+            tokenService: tokenService,
             theme: theme
         )
     }

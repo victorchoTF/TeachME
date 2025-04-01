@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class TokenService: TokenSetter, TokenProvider {
+final class TokenService: TokenSetter, TokenProvider, TokenRemover {
     private let key: String
     private let keychainStore: KeychainStore
     private let encoder: JSONEncoder
@@ -36,5 +36,9 @@ final class TokenService: TokenSetter, TokenProvider {
         let tokenResponse = try decoder.decode(TokenResponse.self, from: data)
         
         return tokenResponse
+    }
+    
+    func removeToken() throws {
+        try keychainStore.deleteItem(key: key)
     }
 }

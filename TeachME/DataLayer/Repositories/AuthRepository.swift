@@ -9,10 +9,10 @@ import Foundation
 
 final class AuthRepository {
     private let dataSource: AuthDataSource
-    private let mapper: UserMapper
+    private let mapper: AuthMapper
     private let tokenSetter: TokenSetter
     
-    init(dataSource: AuthDataSource, mapper: UserMapper, tokenSetter: TokenSetter) {
+    init(dataSource: AuthDataSource, mapper: AuthMapper, tokenSetter: TokenSetter) {
         self.dataSource = dataSource
         self.mapper = mapper
         self.tokenSetter = tokenSetter
