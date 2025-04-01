@@ -16,19 +16,22 @@ final class RoleDataSource: TeachMEAPIDataSource {
     let decoder: JSONDecoder
     
     private let fetchAllURL: String
+    private let nonAuthClient: HTTPClient
     
     init(
         client: HTTPClient,
         baseURL: String,
         encoder: JSONEncoder,
         decoder: JSONDecoder,
-        fetchAllURL: String
+        fetchAllURL: String,
+        nonAuthClient: HTTPClient
     ) {
         self.client = client
         self.baseURL = baseURL
         self.encoder = encoder
         self.decoder = decoder
         self.fetchAllURL = fetchAllURL
+        self.nonAuthClient = nonAuthClient
     }
     
     func fetchAll() async throws -> [DataType] {
@@ -41,7 +44,7 @@ final class RoleDataSource: TeachMEAPIDataSource {
         
         let fetchedData: Data
         do {
-            (fetchedData, _) = try await client.request(request)
+            (fetchedData, _) = try await nonAuthClient.request(request)
         } catch {
             throw DataSourceError.fetchingError(
                 "Values on url: \(fetchAllURL) could not be fetched!"
