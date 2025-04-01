@@ -20,8 +20,11 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
     private let updateUser: (UserItemBody) -> ()
     let onCancel: () -> ()
     
+    private let emailValidator: EmailValidator
+    
     init(
         userItem: UserItem,
+        emailValidator: EmailValidator,
         onCancel: @escaping () -> (),
         updateUser: @escaping (UserItemBody) -> ()
     ) {
@@ -34,6 +37,8 @@ final class EditProfileFormViewModel: ObservableObject, Identifiable {
         self.lastName = String(userItem.name.split(separator: " ")[1])
         self.phoneNumber = userItem.phoneNumber
         self.bio = userItem.bio
+        
+        self.emailValidator = emailValidator
     }
     
     var formTitle: String {
@@ -110,11 +115,21 @@ private extension EditProfileFormViewModel {
     
     func checkEmail() -> String {
         if email.isEmpty {
-            alertItem = AlertItem(alertType: .email)
+            setEmailInvalid()
+            
+            return userItem.email
+        }
+        
+        guard emailValidator.isValid(email: email) else {
+            setEmailInvalid()
             
             return userItem.email
         }
         
         return email
+    }
+    
+    func setEmailInvalid() {
+        alertItem = AlertItem(alertType: .email)
     }
 }

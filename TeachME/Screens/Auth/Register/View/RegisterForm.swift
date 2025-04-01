@@ -50,9 +50,15 @@ struct RegisterForm: View {
 private extension RegisterForm {
     var accountDetails: some View {
         Section(viewModel.accountDetailsHeading) {
-            TextField(viewModel.emailPlaceholder, text: $viewModel.email)
-                .keyboardType(.emailAddress)
-                .styledTextField(theme: theme)
+            EmailValidatedField(
+                email: $viewModel.email,
+                hasTriedInvalidEmail: $viewModel.hasTriedInvalidEmail,
+                placeholder: viewModel.emailPlaceholder,
+                theme: theme
+            ) {
+                viewModel.resetEmailError()
+            }
+            
             SecureField(viewModel.passwordPlacehoder, text: $viewModel.password)
                 .styledTextField(theme: theme)
         }

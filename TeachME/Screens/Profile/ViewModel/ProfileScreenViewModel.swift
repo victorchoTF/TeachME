@@ -30,6 +30,7 @@ final class ProfileScreenViewModel: ObservableObject {
         }
     }
     
+    private let emailValidator: EmailValidator
     
     private weak var router: ProfileRouter?
     
@@ -38,13 +39,15 @@ final class ProfileScreenViewModel: ObservableObject {
         user: UserItem,
         userRepository: UserRepository,
         mapper: UserMapper,
-        imageFormatter: ImageFormatter
+        imageFormatter: ImageFormatter,
+        emailValidator: EmailValidator
     ) {
         self.router = router
         self.userRepository = userRepository
         self.mapper = mapper
         self.imageFormatter = imageFormatter
         self.user = user
+        self.emailValidator = emailValidator
     }
     
     var editButtonText: String {
@@ -54,6 +57,7 @@ final class ProfileScreenViewModel: ObservableObject {
     func openEditProfile() {
         editProfileFormViewModel = EditProfileFormViewModel(
             userItem: user,
+            emailValidator: emailValidator,
             onCancel: { [weak self] in
             self?.editProfileFormViewModel = nil
         }) { [weak self] user in

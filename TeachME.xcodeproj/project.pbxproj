@@ -67,6 +67,7 @@
 		8E8C9AE82D82CE3A00082B34 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C9AE72D82CE3A00082B34 /* KeychainStore.swift */; };
 		8E8C9AEA2D82D1A900082B34 /* TokenSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C9AE92D82D1A900082B34 /* TokenSetter.swift */; };
 		8E8C9AEC2D82E12300082B34 /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8C9AEB2D82E12300082B34 /* Endpoints.swift */; };
+		8E95A6822D954C830038AAED /* EmailValidatedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E95A6812D954C830038AAED /* EmailValidatedField.swift */; };
 		8E95A6802D95424B0038AAED /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E95A67F2D95424B0038AAED /* AlertItem.swift */; };
 		8E9669CB2D48AEEA00B5D6BA /* LessonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */; };
 		8E99E78A2D71AD5C00CF9CC8 /* APIDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E7892D71AD5C00CF9CC8 /* APIDataSource.swift */; };
@@ -106,6 +107,7 @@
 		8EDBFF1C2D57A7BF008441D6 /* ProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDBFF1B2D57A7BF008441D6 /* ProfileScreen.swift */; };
 		8EDBFF1E2D57A807008441D6 /* ProfileScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDBFF1D2D57A807008441D6 /* ProfileScreenViewModel.swift */; };
 		8EDBFF202D57A9C4008441D6 /* ProfileRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDBFF1F2D57A9C4008441D6 /* ProfileRouter.swift */; };
+		8EF2C2412D93F3DA006E3E47 /* EmailValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2C2402D93F3DA006E3E47 /* EmailValidator.swift */; };
 		8EFED0662D50A1F900046F1D /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFED0652D50A1F900046F1D /* Router.swift */; };
 		8EFED0682D50A2BB00046F1D /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFED0672D50A2BB00046F1D /* Destination.swift */; };
 		8EFED06D2D50A71500046F1D /* RouterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFED06C2D50A71500046F1D /* RouterView.swift */; };
@@ -173,6 +175,7 @@
 		8E8C9AE72D82CE3A00082B34 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
 		8E8C9AE92D82D1A900082B34 /* TokenSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenSetter.swift; sourceTree = "<group>"; };
 		8E8C9AEB2D82E12300082B34 /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
+		8E95A6812D954C830038AAED /* EmailValidatedField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidatedField.swift; sourceTree = "<group>"; };
 		8E95A67F2D95424B0038AAED /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
 		8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonItem.swift; sourceTree = "<group>"; };
 		8E99E7892D71AD5C00CF9CC8 /* APIDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDataSource.swift; sourceTree = "<group>"; };
@@ -212,6 +215,7 @@
 		8EDBFF1B2D57A7BF008441D6 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		8EDBFF1D2D57A807008441D6 /* ProfileScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewModel.swift; sourceTree = "<group>"; };
 		8EDBFF1F2D57A9C4008441D6 /* ProfileRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRouter.swift; sourceTree = "<group>"; };
+		8EF2C2402D93F3DA006E3E47 /* EmailValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidator.swift; sourceTree = "<group>"; };
 		8EFED0652D50A1F900046F1D /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		8EFED0672D50A2BB00046F1D /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		8EFED06C2D50A71500046F1D /* RouterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterView.swift; sourceTree = "<group>"; };
@@ -250,6 +254,7 @@
 				8EA078912D9025FA00944F51 /* ImageFormatter.swift */,
 				8EA0789C2D90666E00944F51 /* KeychainStoreConstants.swift */,
 				8EB2C9452D928AE9001010EA /* LessonListState.swift */,
+				8EF2C2402D93F3DA006E3E47 /* EmailValidator.swift */,
 				8E13E41A2D96AB6A009F7947 /* AlertType.swift */,
 			);
 			path = Helpers;
@@ -725,6 +730,7 @@
 				8E84E27F2D42531D00CB8C05 /* SubmitButton.swift */,
 				8EA0788F2D9011F100944F51 /* ProfileCard.swift */,
 				8EA0789E2D9072FB00944F51 /* LoadingView.swift */,
+				8E95A6812D954C830038AAED /* EmailValidatedField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -883,6 +889,7 @@
 				8E6D1C8F2D673A9300C400C4 /* DateFormatter+toString.swift in Sources */,
 				8E11604C2D7482DD0097774B /* RoleDTO.swift in Sources */,
 				8E3427AD2D3E649900A38A2D /* Fonts.swift in Sources */,
+				8EF2C2412D93F3DA006E3E47 /* EmailValidator.swift in Sources */,
 				8EFED0662D50A1F900046F1D /* Router.swift in Sources */,
 				8E2982902D4A38CF00588D8E /* HomeScreenViewModel.swift in Sources */,
 				8E8C9AEA2D82D1A900082B34 /* TokenSetter.swift in Sources */,
@@ -896,6 +903,7 @@
 				8E1297E42D777A17009102FD /* TeachMEAPIDataSource.swift in Sources */,
 				8EA078922D9025FA00944F51 /* ImageFormatter.swift in Sources */,
 				8EB093582D7C83050073C0F6 /* UserModel.swift in Sources */,
+				8E95A6822D954C830038AAED /* EmailValidatedField.swift in Sources */,
 				8EB0936F2D7C90480073C0F6 /* UserRepository.swift in Sources */,
 				8EB093652D7C85770073C0F6 /* UserMapper.swift in Sources */,
 				8E3CF23F2D7D946D009D30D5 /* AuthDataSource.swift in Sources */,

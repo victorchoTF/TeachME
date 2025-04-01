@@ -30,6 +30,9 @@ final class RegisterFormViewModel: ObservableObject {
     private let userRepository: UserRepository
     private let roleRepository: RoleRepository
     private let userMapper: UserMapper
+    private let emailValidator: EmailValidator
+    
+    @Published var hasTriedInvalidEmail: Bool = false
     private let roleMapper: RoleMapper
     
     let onSubmit: (UserItem) -> ()
@@ -39,6 +42,7 @@ final class RegisterFormViewModel: ObservableObject {
         userRepository: UserRepository,
         roleRepository: RoleRepository,
         userMapper: UserMapper,
+        emailValidator: EmailValidator,
         roleMapper: RoleMapper,
         onSubmit: @escaping (UserItem) -> ()
     ) {
@@ -46,6 +50,7 @@ final class RegisterFormViewModel: ObservableObject {
         self.userRepository = userRepository
         self.roleRepository = roleRepository
         self.userMapper = userMapper
+        self.emailValidator = emailValidator
         self.roleMapper = roleMapper
         self.onSubmit = onSubmit
     }
@@ -59,6 +64,12 @@ final class RegisterFormViewModel: ObservableObject {
     }
     
     func registerUser() {
+        guard isEmailValid else {
+            hasTriedInvalidEmail = true
+            email = ""
+            return
+        }
+        
         guard let roleId = roleModels.first(where: { $0.title == roleType.rawValue })?.id else { return
         }
         
@@ -85,6 +96,10 @@ final class RegisterFormViewModel: ObservableObject {
         roleType
     }
     
+    var isEmailValid: Bool {
+        emailValidator.isValid(email: email)
+    }
+    
     var formTitle: String {
         "Start your knowledge journey today!"
     }
@@ -98,7 +113,11 @@ final class RegisterFormViewModel: ObservableObject {
     }
     
     var emailPlaceholder: String {
-        "Email"
+        if hasTriedInvalidEmail {
+            return "Please enter a valid email"
+        }
+        
+        return "Email"
     }
     
     var passwordPlacehoder: String {
@@ -131,6 +150,10 @@ final class RegisterFormViewModel: ObservableObject {
     
     var sendTo: FormMode {
         .login
+    }
+    
+    func resetEmailError() {
+        hasTriedInvalidEmail = false
     }
 }
 

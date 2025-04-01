@@ -9,11 +9,16 @@ import Foundation
 
 final class LoginFormViewModel: ObservableObject {
     @Published var email: String = ""
+    
     @Published var password: String = ""
     
     private let authRepository: AuthRepository
     private let userRepository: UserRepository
     private let userMapper: UserMapper
+
+    private let emailValidator: EmailValidator
+    
+    @Published var hasTriedInvalidEmail: Bool = false
     
     let onSubmit: (UserItem) -> ()
     
@@ -21,15 +26,23 @@ final class LoginFormViewModel: ObservableObject {
         authRepository: AuthRepository,
         userRepository: UserRepository,
         userMapper: UserMapper,
+        emailValidator: EmailValidator,
         onSubmit: @escaping (UserItem) -> ()
     ) {
         self.authRepository = authRepository
         self.userRepository = userRepository
         self.userMapper = userMapper
+        self.emailValidator = emailValidator
         self.onSubmit = onSubmit
     }
 
     func loginUser() {
+        guard isEmailValid else {
+            hasTriedInvalidEmail = true
+            email = ""
+            return
+        }
+        
         Task {
             let _ = try await authRepository.login(
                 user: UserCredentialsBodyModel(
@@ -53,7 +66,11 @@ final class LoginFormViewModel: ObservableObject {
     }
     
     var emailPlaceholder: String {
-        "Email"
+        if hasTriedInvalidEmail {
+            return "Please enter a valid email"
+        }
+        
+        return "Email"
     }
     
     var passwordPlaceholder: String {
@@ -70,5 +87,13 @@ final class LoginFormViewModel: ObservableObject {
     
     var sendTo: FormMode {
         .register
+    }
+    
+    var isEmailValid: Bool {
+        emailValidator.isValid(email: email)
+    }
+    
+    func resetEmailError() {
+        hasTriedInvalidEmail = false
     }
 }

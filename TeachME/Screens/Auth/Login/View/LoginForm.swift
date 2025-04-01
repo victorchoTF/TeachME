@@ -41,9 +41,15 @@ struct LoginForm: View {
 private extension LoginForm {
     var accountDetails: some View {
         Section {
-            TextField(viewModel.emailPlaceholder, text: $viewModel.email)
-                .keyboardType(.emailAddress)
-                .styledTextField(theme: theme)
+            EmailValidatedField(
+                email: $viewModel.email,
+                hasTriedInvalidEmail: $viewModel.hasTriedInvalidEmail,
+                placeholder: viewModel.emailPlaceholder,
+                theme: theme
+            ) {
+                viewModel.resetEmailError()
+            }
+            
             SecureField(viewModel.passwordPlaceholder, text: $viewModel.password)
                 .styledTextField(theme: theme)
         }

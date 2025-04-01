@@ -93,6 +93,8 @@ struct TeachMEApp: App {
             mapper: LessonTypeMapper()
         )
         
+        let emailValidator = EmailValidator(patternProvider: PatternProvider())
+        
         theme = PrimaryTheme()
         
         appRouter = AppRouter(
@@ -104,6 +106,7 @@ struct TeachMEApp: App {
             userMapper: userMapper,
             roleMapper: roleMapper,
             lessonMapper: lessonMapper,
+            emailValidator: emailValidator,
             theme: theme
         )
     }
