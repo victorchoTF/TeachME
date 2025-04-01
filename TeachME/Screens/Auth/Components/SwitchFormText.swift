@@ -11,7 +11,7 @@ struct SwitchFormText: View {
     let text: String
     let buttonLabel: String
     let theme: Theme
-    let switchAction: () -> ()
+    let switchAction: @MainActor () -> ()
     
     var body: some View {
         HStack {

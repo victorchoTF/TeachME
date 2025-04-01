@@ -20,7 +20,7 @@ struct LessonScreen: View {
         VStack(spacing: theme.spacings.medium) {
             switch viewModel.lessonListState {
             case .empty: noLessonsLabel
-            case .hasItems: lessonList
+            case .hasItems(let lessons): lessonList(lessons: lessons)
             }
         }
         .background(theme.colors.primary)
@@ -34,13 +34,13 @@ struct LessonScreen: View {
 }
 
 private extension LessonScreen {
-    var lessonList: some View {
+    func lessonList(lessons: [LessonItem]) -> some View {
         List {
-            ForEach(viewModel.lessons) { lesson in
+            ForEach(lessons) { lesson in
                 LessonCard(
                     lesson: lesson,
                     theme: theme,
-                    lessonCardType: viewModel.lessonCardType
+                    lessonCardType: .teacher
                 )
                 .lineLimit(1)
                 .truncationMode(.tail)

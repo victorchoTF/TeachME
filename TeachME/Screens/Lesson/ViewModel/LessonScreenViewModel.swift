@@ -74,20 +74,15 @@ import SwiftUI
         }
     }
     
-    var lessons: [LessonItem] {
-        switch lessonListState {
-        case .empty: []
-        case .hasItems(let lessons): lessons
-        }
-    }
-    
     // TODO: Implement DeepLink logic
     func onLessonTap() {
         print("LessonTapped")
     }
     
     func onDelete(at offsets: IndexSet) {
-        var lessons = lessons
+        guard case .hasItems(var lessons) = lessonListState else{
+            return
+        }
         
         offsets.map { lessons[$0] }.forEach { lesson in
             if isTeacher {
@@ -135,7 +130,7 @@ private extension LessonScreenViewModel {
             
             try await repository.cancelLesson(
                 mapper.itemToBodyModel(
-                    lesson,
+                    mapper.itemToItemBody(lesson),
                     lessonTypeModel: lessonTypeModel,
                     teacherItem: userLessonBody
                 ),

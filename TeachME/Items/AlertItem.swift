@@ -29,6 +29,8 @@ extension AlertItem {
             self.init(message: "Couldn't \(action) this lesson from your list.")
         case .saved(let teacherName):
             self.init(message: "Lesson with \(teacherName) saved successfully!")
+        case .error:
+            self.init(message: "Something went wrong!\nPlease try again in a moment!")
         }
     }
 }

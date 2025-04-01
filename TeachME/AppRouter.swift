@@ -23,13 +23,12 @@ enum AppState {
     private let lessonTypeRepository: LessonTypeRepository
     private let userMapper: UserMapper
     private let lessonMapper: LessonMapper
+    private let roleMapper: RoleMapper
     private let theme: Theme
-    
-    private let roleProvider: RoleProvider
     private let emailValidator: EmailValidator
+    private let emailDefaults: EmailDefaults
     
     private let tokenService: TokenService
-    private let tokenDecoder: TokenDecoder
     
     init(
         authRepository: AuthRepository,
@@ -38,11 +37,11 @@ enum AppState {
         lessonRepository: LessonRepository,
         lessonTypeRepository: LessonTypeRepository,
         userMapper: UserMapper,
+        roleMapper: RoleMapper,
         lessonMapper: LessonMapper,
-        roleProvider: RoleProvider,
         emailValidator: EmailValidator,
+        emailDefaults: EmailDefaults,
         tokenService: TokenService,
-        tokenDecoder: TokenDecoder,
         theme: Theme
     ) {
         self.authRepository = authRepository
@@ -51,11 +50,11 @@ enum AppState {
         self.lessonRepository = lessonRepository
         self.lessonTypeRepository = lessonTypeRepository
         self.userMapper = userMapper
+        self.roleMapper = roleMapper
         self.lessonMapper = lessonMapper
-        self.roleProvider = roleProvider
         self.emailValidator = emailValidator
         self.tokenService = tokenService
-        self.tokenDecoder = tokenDecoder
+        self.emailDefaults = emailDefaults
         self.theme = theme
     }
     
@@ -77,11 +76,9 @@ enum AppState {
     
     func startAppState() async {
         do {
-            let token = try tokenService.token().accessToken.token
-            let payload: AccessTokenPayload = try tokenDecoder.decodePayload(token)
-            let userModel = try await userRepository.getById(payload.userId)
-            let userItem = userMapper.modelToItem(userModel)
-            
+            let email = try emailDefaults.getEmail()
+            let userModel = try await userRepository.getUserByEmail(email)
+            let userItem = try userMapper.modelToItem(userModel)
             state = .idle(userItem)
         } catch {
             state = .auth
@@ -91,12 +88,13 @@ enum AppState {
 
 private extension AppRouter {
     func didLogIn(user: UserItem) {
+        emailDefaults.setEmail(user.email)
         state = .idle(user)
     }
     
     func didLogOut() {
         try? tokenService.removeToken()
-        
+        emailDefaults.removeEmail()
         state = .auth
     }
     
@@ -147,8 +145,8 @@ private extension AppRouter {
                 userRepository: userRepository,
                 roleRepository: roleRepository,
                 userMapper: userMapper,
-                roleProvider: roleProvider,
-                emailValidator: emailValidator
+                emailValidator: emailValidator,
+                roleMapper: roleMapper
             ) { [weak self] userItem in
                 self?.didLogIn(user: userItem)
             }

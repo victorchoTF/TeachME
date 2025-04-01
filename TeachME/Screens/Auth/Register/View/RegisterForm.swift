@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RegisterForm: View {
     @ObservedObject var viewModel: RegisterFormViewModel
-    let toLogin: () -> ()
+    let toLogin: @MainActor () -> ()
     
     let theme: Theme
     
@@ -37,6 +37,12 @@ struct RegisterForm: View {
             }
             .scrollContentBackground(.hidden)
             .foregroundStyle(theme.colors.text)
+        }
+        .alert(item: $viewModel.alertItem) { alertItem in
+            Alert(title: Text(alertItem.message))
+        }
+        .task {
+            await viewModel.loadRoles()
         }
     }
 }
@@ -76,8 +82,9 @@ private extension RegisterForm {
     private var roleDetails: some View {
         Section(viewModel.roleHeading) {
             Picker(viewModel.roleHeading, selection: $viewModel.roleType) {
-                Text(viewModel.studentRole).tag(Role.student)
-                Text(viewModel.teacherRole).tag(Role.teacher)
+                ForEach(viewModel.roles) {
+                    Text($0.rawValue).tag($0)
+                }
             }
             .tint(theme.colors.accent)
             .pickerStyle(.segmented)
