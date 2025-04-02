@@ -8,6 +8,12 @@
 import SwiftUI
 
 @MainActor final class LessonScreenViewModel: ObservableObject {
+    enum LessonScreenViewModelError: Error {
+        case noStudent
+        case noUserDetails
+        case noReceiverPhoneNumber
+    }
+    
     @Published var alertItem: AlertItem? = nil
     @Published var lessonListState: LessonListState = .empty
     @Published var user: UserItem
@@ -75,8 +81,12 @@ import SwiftUI
     }
     
     // TODO: Implement DeepLink logic
-    func onLessonTap() {
-        print("LessonTapped")
+    func onLessonTap(lesson: LessonItem) {
+        Task {
+            do {
+                try await openIMessage(phoneNumber: getReceiverPhoneNumber(lesson: lesson))
+            }
+        }
     }
     
     func onDelete(at offsets: IndexSet) {
@@ -137,5 +147,39 @@ private extension LessonScreenViewModel {
                 id: lesson.id
             )
         }
+    }
+    
+    func openIMessage(phoneNumber: String?) throws {
+        guard let phoneNumber = phoneNumber, !phoneNumber.isEmpty else {
+            throw LessonScreenViewModelError.noReceiverPhoneNumber
+        }
+        
+        let urlString = "sms://\(phoneNumber)"
+        if let url = URL(string: urlString) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    func getReceiverPhoneNumber(lesson: LessonItem) async throws -> String? {
+        switch lessonCardType {
+        case .student: try await getStudentPhoneNumber(student: lesson.student)
+        case .teacher: try await getTeacherPhoneNumber(teacher: lesson.teacher)
+        }
+    }
+    
+    func getStudentPhoneNumber(student: UserLessonBodyItem?) async throws -> String? {
+        guard let studentId = student?.id else {
+            throw LessonScreenViewModelError.noStudent
+        }
+        
+        let studentModel = try await userRepository.getById(studentId)
+        
+        return studentModel.userDetail?.phoneNumber
+    }
+    
+    func getTeacherPhoneNumber(teacher: UserLessonBodyItem) async throws -> String? {
+        let teacherModel = try await userRepository.getById(teacher.id)
+        
+        return teacherModel.userDetail?.phoneNumber
     }
 }
