@@ -16,6 +16,7 @@ import SwiftUI
     
     @Published var alertItem: AlertItem? = nil
     @Published var lessonListState: LessonListState = .empty
+    @Published var recipient: UserItem? = nil
     @Published var user: UserItem
     
     private weak var router: LessonRouter?
@@ -80,11 +81,14 @@ import SwiftUI
         }
     }
     
-    // TODO: Implement DeepLink logic
     func onLessonTap(lesson: LessonItem) {
         Task {
+            let recipient = try await getRecipient(lesson: lesson)
             do {
-                try await openIMessage(phoneNumber: getReceiverPhoneNumber(lesson: lesson))
+                try openIMessage(phoneNumber: recipient.phoneNumber)
+            } catch {
+                alertItem = AlertItem(alertType: .phone(getUserNameForAlert(lesson: lesson)))
+                self.recipient = recipient
             }
         }
     }
@@ -113,6 +117,24 @@ import SwiftUI
         } else {
             return "You have not taken a lesson yet!\nSave one now!"
         }
+    }
+    
+    var sendMailAlertText: String {
+        "Ok"
+    }
+    
+    func sendMailAlertAction() {
+        if let recipient = recipient {
+            openMail(email: recipient.email)
+        }
+    }
+    
+    var cancelMailAlertText: String {
+        "Cancel"
+    }
+    
+    func cancelAlertAction() {
+        alertItem = nil
     }
 }
 
@@ -149,6 +171,13 @@ private extension LessonScreenViewModel {
         }
     }
     
+    func getUserNameForAlert(lesson: LessonItem) -> String {
+        switch lessonCardType {
+        case .student: lesson.student?.name ?? "This student"
+        case .teacher: lesson.teacher.name
+        }
+    }
+    
     func openIMessage(phoneNumber: String?) throws {
         guard let phoneNumber = phoneNumber, !phoneNumber.isEmpty else {
             throw LessonScreenViewModelError.noReceiverPhoneNumber
@@ -160,26 +189,30 @@ private extension LessonScreenViewModel {
         }
     }
     
-    func getReceiverPhoneNumber(lesson: LessonItem) async throws -> String? {
-        switch lessonCardType {
-        case .student: try await getStudentPhoneNumber(student: lesson.student)
-        case .teacher: try await getTeacherPhoneNumber(teacher: lesson.teacher)
+    func openMail(email: String) {
+        let urlString = "mailto:\(email)"
+            
+        if let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
     
-    func getStudentPhoneNumber(student: UserLessonBodyItem?) async throws -> String? {
+    func getRecipient(lesson: LessonItem) async throws -> UserItem{
+        switch lessonCardType {
+        case .student: try await getStudent(student: lesson.student)
+        case .teacher: try await getTeacher(teacher: lesson.teacher)
+        }
+    }
+    
+    func getStudent(student: UserLessonBodyItem?) async throws -> UserItem {
         guard let studentId = student?.id else {
             throw LessonScreenViewModelError.noStudent
         }
         
-        let studentModel = try await userRepository.getById(studentId)
-        
-        return studentModel.userDetail?.phoneNumber
+        return try await userMapper.modelToItem(userRepository.getById(studentId))
     }
     
-    func getTeacherPhoneNumber(teacher: UserLessonBodyItem) async throws -> String? {
-        let teacherModel = try await userRepository.getById(teacher.id)
-        
-        return teacherModel.userDetail?.phoneNumber
+    func getTeacher(teacher: UserLessonBodyItem) async throws -> UserItem {
+        return try await userMapper.modelToItem(userRepository.getById(teacher.id))
     }
 }

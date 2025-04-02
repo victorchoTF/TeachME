@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct UserItem {
+struct UserItem: Identifiable {
     let id: UUID
     let name: String
     let profilePicture: Image
