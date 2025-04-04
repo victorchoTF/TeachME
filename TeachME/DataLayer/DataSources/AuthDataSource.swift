@@ -41,6 +41,8 @@ final class AuthDataSource {
         let token: Data
         do {
             (token, _) = try await client.request(request)
+        } catch let error as HTTPClientNSError {
+            throw error
         } catch {
             throw DataSourceError.postingError("User of \(user) could not login!")
         }
@@ -77,6 +79,8 @@ final class AuthDataSource {
         let token: Data
         do {
             (token, _) = try await client.request(request)
+        } catch let error as HTTPClientNSError {
+            throw error
         } catch {
            throw DataSourceError.postingError("User of \(user) could not login!")
         }
@@ -115,6 +119,8 @@ final class AuthDataSource {
         let token: Data
         do {
             (token, _) = try await client.request(request)
+        } catch let error as HTTPClientNSError {
+            throw error
         } catch {
             throw DataSourceError.postingError(
                 "RefreshTokenRequest of \(tokenRequest) could not login!"

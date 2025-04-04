@@ -41,6 +41,8 @@ final class LessonTypeDataSource: TeachMEAPIDataSource {
         let returnedBody: Data
         do {
             (returnedBody, _) = try await client.request(request)
+        } catch let error as HTTPClientNSError {
+            throw error
         } catch {
            throw DataSourceError.postingError("Body of \(body) could not be created!")
         }

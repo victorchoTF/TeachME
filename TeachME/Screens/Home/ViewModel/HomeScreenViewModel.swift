@@ -60,6 +60,8 @@ import Foundation
                     mapper.modelToItem($0)
                 }
             }
+        } catch let error as HTTPClientNSError {
+            return
         } catch {
             alertItem = AlertItem(alertType: .lessonsLoading)
             lessonListState = .empty
