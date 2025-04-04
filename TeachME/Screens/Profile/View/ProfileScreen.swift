@@ -93,5 +93,6 @@ private extension ProfileScreen {
         } label: {
             Image(systemName: viewModel.settingsIcon)
         }
+        .foregroundStyle(theme.colors.accent)
     }
 }
