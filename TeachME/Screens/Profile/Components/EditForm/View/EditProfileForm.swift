@@ -49,6 +49,7 @@ private extension EditProfileForm {
             
             TextField(viewModel.phoneNumberPlaceholder, text: $viewModel.phoneNumber)
                 .styledTextField(theme: theme)
+                .keyboardType(.phonePad)
             
             bioField
         }
