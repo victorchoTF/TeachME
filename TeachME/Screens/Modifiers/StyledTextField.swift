@@ -5,7 +5,6 @@
 //  Created by TumbaDev on 20.01.25.
 //
 
-import Foundation
 import SwiftUI
 
 struct StyledTextField: ViewModifier {

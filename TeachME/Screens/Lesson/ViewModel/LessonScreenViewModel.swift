@@ -30,6 +30,8 @@ import SwiftUI
     private let isTeacher: Bool
     let lessonCardType: LessonCardType
     
+    private let urlOpener: URLOpener
+    
     init(
         router: LessonRouter? = nil,
         user: UserItem,
@@ -39,7 +41,8 @@ import SwiftUI
         mapper: LessonMapper,
         userMapper: UserMapper,
         isTeacher: Bool,
-        lessonCardType: LessonCardType
+        lessonCardType: LessonCardType,
+        urlOpener: URLOpener
     ) {
         self.router = router
         self.user = user
@@ -51,6 +54,8 @@ import SwiftUI
         
         self.isTeacher = isTeacher
         self.lessonCardType = lessonCardType
+        
+        self.urlOpener = urlOpener
     }
     
     func loadData() async {
@@ -84,12 +89,19 @@ import SwiftUI
     func onLessonTap(lesson: LessonItem) {
         Task {
             let recipient = try await getRecipient(lesson: lesson)
-            do {
-                try openIMessage(phoneNumber: recipient.phoneNumber)
-            } catch {
-                alertItem = AlertItem(alertType: .phone(getUserNameForAlert(lesson: lesson)))
+            
+            guard !recipient.phoneNumber.isEmpty else {
                 self.recipient = recipient
+                alertItem = AlertItem(
+                    alertType: .phone(getUserNameForAlert(lesson: lesson)),
+                    primaryAction: .defaultConfirmation(sendMailAlertAction),
+                    secondaryAction: .defaultCancelation()
+                )
+                
+                return
             }
+            
+            urlOpener.openMessage(for: recipient.phoneNumber)
         }
     }
     
@@ -117,24 +129,6 @@ import SwiftUI
         } else {
             return "You have not taken a lesson yet!\nSave one now!"
         }
-    }
-    
-    var sendMailAlertText: String {
-        "Ok"
-    }
-    
-    func sendMailAlertAction() {
-        if let recipient = recipient {
-            openMail(email: recipient.email)
-        }
-    }
-    
-    var cancelMailAlertText: String {
-        "Cancel"
-    }
-    
-    func cancelAlertAction() {
-        alertItem = nil
     }
 }
 
@@ -178,22 +172,9 @@ private extension LessonScreenViewModel {
         }
     }
     
-    func openIMessage(phoneNumber: String?) throws {
-        guard let phoneNumber = phoneNumber, !phoneNumber.isEmpty else {
-            throw LessonScreenViewModelError.noReceiverPhoneNumber
-        }
-        
-        let urlString = "sms://\(phoneNumber)"
-        if let url = URL(string: urlString) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
-    }
-    
-    func openMail(email: String) {
-        let urlString = "mailto:\(email)"
-            
-        if let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    func sendMailAlertAction() {
+        if let recipient = recipient {
+            urlOpener.openMail(for: recipient.email)
         }
     }
     

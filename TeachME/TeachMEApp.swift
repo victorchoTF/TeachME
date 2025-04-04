@@ -101,6 +101,11 @@ struct TeachMEApp: App {
             key: DefaultsKeys.emailDefaults
         )
         
+        let urlOpener = URLOpener(
+            messagesURL: URLOpenerURLs.messagesURL,
+            mailURL: URLOpenerURLs.mailURL
+        )
+        
         theme = PrimaryTheme()
         
         appRouter = AppRouter(
@@ -115,6 +120,7 @@ struct TeachMEApp: App {
             emailValidator: emailValidator,
             emailDefaults: emailDefaults,
             tokenService: tokenService,
+            urlOpener: urlOpener,
             theme: theme
         )
     }

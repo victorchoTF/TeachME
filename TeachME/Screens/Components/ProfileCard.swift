@@ -40,6 +40,7 @@ private extension ProfileCard {
                 
                 contacts
             }
+            Spacer()
         }
     }
     

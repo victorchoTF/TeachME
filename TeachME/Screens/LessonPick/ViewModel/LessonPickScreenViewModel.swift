@@ -138,7 +138,10 @@ private extension LessonPickScreenViewModel {
     
     func studentAction() {
         takeLesson()
-        alertItem = AlertItem(alertType: .saved(pickedLesson.teacher.name))
+        alertItem = AlertItem(
+            alertType: .saved(pickedLesson.teacher.name),
+            primaryAction: .defaultCancelation(exit)
+        )
     }
     
     func takeLesson() {

@@ -5,7 +5,6 @@
 //  Created by TumbaDev on 23.03.25.
 //
 
-import Foundation
 import SwiftUI
 
 @MainActor final class LessonRouter: ObservableObject {
@@ -19,6 +18,7 @@ import SwiftUI
     private let lessonTypeRepository: LessonTypeRepository
     private let userMapper: UserMapper
     private let lessonMapper: LessonMapper
+    private let urlOpener: URLOpener
 
     init(
         theme: Theme,
@@ -27,7 +27,8 @@ import SwiftUI
         lessonRepository: LessonRepository,
         lessonTypeRepository: LessonTypeRepository,
         userMapper: UserMapper,
-        lessonMapper: LessonMapper
+        lessonMapper: LessonMapper,
+        urlOpener: URLOpener
     ) {
         self.theme = theme
         self.user = user
@@ -37,6 +38,8 @@ import SwiftUI
         self.lessonTypeRepository = lessonTypeRepository
         self.userMapper = userMapper
         self.lessonMapper = lessonMapper
+        
+        self.urlOpener = urlOpener
     }
 }
 
@@ -52,7 +55,8 @@ extension LessonRouter: Router {
             mapper: lessonMapper,
             userMapper: userMapper,
             isTeacher: user.role == .teacher,
-            lessonCardType: user.role == .teacher ? .student : .teacher
+            lessonCardType: user.role == .teacher ? .student : .teacher,
+            urlOpener: urlOpener
         )
             
         return LessonScreen(viewModel: viewModel, theme: theme)

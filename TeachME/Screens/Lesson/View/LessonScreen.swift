@@ -24,23 +24,7 @@ struct LessonScreen: View {
             }
         }
         .background(theme.colors.primary)
-        .alert(item: $viewModel.alertItem) { alertItem in
-            if case AlertType.phone(_) = alertItem.alertType {
-                Alert(
-                    title: Text(alertItem.message),
-                    primaryButton: .default(
-                        Text(viewModel.sendMailAlertText),
-                        action: viewModel.sendMailAlertAction
-                    ),
-                    secondaryButton: .destructive(
-                        Text(viewModel.cancelMailAlertText),
-                        action: viewModel.cancelAlertAction
-                    )
-                )
-            } else {
-                Alert(title: Text(alertItem.message))
-            }
-        }
+        .alert($viewModel.alertItem)
         .task {
             await viewModel.loadData()
         }

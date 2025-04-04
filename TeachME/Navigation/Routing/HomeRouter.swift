@@ -5,7 +5,6 @@
 //  Created by TumbaDev on 13.02.25.
 //
 
-import Foundation
 import SwiftUI
 
 @MainActor final class HomeRouter: ObservableObject {
