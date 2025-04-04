@@ -22,6 +22,7 @@
 		8E180D2E2D5272FA00327E29 /* TabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E180D2D2D5272FA00327E29 /* TabRouter.swift */; };
 		8E1993F42DA0326E002ABF56 /* AlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1993F32DA0326E002ABF56 /* AlertModifier.swift */; };
 		8E1993F62DA0391B002ABF56 /* URLOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1993F52DA0391B002ABF56 /* URLOpener.swift */; };
+		8E1993FA2DA0690C002ABF56 /* DeleteSwipeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1993F92DA0690C002ABF56 /* DeleteSwipeAction.swift */; };
 		8E20F5712D4B83A1007B3154 /* LessonPickScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5702D4B83A1007B3154 /* LessonPickScreen.swift */; };
 		8E20F5732D4B8425007B3154 /* LessonPickScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5722D4B8425007B3154 /* LessonPickScreenViewModel.swift */; };
 		8E20F5772D4B8C9C007B3154 /* UserCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5762D4B8C9C007B3154 /* UserCard.swift */; };
@@ -135,6 +136,7 @@
 		8E180D2D2D5272FA00327E29 /* TabRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabRouter.swift; sourceTree = "<group>"; };
 		8E1993F32DA0326E002ABF56 /* AlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModifier.swift; sourceTree = "<group>"; };
 		8E1993F52DA0391B002ABF56 /* URLOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLOpener.swift; sourceTree = "<group>"; };
+		8E1993F92DA0690C002ABF56 /* DeleteSwipeAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSwipeAction.swift; sourceTree = "<group>"; };
 		8E20F5702D4B83A1007B3154 /* LessonPickScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonPickScreen.swift; sourceTree = "<group>"; };
 		8E20F5722D4B8425007B3154 /* LessonPickScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonPickScreenViewModel.swift; sourceTree = "<group>"; };
 		8E20F5762D4B8C9C007B3154 /* UserCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCard.swift; sourceTree = "<group>"; };
@@ -544,6 +546,7 @@
 			children = (
 				8E7EBE502D3E409500C7C017 /* StyledTextField.swift */,
 				8E1993F32DA0326E002ABF56 /* AlertModifier.swift */,
+				8E1993F92DA0690C002ABF56 /* DeleteSwipeAction.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -972,6 +975,7 @@
 				8EB2C9462D928AE9001010EA /* LessonListState.swift in Sources */,
 				8E8C9AEC2D82E12300082B34 /* Endpoints.swift in Sources */,
 				8E20F5792D4B8CAA007B3154 /* UserItem.swift in Sources */,
+				8E1993FA2DA0690C002ABF56 /* DeleteSwipeAction.swift in Sources */,
 				8EB0DD182D958DF400891CB1 /* TokenRemover.swift in Sources */,
 				8EFED06D2D50A71500046F1D /* RouterView.swift in Sources */,
 				8E863BA22D3F76A8001773F4 /* LoginFormViewModel.swift in Sources */,

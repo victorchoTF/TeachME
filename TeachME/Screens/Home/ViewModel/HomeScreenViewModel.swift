@@ -60,7 +60,7 @@ import Foundation
                     mapper.modelToItem($0)
                 }
             }
-        } catch let error as HTTPClientNSError {
+        } catch _ as HTTPClientNSError {
             return
         } catch {
             alertItem = AlertItem(alertType: .lessonsLoading)
@@ -97,7 +97,7 @@ import Foundation
         )
     }
     
-    func onDelete() -> ((IndexSet) -> ())? {
+    func onDelete() -> ((LessonItem) -> ())? {
         guard isTeacher else {
             return nil
         }
@@ -105,18 +105,20 @@ import Foundation
         return teacherOnDelete
     }
     
-    func teacherOnDelete(at offsets: IndexSet) {
+    func teacherOnDelete(lesson: LessonItem) {
         guard case .hasItems(var lessons) = lessonListState else{
             return
         }
         
-        offsets.map { lessons[$0] }.forEach { lesson in
-            deleteLesson(lessonId: lesson.id)
+        deleteLesson(lessonId: lesson.id)
+        
+        lessons.removeAll { $0.id == lesson.id }
+        
+        if lessons.isEmpty {
+            lessonListState = .empty
+        } else {
+            lessonListState = .hasItems(lessons)
         }
-        
-        lessons.remove(atOffsets: offsets)
-        
-        lessonListState = .hasItems(lessons)
     }
     
     var noLessonsText: String {
@@ -150,6 +152,14 @@ import Foundation
             [weak self] in
             self?.lessonFormViewModel = nil
         }
+    }
+    
+    var deleteButtonText: String {
+        "Delete"
+    }
+    
+    var deleteButtonIcon: String {
+        "trash"
     }
 }
 

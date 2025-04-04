@@ -73,7 +73,7 @@ import SwiftUI
                     mapper.modelToItem($0)
                 }
             }
-        } catch let error as HTTPClientNSError {
+        } catch _ as HTTPClientNSError {
             return
         } catch {
             alertItem = AlertItem(alertType: .lessonsLoading)
@@ -107,21 +107,25 @@ import SwiftUI
         }
     }
     
-    func onDelete(at offsets: IndexSet) {
+    func onDelete(_ lesson: LessonItem) {
         guard case .hasItems(var lessons) = lessonListState else{
             return
         }
         
-        offsets.map { lessons[$0] }.forEach { lesson in
-            if isTeacher {
-                deleteLesson(lessonId: lesson.id)
-            } else {
-                cancelLesson(lesson: lesson)
-            }
+        if isTeacher {
+            deleteLesson(lessonId: lesson.id)
+        } else {
+            cancelLesson(lesson: lesson)
         }
         
         if alertItem == nil {
-            lessons.remove(atOffsets: offsets)
+            lessons.removeAll { $0.id == lesson.id }
+        }
+        
+        if lessons.isEmpty {
+            lessonListState = .empty
+        } else {
+            lessonListState = .hasItems(lessons)
         }
     }
     
@@ -132,6 +136,22 @@ import SwiftUI
             return "You have not taken a lesson yet!\nSave one now!"
         }
     }
+    
+    var deleteButtonText: String {
+        if isTeacher {
+            return "Delete"
+        }
+        
+        return "Remove"
+    }
+    
+    var deleteButtonIcon: String {
+        if isTeacher {
+            return "trash"
+        }
+        
+        return "xmark.circle"
+    }
 }
 
 private extension LessonScreenViewModel {
@@ -140,7 +160,7 @@ private extension LessonScreenViewModel {
             do {
                 try await repository.delete(lessonId)
             } catch {
-                alertItem = AlertItem(alertType: .action(isTeacher ? "delete" : "remove"))
+                alertItem = AlertItem(alertType: .action(deleteButtonText.lowercased()))
             }
         }
     }
@@ -150,7 +170,7 @@ private extension LessonScreenViewModel {
             guard let lessonTypeModel = try await self.lessonTypeRepository.getAll().first(where: {
                 $0.name == lesson.lessonType
             }) else {
-                alertItem = AlertItem(alertType: .action(isTeacher ? "delete" : "remove"))
+                alertItem = AlertItem(alertType: .action(deleteButtonText.lowercased()))
                 return
             }
             
