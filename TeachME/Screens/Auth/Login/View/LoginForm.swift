@@ -51,8 +51,11 @@ private extension LoginForm {
                 viewModel.resetEmailError()
             }
             
-            SecureField(viewModel.passwordPlaceholder, text: $viewModel.password)
-                .styledTextField(theme: theme)
+            PasswordField(
+                password: $viewModel.password,
+                placeholder: viewModel.passwordPlaceholder,
+                theme: theme
+            )
         }
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)

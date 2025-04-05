@@ -90,6 +90,7 @@
 		8EA0789B2D903E1C00944F51 /* LessonRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0789A2D903E1C00944F51 /* LessonRouter.swift */; };
 		8EA0789D2D90666E00944F51 /* KeychainStoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0789C2D90666E00944F51 /* KeychainStoreConstants.swift */; };
 		8EA0789F2D9072FB00944F51 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0789E2D9072FB00944F51 /* LoadingView.swift */; };
+		8EAB35EC2DA1E9F300EBA0B4 /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAB35EB2DA1E9F300EBA0B4 /* PasswordField.swift */; };
 		8EB0934D2D7C810C0073C0F6 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0934C2D7C810C0073C0F6 /* Repository.swift */; };
 		8EB093502D7C81590073C0F6 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0934F2D7C81590073C0F6 /* Model.swift */; };
 		8EB093522D7C828F0073C0F6 /* RoleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093512D7C828F0073C0F6 /* RoleModel.swift */; };
@@ -206,6 +207,7 @@
 		8EA0789A2D903E1C00944F51 /* LessonRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonRouter.swift; sourceTree = "<group>"; };
 		8EA0789C2D90666E00944F51 /* KeychainStoreConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStoreConstants.swift; sourceTree = "<group>"; };
 		8EA0789E2D9072FB00944F51 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		8EAB35EB2DA1E9F300EBA0B4 /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
 		8EB0934C2D7C810C0073C0F6 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		8EB0934F2D7C81590073C0F6 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8EB093512D7C828F0073C0F6 /* RoleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleModel.swift; sourceTree = "<group>"; };
@@ -771,6 +773,7 @@
 				8EA0788F2D9011F100944F51 /* ProfileCard.swift */,
 				8EA0789E2D9072FB00944F51 /* LoadingView.swift */,
 				8E95A6812D954C830038AAED /* EmailValidatedField.swift */,
+				8EAB35EB2DA1E9F300EBA0B4 /* PasswordField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -955,6 +958,7 @@
 				8E63CDBC2D9BB6BE00B4595C /* EmailDefaults.swift in Sources */,
 				8E6D1C8C2D673A1900C400C4 /* DateFormatter+toDate.swift in Sources */,
 				8EA0789B2D903E1C00944F51 /* LessonRouter.swift in Sources */,
+				8EAB35EC2DA1E9F300EBA0B4 /* PasswordField.swift in Sources */,
 				8E65F7452D3D2BDF00D3A793 /* TeachMEApp.swift in Sources */,
 				8EB093692D7C8F450073C0F6 /* RoleRepository.swift in Sources */,
 				8E866E832D58EB2C007FAE6B /* EditProfileFormViewModel.swift in Sources */,

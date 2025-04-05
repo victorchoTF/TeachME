@@ -90,7 +90,6 @@ enum LessonFormType {
                 do {
                     try await editLesson(getLessonItem(lessonId: lesson.id))
                 } catch {
-                    print(error)
                     if case UserExperienceError.invalidDatesError = error {
                         alertItem = AlertItem(alertType: .invalidDates)
                     }

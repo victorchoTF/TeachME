@@ -57,8 +57,11 @@ private extension RegisterForm {
                 viewModel.resetEmailError()
             }
             
-            SecureField(viewModel.passwordPlacehoder, text: $viewModel.password)
-                .styledTextField(theme: theme)
+            PasswordField(
+                password: $viewModel.password,
+                placeholder: viewModel.passwordPlacehoder,
+                theme: theme
+            )
         }
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
