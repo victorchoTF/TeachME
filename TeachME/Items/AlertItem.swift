@@ -53,6 +53,14 @@ extension AlertItem {
             message = "Lesson with \(teacherName) saved successfully!"
         case .phone(let userName):
             message = "\(userName) has not provided a phone number!\nConsider sending an email."
+        case .invalidCredentials:
+            message = "Your email or password is incorrect!"
+        case .invalidDates:
+            message = "Make sure the lesson starts at least 1 hour from now and doesn’t exceed 4 hours."
+        case .invalidLessonDeletion:
+            message = "This lesson can be deleted after it has ended"
+        case .confirmImage:
+            message = "Are you sure this is your picture?"
         case .error:
             message = "Something went wrong!\nPlease try again in a moment!"
         }

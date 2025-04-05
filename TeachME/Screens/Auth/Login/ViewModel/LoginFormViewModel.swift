@@ -8,8 +8,8 @@
 import Foundation
 
 @MainActor final class LoginFormViewModel: ObservableObject {
+    @Published var alertItem: AlertItem? = nil
     @Published var email: String = ""
-    
     @Published var password: String = ""
     
     private let authRepository: AuthRepository
@@ -44,12 +44,20 @@ import Foundation
         }
         
         Task {
-            let _ = try await authRepository.login(
-                user: UserCredentialsBodyModel(
-                    email: email,
-                    password: password
+            do {
+                let _ = try await authRepository.login(
+                    user: UserCredentialsBodyModel(
+                        email: email,
+                        password: password
+                    )
                 )
-            )
+            } catch {
+                if case UserExperienceError.invalidCredentials = error {
+                    alertItem = AlertItem(alertType: .invalidCredentials)
+                } else {
+                    alertItem = AlertItem(alertType: .error)
+                }
+            }
             
             let userItem = try await userMapper.modelToItem(userRepository.getUserByEmail(email))
             

@@ -35,6 +35,7 @@ struct LoginForm: View {
             .scrollDisabled(true)
             .foregroundStyle(theme.colors.text)
         }
+        .alert($viewModel.alertItem)
     }
 }
 

@@ -160,7 +160,11 @@ private extension LessonScreenViewModel {
             do {
                 try await repository.delete(lessonId)
             } catch {
-                alertItem = AlertItem(alertType: .action(deleteButtonText.lowercased()))
+                if case UserExperienceError.invalidDatesError = error {
+                    alertItem = AlertItem(alertType: .invalidLessonDeletion)
+                } else {
+                    alertItem = AlertItem(alertType: .action(deleteButtonText.lowercased()))
+                }
             }
         }
     }

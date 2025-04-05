@@ -41,8 +41,9 @@ final class LessonDataSource: TeachMEAPIDataSource {
         }
 
         let returnedBody: Data
+        let response: HTTPURLResponse
         do {
-            (returnedBody, _) = try await client.request(request)
+            (returnedBody, response) = try await client.request(request)
         } catch let error as HTTPClientNSError {
             throw error
         } catch {
@@ -53,7 +54,13 @@ final class LessonDataSource: TeachMEAPIDataSource {
         do {
             createdBody = try decoder.decode(LessonDTO.self, from: returnedBody)
         } catch {
-            throw DataSourceError.decodingError("Data of \(returnedBody) could not be decoded!")
+            if areDatesValid(statusCode: response.statusCode) {
+                throw DataSourceError.decodingError(
+                    "Data of \(returnedBody) could not be decoded!"
+                )
+            } else {
+                throw UserExperienceError.invalidDatesError
+            }
         }
         
         return createdBody
@@ -76,12 +83,17 @@ final class LessonDataSource: TeachMEAPIDataSource {
             throw DataSourceError.invalidURL("\(baseURL)/\(id) not found")
         }
 
+        var response: HTTPURLResponse? = nil
         do {
-            let _ = try await client.request(request)
+            (_, response) = try await client.request(request)
         } catch let error as HTTPClientNSError {
             throw error
         } catch {
             throw DataSourceError.updatingError("Data of \(body) could not be updated!")
+        }
+        
+        guard let response = response, areDatesValid(statusCode: response.statusCode) else {
+            throw UserExperienceError.invalidDatesError
         }
     }
     
@@ -221,13 +233,46 @@ final class LessonDataSource: TeachMEAPIDataSource {
         else {
             throw DataSourceError.invalidURL("\(baseURL)take-lesson/\(id) not found")
         }
-
+        
+        var response: HTTPURLResponse? = nil
         do {
-            let _ = try await client.request(request)
+            (_, response) = try await client.request(request)
         } catch let error as HTTPClientNSError {
             throw error
         } catch {
-            throw DataSourceError.updatingError("Lesson of \(body) could not be updated!")
+            if let response = response, areDatesValid(statusCode: response.statusCode) {
+                throw DataSourceError.updatingError("Lesson of \(body) could not be updated!")
+            } else {
+                throw UserExperienceError.invalidDatesError
+            }
         }
+    }
+
+    func delete(_ id: UUID) async throws {
+        guard let request = try URLRequestBuilder(baseURL: baseURL, path: "\(id)")
+            .setMethod(.delete)
+            .build()
+        else {
+            throw DataSourceError.invalidURL("\(baseURL)/\(id) not found")
+        }
+
+        var response: HTTPURLResponse? = nil
+        do {
+            (_, response) = try await client.request(request)
+        } catch let error as HTTPClientNSError {
+            throw error
+        } catch {
+            throw DataSourceError.deletingError("Lesson with ID \(id) could not be deleted!")
+        }
+        
+        guard let response = response, areDatesValid(statusCode: response.statusCode) else {
+            throw UserExperienceError.invalidDatesError
+        }
+    }
+}
+
+private extension LessonDataSource {
+    func areDatesValid(statusCode: Int) -> Bool {
+        statusCode != 403 && statusCode != 409
     }
 }

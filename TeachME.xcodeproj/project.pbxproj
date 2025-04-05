@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E0A86C42DA1CE2700278085 /* UserExperienceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A86C32DA1CE2700278085 /* UserExperienceError.swift */; };
 		8E11604C2D7482DD0097774B /* RoleDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11604B2D7482DD0097774B /* RoleDTO.swift */; };
 		8E11604E2D7482F90097774B /* LessonTypeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11604D2D7482F90097774B /* LessonTypeDTO.swift */; };
 		8E1160502D7483280097774B /* UserDetailDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11604F2D7483280097774B /* UserDetailDTO.swift */; };
@@ -121,6 +122,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E0A86C32DA1CE2700278085 /* UserExperienceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserExperienceError.swift; sourceTree = "<group>"; };
 		8E11604B2D7482DD0097774B /* RoleDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleDTO.swift; sourceTree = "<group>"; };
 		8E11604D2D7482F90097774B /* LessonTypeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTypeDTO.swift; sourceTree = "<group>"; };
 		8E11604F2D7483280097774B /* UserDetailDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailDTO.swift; sourceTree = "<group>"; };
@@ -246,6 +248,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E0A86C22DA1CDEF00278085 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				8E0A86C32DA1CE2700278085 /* UserExperienceError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
 		8E11604A2D7481CD0097774B /* DataTransferObjects */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,6 +460,7 @@
 		8E65F7432D3D2BDF00D3A793 /* TeachME */ = {
 			isa = PBXGroup;
 			children = (
+				8E0A86C22DA1CDEF00278085 /* Errors */,
 				8E8C9AE52D82CE0B00082B34 /* Persistence */,
 				8EB7CA322D81DEE5005E82F1 /* DomainLayer */,
 				8E99E7862D71ABFB00CF9CC8 /* DataLayer */,
@@ -915,6 +926,7 @@
 				8E11604E2D7482F90097774B /* LessonTypeDTO.swift in Sources */,
 				8E7EBE4B2D3E3A1800C7C017 /* AuthScreenViewModel.swift in Sources */,
 				8E9E51BE2D7975D40035E4E3 /* URLRequestBuilder.swift in Sources */,
+				8E0A86C42DA1CE2700278085 /* UserExperienceError.swift in Sources */,
 				8E6D1C8F2D673A9300C400C4 /* DateFormatter+toString.swift in Sources */,
 				8E11604C2D7482DD0097774B /* RoleDTO.swift in Sources */,
 				8E3427AD2D3E649900A38A2D /* Fonts.swift in Sources */,

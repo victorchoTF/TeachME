@@ -46,6 +46,7 @@ import Foundation
     
     func onLessonTap(lesson: LessonItem, theme: Theme) {
         guard let router = router else {
+            alertItem = AlertItem(alertType: .lessonLoading)
             return
         }
         
@@ -126,7 +127,7 @@ private extension LessonPickScreenViewModel {
             repository: lessonTypeRepository,
             dateFormatter: DateFormatter(),
             lessonFormType: .edit(pickedLesson) { [weak self] lesson in
-                self?.updateLesson(lesson: lesson)
+                try await self?.updateLesson(lesson: lesson)
                 
                 self?.pickedLesson = lesson
                 self?.lessonFormViewModel = nil
@@ -159,14 +160,12 @@ private extension LessonPickScreenViewModel {
         }
     }
     
-    func updateLesson(lesson: LessonItem) {
-        Task {
-            guard let lessonBody = try await lessonBodyModelByLessonItem(lesson: lesson) else {
-                return
-            }
-            
-            try await self.repository.update(lessonBody, id: lesson.id)
+    func updateLesson(lesson: LessonItem) async throws {
+        guard let lessonBody = try await lessonBodyModelByLessonItem(lesson: lesson) else {
+            return
         }
+        
+        try await self.repository.update(lessonBody, id: lesson.id)
     }
     
     func lessonBodyModelByLessonItem(lesson: LessonItem) async throws -> LessonBodyModel? {

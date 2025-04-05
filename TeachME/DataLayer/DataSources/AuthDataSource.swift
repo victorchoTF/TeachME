@@ -38,9 +38,10 @@ final class AuthDataSource {
             throw DataSourceError.invalidURL("\(baseURL) not found")
         }
 
-        let token: Data
+        let returnedBody: Data
+        let response: HTTPURLResponse
         do {
-            (token, _) = try await client.request(request)
+            (returnedBody, response) = try await client.request(request)
         } catch let error as HTTPClientNSError {
             throw error
         } catch {
@@ -49,11 +50,15 @@ final class AuthDataSource {
         
         let tokenResponse: TokenResponse
         do {
-            tokenResponse = try decoder.decode(TokenResponse.self, from: token)
+            tokenResponse = try decoder.decode(TokenResponse.self, from: returnedBody)
         } catch {
-            throw DataSourceError.decodingError(
-                "TokenResponse of \(token) could not be decoded!"
-            )
+            if areCredentialsValid(statusCode: response.statusCode) {
+                throw DataSourceError.decodingError(
+                    "TokenResponse of \(returnedBody) could not be decoded!"
+                )
+            } else {
+                throw UserExperienceError.invalidCredentials
+            }
         }
         
         return tokenResponse
@@ -137,5 +142,11 @@ final class AuthDataSource {
         }
         
         return tokenResponse
+    }
+}
+
+private extension AuthDataSource {
+    func areCredentialsValid(statusCode: Int) -> Bool {
+        statusCode != 401 && statusCode != 404
     }
 }

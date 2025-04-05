@@ -56,7 +56,10 @@ import Foundation
                     mapper.modelToItem($0)
                 }
             } else {
-                lessons = try await repository.getOpenLessons().map {
+                lessons = try await repository.getOpenLessons().filter {
+                    shouldShowLessonToStudent($0.startDate)
+                }
+                .map {
                     mapper.modelToItem($0)
                 }
             }
@@ -77,6 +80,7 @@ import Foundation
     
     func onLessonTap(lesson: LessonItem, theme: Theme) {
         guard let router = router else {
+            alertItem = AlertItem(alertType: .lessonLoading)
             return
         }
         
@@ -106,7 +110,8 @@ import Foundation
     }
     
     func teacherOnDelete(lesson: LessonItem) {
-        guard case .hasItems(var lessons) = lessonListState else{
+        guard case .hasItems(var lessons) = lessonListState else {
+            alertItem = AlertItem(alertType: .lessonsLoading)
             return
         }
         
@@ -143,10 +148,8 @@ import Foundation
                 guard let self = self else {
                     return
                 }
-                
-                Task {
-                    try await self.setLesson(lesson: lesson)
-                }
+
+                try await self.setLesson(lesson: lesson)
             }
         ) {
             [weak self] in
@@ -210,7 +213,22 @@ private extension HomeScreenViewModel {
     
     func deleteLesson(lessonId: UUID) {
         Task {
-            try await repository.delete(lessonId)
+            do {
+                try await repository.delete(lessonId)
+            } catch {
+                if case UserExperienceError.invalidDatesError = error {
+                    alertItem = AlertItem(alertType: .invalidLessonDeletion)
+                } else {
+                    alertItem = AlertItem(alertType: .action(deleteButtonText.lowercased()))
+                }
+            }
         }
+    }
+    
+    func shouldShowLessonToStudent(_ startDate: Date) -> Bool {
+        let now = Date()
+        let minimumLeadTime: TimeInterval = 90 * 60
+        
+        return startDate.timeIntervalSince(now) >= minimumLeadTime
     }
 }

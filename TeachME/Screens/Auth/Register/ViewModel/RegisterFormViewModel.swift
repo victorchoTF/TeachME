@@ -59,8 +59,6 @@ import Foundation
         do {
             roleModels = try await roleRepository.getAll()
         } catch {
-            print(error)
-            print(error.localizedDescription)
             alertItem = AlertItem(alertType: .error)
         }
     }

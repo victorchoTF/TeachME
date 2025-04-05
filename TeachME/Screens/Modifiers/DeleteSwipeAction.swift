@@ -17,7 +17,7 @@ struct DeleteSwipeAction<Item: Identifiable>: ViewModifier {
     func body(content: Content) -> some View {
         if let action = action {
             content
-                .swipeActions(edge: .trailing, allowsFullSwipe: true) { // TODO: Make modifier
+                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                     Button(role: .destructive) {
                         action(item)
                     } label: {
