@@ -25,8 +25,6 @@ struct PasswordField: View {
                         .styledTextField(theme: theme)
                 }
             }
-            .autocapitalization(.none)
-            .disableAutocorrection(true)
             
             Button(action: {
                 isSecure.toggle()
