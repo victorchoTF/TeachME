@@ -53,6 +53,7 @@ private extension LoginForm {
             
             PasswordField(
                 password: $viewModel.password,
+                isSecure: $viewModel.isPasswordFieldSecure,
                 placeholder: viewModel.passwordPlaceholder,
                 theme: theme
             )

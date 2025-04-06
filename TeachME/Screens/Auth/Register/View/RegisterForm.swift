@@ -59,6 +59,7 @@ private extension RegisterForm {
             
             PasswordField(
                 password: $viewModel.password,
+                isSecure: $viewModel.isPasswordFieldSecure,
                 placeholder: viewModel.passwordPlacehoder,
                 theme: theme
             )

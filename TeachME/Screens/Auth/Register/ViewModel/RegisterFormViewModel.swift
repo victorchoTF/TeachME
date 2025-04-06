@@ -33,6 +33,7 @@ import Foundation
     private let emailValidator: EmailValidator
     
     @Published var hasTriedInvalidEmail: Bool = false
+    @Published var isPasswordFieldSecure: Bool = true
     private let roleMapper: RoleMapper
     
     let onSubmit: (UserItem) -> ()

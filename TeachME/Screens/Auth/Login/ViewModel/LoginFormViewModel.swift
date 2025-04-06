@@ -19,6 +19,7 @@ import Foundation
     private let emailValidator: EmailValidator
     
     @Published var hasTriedInvalidEmail: Bool = false
+    @Published var isPasswordFieldSecure: Bool = true
     
     let onSubmit: (UserItem) -> ()
     
