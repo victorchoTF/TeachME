@@ -15,26 +15,18 @@ protocol MailOpener {
     func openMail(for mail: String)
 }
 
-struct URLOpenerURLs {
-    static let messagesURL = "sms://"
-    static let mailURL = "mailto:"
-}
-
 final class URLOpener: MessagesOpener, MailOpener {
-    private let messagesURL: String
-    private let mailURL: String
-    
-    init(messagesURL: String, mailURL: String) {
-        self.messagesURL = messagesURL
-        self.mailURL = mailURL
-    }
+    enum Constants {
+      static let messagePrefix = "sms://"
+      static let mailPrefix = "mailto://"
+   }
     
     func openMessage(for phoneNumber: String) {
-        openUrl("\(messagesURL)\(phoneNumber)")
+        openUrl("\(Constants.messagePrefix)\(phoneNumber)")
     }
     
     func openMail(for mail: String) {
-        openUrl("\(mailURL)\(mail)")
+        openUrl("\(Constants.mailPrefix)\(mail)")
     }
 }
 
