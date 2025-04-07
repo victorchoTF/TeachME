@@ -24,9 +24,7 @@ struct LessonScreen: View {
             }
         }
         .background(theme.colors.primary)
-        .alert(item: $viewModel.alertItem) { alertItem in
-            Alert(title: Text(alertItem.message))
-        }
+        .alert($viewModel.alertItem)
         .task {
             await viewModel.loadData()
         }
@@ -40,14 +38,14 @@ private extension LessonScreen {
                 LessonCard(
                     lesson: lesson,
                     theme: theme,
-                    lessonCardType: .teacher
+                    lessonCardType: viewModel.lessonCardType
                 )
                 .lineLimit(1)
                 .truncationMode(.tail)
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
                 .onTapGesture {
-                    viewModel.onLessonTap()
+                    viewModel.onLessonTap(lesson: lesson)
                 }
             }
             .onDelete(perform: viewModel.onDelete)

@@ -5,7 +5,6 @@
 //  Created by TumbaDev on 8.03.25.
 //
 
-import Foundation
 import SwiftUI
 
 struct LessonMapper: Mapper {

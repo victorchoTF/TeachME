@@ -45,9 +45,7 @@ struct HomeScreen: View {
             )
             .background(theme.colors.primary)
         }
-        .alert(item: $viewModel.alertItem) { alertItem in
-            Alert(title: Text(alertItem.message))
-        }
+        .alert($viewModel.alertItem)
         .task {
             await viewModel.loadData()
         }

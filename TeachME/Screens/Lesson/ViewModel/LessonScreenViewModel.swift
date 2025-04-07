@@ -8,8 +8,15 @@
 import SwiftUI
 
 @MainActor final class LessonScreenViewModel: ObservableObject {
+    enum LessonScreenViewModelError: Error {
+        case noStudent
+        case noUserDetails
+        case noReceiverPhoneNumber
+    }
+    
     @Published var alertItem: AlertItem? = nil
     @Published var lessonListState: LessonListState = .empty
+    @Published var recipient: UserItem? = nil
     @Published var user: UserItem
     
     private weak var router: LessonRouter?
@@ -23,6 +30,8 @@ import SwiftUI
     private let isTeacher: Bool
     let lessonCardType: LessonCardType
     
+    private let urlOpener: URLOpener
+    
     init(
         router: LessonRouter? = nil,
         user: UserItem,
@@ -32,7 +41,8 @@ import SwiftUI
         mapper: LessonMapper,
         userMapper: UserMapper,
         isTeacher: Bool,
-        lessonCardType: LessonCardType
+        lessonCardType: LessonCardType,
+        urlOpener: URLOpener
     ) {
         self.router = router
         self.user = user
@@ -44,6 +54,8 @@ import SwiftUI
         
         self.isTeacher = isTeacher
         self.lessonCardType = lessonCardType
+        
+        self.urlOpener = urlOpener
     }
     
     func loadData() async {
@@ -74,9 +86,23 @@ import SwiftUI
         }
     }
     
-    // TODO: Implement DeepLink logic
-    func onLessonTap() {
-        print("LessonTapped")
+    func onLessonTap(lesson: LessonItem) {
+        Task {
+            let recipient = try await getRecipient(lesson: lesson)
+            
+            guard !recipient.phoneNumber.isEmpty else {
+                self.recipient = recipient
+                alertItem = AlertItem(
+                    alertType: .phone(getUserNameForAlert(lesson: lesson)),
+                    primaryAction: .defaultConfirmation(sendMailAlertAction),
+                    secondaryAction: .defaultCancelation()
+                )
+                
+                return
+            }
+            
+            urlOpener.openMessage(for: recipient.phoneNumber)
+        }
     }
     
     func onDelete(at offsets: IndexSet) {
@@ -137,5 +163,37 @@ private extension LessonScreenViewModel {
                 id: lesson.id
             )
         }
+    }
+    
+    func getUserNameForAlert(lesson: LessonItem) -> String {
+        switch lessonCardType {
+        case .student: lesson.student?.name ?? "This student"
+        case .teacher: lesson.teacher.name
+        }
+    }
+    
+    func sendMailAlertAction() {
+        if let recipient = recipient {
+            urlOpener.openMail(for: recipient.email)
+        }
+    }
+    
+    func getRecipient(lesson: LessonItem) async throws -> UserItem{
+        switch lessonCardType {
+        case .student: try await getStudent(student: lesson.student)
+        case .teacher: try await getTeacher(teacher: lesson.teacher)
+        }
+    }
+    
+    func getStudent(student: UserLessonBodyItem?) async throws -> UserItem {
+        guard let studentId = student?.id else {
+            throw LessonScreenViewModelError.noStudent
+        }
+        
+        return try await userMapper.modelToItem(userRepository.getById(studentId))
+    }
+    
+    func getTeacher(teacher: UserLessonBodyItem) async throws -> UserItem {
+        return try await userMapper.modelToItem(userRepository.getById(teacher.id))
     }
 }

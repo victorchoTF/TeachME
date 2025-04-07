@@ -5,7 +5,6 @@
 //  Created by TumbaDev on 11.03.25.
 //
 
-import Foundation
 import SwiftUI
 
 extension Image {

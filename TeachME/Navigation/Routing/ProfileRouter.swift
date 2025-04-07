@@ -5,7 +5,6 @@
 //  Created by TumbaDev on 8.02.25.
 //
 
-import Foundation
 import SwiftUI
 
 @MainActor final class ProfileRouter: ObservableObject {

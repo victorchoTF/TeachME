@@ -29,6 +29,7 @@ enum AppState {
     private let emailDefaults: EmailDefaults
     
     private let tokenService: TokenService
+    private let urlOpener: URLOpener
     
     init(
         authRepository: AuthRepository,
@@ -42,6 +43,7 @@ enum AppState {
         emailValidator: EmailValidator,
         emailDefaults: EmailDefaults,
         tokenService: TokenService,
+        urlOpener: URLOpener,
         theme: Theme
     ) {
         self.authRepository = authRepository
@@ -55,6 +57,7 @@ enum AppState {
         self.emailValidator = emailValidator
         self.tokenService = tokenService
         self.emailDefaults = emailDefaults
+        self.urlOpener = urlOpener
         self.theme = theme
     }
     
@@ -116,7 +119,8 @@ private extension AppRouter {
                 lessonRepository: lessonRepository,
                 lessonTypeRepository: lessonTypeRepository,
                 userMapper: userMapper,
-                lessonMapper: lessonMapper
+                lessonMapper: lessonMapper,
+                urlOpener: urlOpener
             ),
             profileRouter: ProfileRouter(
                 theme: theme,
