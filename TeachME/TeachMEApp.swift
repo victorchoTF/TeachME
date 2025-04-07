@@ -101,10 +101,7 @@ struct TeachMEApp: App {
             key: DefaultsKeys.emailDefaults
         )
         
-        let urlOpener = URLOpener(
-            messagesURL: URLOpenerURLs.messagesURL,
-            mailURL: URLOpenerURLs.mailURL
-        )
+        let urlOpener = URLOpener()
         
         theme = PrimaryTheme()
         
