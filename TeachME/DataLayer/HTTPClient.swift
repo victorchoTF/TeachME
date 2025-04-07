@@ -29,11 +29,7 @@ extension URLSession: HTTPClient {
             
             return (data, httpResponse)
             
-        } catch let error as NSError {
-            if error.code != NSURLErrorCancelled {
-                throw error
-            }
-            
+        } catch _ as NSError {
             throw HTTPClientNSError.cancelation
         } catch {
             throw error

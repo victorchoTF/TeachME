@@ -5,7 +5,7 @@
 //  Created by TumbaDev on 20.01.25.
 //
 
-import Foundation
+import SwiftUI
 
 @MainActor final class RegisterFormViewModel: ObservableObject {
     @Published var alertItem: AlertItem? = nil
@@ -66,8 +66,7 @@ import Foundation
     
     func registerUser() {
         guard isEmailValid else {
-            hasTriedInvalidEmail = true
-            email = ""
+            markEmailInvalid()
             return
         }
         
@@ -155,6 +154,18 @@ import Foundation
     
     func resetEmailError() {
         hasTriedInvalidEmail = false
+    }
+}
+
+private extension RegisterFormViewModel {
+    func markEmailInvalid() {
+        hasTriedInvalidEmail = true
+        email = ""
+        hideKeyboard()
+    }
+    
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 

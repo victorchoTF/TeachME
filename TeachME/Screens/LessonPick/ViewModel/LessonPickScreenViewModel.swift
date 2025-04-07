@@ -141,7 +141,7 @@ private extension LessonPickScreenViewModel {
         takeLesson()
         alertItem = AlertItem(
             alertType: .saved(pickedLesson.teacher.name),
-            primaryAction: .defaultCancelation(exit)
+            primaryAction: .defaultConfirmation(exit)
         )
     }
     

@@ -5,7 +5,7 @@
 //  Created by TumbaDev on 21.01.25.
 //
 
-import Foundation
+import SwiftUI
 
 @MainActor final class LoginFormViewModel: ObservableObject {
     @Published var alertItem: AlertItem? = nil
@@ -39,8 +39,7 @@ import Foundation
 
     func loginUser() {
         guard isEmailValid else {
-            hasTriedInvalidEmail = true
-            email = ""
+            markEmailInvalid()
             return
         }
         
@@ -104,5 +103,17 @@ import Foundation
     
     func resetEmailError() {
         hasTriedInvalidEmail = false
+    }
+}
+
+private extension LoginFormViewModel {
+    func markEmailInvalid() {
+        hasTriedInvalidEmail = true
+        email = ""
+        hideKeyboard()
+    }
+    
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
