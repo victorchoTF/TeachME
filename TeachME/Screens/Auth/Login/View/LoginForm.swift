@@ -8,7 +8,13 @@
 import SwiftUI
 
 struct LoginForm: View {
+    enum Field: Hashable {
+        case email
+        case password
+    }
+    
     @ObservedObject var viewModel: LoginFormViewModel
+    @FocusState private var focusedField: Field?
     let toRegister: @MainActor () -> ()
     
     let theme: Theme
@@ -22,6 +28,7 @@ struct LoginForm: View {
                 
                 SubmitButton(text: viewModel.formType, theme: theme) {
                     viewModel.loginUser()
+                    focusedField = nil
                 }
                 
                 SwitchFormText(
@@ -50,6 +57,7 @@ private extension LoginForm {
             ) {
                 viewModel.resetEmailError()
             }
+            .focused($focusedField, equals: .email)
             
             PasswordField(
                 password: $viewModel.password,
@@ -57,6 +65,7 @@ private extension LoginForm {
                 placeholder: viewModel.passwordPlaceholder,
                 theme: theme
             )
+            .focused($focusedField, equals: .password)
         }
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)

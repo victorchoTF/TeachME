@@ -41,7 +41,7 @@ final class UserDataSource: TeachMEAPIDataSource {
 
         do {
             let _ = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
             throw DataSourceError.updatingError("Data of \(body) could not be updated!")
@@ -59,7 +59,7 @@ final class UserDataSource: TeachMEAPIDataSource {
         let fetchedData: Data
         do {
             (fetchedData, _) = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
             throw DataSourceError.fetchingError(
@@ -88,7 +88,7 @@ final class UserDataSource: TeachMEAPIDataSource {
         let fetchedData: Data
         do {
             (fetchedData, _) = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
             throw DataSourceError.fetchingError("Users for roleId: \(id) could not be fetched!")

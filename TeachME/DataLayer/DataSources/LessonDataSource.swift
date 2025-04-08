@@ -44,7 +44,7 @@ final class LessonDataSource: TeachMEAPIDataSource {
         let response: HTTPURLResponse
         do {
             (returnedBody, response) = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
            throw DataSourceError.postingError("CreateBody of \(body) could not be created!")
@@ -59,7 +59,7 @@ final class LessonDataSource: TeachMEAPIDataSource {
                     "Data of \(returnedBody) could not be decoded!"
                 )
             } else {
-                throw UserExperienceError.invalidDatesError
+                throw APIValidationError.invalidDates
             }
         }
         
@@ -86,14 +86,14 @@ final class LessonDataSource: TeachMEAPIDataSource {
         var response: HTTPURLResponse? = nil
         do {
             (_, response) = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
             throw DataSourceError.updatingError("Data of \(body) could not be updated!")
         }
         
         guard let response = response, areDatesValid(statusCode: response.statusCode) else {
-            throw UserExperienceError.invalidDatesError
+            throw APIValidationError.invalidDates
         }
     }
     
@@ -108,7 +108,7 @@ final class LessonDataSource: TeachMEAPIDataSource {
         let fetchedData: Data
         do {
             (fetchedData, _) = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
             throw DataSourceError.fetchingError("Open lessons could not be fetched!")
@@ -135,7 +135,7 @@ final class LessonDataSource: TeachMEAPIDataSource {
         let fetchedData: Data
         do {
             (fetchedData, _) = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
             throw DataSourceError.fetchingError(
@@ -166,7 +166,7 @@ final class LessonDataSource: TeachMEAPIDataSource {
         let fetchedData: Data
         do {
             (fetchedData, _) = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
             throw DataSourceError.fetchingError(
@@ -197,7 +197,7 @@ final class LessonDataSource: TeachMEAPIDataSource {
         let fetchedData: Data
         do {
             (fetchedData, _) = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
             throw DataSourceError.fetchingError(
@@ -237,13 +237,13 @@ final class LessonDataSource: TeachMEAPIDataSource {
         var response: HTTPURLResponse? = nil
         do {
             (_, response) = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
             if let response = response, areDatesValid(statusCode: response.statusCode) {
                 throw DataSourceError.updatingError("Lesson of \(body) could not be updated!")
             } else {
-                throw UserExperienceError.invalidDatesError
+                throw APIValidationError.invalidDates
             }
         }
     }
@@ -259,14 +259,14 @@ final class LessonDataSource: TeachMEAPIDataSource {
         var response: HTTPURLResponse? = nil
         do {
             (_, response) = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
             throw DataSourceError.deletingError("Lesson with ID \(id) could not be deleted!")
         }
         
         guard let response = response, areDatesValid(statusCode: response.statusCode) else {
-            throw UserExperienceError.invalidDatesError
+            throw APIValidationError.invalidDates
         }
     }
 }

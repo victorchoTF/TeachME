@@ -5,7 +5,7 @@
 //  Created by TumbaDev on 20.01.25.
 //
 
-import SwiftUI
+import Foundation
 
 @MainActor final class RegisterFormViewModel: ObservableObject {
     @Published var alertItem: AlertItem? = nil
@@ -161,11 +161,6 @@ private extension RegisterFormViewModel {
     func markEmailInvalid() {
         hasTriedInvalidEmail = true
         email = ""
-        hideKeyboard()
-    }
-    
-    func hideKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 

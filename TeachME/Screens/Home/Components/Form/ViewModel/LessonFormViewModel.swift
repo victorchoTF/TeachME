@@ -80,7 +80,7 @@ enum LessonFormType {
                 do {
                     try await addLesson(getLessonItemBody())
                 } catch {
-                    if case UserExperienceError.invalidDatesError = error {
+                    if case APIValidationError.invalidDates = error {
                         alertItem = AlertItem(alertType: .invalidDates)
                     }
                 }
@@ -90,7 +90,7 @@ enum LessonFormType {
                 do {
                     try await editLesson(getLessonItem(lessonId: lesson.id))
                 } catch {
-                    if case UserExperienceError.invalidDatesError = error {
+                    if case APIValidationError.invalidDates = error {
                         alertItem = AlertItem(alertType: .invalidDates)
                     }
                 }

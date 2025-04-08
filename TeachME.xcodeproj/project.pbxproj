@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8E0A86C42DA1CE2700278085 /* UserExperienceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A86C32DA1CE2700278085 /* UserExperienceError.swift */; };
+		8E0A86C42DA1CE2700278085 /* APIValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A86C32DA1CE2700278085 /* APIValidationError.swift */; };
 		8E11604C2D7482DD0097774B /* RoleDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11604B2D7482DD0097774B /* RoleDTO.swift */; };
 		8E11604E2D7482F90097774B /* LessonTypeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11604D2D7482F90097774B /* LessonTypeDTO.swift */; };
 		8E1160502D7483280097774B /* UserDetailDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11604F2D7483280097774B /* UserDetailDTO.swift */; };
@@ -77,6 +77,7 @@
 		8E95A6802D95424B0038AAED /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E95A67F2D95424B0038AAED /* AlertItem.swift */; };
 		8E95A6822D954C830038AAED /* EmailValidatedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E95A6812D954C830038AAED /* EmailValidatedField.swift */; };
 		8E9669CB2D48AEEA00B5D6BA /* LessonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */; };
+		8E96ECD82DA4F08500281940 /* NSError+isCancellation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E96ECD72DA4F08500281940 /* NSError+isCancellation.swift */; };
 		8E99E78A2D71AD5C00CF9CC8 /* APIDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E7892D71AD5C00CF9CC8 /* APIDataSource.swift */; };
 		8E99E78C2D71AEE500CF9CC8 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E78B2D71AEE500CF9CC8 /* HTTPClient.swift */; };
 		8E99E78F2D71B02400CF9CC8 /* DataSourceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E78E2D71B02400CF9CC8 /* DataSourceError.swift */; };
@@ -123,7 +124,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8E0A86C32DA1CE2700278085 /* UserExperienceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserExperienceError.swift; sourceTree = "<group>"; };
+		8E0A86C32DA1CE2700278085 /* APIValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIValidationError.swift; sourceTree = "<group>"; };
 		8E11604B2D7482DD0097774B /* RoleDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleDTO.swift; sourceTree = "<group>"; };
 		8E11604D2D7482F90097774B /* LessonTypeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTypeDTO.swift; sourceTree = "<group>"; };
 		8E11604F2D7483280097774B /* UserDetailDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailDTO.swift; sourceTree = "<group>"; };
@@ -194,6 +195,7 @@
 		8E95A67F2D95424B0038AAED /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
 		8E95A6812D954C830038AAED /* EmailValidatedField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidatedField.swift; sourceTree = "<group>"; };
 		8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonItem.swift; sourceTree = "<group>"; };
+		8E96ECD72DA4F08500281940 /* NSError+isCancellation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSError+isCancellation.swift"; sourceTree = "<group>"; };
 		8E99E7892D71AD5C00CF9CC8 /* APIDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDataSource.swift; sourceTree = "<group>"; };
 		8E99E78B2D71AEE500CF9CC8 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		8E99E78E2D71B02400CF9CC8 /* DataSourceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceError.swift; sourceTree = "<group>"; };
@@ -253,7 +255,7 @@
 		8E0A86C22DA1CDEF00278085 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
-				8E0A86C32DA1CE2700278085 /* UserExperienceError.swift */,
+				8E0A86C32DA1CE2700278085 /* APIValidationError.swift */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -495,6 +497,7 @@
 				8E6D1C8E2D673A9300C400C4 /* DateFormatter+toString.swift */,
 				8E6D1C8B2D673A1900C400C4 /* DateFormatter+toDate.swift */,
 				8E6646CD2D800B6D000EBDC4 /* Image+fallbackImageInit.swift */,
+				8E96ECD72DA4F08500281940 /* NSError+isCancellation.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -929,7 +932,7 @@
 				8E11604E2D7482F90097774B /* LessonTypeDTO.swift in Sources */,
 				8E7EBE4B2D3E3A1800C7C017 /* AuthScreenViewModel.swift in Sources */,
 				8E9E51BE2D7975D40035E4E3 /* URLRequestBuilder.swift in Sources */,
-				8E0A86C42DA1CE2700278085 /* UserExperienceError.swift in Sources */,
+				8E0A86C42DA1CE2700278085 /* APIValidationError.swift in Sources */,
 				8E6D1C8F2D673A9300C400C4 /* DateFormatter+toString.swift in Sources */,
 				8E11604C2D7482DD0097774B /* RoleDTO.swift in Sources */,
 				8E3427AD2D3E649900A38A2D /* Fonts.swift in Sources */,
@@ -950,6 +953,7 @@
 				8EB093582D7C83050073C0F6 /* UserModel.swift in Sources */,
 				8E95A6822D954C830038AAED /* EmailValidatedField.swift in Sources */,
 				8EB0936F2D7C90480073C0F6 /* UserRepository.swift in Sources */,
+				8E96ECD82DA4F08500281940 /* NSError+isCancellation.swift in Sources */,
 				8EB093652D7C85770073C0F6 /* UserMapper.swift in Sources */,
 				8E3CF23F2D7D946D009D30D5 /* AuthDataSource.swift in Sources */,
 				8E9E51BC2D7975870035E4E3 /* HTTPMethod.swift in Sources */,

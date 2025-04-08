@@ -42,7 +42,7 @@ final class AuthDataSource {
         let response: HTTPURLResponse
         do {
             (returnedBody, response) = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
             throw DataSourceError.postingError("User of \(user) could not login!")
@@ -57,7 +57,7 @@ final class AuthDataSource {
                     "TokenResponse of \(returnedBody) could not be decoded!"
                 )
             } else {
-                throw UserExperienceError.invalidCredentials
+                throw APIValidationError.invalidCredentials
             }
         }
         
@@ -84,7 +84,7 @@ final class AuthDataSource {
         let token: Data
         do {
             (token, _) = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
            throw DataSourceError.postingError("User of \(user) could not login!")
@@ -124,7 +124,7 @@ final class AuthDataSource {
         let token: Data
         do {
             (token, _) = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
             throw DataSourceError.postingError(

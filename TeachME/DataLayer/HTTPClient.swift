@@ -15,10 +15,6 @@ enum HTTPClientError: Error {
     case invalidResponse
 }
 
-enum HTTPClientNSError: Error {
-    case cancelation
-}
-
 extension URLSession: HTTPClient {
     func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
         do {
@@ -29,8 +25,6 @@ extension URLSession: HTTPClient {
             
             return (data, httpResponse)
             
-        } catch _ as NSError {
-            throw HTTPClientNSError.cancelation
         } catch {
             throw error
         }

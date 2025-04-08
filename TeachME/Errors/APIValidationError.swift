@@ -1,5 +1,5 @@
 //
-//  UserExperienceError.swift
+//  APIValidationError.swift
 //  TeachME
 //
 //  Created by TumbaDev on 5.04.25.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum UserExperienceError: Error {
+enum APIValidationError: Error {
     case invalidCredentials
-    case invalidDatesError
+    case invalidDates
 }

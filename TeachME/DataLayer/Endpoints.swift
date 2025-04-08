@@ -8,7 +8,8 @@
 import Foundation
 
 struct Endpoints {
-    static let baseURL: String = "https://8530-2a01-5a8-469-b79e-9547-5a2-e6ca-bffa.ngrok-free.app/"
+    // MARK: ngrok need a new baseURL at the start of every gateway run
+    static let baseURL: String = "https://9f0d-2a01-5a8-461-e641-24b4-b025-3ecd-edc2.ngrok-free.app/"
     static let authURL: String = "\(baseURL)teach-me/"
     static let lessonTypesURL: String = "\(authURL)lesson-types/"
     static let rolesURL: String = "\(authURL)roles/"

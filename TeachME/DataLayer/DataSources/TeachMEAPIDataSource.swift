@@ -21,7 +21,7 @@ extension TeachMEAPIDataSource {
         let fetchedData: Data
         do {
             (fetchedData, _) = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
             throw DataSourceError.fetchingError("Values for id: \(id) could not be fetched!")
@@ -56,7 +56,7 @@ extension TeachMEAPIDataSource {
 
         do {
             let _ = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
             throw DataSourceError.updatingError("Data of \(data) could not be updated!")
@@ -74,7 +74,7 @@ extension TeachMEAPIDataSource {
 
         do {
             let _ = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
             throw DataSourceError.deletingError("Data with ID \(id) could not be deleted!")
@@ -92,7 +92,7 @@ extension TeachMEAPIDataSource {
         let fetchedData: Data
         do {
             (fetchedData, _) = try await client.request(request)
-        } catch let error as HTTPClientNSError {
+        } catch let error as NSError {
             throw error
         } catch {
             throw DataSourceError.fetchingError("Values on url: \(baseURL) could not be fetched!")

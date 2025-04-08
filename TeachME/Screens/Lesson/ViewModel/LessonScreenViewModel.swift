@@ -73,7 +73,11 @@ import SwiftUI
                     mapper.modelToItem($0)
                 }
             }
-        } catch _ as HTTPClientNSError {
+        } catch let error as NSError {
+            if  !error.isCancellation {
+                alertItem = AlertItem(alertType: .lessonsLoading)
+            }
+            
             return
         } catch {
             alertItem = AlertItem(alertType: .lessonsLoading)
@@ -160,7 +164,7 @@ private extension LessonScreenViewModel {
             do {
                 try await repository.delete(lessonId)
             } catch {
-                if case UserExperienceError.invalidDatesError = error {
+                if case APIValidationError.invalidDates = error {
                     alertItem = AlertItem(alertType: .invalidLessonDeletion)
                 } else {
                     alertItem = AlertItem(alertType: .action(deleteButtonText.lowercased()))

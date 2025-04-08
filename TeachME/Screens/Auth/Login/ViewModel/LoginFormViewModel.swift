@@ -5,7 +5,7 @@
 //  Created by TumbaDev on 21.01.25.
 //
 
-import SwiftUI
+import Foundation
 
 @MainActor final class LoginFormViewModel: ObservableObject {
     @Published var alertItem: AlertItem? = nil
@@ -52,7 +52,7 @@ import SwiftUI
                     )
                 )
             } catch {
-                if case UserExperienceError.invalidCredentials = error {
+                if case APIValidationError.invalidCredentials = error {
                     alertItem = AlertItem(alertType: .invalidCredentials)
                 } else {
                     alertItem = AlertItem(alertType: .error)
@@ -110,10 +110,5 @@ private extension LoginFormViewModel {
     func markEmailInvalid() {
         hasTriedInvalidEmail = true
         email = ""
-        hideKeyboard()
-    }
-    
-    func hideKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
