@@ -9,6 +9,6 @@ import Foundation
 
 extension NSError {
     var isCancellation: Bool {
-        self.code == -999
+        domain == NSURLErrorDomain && code == NSURLErrorCancelled
     }
 }

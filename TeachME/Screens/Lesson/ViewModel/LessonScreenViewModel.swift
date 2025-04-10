@@ -74,10 +74,13 @@ import SwiftUI
                 }
             }
         } catch let error as NSError {
-            if  !error.isCancellation {
-                alertItem = AlertItem(alertType: .lessonsLoading)
+            guard !error.isCancellation else {
+                return
             }
             
+            alertItem = AlertItem(alertType: .lessonsLoading)
+            return
+        } catch is CancellationError {
             return
         } catch {
             alertItem = AlertItem(alertType: .lessonsLoading)

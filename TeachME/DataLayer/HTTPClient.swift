@@ -17,16 +17,11 @@ enum HTTPClientError: Error {
 
 extension URLSession: HTTPClient {
     func request(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-        do {
-            let (data, response) = try await self.data(for: request)
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw HTTPClientError.invalidResponse
-            }
-            
-            return (data, httpResponse)
-            
-        } catch {
-            throw error
+        let (data, response) = try await self.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw HTTPClientError.invalidResponse
         }
+        
+        return (data, httpResponse)
     }
 }
