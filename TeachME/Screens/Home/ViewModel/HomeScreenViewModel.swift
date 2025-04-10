@@ -70,9 +70,9 @@ import Foundation
             
             alertItem = AlertItem(alertType: .lessonsLoading)
             return
-        }catch is CancellationError {
+        } catch is CancellationError {
             return
-        }   catch {
+        } catch {
             alertItem = AlertItem(alertType: .lessonsLoading)
             lessonListState = .empty
             return
