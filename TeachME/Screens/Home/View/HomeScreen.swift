@@ -68,8 +68,16 @@ private extension HomeScreen {
                 .onTapGesture {
                     viewModel.onLessonTap(lesson: lesson, theme: theme)
                 }
+                .deleteSwipeAction(
+                    label: Label(
+                        viewModel.deleteButtonText,
+                        systemImage: viewModel.deleteButtonIcon
+                    ),
+                    theme: theme,
+                    item: lesson,
+                    action: viewModel.onDelete()
+                )
             }
-            .onDelete(perform: viewModel.onDelete())
         }
         .refreshable {
             await viewModel.loadData()

@@ -8,7 +8,16 @@
 import SwiftUI
 
 struct RegisterForm: View {
+    enum Field: Hashable {
+        case email
+        case password
+        case firstName
+        case lastName
+        case role
+    }
+    
     @ObservedObject var viewModel: RegisterFormViewModel
+    @FocusState private var focusedField: Field?
     let toLogin: @MainActor () -> ()
     
     let theme: Theme
@@ -26,6 +35,7 @@ struct RegisterForm: View {
                 
                 SubmitButton(text: viewModel.formType, theme: theme) {
                     viewModel.registerUser()
+                    focusedField = nil
                 }
                 
                 SwitchFormText(
@@ -56,9 +66,15 @@ private extension RegisterForm {
             ) {
                 viewModel.resetEmailError()
             }
+            .focused($focusedField, equals: .email)
             
-            SecureField(viewModel.passwordPlacehoder, text: $viewModel.password)
-                .styledTextField(theme: theme)
+            PasswordField(
+                password: $viewModel.password,
+                isSecure: $viewModel.isPasswordFieldSecure,
+                placeholder: viewModel.passwordPlacehoder,
+                theme: theme
+            )
+            .focused($focusedField, equals: .password)
         }
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
@@ -69,8 +85,10 @@ private extension RegisterForm {
         Section(viewModel.personalDetailsHeading) {
             TextField(viewModel.namePlaceholder, text: $viewModel.firstName)
                 .styledTextField(theme: theme)
+                .focused($focusedField, equals: .firstName)
             TextField(viewModel.lastNamePlaceholder, text: $viewModel.lastName)
                 .styledTextField(theme: theme)
+                .focused($focusedField, equals: .lastName)
         }
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
@@ -86,6 +104,7 @@ private extension RegisterForm {
             }
             .tint(theme.colors.accent)
             .pickerStyle(.segmented)
+            .focused($focusedField, equals: .role)
         }
         .listRowBackground(Color.clear)
         .font(theme.fonts.body)

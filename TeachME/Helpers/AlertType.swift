@@ -16,5 +16,9 @@ enum AlertType {
     case action(String)
     case saved(String)
     case phone(String)
+    case invalidCredentials
+    case invalidDates
+    case invalidLessonDeletion
+    case confirmImage
     case error
 }

@@ -12,7 +12,7 @@ import PhotosUI
     @Published var editProfileFormViewModel: EditProfileFormViewModel?
     @Published var user: UserItem
     
-    @Published var updateImageAlert: Bool = false
+    @Published var alertItem: AlertItem? = nil
     
     @Published var imageSelection: PhotosPickerItem? = nil {
         didSet {
@@ -25,7 +25,14 @@ import PhotosUI
     private let imageFormatter: ImageFormatter
     private var profilePicture: Data? = nil {
         didSet {
-            updateImageAlert = true
+            alertItem = AlertItem(
+                alertType: .confirmImage,
+                primaryAction: AlertAction(
+                    title: imageAlertAccept,
+                    action: updateProfilePicture
+                ),
+                secondaryAction: .defaultCancelation()
+            )
         }
     }
     
@@ -91,31 +98,19 @@ import PhotosUI
             editProfileFormViewModel = nil
         }
     }
-    
+}
+
+private extension ProfileScreenViewModel {
     func updateProfilePicture() {
         Task {
             user = try await updateUserByBodyModel(user: userBodyModelWithImage())
         }
     }
     
-    func cancelProfilePictureUpdate() {
-        updateImageAlert = false
-    }
-    
-    var imageAlertMessage: String {
-        "Are you sure this is your picture?"
-    }
-    
     var imageAlertAccept: String {
         "Yes"
     }
     
-    var imageAlertCancel: String {
-        "Cancel"
-    }
-}
-
-private extension ProfileScreenViewModel {
     func updateUser(user: UserItemBody) async throws -> UserItem {
         let userModelBody = mapper.itemBodyToBodyModel(user, userId: self.user.id)
         

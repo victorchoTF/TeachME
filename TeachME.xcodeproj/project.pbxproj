@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E0A86C42DA1CE2700278085 /* APIValidationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0A86C32DA1CE2700278085 /* APIValidationError.swift */; };
 		8E11604C2D7482DD0097774B /* RoleDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11604B2D7482DD0097774B /* RoleDTO.swift */; };
 		8E11604E2D7482F90097774B /* LessonTypeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11604D2D7482F90097774B /* LessonTypeDTO.swift */; };
 		8E1160502D7483280097774B /* UserDetailDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E11604F2D7483280097774B /* UserDetailDTO.swift */; };
@@ -22,6 +23,7 @@
 		8E180D2E2D5272FA00327E29 /* TabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E180D2D2D5272FA00327E29 /* TabRouter.swift */; };
 		8E1993F42DA0326E002ABF56 /* AlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1993F32DA0326E002ABF56 /* AlertModifier.swift */; };
 		8E1993F62DA0391B002ABF56 /* URLOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1993F52DA0391B002ABF56 /* URLOpener.swift */; };
+		8E1993FA2DA0690C002ABF56 /* DeleteSwipeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1993F92DA0690C002ABF56 /* DeleteSwipeAction.swift */; };
 		8E20F5712D4B83A1007B3154 /* LessonPickScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5702D4B83A1007B3154 /* LessonPickScreen.swift */; };
 		8E20F5732D4B8425007B3154 /* LessonPickScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5722D4B8425007B3154 /* LessonPickScreenViewModel.swift */; };
 		8E20F5772D4B8C9C007B3154 /* UserCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20F5762D4B8C9C007B3154 /* UserCard.swift */; };
@@ -75,6 +77,7 @@
 		8E95A6802D95424B0038AAED /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E95A67F2D95424B0038AAED /* AlertItem.swift */; };
 		8E95A6822D954C830038AAED /* EmailValidatedField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E95A6812D954C830038AAED /* EmailValidatedField.swift */; };
 		8E9669CB2D48AEEA00B5D6BA /* LessonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */; };
+		8E96ECD82DA4F08500281940 /* NSError+isCancellation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E96ECD72DA4F08500281940 /* NSError+isCancellation.swift */; };
 		8E99E78A2D71AD5C00CF9CC8 /* APIDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E7892D71AD5C00CF9CC8 /* APIDataSource.swift */; };
 		8E99E78C2D71AEE500CF9CC8 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E78B2D71AEE500CF9CC8 /* HTTPClient.swift */; };
 		8E99E78F2D71B02400CF9CC8 /* DataSourceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E99E78E2D71B02400CF9CC8 /* DataSourceError.swift */; };
@@ -88,6 +91,7 @@
 		8EA0789B2D903E1C00944F51 /* LessonRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0789A2D903E1C00944F51 /* LessonRouter.swift */; };
 		8EA0789D2D90666E00944F51 /* KeychainStoreConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0789C2D90666E00944F51 /* KeychainStoreConstants.swift */; };
 		8EA0789F2D9072FB00944F51 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA0789E2D9072FB00944F51 /* LoadingView.swift */; };
+		8EAB35EC2DA1E9F300EBA0B4 /* PasswordField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EAB35EB2DA1E9F300EBA0B4 /* PasswordField.swift */; };
 		8EB0934D2D7C810C0073C0F6 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0934C2D7C810C0073C0F6 /* Repository.swift */; };
 		8EB093502D7C81590073C0F6 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0934F2D7C81590073C0F6 /* Model.swift */; };
 		8EB093522D7C828F0073C0F6 /* RoleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB093512D7C828F0073C0F6 /* RoleModel.swift */; };
@@ -120,6 +124,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8E0A86C32DA1CE2700278085 /* APIValidationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIValidationError.swift; sourceTree = "<group>"; };
 		8E11604B2D7482DD0097774B /* RoleDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleDTO.swift; sourceTree = "<group>"; };
 		8E11604D2D7482F90097774B /* LessonTypeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTypeDTO.swift; sourceTree = "<group>"; };
 		8E11604F2D7483280097774B /* UserDetailDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailDTO.swift; sourceTree = "<group>"; };
@@ -135,6 +140,7 @@
 		8E180D2D2D5272FA00327E29 /* TabRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabRouter.swift; sourceTree = "<group>"; };
 		8E1993F32DA0326E002ABF56 /* AlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModifier.swift; sourceTree = "<group>"; };
 		8E1993F52DA0391B002ABF56 /* URLOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLOpener.swift; sourceTree = "<group>"; };
+		8E1993F92DA0690C002ABF56 /* DeleteSwipeAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteSwipeAction.swift; sourceTree = "<group>"; };
 		8E20F5702D4B83A1007B3154 /* LessonPickScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonPickScreen.swift; sourceTree = "<group>"; };
 		8E20F5722D4B8425007B3154 /* LessonPickScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonPickScreenViewModel.swift; sourceTree = "<group>"; };
 		8E20F5762D4B8C9C007B3154 /* UserCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCard.swift; sourceTree = "<group>"; };
@@ -189,6 +195,7 @@
 		8E95A67F2D95424B0038AAED /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
 		8E95A6812D954C830038AAED /* EmailValidatedField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidatedField.swift; sourceTree = "<group>"; };
 		8E9669CA2D48AEEA00B5D6BA /* LessonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonItem.swift; sourceTree = "<group>"; };
+		8E96ECD72DA4F08500281940 /* NSError+isCancellation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSError+isCancellation.swift"; sourceTree = "<group>"; };
 		8E99E7892D71AD5C00CF9CC8 /* APIDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIDataSource.swift; sourceTree = "<group>"; };
 		8E99E78B2D71AEE500CF9CC8 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		8E99E78E2D71B02400CF9CC8 /* DataSourceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceError.swift; sourceTree = "<group>"; };
@@ -202,6 +209,7 @@
 		8EA0789A2D903E1C00944F51 /* LessonRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonRouter.swift; sourceTree = "<group>"; };
 		8EA0789C2D90666E00944F51 /* KeychainStoreConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStoreConstants.swift; sourceTree = "<group>"; };
 		8EA0789E2D9072FB00944F51 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		8EAB35EB2DA1E9F300EBA0B4 /* PasswordField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordField.swift; sourceTree = "<group>"; };
 		8EB0934C2D7C810C0073C0F6 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		8EB0934F2D7C81590073C0F6 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8EB093512D7C828F0073C0F6 /* RoleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleModel.swift; sourceTree = "<group>"; };
@@ -244,6 +252,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E0A86C22DA1CDEF00278085 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				8E0A86C32DA1CE2700278085 /* APIValidationError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
 		8E11604A2D7481CD0097774B /* DataTransferObjects */ = {
 			isa = PBXGroup;
 			children = (
@@ -448,6 +464,7 @@
 		8E65F7432D3D2BDF00D3A793 /* TeachME */ = {
 			isa = PBXGroup;
 			children = (
+				8E0A86C22DA1CDEF00278085 /* Errors */,
 				8E8C9AE52D82CE0B00082B34 /* Persistence */,
 				8EB7CA322D81DEE5005E82F1 /* DomainLayer */,
 				8E99E7862D71ABFB00CF9CC8 /* DataLayer */,
@@ -480,6 +497,7 @@
 				8E6D1C8E2D673A9300C400C4 /* DateFormatter+toString.swift */,
 				8E6D1C8B2D673A1900C400C4 /* DateFormatter+toDate.swift */,
 				8E6646CD2D800B6D000EBDC4 /* Image+fallbackImageInit.swift */,
+				8E96ECD72DA4F08500281940 /* NSError+isCancellation.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -544,6 +562,7 @@
 			children = (
 				8E7EBE502D3E409500C7C017 /* StyledTextField.swift */,
 				8E1993F32DA0326E002ABF56 /* AlertModifier.swift */,
+				8E1993F92DA0690C002ABF56 /* DeleteSwipeAction.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -757,6 +776,7 @@
 				8EA0788F2D9011F100944F51 /* ProfileCard.swift */,
 				8EA0789E2D9072FB00944F51 /* LoadingView.swift */,
 				8E95A6812D954C830038AAED /* EmailValidatedField.swift */,
+				8EAB35EB2DA1E9F300EBA0B4 /* PasswordField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -912,6 +932,7 @@
 				8E11604E2D7482F90097774B /* LessonTypeDTO.swift in Sources */,
 				8E7EBE4B2D3E3A1800C7C017 /* AuthScreenViewModel.swift in Sources */,
 				8E9E51BE2D7975D40035E4E3 /* URLRequestBuilder.swift in Sources */,
+				8E0A86C42DA1CE2700278085 /* APIValidationError.swift in Sources */,
 				8E6D1C8F2D673A9300C400C4 /* DateFormatter+toString.swift in Sources */,
 				8E11604C2D7482DD0097774B /* RoleDTO.swift in Sources */,
 				8E3427AD2D3E649900A38A2D /* Fonts.swift in Sources */,
@@ -932,6 +953,7 @@
 				8EB093582D7C83050073C0F6 /* UserModel.swift in Sources */,
 				8E95A6822D954C830038AAED /* EmailValidatedField.swift in Sources */,
 				8EB0936F2D7C90480073C0F6 /* UserRepository.swift in Sources */,
+				8E96ECD82DA4F08500281940 /* NSError+isCancellation.swift in Sources */,
 				8EB093652D7C85770073C0F6 /* UserMapper.swift in Sources */,
 				8E3CF23F2D7D946D009D30D5 /* AuthDataSource.swift in Sources */,
 				8E9E51BC2D7975870035E4E3 /* HTTPMethod.swift in Sources */,
@@ -940,6 +962,7 @@
 				8E63CDBC2D9BB6BE00B4595C /* EmailDefaults.swift in Sources */,
 				8E6D1C8C2D673A1900C400C4 /* DateFormatter+toDate.swift in Sources */,
 				8EA0789B2D903E1C00944F51 /* LessonRouter.swift in Sources */,
+				8EAB35EC2DA1E9F300EBA0B4 /* PasswordField.swift in Sources */,
 				8E65F7452D3D2BDF00D3A793 /* TeachMEApp.swift in Sources */,
 				8EB093692D7C8F450073C0F6 /* RoleRepository.swift in Sources */,
 				8E866E832D58EB2C007FAE6B /* EditProfileFormViewModel.swift in Sources */,
@@ -972,6 +995,7 @@
 				8EB2C9462D928AE9001010EA /* LessonListState.swift in Sources */,
 				8E8C9AEC2D82E12300082B34 /* Endpoints.swift in Sources */,
 				8E20F5792D4B8CAA007B3154 /* UserItem.swift in Sources */,
+				8E1993FA2DA0690C002ABF56 /* DeleteSwipeAction.swift in Sources */,
 				8EB0DD182D958DF400891CB1 /* TokenRemover.swift in Sources */,
 				8EFED06D2D50A71500046F1D /* RouterView.swift in Sources */,
 				8E863BA22D3F76A8001773F4 /* LoginFormViewModel.swift in Sources */,
@@ -1131,8 +1155,9 @@
 		8E65F7502D3D2BE100D3A793 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dark";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TeachME/Preview Content\"";
@@ -1140,6 +1165,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1161,8 +1187,9 @@
 		8E65F7512D3D2BE100D3A793 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Dark";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TeachME/Preview Content\"";
@@ -1170,6 +1197,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

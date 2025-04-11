@@ -47,8 +47,16 @@ private extension LessonScreen {
                 .onTapGesture {
                     viewModel.onLessonTap(lesson: lesson)
                 }
+                .deleteSwipeAction(
+                    label: Label(
+                        viewModel.deleteButtonText,
+                        systemImage: viewModel.deleteButtonIcon
+                    ),
+                    theme: theme,
+                    item: lesson,
+                    action: viewModel.onDelete
+                )
             }
-            .onDelete(perform: viewModel.onDelete)
         }
         .refreshable {
             await viewModel.loadData()

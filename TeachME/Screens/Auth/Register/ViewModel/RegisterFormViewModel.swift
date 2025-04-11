@@ -33,6 +33,7 @@ import Foundation
     private let emailValidator: EmailValidator
     
     @Published var hasTriedInvalidEmail: Bool = false
+    @Published var isPasswordFieldSecure: Bool = true
     private let roleMapper: RoleMapper
     
     let onSubmit: (UserItem) -> ()
@@ -59,16 +60,13 @@ import Foundation
         do {
             roleModels = try await roleRepository.getAll()
         } catch {
-            print(error)
-            print(error.localizedDescription)
             alertItem = AlertItem(alertType: .error)
         }
     }
     
     func registerUser() {
         guard isEmailValid else {
-            hasTriedInvalidEmail = true
-            email = ""
+            markEmailInvalid()
             return
         }
         
@@ -156,6 +154,13 @@ import Foundation
     
     func resetEmailError() {
         hasTriedInvalidEmail = false
+    }
+}
+
+private extension RegisterFormViewModel {
+    func markEmailInvalid() {
+        hasTriedInvalidEmail = true
+        email = ""
     }
 }
 

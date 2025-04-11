@@ -8,8 +8,8 @@
 import Foundation
 
 @MainActor final class LoginFormViewModel: ObservableObject {
+    @Published var alertItem: AlertItem? = nil
     @Published var email: String = ""
-    
     @Published var password: String = ""
     
     private let authRepository: AuthRepository
@@ -19,6 +19,7 @@ import Foundation
     private let emailValidator: EmailValidator
     
     @Published var hasTriedInvalidEmail: Bool = false
+    @Published var isPasswordFieldSecure: Bool = true
     
     let onSubmit: (UserItem) -> ()
     
@@ -38,18 +39,25 @@ import Foundation
 
     func loginUser() {
         guard isEmailValid else {
-            hasTriedInvalidEmail = true
-            email = ""
+            markEmailInvalid()
             return
         }
         
         Task {
-            let _ = try await authRepository.login(
-                user: UserCredentialsBodyModel(
-                    email: email,
-                    password: password
+            do {
+                let _ = try await authRepository.login(
+                    user: UserCredentialsBodyModel(
+                        email: email,
+                        password: password
+                    )
                 )
-            )
+            } catch {
+                if case APIValidationError.invalidCredentials = error {
+                    alertItem = AlertItem(alertType: .invalidCredentials)
+                } else {
+                    alertItem = AlertItem(alertType: .error)
+                }
+            }
             
             let userItem = try await userMapper.modelToItem(userRepository.getUserByEmail(email))
             
@@ -95,5 +103,12 @@ import Foundation
     
     func resetEmailError() {
         hasTriedInvalidEmail = false
+    }
+}
+
+private extension LoginFormViewModel {
+    func markEmailInvalid() {
+        hasTriedInvalidEmail = true
+        email = ""
     }
 }

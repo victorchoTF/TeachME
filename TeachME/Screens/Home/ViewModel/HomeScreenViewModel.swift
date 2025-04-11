@@ -56,10 +56,22 @@ import Foundation
                     mapper.modelToItem($0)
                 }
             } else {
-                lessons = try await repository.getOpenLessons().map {
+                lessons = try await repository.getOpenLessons().filter {
+                    shouldShowLessonToStudent($0.startDate)
+                }
+                .map {
                     mapper.modelToItem($0)
                 }
             }
+        } catch let error as NSError {
+            guard !error.isCancellation else{
+                return
+            }
+            
+            alertItem = AlertItem(alertType: .lessonsLoading)
+            return
+        } catch is CancellationError {
+            return
         } catch {
             alertItem = AlertItem(alertType: .lessonsLoading)
             lessonListState = .empty
@@ -75,6 +87,7 @@ import Foundation
     
     func onLessonTap(lesson: LessonItem, theme: Theme) {
         guard let router = router else {
+            alertItem = AlertItem(alertType: .lessonLoading)
             return
         }
         
@@ -95,7 +108,7 @@ import Foundation
         )
     }
     
-    func onDelete() -> ((IndexSet) -> ())? {
+    func onDelete() -> ((LessonItem) -> ())? {
         guard isTeacher else {
             return nil
         }
@@ -103,18 +116,21 @@ import Foundation
         return teacherOnDelete
     }
     
-    func teacherOnDelete(at offsets: IndexSet) {
-        guard case .hasItems(var lessons) = lessonListState else{
+    func teacherOnDelete(lesson: LessonItem) {
+        guard case .hasItems(var lessons) = lessonListState else {
+            alertItem = AlertItem(alertType: .lessonsLoading)
             return
         }
         
-        offsets.map { lessons[$0] }.forEach { lesson in
-            deleteLesson(lessonId: lesson.id)
+        deleteLesson(lessonId: lesson.id)
+        
+        lessons.removeAll { $0.id == lesson.id }
+        
+        if lessons.isEmpty {
+            lessonListState = .empty
+        } else {
+            lessonListState = .hasItems(lessons)
         }
-        
-        lessons.remove(atOffsets: offsets)
-        
-        lessonListState = .hasItems(lessons)
     }
     
     var noLessonsText: String {
@@ -139,15 +155,21 @@ import Foundation
                 guard let self = self else {
                     return
                 }
-                
-                Task {
-                    try await self.setLesson(lesson: lesson)
-                }
+
+                try await self.setLesson(lesson: lesson)
             }
         ) {
             [weak self] in
             self?.lessonFormViewModel = nil
         }
+    }
+    
+    var deleteButtonText: String {
+        "Delete"
+    }
+    
+    var deleteButtonIcon: String {
+        "trash"
     }
 }
 
@@ -198,7 +220,22 @@ private extension HomeScreenViewModel {
     
     func deleteLesson(lessonId: UUID) {
         Task {
-            try await repository.delete(lessonId)
+            do {
+                try await repository.delete(lessonId)
+            } catch {
+                if case APIValidationError.invalidDates = error {
+                    alertItem = AlertItem(alertType: .invalidLessonDeletion)
+                } else {
+                    alertItem = AlertItem(alertType: .action(deleteButtonText.lowercased()))
+                }
+            }
         }
+    }
+    
+    func shouldShowLessonToStudent(_ startDate: Date) -> Bool {
+        let now = Date()
+        let minimumLeadTime: TimeInterval = 90 * 60
+        
+        return startDate.timeIntervalSince(now) >= minimumLeadTime
     }
 }

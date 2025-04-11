@@ -35,19 +35,7 @@ struct ProfileScreen: View {
                 Spacer()
             }
             .background(theme.colors.primary)
-            .alert(isPresented: $viewModel.updateImageAlert) {
-                Alert(
-                    title: Text(viewModel.imageAlertMessage),
-                    primaryButton: .default(
-                        Text(viewModel.imageAlertAccept),
-                        action: viewModel.updateProfilePicture
-                    ),
-                    secondaryButton: .destructive(
-                        Text(viewModel.imageAlertCancel),
-                        action: viewModel.cancelProfilePictureUpdate
-                    )
-                )
-            }
+            .alert($viewModel.alertItem)
         }
     }
 
@@ -93,5 +81,6 @@ private extension ProfileScreen {
         } label: {
             Image(systemName: viewModel.settingsIcon)
         }
+        .foregroundStyle(theme.colors.accent)
     }
 }

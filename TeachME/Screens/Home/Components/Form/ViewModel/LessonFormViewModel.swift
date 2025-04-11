@@ -8,8 +8,8 @@
 import Foundation
 
 enum LessonFormType {
-    case add((LessonItemBody) -> ())
-    case edit(LessonItem, (LessonItem) -> ())
+    case add((LessonItemBody) async throws -> ())
+    case edit(LessonItem, (LessonItem) async throws -> ())
 }
 
 @MainActor final class LessonFormViewModel: ObservableObject, Identifiable {
@@ -76,9 +76,25 @@ enum LessonFormType {
     func onSubmit() {
         switch lessonFormType {
         case .add(let addLesson):
-            addLesson(getLessonItemBody())
+            Task {
+                do {
+                    try await addLesson(getLessonItemBody())
+                } catch {
+                    if case APIValidationError.invalidDates = error {
+                        alertItem = AlertItem(alertType: .invalidDates)
+                    }
+                }
+            }
         case .edit(let lesson, let editLesson):
-            editLesson(getLessonItem(lessonId: lesson.id))
+            Task {
+                do {
+                    try await editLesson(getLessonItem(lessonId: lesson.id))
+                } catch {
+                    if case APIValidationError.invalidDates = error {
+                        alertItem = AlertItem(alertType: .invalidDates)
+                    }
+                }
+            }
         }
     }
     

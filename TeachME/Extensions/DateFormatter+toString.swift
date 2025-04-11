@@ -8,11 +8,15 @@
 import Foundation
 
 extension DateFormatter {
-    func toString(_ date: Date) -> String {
+    func toString(_ date: Date, useMilitaryTime: Bool = true) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "h:mma dd.MM.yyyy"
-        formatter.amSymbol = "AM"
-        formatter.pmSymbol = "PM"
+        if useMilitaryTime {
+            formatter.dateFormat = "HH:mm dd.MM.yyyy"
+        } else {
+            formatter.dateFormat = "h:mma dd.MM.yyyy"
+            formatter.amSymbol = "AM"
+            formatter.pmSymbol = "PM"
+        }
         return formatter.string(from: date)
     }
 }
